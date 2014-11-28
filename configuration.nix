@@ -3,15 +3,13 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
   boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
-  # Disable annoying beep!
-  boot.blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ]; 
 
 environment= with pkgs; {
     systemPackages = [
@@ -20,6 +18,8 @@ environment= with pkgs; {
     gnumake
     cmake
     gcc
+    ncurses
+
     #pkgconfig
     rxvt_unicode
     zsh
@@ -36,6 +36,7 @@ environment= with pkgs; {
     #no-beep
   #vim
     vifm
+    spaceFM
     #gvim
     pidgin
     xdg_utils
@@ -102,11 +103,12 @@ environment= with pkgs; {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.firefox.enableAdobeFlash = true;
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    faust = pkgs.callPackage /home/bart/soujagajagarce/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
+  nixpkgs.config.packageOverrides = pkgs: { 
+    faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
     faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
     sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
     xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
+    #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
   };
 
   powerManagement.cpuFreqGovernor = "performance";
