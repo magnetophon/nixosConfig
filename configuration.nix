@@ -22,11 +22,8 @@
     openssh = {enable = true; ports = [ 22 ];};
     xserver = {
       enable = true;
-     # displayManager.enable = false;
-      synaptics = {
-        enable = true;
-        twoFingerScroll = true;
-      };
+      displayManager.slim.enable = true;
+      synaptics = import ./synaptics.nix;
       #startGnuPGAgent = true;
 
       # Enable the i3 window manager
