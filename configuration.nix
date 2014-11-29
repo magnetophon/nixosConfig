@@ -1,26 +1,28 @@
-{pkgs, ...}: with pkgs;
+#{pkgs, ...}: with pkgs;
+{pkgs, config, ...}: with pkgs;
 {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
     ];
 
-  boot = {
-    loader.grub.enable = true;
-    loader.grub.version = 2;
-    loader.grub.device = "/dev/sda";
-    kernelModules = [ "snd-seq" "snd-rawmidi" ];
-  };
+    boot = {
+      loader.grub.enable = true;
+      loader.grub.version = 2;
+      loader.grub.device = "/dev/sda";
+      kernelModules = [ "snd-seq" "snd-rawmidi" ];
+    };
+
 
   services = {
-    dbus.packages = [ pkgs.gnome.GConf ];
+    #dbus.packages = [ pkgs.gnome.GConf ];
     acpid.enable = true;
-    avahi.enable = true;
-    locate.enable = true;
+    #avahi.enable = true;
+    #locate.enable = true;
     openssh = {enable = true; ports = [ 22 ];};
     xserver = {
       enable = true;
-      displayManager.enable = false;
+     # displayManager.enable = false;
       synaptics = {
         enable = true;
         twoFingerScroll = true;
@@ -41,7 +43,7 @@
     };
   /*transmission.enable = true;*/
   };
-  config = {
+  nixpkgs.config = {
     allowUnfree = true;
     firefox.enableGoogleTalkPlugin = true;
     firefox.enableAdobeFlash = true;
@@ -143,16 +145,6 @@ environment= {
     wicd.enable =  true;
   };
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.firefox.enableAdobeFlash = true;
-
-  nixpkgs.config.packageOverrides = pkgs: { 
-    faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
-    faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
-    sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
-    xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
-    #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
-  };
 
   powerManagement.cpuFreqGovernor = "performance";
 
