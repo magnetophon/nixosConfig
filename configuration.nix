@@ -1,17 +1,60 @@
-{ config, pkgs, ... }:
-
+{pkgs, ...}: with pkgs;
 {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
     ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/sda";
-  boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
+  boot = {
+    loader.grub.enable = true;
+    loader.grub.version = 2;
+    loader.grub.device = "/dev/sda";
+    kernelModules = [ "snd-seq" "snd-rawmidi" ];
+  };
 
-environment= with pkgs; {
+  services = {
+    dbus.packages = [ pkgs.gnome.GConf ];
+    acpid.enable = true;
+    avahi.enable = true;
+    locate.enable = true;
+    openssh = {enable = true; ports = [ 22 ];};
+    xserver = {
+      enable = true;
+      displayManager.enable = false;
+      synaptics = {
+        enable = true;
+        twoFingerScroll = true;
+      };
+      #startGnuPGAgent = true;
+
+      # Enable the i3 window manager
+      windowManager.default = "i3" ;
+      windowManager.i3.enable = true;
+      #windowManager.i3.configFile = $HOME/.config/i3/config;
+    };
+    udev = {
+      #packages = [ pkgs.ffado ]; # If you have a FireWire audio interface
+      extraRules = ''
+        KERNEL=="rtc0", GROUP="audio"
+        KERNEL=="hpet", GROUP="audio"
+      '';
+    };
+  /*transmission.enable = true;*/
+  };
+  config = {
+    allowUnfree = true;
+    firefox.enableGoogleTalkPlugin = true;
+    firefox.enableAdobeFlash = true;
+    packageOverrides = pkgs : rec {
+      faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
+      faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
+      sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
+      xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
+      #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
+    };
+  };
+
+environment= {
     systemPackages = [
 #system:
     unzip
@@ -115,54 +158,7 @@ environment= with pkgs; {
 
   programs.zsh.enable = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-#    passwordAuthentication = false;
-  };
-
-  /*services.transmission = {*/
-    /*enable = true;*/
-  /*};*/
-
-#  services.logind.extraConfig = "HandleLidSwitch=ignore";
-
   time.timeZone = "Europe/Amsterdam";
-
-    services.udev = {
-      #packages = [ pkgs.ffado ]; # If you have a FireWire audio interface
-      extraRules = ''
-        KERNEL=="rtc0", GROUP="audio"
-        KERNEL=="hpet", GROUP="audio"
-      '';
-    };
-
-  # Enable CUPS to print documents.
-  # printing.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
-
-  services.xserver.synaptics.enable = true;
-  services.xserver.synaptics.twoFingerScroll = true;
-
-  # Enable the KDE Desktop Environment.
-  # xserver.displayManager.kdm.enable = true;
-  # xserver.desktopManager.kde4.enable = true;
-
-  # Enable the i3 window manager
-  services.xserver.windowManager.i3.enable = true;
-  services.xserver.windowManager.default = "i3" ;
- # services.xserver.windowManager.i3.configFile = $HOME/.config/i3/config;
-
-
-
-
-
-
-
 
   users = {
     #defaultUserShell = "/var/run/current-system/sw/bin/zsh";
