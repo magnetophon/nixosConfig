@@ -13,6 +13,15 @@
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
       kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
       kernelParams = [ "threadirq" ];
+      /*todo:*/
+      postBootCommands = "
+      echo 2048 > /sys/class/rtc/rtc0/max_user_freq
+      echo 2048 > /proc/sys/dev/hpet/max-user-freq
+      setpci -v -d *:* latency_timer=b0
+      setpci -v -s $00:1b.0 latency_timer=ff
+      ";
+      /*The SOUND_CARD_PCI_ID can be obtained like so:*/
+      /*$ lspci ¦ grep -i audio*/
     };
 
   fileSystems =
@@ -31,15 +40,6 @@ security.pam.loginLimits =
 
 
 
-/*todo:*/
-/*postBootCommands = "${pkgs.procps}/sbin/sysctl -w vm.swappiness=10";*/
-/*echo 2048 > /sys/class/rtc/rtc0/max_user_freq*/
-/*echo 2048 > /proc/sys/dev/hpet/max-user-freq*/
-/*setpci -v -d *:* latency_timer=b0*/
-/*setpci -v -s $SOUND_CARD_PCI_ID latency_timer=ff # eg. SOUND_CARD_PCI_ID=03:00.0 (see below)*/
-/*The SOUND_CARD_PCI_ID can be obtained like so:*/
-
-/*$ lspci ¦ grep -i audio*/
 
   services = {
     #dbus.packages = [ pkgs.gnome.GConf ];
