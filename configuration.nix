@@ -11,8 +11,35 @@
       loader.grub.version = 2;
       loader.grub.device = "/dev/sda";
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
+      kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
+      kernelParams = [ "threadirq" ];
     };
 
+  fileSystems =
+  {
+	"/" = {	options = "noatime errors=remount-ro";};
+
+  };
+
+security.pam.loginLimits =
+ [
+    { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
+    { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
+    { domain = "@audio"; item = "nofile"; type = "soft"; value = "99999"; }
+    { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
+  ];
+
+
+
+/*todo:*/
+/*postBootCommands = "${pkgs.procps}/sbin/sysctl -w vm.swappiness=10";*/
+/*echo 2048 > /sys/class/rtc/rtc0/max_user_freq*/
+/*echo 2048 > /proc/sys/dev/hpet/max-user-freq*/
+/*setpci -v -d *:* latency_timer=b0*/
+/*setpci -v -s $SOUND_CARD_PCI_ID latency_timer=ff # eg. SOUND_CARD_PCI_ID=03:00.0 (see below)*/
+/*The SOUND_CARD_PCI_ID can be obtained like so:*/
+
+/*$ lspci ¦ grep -i audio*/
 
   services = {
     #dbus.packages = [ pkgs.gnome.GConf ];
@@ -24,6 +51,7 @@
       enable = true;
       displayManager.slim.enable = true;
       synaptics = import ./synaptics.nix;
+      #todo: horizontal edge scroll
       #startGnuPGAgent = true;
 
       # Enable the i3 window manager
@@ -124,6 +152,19 @@ environment= {
     faust
     sselp
    ];
+
+  shellInit = ''
+    export LV2_PATH=/nix/var/nix/profiles/default/lib/lv2:/var/run/current-system/sw/lib/lv2
+    export VST_PATH=/nix/var/nix/profiles/default/lib/vst:/var/run/current-system/sw/lib/vst:~/.vst
+    export LXVST_PATH=/nix/var/nix/profiles/default/lib/lxvst:/var/run/current-system/sw/lib/lxvst:~/.lxvst
+    export LADSPA_PATH=/nix/var/nix/profiles/default/lib/ladspa:/var/run/current-system/sw/lib/ladspa:~/.ladspa
+    export LV2_PATH=/nix/var/nix/profiles/default/lib/lv2:/var/run/current-system/sw/lib/lv2:~/.lv2
+    export DSSI_PATH=/nix/var/nix/profiles/default/lib/dssi:/var/run/current-system/sw/lib/dssi:~/.dssi
+  '';
+
+
+
+
   };
 
   fonts = {
@@ -157,8 +198,9 @@ environment= {
       uid = 1000;
       createHome = true;
       home = "/home/bart";
-      #extraGroups = [ "wheel" "audio" ];
-      extraGroups = [ "audio" ];
+      extraGroups = [ "wheel" "audio" ];
+      #todo = make user actually be in audio
+      #extraGroups = [ "audio" ];
       useDefaultShell = true;
       #shell = pkgs.zsh + "/usr/bin/zsh";
     };
