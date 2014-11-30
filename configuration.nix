@@ -44,6 +44,7 @@ security.pam.loginLimits =
   services = {
     #dbus.packages = [ pkgs.gnome.GConf ];
     acpid.enable = true;
+    cron.enable =false;
     #avahi.enable = true;
     #locate.enable = true;
     openssh = {enable = true; ports = [ 22 ];};
@@ -108,7 +109,6 @@ environment= {
     vifm
     spaceFM
     #gvim
-    pidgin
     xdg_utils
 #windowmanager etc:
     wget
@@ -146,6 +146,8 @@ environment= {
     baobab
     zathura
     xbmc
+    pidgin
+    weechat
 #custom packages
     xrandr-invert-colors
     faust-compiler
@@ -153,19 +155,19 @@ environment= {
     sselp
    ];
 
+  shells = [
+      "${pkgs.bash}/bin/bash"
+      "${pkgs.zsh}/bin/zsh"
+      ];
+
   shellInit = ''
-    export LV2_PATH=/nix/var/nix/profiles/default/lib/lv2:/var/run/current-system/sw/lib/lv2
     export VST_PATH=/nix/var/nix/profiles/default/lib/vst:/var/run/current-system/sw/lib/vst:~/.vst
     export LXVST_PATH=/nix/var/nix/profiles/default/lib/lxvst:/var/run/current-system/sw/lib/lxvst:~/.lxvst
     export LADSPA_PATH=/nix/var/nix/profiles/default/lib/ladspa:/var/run/current-system/sw/lib/ladspa:~/.ladspa
     export LV2_PATH=/nix/var/nix/profiles/default/lib/lv2:/var/run/current-system/sw/lib/lv2:~/.lv2
     export DSSI_PATH=/nix/var/nix/profiles/default/lib/dssi:/var/run/current-system/sw/lib/dssi:~/.dssi
   '';
-
-
-
-
-  };
+};
 
   fonts = {
     enableFontDir = true;
@@ -191,7 +193,7 @@ environment= {
   time.timeZone = "Europe/Amsterdam";
 
   users = {
-    #defaultUserShell = "/var/run/current-system/sw/bin/zsh";
+    defaultUserShell = "/var/run/current-system/sw/bin/zsh";
     extraUsers.bart = {
       name = "bart";
       group = "users";
@@ -201,8 +203,11 @@ environment= {
       extraGroups = [ "wheel" "audio" ];
       #todo = make user actually be in audio
       #extraGroups = [ "audio" ];
-      useDefaultShell = true;
+      #useDefaultShell = true;
       #shell = pkgs.zsh + "/usr/bin/zsh";
+      #shell = "/run/current-system/sw/bin/zsh";
+      shell = "${pkgs.zsh}/bin/zsh";
     };
+    mutableUsers = true;
   };
 }
