@@ -38,7 +38,19 @@ security.pam.loginLimits =
     { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
   ];
 
+nix = {
+    useChroot = true;
+    chrootDirs = ["/home/nixchroot"];
 
+    extraOptions = "
+gc-keep-outputs = true       # Nice for developers
+gc-keep-derivations = true   # Idem
+env-keep-derivations = false
+
+binary-caches = http://nixos.org/binary-cache http://cache.nixos.org
+trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org
+    ";
+};
 
 
   services = {
@@ -79,6 +91,7 @@ security.pam.loginLimits =
       sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
       xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
       #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
+      rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
     };
   };
 
@@ -94,6 +107,7 @@ environment= {
     #pkgconfig
     rxvt_unicode
     zsh
+    fasd
     wicd
     htop
     iotop
@@ -141,18 +155,21 @@ environment= {
     zynaddsubfx
 #desktop
     firefox
+    #icecat3
     meld
     freemind
     baobab
+    recoll
     zathura
     xbmc
     pidgin
     weechat
 #custom packages
-    xrandr-invert-colors
-    faust-compiler
-    faust
-    sselp
+    #xrandr-invert-colors
+    #faust-compiler
+    #faust
+    #sselp
+    #rtirq
    ];
 
   shells = [
