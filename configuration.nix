@@ -14,12 +14,12 @@
       kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
       kernelParams = [ "threadirq" ];
       /*todo:*/
-      postBootCommands = "
+      postBootCommands = ''
       echo 2048 > /sys/class/rtc/rtc0/max_user_freq
       echo 2048 > /proc/sys/dev/hpet/max-user-freq
       setpci -v -d *:* latency_timer=b0
       setpci -v -s $00:1b.0 latency_timer=ff
-      ";
+      '';
       /*The SOUND_CARD_PCI_ID can be obtained like so:*/
       /*$ lspci ¦ grep -i audio*/
     };
@@ -158,15 +158,15 @@ environment= {
     meld
     freemind
     baobab
-    #recoll
+    recoll
     zathura
     xbmc
     pidgin
 #custom packages
-    #xrandr-invert-colors
-    #faust-compiler
-    #faust
-    #sselp
+    xrandr-invert-colors
+    faust-compiler
+    faust
+    sselp
     #rtirq
    ];
 
