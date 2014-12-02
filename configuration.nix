@@ -38,19 +38,19 @@ security.pam.loginLimits =
     { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
   ];
 
-nix = {
-    useChroot = true;
-    chrootDirs = ["/home/nixchroot"];
+/*nix = {*/
+    /*useChroot = true;*/
+    /*chrootDirs = ["/home/nixchroot"];*/
 
-    extraOptions = "
-gc-keep-outputs = true       # Nice for developers
-gc-keep-derivations = true   # Idem
-env-keep-derivations = false
+    /*extraOptions = "*/
+/*gc-keep-outputs = true       # Nice for developers*/
+/*gc-keep-derivations = true   # Idem*/
+/*env-keep-derivations = false*/
 
-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org
-trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org
-    ";
-};
+/*binary-caches = http://nixos.org/binary-cache http://cache.nixos.org*/
+/*trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org*/
+    /*";*/
+/*};*/
 
 
   services = {
@@ -83,7 +83,6 @@ trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org htt
   };
   nixpkgs.config = {
     allowUnfree = true;
-    firefox.enableGoogleTalkPlugin = true;
     firefox.enableAdobeFlash = true;
     packageOverrides = pkgs : rec {
       faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
@@ -107,7 +106,7 @@ environment= {
     #pkgconfig
     rxvt_unicode
     zsh
-    fasd
+    #fasd
     wicd
     htop
     iotop
@@ -121,7 +120,7 @@ environment= {
     #no-beep
   #vim
     vifm
-    spaceFM
+    #spaceFM
     #gvim
     xdg_utils
 #windowmanager etc:
@@ -159,11 +158,10 @@ environment= {
     meld
     freemind
     baobab
-    recoll
+    #recoll
     zathura
     xbmc
     pidgin
-    weechat
 #custom packages
     #xrandr-invert-colors
     #faust-compiler
