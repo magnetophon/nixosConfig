@@ -10,10 +10,37 @@
       loader.grub.enable = true;
       loader.grub.version = 2;
       loader.grub.device = "/dev/sda";
+      loader.grub.extraEntries = ''
+      menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {
+      load_video
+      insmod gzio
+      insmod part_msdos
+      insmod ext2
+      set root='(hd0,msdos1)'
+      search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
+      echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
+      linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet
+      echo	'Loading initial ramdisk ...'
+      initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
+      }
+      menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {
+      load_video
+      insmod gzio
+      insmod part_msdos
+      insmod ext2
+      set root='(hd0,msdos1)'
+      search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
+      echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
+      linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single 
+      echo	'Loading initial ramdisk ...'
+      initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
+      }
+      '';
+      #loader.grub.memtest86 = true;
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
       kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
       kernelParams = [ "threadirq" ];
-      /*todo:*/
+      /*todddo:*/
       postBootCommands = ''
       echo 2048 > /sys/class/rtc/rtc0/max_user_freq
       echo 2048 > /proc/sys/dev/hpet/max-user-freq
@@ -26,7 +53,7 @@
 
   fileSystems =
   {
-	"/" = {	options = "noatime errors=remount-ro";};
+	"/" = { options = "noatime errors=remount-ro"; };
 
   };
 
@@ -38,19 +65,19 @@ security.pam.loginLimits =
     { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
   ];
 
-/*nix = {*/
-    /*useChroot = true;*/
-    /*chrootDirs = ["/home/nixchroot"];*/
+nix = {
+    useChroot = true;
+    chrootDirs = ["/home/nixchroot"];
 
-    /*extraOptions = "*/
-/*gc-keep-outputs = true       # Nice for developers*/
-/*gc-keep-derivations = true   # Idem*/
-/*env-keep-derivations = false*/
+    extraOptions = "
+    gc-keep-outputs = true       # Nice for developers
+    gc-keep-derivations = true   # Idem
+    env-keep-derivations = false
 
-/*binary-caches = http://nixos.org/binary-cache http://cache.nixos.org*/
-/*trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org*/
-    /*";*/
-/*};*/
+    binary-caches = http://nixos.org/binary-cache http://cache.nixos.org
+    trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org
+    ";
+};
 
 
   services = {
@@ -91,6 +118,7 @@ security.pam.loginLimits =
       xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
       #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
       rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
+      spideroak = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/networking/spideroak  { };
     };
   };
 
@@ -102,11 +130,11 @@ environment= {
     cmake
     gcc
     ncurses
-
+    stow
     #pkgconfig
     rxvt_unicode
     zsh
-    #fasd
+    fasd
     wicd
     htop
     iotop
@@ -162,6 +190,9 @@ environment= {
     zathura
     xbmc
     pidgin
+    aspellDicts.nl
+    libreoffice
+    spideroak
 #custom packages
     xrandr-invert-colors
     faust-compiler
@@ -184,6 +215,15 @@ environment= {
   '';
 };
 
+  programs.zsh = {
+    enable = true;
+    interactiveShellInit = ''
+      export EDITOR="vim"
+      bindkey "^[[A" history-beginning-search-backward
+      bindkey "^[[B" history-beginning-search-forward
+    '';
+  };
+
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -203,7 +243,6 @@ environment= {
 
   powerManagement.cpuFreqGovernor = "performance";
 
-  programs.zsh.enable = true;
 
   time.timeZone = "Europe/Amsterdam";
 
