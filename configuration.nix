@@ -38,6 +38,7 @@
       '';
       #loader.grub.memtest86 = true;
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
+      blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
       kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
       kernelParams = [ "threadirq" ];
       /*todddo:*/
