@@ -37,6 +37,7 @@
       }
       '';
       #loader.grub.memtest86 = true;
+      loader.grub.memtest86.enable = true;
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
       blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
       kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
@@ -75,13 +76,14 @@ nix = {
     gc-keep-derivations = true   # Idem
     env-keep-derivations = false
 
-    binary-caches = http://nixos.org/binary-cache http://cache.nixos.org
-    trusted-binary-caches = http://nixos.org/binary-cache http://cache.nixos.org http://hydra.nixos.org
+    binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
+    trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
     ";
 };
 
 
   services = {
+    nixosManual.showManual = true;
     #dbus.packages = [ pkgs.gnome.GConf ];
     acpid.enable = true;
     cron.enable =false;
@@ -90,6 +92,7 @@ nix = {
     openssh = {enable = true; ports = [ 22 ];};
     xserver = {
       enable = true;
+      #autorun = false;
       displayManager.slim.enable = true;
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
@@ -159,6 +162,7 @@ environment= {
     dmenu
     parcellite
 #audio
+    audacity
     a2jmidid
     #beast
     jackaudio
@@ -183,6 +187,8 @@ environment= {
     zynaddsubfx
 #desktop
     firefox
+    #firefox13Wrapper
+    youtubeDL
     #icecat3
     meld
     freemind
@@ -201,9 +207,41 @@ environment= {
     sselp
     #rtirq
    ];
+/*applist = [*/
+	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
+	/*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
+	/*];*/
+	
+	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
+	
+/*environment.etc*/
+
+    /*Set of files that have to be linked in /etc.*/
+
+    /*Default: { }*/
+
+    /*Example:*/
+
+    /*{ hosts =*/
+        /*{ source = "/nix/store/.../etc/dir/file.conf.example";*/
+          /*mode = "0440";*/
+        /*};*/
+      /*"default/useradd".text = "GROUP=100 ...";*/
+    /*}*/
+/*networking.extraHosts*/
+/*networking.interfaces*/
+
+    /*The configuration for each network interface. If networking.useDHCP is true, then every interface not listed here will be configured using DHCP.*/
+
+    /*Default: { }*/
+
+    /*Example: { eth0 = { ipAddress = "131.211.84.78"; subnetMask = "255.255.255.128"; } ; } */
+
+/*services.bitlbee.enable*/
+
+    /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
   shells = [
-      "${pkgs.bash}/bin/bash"
       "${pkgs.zsh}/bin/zsh"
       ];
 
@@ -232,6 +270,8 @@ environment= {
       pkgs.terminus_font
     ];
   };
+
+  i18n.consoleFont = "Lat2-Terminus16";
 
    networking = {
     firewall.enable = false;
