@@ -77,7 +77,7 @@ nix = {
     env-keep-derivations = false
 
     binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
-    trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
+    trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
     ";
 };
 
@@ -102,6 +102,7 @@ nix = {
       windowManager.default = "i3" ;
       windowManager.i3.enable = true;
       #windowManager.i3.configFile = $HOME/.config/i3/config;
+      desktopManager.xterm.enable = false;
     };
     udev = {
       #packages = [ pkgs.ffado ]; # If you have a FireWire audio interface
@@ -110,6 +111,7 @@ nix = {
         KERNEL=="hpet", GROUP="audio"
       '';
     };
+    #rtirq.enable = true;
   /*transmission.enable = true;*/
   };
   nixpkgs.config = {
@@ -121,7 +123,7 @@ nix = {
       sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
       xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
       #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
-      rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
+      #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
       spideroak = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/networking/spideroak  { };
     };
   };
@@ -186,8 +188,8 @@ environment= {
     yoshimi
     zynaddsubfx
 #desktop
-    firefox
-    #firefox13Wrapper
+    #firefox
+    #firefoxWrapper
     youtubeDL
     #icecat3
     meld
@@ -199,12 +201,12 @@ environment= {
     pidgin
     aspellDicts.nl
     libreoffice
-    spideroak
+    #spideroak
 #custom packages
-    xrandr-invert-colors
-    faust-compiler
-    faust
-    sselp
+    #xrandr-invert-colors
+    #faust-compiler
+    #faust
+    #sselp
     #rtirq
    ];
 /*applist = [*/
