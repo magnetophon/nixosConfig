@@ -11,32 +11,31 @@
       loader.grub.version = 2;
       loader.grub.device = "/dev/sda";
       loader.grub.extraEntries = ''
-      menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {
-      load_video
-      insmod gzio
-      insmod part_msdos
-      insmod ext2
-      set root='(hd0,msdos1)'
-      search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
-      echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
-      linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet
-      echo	'Loading initial ramdisk ...'
-      initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
-      }
-      menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {
-      load_video
-      insmod gzio
-      insmod part_msdos
-      insmod ext2
-      set root='(hd0,msdos1)'
-      search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
-      echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
-      linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single 
-      echo	'Loading initial ramdisk ...'
-      initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
-      }
-      '';
-      #loader.grub.memtest86 = true;
+        menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {
+          load_video
+          insmod gzio
+          insmod part_msdos
+          insmod ext2
+          set root='(hd0,msdos1)'
+          search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
+          echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
+          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet
+          echo	'Loading initial ramdisk ...'
+          initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
+        }
+        menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {
+          load_video
+          insmod gzio
+          insmod part_msdos
+          insmod ext2
+          set root='(hd0,msdos1)'
+          search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
+          echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
+          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single 
+          echo	'Loading initial ramdisk ...'
+          initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
+        }
+        '';
       loader.grub.memtest86.enable = true;
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
       blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
@@ -103,7 +102,7 @@ nix = {
       windowManager.i3.enable = true;
       #windowManager.i3.configFile = $HOME/.config/i3/config;
       desktopManager.xterm.enable = false;
-    };
+    }; 
     udev = {
       #packages = [ pkgs.ffado ]; # If you have a FireWire audio interface
       extraRules = ''
@@ -114,6 +113,7 @@ nix = {
     #rtirq.enable = true;
   /*transmission.enable = true;*/
   };
+
   nixpkgs.config = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
@@ -137,11 +137,13 @@ environment= {
     gcc
     ncurses
     stow
+    tmux
     #pkgconfig
     rxvt_unicode
     zsh
     fasd
-    wicd
+    #wicd
+    connmanui
     htop
     iotop
     gitFull
@@ -162,6 +164,7 @@ environment= {
     i3
     i3status
     dmenu
+    networkmanagerapplet
     parcellite
 #audio
     audacity
@@ -188,10 +191,15 @@ environment= {
     yoshimi
     zynaddsubfx
 #desktop
+    desktop-file-utils
     #firefox
     #firefoxWrapper
     youtubeDL
+    #gitit or ikiwiki
     #icecat3
+    feh
+    imagemagickBig
+    evopedia
     meld
     freemind
     baobab
@@ -207,7 +215,6 @@ environment= {
     #faust-compiler
     #faust
     #sselp
-    #rtirq
    ];
 /*applist = [*/
 	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
@@ -278,9 +285,10 @@ environment= {
    networking = {
     firewall.enable = false;
     hostName = "NIX";
-    wireless.enable = false;
-    interfaceMonitor.enable = false;
-    wicd.enable =  true;
+    connman.enable = true;
+    #wireless.enable = true;
+    #interfaceMonitor.enable = true;
+    #wicd.enable =  true;
   };
 
 
