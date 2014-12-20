@@ -58,13 +58,18 @@
 
   };
 
-security.pam.loginLimits =
- [
-    { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
-    { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
-    { domain = "@audio"; item = "nofile"; type = "soft"; value = "99999"; }
-    { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
-  ];
+security = {
+  pam.loginLimits =
+  [
+      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
+      { domain = "@audio"; item = "rtprio"; type = "-"; value = "99"; }
+      { domain = "@audio"; item = "nofile"; type = "soft"; value = "99999"; }
+      { domain = "@audio"; item = "nofile"; type = "hard"; value = "99999"; }
+   ];
+   setuidPrograms = [
+    "xlaunch"
+    ];
+  };
 
 nix = {
     useChroot = true;
@@ -91,7 +96,7 @@ nix = {
     openssh = {enable = true; ports = [ 22 ];};
     xserver = {
       enable = true;
-      #autorun = false;
+      autorun = false;
       displayManager.slim.enable = true;
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
@@ -132,6 +137,7 @@ environment= {
     systemPackages = [
 #system:
     unzip
+    unrar
     gnumake
     cmake
     gcc
@@ -152,6 +158,7 @@ environment= {
     vim_configurable
     which
     nix-repl
+    xlaunch
     #makeWrapper
     #no-beep
   #vim
@@ -164,7 +171,6 @@ environment= {
     i3
     i3status
     dmenu
-    networkmanagerapplet
     parcellite
 #audio
     audacity
@@ -191,7 +197,7 @@ environment= {
     yoshimi
     zynaddsubfx
 #desktop
-    desktop-file-utils
+    #desktop-file-utils
     #firefox
     #firefoxWrapper
     youtubeDL
