@@ -4,7 +4,11 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      # Include musnix: a meta-module for realtime audio.
+      #/home/bart/source/musnix/
     ];
+
+  hardware.cpu.intel.updateMicrocode = true;
 
     boot = {
       loader.grub.enable = true;
@@ -31,17 +35,37 @@
           set root='(hd0,msdos1)'
           search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
           echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
-          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single 
+          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single
           echo	'Loading initial ramdisk ...'
           initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
         }
         '';
+
       loader.grub.memtest86.enable = true;
+      kernelPackages = let
+        rtKernel = pkgs.linuxPackagesFor (pkgs.linux.override {
+          extraConfig = ''
+            PREEMPT_RT_FULL? y
+            PREEMPT y
+            IOSCHED_DEADLINE y
+            DEFAULT_DEADLINE y
+            DEFAULT_IOSCHED "deadline"
+            HPET_TIMER y
+            CPU_FREQ n
+            TREE_RCU_TRACE n
+          '';
+        }) pkgs.linuxPackages;
+      in rtKernel;
+      #in mkIf cfg.enableRealtimeKernel rtKernel;
+
+
+      #kernelPackages = pkgs.linuxPackages_3_14_rt;
+
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
       blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
-      kernel.sysctl = { "vm.swappiness" = 10; "fs.inotify.max_user_watches" = 524288; };
+      kernel.sysctl = { "vm.swappiness" = 10; };
       kernelParams = [ "threadirq" ];
-      /*todddo:*/
+
       postBootCommands = ''
       echo 2048 > /sys/class/rtc/rtc0/max_user_freq
       echo 2048 > /proc/sys/dev/hpet/max-user-freq
@@ -107,7 +131,8 @@ nix = {
       windowManager.i3.enable = true;
       #windowManager.i3.configFile = $HOME/.config/i3/config;
       desktopManager.xterm.enable = false;
-    }; 
+      xkbOptions = "caps:swapescape";
+    };
     udev = {
       #packages = [ pkgs.ffado ]; # If you have a FireWire audio interface
       extraRules = ''
@@ -136,6 +161,7 @@ nix = {
 environment= {
     systemPackages = [
 #system:
+    hibernate
     unzip
     unrar
     gnumake
@@ -149,16 +175,19 @@ environment= {
     zsh
     fasd
     #wicd
-    connmanui
     htop
     iotop
+    latencytop
     gitFull
     curl
     rubygems
     vim_configurable
+    ctags
     which
     nix-repl
+    nixpkgs-lint
     xlaunch
+    obnam # backup
     #makeWrapper
     #no-beep
   #vim
@@ -200,6 +229,7 @@ environment= {
     #desktop-file-utils
     #firefox
     #firefoxWrapper
+    w3m
     youtubeDL
     #gitit or ikiwiki
     #icecat3
