@@ -5,14 +5,8 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       # Include musnix: a meta-module for realtime audio.
-      /home/bart/source/musnix/default.nix
+      /home/bart/source/musnix-starter/musnix-starter.nix
     ];
-
-
-  musnix = {
-    enable = true;
-    kernel.optimize = true;
-  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -50,7 +44,7 @@
       loader.grub.memtest86.enable = true;
 
       #kernelPackages = pkgs.linuxPackages_3_14_rt;
-
+      #resumeDevice = "/dev/sda5";
       blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
     };
 
@@ -112,23 +106,21 @@ nix = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
     packageOverrides = pkgs : rec {
-      #faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
-      #faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
-      #sselp = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/X11/sselp{ };
-      #xrandr-invert-colors = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
-      #no-beep =  pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/misc/xrandr-invert-colors/default.nix { }; 
+      faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
+      faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
+      sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
       #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
-      #spideroak = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/networking/spideroak  { };
     };
   };
 
 environment= {
     systemPackages = [
 #system:
-    hibernate
+    #hibernate
     unzip
     zip
     unrar
+    p7zip
     gnumake
     cmake
     gcc
@@ -137,8 +129,11 @@ environment= {
     tmux
     #pkgconfig
     rxvt_unicode
+    termite
+    #terminology
     zsh
     fasd
+    vlock
     #wicd
     htop
     iotop
@@ -147,15 +142,20 @@ environment= {
     mercurial
     curl
     rubygems
+    icedtea7_jre
     vim_configurable
     #vimHugeXWrapper
-    ctags
+    ctagsWrapped.ctagsWrapped
     which
     nix-repl
     nixpkgs-lint
+    nix-prefetch-scripts
+    nox
     xlaunch
     obnam # backup
+    python
     gparted
+    unetbootin
     #makeWrapper
     #no-beep
   #vim
@@ -163,6 +163,7 @@ environment= {
     #spaceFM
     #gvim
     xdg_utils
+    gnupg
 #windowmanager etc:
     wget
     i3
@@ -215,7 +216,9 @@ environment= {
     pidgin
     #pidginotr   #see https://otr.cypherpunks.ca/
     #toxprpl
+    aspellDicts.en
     aspellDicts.nl
+    aspellDicts.de
     libreoffice
 # iDevice stuff:
     usbmuxd
@@ -223,8 +226,9 @@ environment= {
     spideroak
 #custom packages
     xrandr-invert-colors
-    faust-compiler
-    faust
+    #faust-compiler
+    #faust
+    sooperlooper
     sselp
    ];
 /*applist = [*/
@@ -272,11 +276,13 @@ environment= {
     interactiveShellInit = ''
       export EDITOR="vim"
       export VISUAL="vim"
+      export LESS=-X
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
     '';
   };
 
+      #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
