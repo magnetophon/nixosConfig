@@ -71,6 +71,7 @@ nix = {
 
     binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
     trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
+    auto-optimise-store = true
     ";
 };
 
@@ -78,6 +79,7 @@ nix = {
   services = {
     nixosManual.showManual = true;
     #dbus.packages = [ pkgs.gnome.GConf ];
+    #dbus.packages = lib.mkAfter (lib.singleton /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix);
     acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
@@ -86,10 +88,11 @@ nix = {
     xserver = {
       enable = true;
       #autorun = false;
+      vaapiDrivers = [ pkgs.vaapiIntel ];
       displayManager.lightdm.enable = true;
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
-      #startGnuPGAgent = true;
+      startGnuPGAgent = true;
 
       # Enable the i3 window manager
       windowManager.default = "i3" ;
@@ -110,6 +113,7 @@ nix = {
       faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
       sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
       #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
+      #jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };
     };
   };
 
@@ -141,6 +145,7 @@ environment= {
     gitFull
     mercurial
     curl
+    inetutils
     rubygems
     icedtea7_jre
     vim_configurable
@@ -174,11 +179,13 @@ environment= {
     audacity
     a2jmidid
     #beast
+    caps
+    calf
     jack2
     jack_capture
     qjackctl
     ardour
-    distrho
+    #distrho
     flac
     fluidsynth
     freewheeling
@@ -187,6 +194,8 @@ environment= {
     ingen
     #jack-oscrolloscope
     jackmeter
+    ladspaH
+    ladspaPlugins
     #ladspa-plugins
     lame
     #mda-lv2
@@ -200,11 +209,22 @@ environment= {
     #desktop-file-utils
     #firefox
     firefoxWrapper
+    chromium
+    #chromiumBeta
     w3m
     youtubeDL
     #gitit or ikiwiki
     feh
+    xrandr-invert-colors
+    sselp
     ranger
+    #mutt-with-sidebar
+    urlview
+    offlineimap
+    notmuch
+    #pypyPackages.alot
+    #python27Packages.alot
+    filezilla
     imagemagickBig
     evopedia
     meld
@@ -213,8 +233,9 @@ environment= {
     recoll
     zathura
     xbmc
-    pidgin
-    #pidginotr   #see https://otr.cypherpunks.ca/
+    #pidgin
+     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    skype
     #toxprpl
     aspellDicts.en
     aspellDicts.nl
@@ -225,11 +246,9 @@ environment= {
     libimobiledevice
     spideroak
 #custom packages
-    xrandr-invert-colors
     #faust-compiler
     #faust
-    sooperlooper
-    sselp
+    #sooperlooper
    ];
 /*applist = [*/
 	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
@@ -277,10 +296,14 @@ environment= {
       export EDITOR="vim"
       export VISUAL="vim"
       export LESS=-X
+      export NIXPKGS=/home/bart/source/nixpkgs/
+      export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
     '';
   };
+
+  programs.ssh.startAgent = false; #not needed with gpg-agent
 
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
