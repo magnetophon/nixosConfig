@@ -218,6 +218,14 @@ environment= {
     xrandr-invert-colors
     sselp
     ranger
+      # for ranger:
+      atool
+      highlight
+      file
+      libcaca
+      perlPackages.ImageExifTool
+      poppler
+      transmission
     #mutt-with-sidebar
     urlview
     offlineimap
