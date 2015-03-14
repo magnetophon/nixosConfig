@@ -5,8 +5,16 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       # Include musnix: a meta-module for realtime audio.
-      /home/bart/source/musnix-starter/musnix-starter.nix
+      /home/bart/source/musnix/default.nix
     ];
+
+  musnix = {
+    enable = true;
+    kernel.optimize = true;
+    kernel.realtime = true;
+    soundcardPciId = "00:1b.0";
+  };
+
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -88,7 +96,7 @@ nix = {
     xserver = {
       enable = true;
       #autorun = false;
-      vaapiDrivers = [ pkgs.vaapiIntel ];
+      #vaapiDrivers = [ pkgs.vaapiIntel ];
       displayManager.lightdm.enable = true;
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
@@ -109,11 +117,28 @@ nix = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
     packageOverrides = pkgs : rec {
-      faust = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
-      faust-compiler = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
-      sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
+      faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
+      faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; 
+      faust2alsa = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alsa.nix  { }; 
+      faust2firefox = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2firefox.nix  { }; 
+      faust2jack = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jack.nix  { }; 
+      faust2jaqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jaqt.nix  { }; 
+      faust2lv2 = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2lv2.nix  { }; 
+      #faust-compiler = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
+        sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
       #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
       #jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };
+      puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };
+      pd-extended = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/default.nix { };
+      pd-extended-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/wrapper.nix { inherit plugins; };
+      helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };
+      timbreid = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/timbreid/default.nix { };
+      maxlib = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/maxlib/default.nix { };
+      puremapping = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/puremapping/default.nix { };
+      zexy = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/zexy/default.nix { };
+      cyclone = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/cyclone/default.nix { };
+      osc = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/osc/default.nix { };
+      mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };
     };
   };
 
@@ -132,10 +157,12 @@ environment= {
     stow
     tmux
     #pkgconfig
+    #rxvt_unicode_with-plugins
     rxvt_unicode
     termite
     #terminology
     zsh
+    fish
     fasd
     vlock
     #wicd
@@ -147,6 +174,7 @@ environment= {
     curl
     inetutils
     rubygems
+    ruby
     icedtea7_jre
     vim_configurable
     #vimHugeXWrapper
@@ -163,6 +191,7 @@ environment= {
     unetbootin
     #makeWrapper
     #no-beep
+    xlibs.xinit
   #vim
     vifm
     #spaceFM
@@ -194,13 +223,17 @@ environment= {
     ingen
     #jack-oscrolloscope
     jackmeter
+    liblo
     ladspaH
     ladspaPlugins
     #ladspa-plugins
     lame
     #mda-lv2
-    puredata
+    #puredata
+    (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    #(pkgs.pd-extended-with-plugins.override { plugins = [ helmholtz timbreid ]; })
     setbfree
+    supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     vlc
     yoshimi
@@ -209,16 +242,17 @@ environment= {
     #desktop-file-utils
     #firefox
     firefoxWrapper
-    chromium
+    #chromium
     #chromiumBeta
     w3m
     youtubeDL
+    galculator
     #gitit or ikiwiki
     feh
     xrandr-invert-colors
     sselp
     ranger
-      # for ranger:
+      # for ranger previews:
       atool
       highlight
       file
@@ -230,6 +264,8 @@ environment= {
     urlview
     offlineimap
     notmuch
+    #remind    #calendar
+    #wyrd      # front end for remind
     #pypyPackages.alot
     #python27Packages.alot
     filezilla
@@ -242,7 +278,7 @@ environment= {
     zathura
     xbmc
     #pidgin
-     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     skype
     #toxprpl
     aspellDicts.en
@@ -255,7 +291,13 @@ environment= {
     spideroak
 #custom packages
     #faust-compiler
-    #faust
+    faust
+    faust2alqt
+    faust2alsa
+    faust2firefox
+    faust2jack
+    faust2jaqt
+    faust2lv2
     #sooperlooper
    ];
 /*applist = [*/

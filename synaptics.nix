@@ -2,13 +2,16 @@
 accelFactor = "0.0350939";
 enable = true;
 twoFingerScroll = true;
+horizontalScroll = true;
 minSpeed= "0.6";
 maxSpeed = "1.75";
 palmDetect = true;
 vertEdgeScroll = false;
-horizontalScroll = false;
+#horizontalScroll = false;
 additionalOptions = ''
 
+    Driver "synaptics"
+    MatchIsTouchpad "on"
 	Option "LeftEdge" "1781"
 	Option "RightEdge" "5579"
 	Option "TopEdge" "1660"
