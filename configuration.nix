@@ -128,24 +128,26 @@ nix = {
         sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
       #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
       #jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };
-      puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };
+      #puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };
       pd-extended = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/default.nix { };
       pd-extended-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/wrapper.nix { inherit plugins; };
-      helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };
+      #helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };
       timbreid = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/timbreid/default.nix { };
       maxlib = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/maxlib/default.nix { };
       puremapping = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/puremapping/default.nix { };
       zexy = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/zexy/default.nix { };
       cyclone = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/cyclone/default.nix { };
       osc = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/osc/default.nix { };
-      mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };
+      #mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };
+      SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };
+      #PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });
+      nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};
     };
   };
 
 environment= {
     systemPackages = [
 #system:
-    #hibernate
     unzip
     zip
     unrar
@@ -156,6 +158,7 @@ environment= {
     ncurses
     stow
     tmux
+    acpi
     #pkgconfig
     #rxvt_unicode_with-plugins
     rxvt_unicode
@@ -173,6 +176,8 @@ environment= {
     mercurial
     curl
     inetutils
+    haskellPackages.ghc
+    haskellPackages.ghcMod
     rubygems
     ruby
     icedtea7_jre
@@ -230,8 +235,7 @@ environment= {
     lame
     #mda-lv2
     #puredata
-    (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
-    #(pkgs.pd-extended-with-plugins.override { plugins = [ helmholtz timbreid ]; })
+    #(pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
     setbfree
     supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
@@ -299,6 +303,8 @@ environment= {
     faust2jaqt
     faust2lv2
     #sooperlooper
+    #SynthSinger
+    #nl_wa2014
    ];
 /*applist = [*/
 	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
