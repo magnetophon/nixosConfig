@@ -22,32 +22,33 @@
       loader.grub.enable = true;
       loader.grub.version = 2;
       loader.grub.device = "/dev/sda";
-      loader.grub.extraEntries = ''
-        menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {
-          load_video
-          insmod gzio
-          insmod part_msdos
-          insmod ext2
-          set root='(hd0,msdos1)'
-          search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
-          echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
-          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet
-          echo	'Loading initial ramdisk ...'
-          initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
-        }
-        menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {
-          load_video
-          insmod gzio
-          insmod part_msdos
-          insmod ext2
-          set root='(hd0,msdos1)'
-          search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c
-          echo	'Loading Linux 3.2.0-4-rt-686-pae ...'
-          linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single
-          echo	'Loading initial ramdisk ...'
-          initrd	/boot/initrd.img-3.2.0-4-rt-686-pae
-        }
-        '';
+      tmpOnTmpfs = true;
+      /*loader.grub.extraEntries = ''*/
+        /*menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {*/
+          /*load_video*/
+          /*insmod gzio*/
+          /*insmod part_msdos*/
+          /*insmod ext2*/
+          /*set root='(hd0,msdos1)'*/
+          /*search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c*/
+          /*echo	'Loading Linux 3.2.0-4-rt-686-pae ...'*/
+          /*linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet*/
+          /*echo	'Loading initial ramdisk ...'*/
+          /*initrd	/boot/initrd.img-3.2.0-4-rt-686-pae*/
+        /*}*/
+        /*menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {*/
+          /*load_video*/
+          /*insmod gzio*/
+          /*insmod part_msdos*/
+          /*insmod ext2*/
+          /*set root='(hd0,msdos1)'*/
+          /*search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c*/
+          /*echo	'Loading Linux 3.2.0-4-rt-686-pae ...'*/
+          /*linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single*/
+          /*echo	'Loading initial ramdisk ...'*/
+          /*initrd	/boot/initrd.img-3.2.0-4-rt-686-pae*/
+        /*}*/
+        /*'';*/
 
       loader.grub.memtest86.enable = true;
 
@@ -117,31 +118,6 @@ nix = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
     packageOverrides = pkgs : rec {
-      faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
-      faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; 
-      faust2alsa = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alsa.nix  { }; 
-      faust2firefox = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2firefox.nix  { }; 
-      faust2jack = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jack.nix  { }; 
-      faust2jaqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jaqt.nix  { }; 
-      faust2lv2 = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2lv2.nix  { }; 
-      #faust-compiler = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
-        sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
-      #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
-      #jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };
-      #puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };
-      pd-extended = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/default.nix { };
-      pd-extended-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/wrapper.nix { inherit plugins; };
-      #helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };
-      timbreid = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/timbreid/default.nix { };
-      maxlib = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/maxlib/default.nix { };
-      puremapping = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/puremapping/default.nix { };
-      zexy = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/zexy/default.nix { };
-      cyclone = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/cyclone/default.nix { };
-      osc = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/osc/default.nix { };
-      #mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };
-      SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };
-      #PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });
-      nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};
     };
   };
 
@@ -209,6 +185,8 @@ environment= {
     i3status
     dmenu
     parcellite
+    conky
+    dzen2
 #audio
     audacity
     a2jmidid
@@ -294,18 +272,22 @@ environment= {
     libimobiledevice
     spideroak
 #custom packages
-    #faust-compiler
     faust
     faust2alqt
     faust2alsa
+    faust2csound
     faust2firefox
     faust2jack
     faust2jaqt
     faust2lv2
-    #sooperlooper
+    jaaa
+    sooperlooper
+    zita-dpl1
+    mutt-kz
     #SynthSinger
     #nl_wa2014
    ];
+
 /*applist = [*/
 	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
 	/*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
