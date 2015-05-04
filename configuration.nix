@@ -1,5 +1,8 @@
 #{pkgs, ...}: with pkgs;
 {pkgs, config, ...}: with pkgs;
+/*let*/
+  /*hostsFile = /home/bart/Downloads/hosts;*/
+/*in*/
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -50,18 +53,30 @@
         /*}*/
         /*'';*/
 
+
       loader.grub.memtest86.enable = true;
 
       #kernelPackages = pkgs.linuxPackages_3_14_rt;
       #resumeDevice = "/dev/sda5";
-      blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
+      #for running alsa trough jack
+      kernelModules = [ "snd-aloop" ];
+      #kill the beeps
+      #blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
     };
 
-  fileSystems =
-  {
-	"/" = { options = "noatime errors=remount-ro"; };
-
+fileSystems =
+{
+  "/" = { options = "noatime,errors=remount-ro"; };
+  "/home" =
+  { device = "/dev/disk/by-uuid/2fb96ddd-422f-48db-ad89-0f4008c7b82c";
+    fsType = "ext3";
   };
+};
+
+swapDevices = [{
+  device = "/dev/disk/by-uuid/d7654216-4d7a-4e00-b61a-edbc2bcbb4e3";
+}];
+
 
 security = {
    setuidPrograms = [
@@ -117,6 +132,7 @@ nix = {
   nixpkgs.config = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
+    firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
     };
   };
@@ -196,8 +212,9 @@ environment= {
     jack2
     jack_capture
     qjackctl
-    ardour
-    #distrho
+    ardour3
+    ardour4
+    distrho
     flac
     fluidsynth
     freewheeling
@@ -284,6 +301,8 @@ environment= {
     sooperlooper
     zita-dpl1
     mutt-kz
+    nova-filters
+    zam-plugins
     #SynthSinger
     #nl_wa2014
    ];
@@ -295,20 +314,13 @@ environment= {
 	
 	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 	
-/*environment.etc*/
 
-    /*Set of files that have to be linked in /etc.*/
-
-    /*Default: { }*/
-
-    /*Example:*/
-
-    /*{ hosts =*/
-        /*{ source = "/nix/store/.../etc/dir/file.conf.example";*/
-          /*mode = "0440";*/
-        /*};*/
-      /*"default/useradd".text = "GROUP=100 ...";*/
-    /*}*/
+#Set of files that have to be linked in /etc.
+  etc =
+  { hosts =
+    { source = "/etc/nixos/hosts";
+    };
+  };
 /*networking.extraHosts*/
 /*networking.interfaces*/
 
@@ -338,6 +350,7 @@ environment= {
       export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
+      alias vim="stty stop ''' -ixoff; vim"
     '';
   };
 
@@ -354,15 +367,16 @@ environment= {
 
   i18n.consoleFont = "Lat2-Terminus16";
 
-   networking = {
-    firewall.enable = false;
-    hostName = "NIX";
-    connman.enable = true;
-    #wireless.enable = true;
-    #interfaceMonitor.enable = true;
-    #wicd.enable =  true;
-  };
 
+    networking = {
+      firewall.enable = false;
+      hostName = "NIX";
+      connman.enable = true;
+      #extraHosts = builtins.readFile /home/bart/Downloads/hosts;
+      #wireless.enable = true;
+      #interfaceMonitor.enable = true;
+      #wicd.enable =  true;
+    };
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -372,7 +386,7 @@ environment= {
       name = "bart";
       group = "users";
       uid = 1000;
-      createHome = true;
+      createHome = false;
       home = "/home/bart";
       extraGroups = [ "wheel" "audio" ];
       #todo = make user actually be in audio
