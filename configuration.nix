@@ -16,6 +16,9 @@
     kernel.optimize = true;
     kernel.realtime = true;
     soundcardPciId = "00:1b.0";
+    rtirq.enable = true;
+    rtirq.nameList = "snd snd_hda_intel usb i8042";
+    rtirq.highList = "snd_hrtimer";
   };
 
 
@@ -147,6 +150,7 @@ environment= {
     gnumake
     cmake
     gcc
+    gdb
     ncurses
     stow
     tmux
@@ -204,6 +208,11 @@ environment= {
     conky
     dzen2
 #audio
+    ams-lv2
+    drumgizmo
+    mda_lv2
+    metersLv2
+    swh_lv2
     audacity
     a2jmidid
     #beast
@@ -212,9 +221,6 @@ environment= {
     jack2
     jack_capture
     qjackctl
-    ardour3
-    ardour4
-    distrho
     flac
     fluidsynth
     freewheeling
@@ -228,9 +234,9 @@ environment= {
     ladspaPlugins
     #ladspa-plugins
     lame
-    #mda-lv2
     #puredata
     #(pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    qtractor
     setbfree
     supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
@@ -302,7 +308,11 @@ environment= {
     zita-dpl1
     mutt-kz
     nova-filters
-    zam-plugins
+    zam-plugins-git
+    ardour3
+    ardour4
+    ir.lv2
+    distrho
     #SynthSinger
     #nl_wa2014
    ];
