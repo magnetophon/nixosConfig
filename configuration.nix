@@ -17,7 +17,7 @@
     kernel.realtime = true;
     soundcardPciId = "00:1b.0";
     rtirq.enable = true;
-    rtirq.nameList = "snd snd_hda_intel usb i8042";
+    rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
     rtirq.highList = "snd_hrtimer";
   };
 
@@ -111,7 +111,10 @@ nix = {
     cron.enable =false;
     #avahi.enable = true;
     #locate.enable = true;
-    openssh = {enable = true; ports = [ 22 ];};
+    openssh = {
+      enable = true; ports = [ 22 ];
+      forwardX11 = true;
+      };
     xserver = {
       enable = true;
       #autorun = false;
@@ -137,6 +140,7 @@ nix = {
     firefox.enableAdobeFlash = true;
     firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
+      guitarix = pkgs.guitarix.override { optimizationSupport = true; };
     };
   };
 
@@ -189,6 +193,7 @@ environment= {
     obnam # backup
     python
     gparted
+    smartmontools
     unetbootin
     #makeWrapper
     #no-beep
@@ -207,11 +212,13 @@ environment= {
     parcellite
     conky
     dzen2
+    xpra
+    winswitch
 #audio
     ams-lv2
     drumgizmo
     mda_lv2
-    metersLv2
+    #metersLv2
     swh_lv2
     audacity
     a2jmidid
@@ -220,16 +227,17 @@ environment= {
     calf
     jack2
     jack_capture
+    jalv
     qjackctl
     flac
     fluidsynth
     freewheeling
-    guitarix
     hydrogen
     ingen
     #jack-oscrolloscope
     jackmeter
     liblo
+    lilv
     ladspaH
     ladspaPlugins
     #ladspa-plugins
@@ -313,6 +321,13 @@ environment= {
     ardour4
     ir.lv2
     distrho
+    sorcer
+    guitarix
+    artyFX
+    x42-plugins
+    fomp
+    ladspa-sdk
+    plugin-torture
     #SynthSinger
     #nl_wa2014
    ];
@@ -352,12 +367,14 @@ environment= {
 
   programs.zsh = {
     enable = true;
-    interactiveShellInit = ''
+    shellInit = ''
       export EDITOR="vim"
       export VISUAL="vim"
       export LESS=-X
       export NIXPKGS=/home/bart/source/nixpkgs/
       export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+    '';
+    interactiveShellInit = ''
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
       alias vim="stty stop ''' -ixoff; vim"
@@ -365,6 +382,7 @@ environment= {
   };
 
   programs.ssh.startAgent = false; #not needed with gpg-agent
+  programs.ssh.forwardX11 = true;
 
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
