@@ -1,14 +1,9 @@
 {pkgs, config, ...}: with pkgs;
 {
   imports =
-    [ # Include the results of the hardware scan.
-      # /etc/nixos/hardware-configuration.nix
-      # individual machine:
-      #./aspire.nix
-      # music tweaks and progs:
-      ./music.nix
-    ];
-
+  [ # music tweaks and progs:
+    ./music.nix
+  ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -16,17 +11,14 @@
     loader.grub = {
       enable = true;
       version = 2;
-      extraEntries = import ./extraGrub.nix;
       memtest86.enable = true;
     };
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
   };
 
-
   nix = {
     useChroot = true;
     chrootDirs = ["/home/nixchroot"];
-
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
@@ -39,8 +31,6 @@
 
   services = {
     nixosManual.showManual = true;
-    #dbus.packages = [ pkgs.gnome.GConf ];
-    #dbus.packages = lib.mkAfter (lib.singleton /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix);
     acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
@@ -58,16 +48,14 @@
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
       startGnuPGAgent = true;
-
       # Enable the i3 window manager
       windowManager.default = "i3" ;
       windowManager.i3.enable = true;
-      #windowManager.i3.configFile = $HOME/.config/i3/config;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
+    /*bitlbee.enable*/
+    /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
     };
-    #rtirq.enable = true;
-  /*transmission.enable = true;*/
   };
 
   nixpkgs.config = {
@@ -224,47 +212,22 @@ environment= {
     libimobiledevice
     spideroak
 #custom packages
-    #faust-compiler
-    faust
-    faust2alqt
-    faust2alsa
-    faust2firefox
-    faust2jack
-    faust2jaqt
-    faust2lv2
-    #plugin-torture
-    #ladspa-sdk
-    #sooperlooper
-    #SynthSinger
     #nl_wa2014
    ];
-/*applist = [*/
-	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
-	/*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
-	/*];*/
+
+  /*applist = [*/
+    /*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.vim_configurable}/bin/vim";}*/
+    /*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
+    /*];*/
 	
 	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 	
-/*environment.etc*/
-
 #Set of files that have to be linked in /etc.
   etc =
   { hosts =
     { source = "/home/bart/.nixosConfig/hosts";
     };
   };
-/*networking.extraHosts*/
-/*networking.interfaces*/
-
-    /*The configuration for each network interface. If networking.useDHCP is true, then every interface not listed here will be configured using DHCP.*/
-
-    /*Default: { }*/
-
-    /*Example: { eth0 = { ipAddress = "131.211.84.78"; subnetMask = "255.255.255.128"; } ; } */
-
-/*services.bitlbee.enable*/
-
-    /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
   shells = [
       "${pkgs.zsh}/bin/zsh"
@@ -303,11 +266,6 @@ environment= {
 
    networking = {
     firewall.enable = false;
-    hostName = "NIX";
-    connman.enable = true;
-    #wireless.enable = true;
-    #interfaceMonitor.enable = true;
-    #wicd.enable =  true;
   };
 
 
