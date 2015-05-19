@@ -61,6 +61,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
+    firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
       /*faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; */
       /*faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; */
@@ -183,6 +184,7 @@ environment= {
       poppler
       transmission
     #mutt-with-sidebar
+    mutt-kz
     urlview
     offlineimap
     notmuch
@@ -252,6 +254,7 @@ environment= {
   };
 
   programs.ssh.startAgent = false; #not needed with gpg-agent
+  programs.ssh.forwardX11 = true;
 
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {

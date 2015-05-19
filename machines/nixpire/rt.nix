@@ -3,13 +3,13 @@
   imports =
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
       # machine specific:
-      ./bork.nix
+      ./machine.nix
       # on every machine:
-      ./common.nix
+      ../../common.nix
       # music tweaks and progs:
-      # ./music.nix
+      ../../music.nix
     ];
 
-  networking.hostName = "borknix";
+  hostName = "nixpire-rt";
 }
 

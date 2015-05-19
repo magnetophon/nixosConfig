@@ -72,7 +72,21 @@ environment= {
     faust2firefox
     faust2jack
     faust2jaqt
-    faust2lv2
+    jaaa
+    sooperlooper
+    zita-dpl1
+    nova-filters
+    zam-plugins-git
+    ardour3
+    ardour4
+    ir.lv2
+    distrho
+    sorcer
+    guitarix
+    artyFX
+    x42-plugins
+    fomp
+ faust2lv2
     plugin-torture
     ladspa-sdk
     sooperlooper
