@@ -2,10 +2,11 @@
 
 let
   # blkid
-  rootUUID = "9b4bc91f-c9d2-413a-811f-34eb21232388";
-  swapUUID = "5a88c244-4690-4524-bcb2-76b700475378";
+  rootUUID = "701d97ac-d84b-4d9c-aa8d-d1d719455961";
+  homeUUID = "2fb96ddd-422f-48db-ad89-0f4008c7b82c";
+  swapUUID = "d7654216-4d7a-4e00-b61a-edbc2bcbb4e3";
   # ls /dev/disk/by-id/
-  diskID = "ata-ST9160310AS_5SV8AVRQ";
+  diskID = "usb-USB2.0_CardReader_SD_606569746801";
 in
 {
   imports =
@@ -14,9 +15,9 @@ in
 
   boot =
   { # dependant on amount of ram:
-    tmpOnTmpfs = false;
+    tmpOnTmpfs = true;
     loader.grub.device = "/dev/disk/by-id/${diskID}";
-    loader.grub.extraEntries = import ./extraGrub.nix;
+    #loader.grub.extraEntries = import ./extraGrub.nix;
     #copy from /etc/nixos/hardware-configuration.nix
     initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
     kernelModules = [ ];
@@ -30,11 +31,11 @@ in
       fsType = "ext3";
       options = "noatime,errors=remount-ro";
     };
-    /*"/home" =*/
-    /*{ device = "/dev/disk/by-uuid/${homeUUID}";*/
-      /*fsType = "ext3";*/
-      /*options = "noatime,errors=remount-ro";*/
-    /*};*/
+    "/home" =
+    { device = "/dev/disk/by-uuid/${homeUUID}";
+      fsType = "ext3";
+      options = "noatime,errors=remount-ro";
+    };
   };
 
   swapDevices = [{

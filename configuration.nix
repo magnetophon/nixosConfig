@@ -1,41 +1,106 @@
 {pkgs, config, ...}: with pkgs;
+/*let*/
+  /*hostsFile = /home/bart/Downloads/hosts;*/
+/*in*/
 {
   imports =
     [ # Include the results of the hardware scan.
-      # /etc/nixos/hardware-configuration.nix
-      # individual machine:
-      #./aspire.nix
-      # music tweaks and progs:
-      ./music.nix
+      /etc/nixos/hardware-configuration.nix
+      # Include musnix: a meta-module for realtime audio.
+      /home/bart/source/musnix/default.nix
     ];
+
+  musnix = {
+    enable = true;
+    kernel.optimize = true;
+    kernel.realtime = true;
+    soundcardPciId = "00:1b.0";
+    rtirq.enable = true;
+    rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
+    rtirq.highList = "snd_hrtimer";
+  };
 
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  boot = {
-    loader.grub = {
-      enable = true;
-      version = 2;
-      extraEntries = import ./extraGrub.nix;
-      memtest86.enable = true;
+    boot = {
+      loader.grub.enable = true;
+      loader.grub.version = 2;
+      loader.grub.device = "/dev/sda";
+      tmpOnTmpfs = true;
+      /*loader.grub.extraEntries = ''*/
+        /*menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae' --class debian --class gnu-linux --class gnu --class os {*/
+          /*load_video*/
+          /*insmod gzio*/
+          /*insmod part_msdos*/
+          /*insmod ext2*/
+          /*set root='(hd0,msdos1)'*/
+          /*search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c*/
+          /*echo	'Loading Linux 3.2.0-4-rt-686-pae ...'*/
+          /*linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro  quiet*/
+          /*echo	'Loading initial ramdisk ...'*/
+          /*initrd	/boot/initrd.img-3.2.0-4-rt-686-pae*/
+        /*}*/
+        /*menuentry 'Debian GNU/Linux, with Linux 3.2.0-4-rt-686-pae (recovery mode)' --class debian --class gnu-linux --class gnu --class os {*/
+          /*load_video*/
+          /*insmod gzio*/
+          /*insmod part_msdos*/
+          /*insmod ext2*/
+          /*set root='(hd0,msdos1)'*/
+          /*search --no-floppy --fs-uuid --set=root 6a2a2731-147e-49f9-866f-70cbf61d234c*/
+          /*echo	'Loading Linux 3.2.0-4-rt-686-pae ...'*/
+          /*linux	/boot/vmlinuz-3.2.0-4-rt-686-pae root=UUID=6a2a2731-147e-49f9-866f-70cbf61d234c ro single*/
+          /*echo	'Loading initial ramdisk ...'*/
+          /*initrd	/boot/initrd.img-3.2.0-4-rt-686-pae*/
+        /*}*/
+        /*'';*/
+
+
+      loader.grub.memtest86.enable = true;
+
+      #kernelPackages = pkgs.linuxPackages_3_14_rt;
+      #resumeDevice = "/dev/sda5";
+      #for running alsa trough jack
+      kernelModules = [ "snd-aloop" ];
+      #kill the beeps
+      #blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
     };
-    blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
+
+fileSystems =
+{
+  "/" = { options = "noatime,errors=remount-ro"; };
+  "/home" =
+  { device = "/dev/disk/by-uuid/2fb96ddd-422f-48db-ad89-0f4008c7b82c";
+    fsType = "ext3";
+  };
+};
+
+swapDevices = [{
+  device = "/dev/disk/by-uuid/d7654216-4d7a-4e00-b61a-edbc2bcbb4e3";
+}];
+
+
+security = {
+   setuidPrograms = [
+    "xlaunch"
+    ];
   };
 
-
-  nix = {
+nix = {
     useChroot = true;
     chrootDirs = ["/home/nixchroot"];
 
     extraOptions = "
-      gc-keep-outputs = true       # Nice for developers
-      gc-keep-derivations = true   # Idem
-      env-keep-derivations = false
-      binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
-      trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
-      #auto-optimise-store = true
+    gc-keep-outputs = true       # Nice for developers
+    gc-keep-derivations = true   # Idem
+    env-keep-derivations = false
+
+    binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
+    trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
+    auto-optimise-store = true
     ";
-  };
+};
+
 
   services = {
     nixosManual.showManual = true;
@@ -46,8 +111,7 @@
     #avahi.enable = true;
     #locate.enable = true;
     openssh = {
-      enable = true;
-      ports = [ 22 ];
+      enable = true; ports = [ 22 ];
       forwardX11 = true;
       };
     xserver = {
@@ -73,32 +137,9 @@
   nixpkgs.config = {
     allowUnfree = true;
     firefox.enableAdobeFlash = true;
+    firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
-      faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; 
-      faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; 
-      faust2alsa = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alsa.nix  { }; 
-      faust2firefox = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2firefox.nix  { }; 
-      faust2jack = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jack.nix  { }; 
-      faust2jaqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jaqt.nix  { }; 
-      faust2lv2 = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2lv2.nix  { }; 
-      #faust-compiler = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; 
-        sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; 
-      #rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };
-      #jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };
-      #puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };
-      pd-extended = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/default.nix { };
-      pd-extended-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/wrapper.nix { inherit plugins; };
-      #helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };
-      timbreid = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/timbreid/default.nix { };
-      maxlib = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/maxlib/default.nix { };
-      puremapping = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/puremapping/default.nix { };
-      zexy = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/zexy/default.nix { };
-      cyclone = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/cyclone/default.nix { };
-      osc = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/osc/default.nix { };
-      #mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };
-      SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };
-      #PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });
-      nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};
+      guitarix = pkgs.guitarix.override { optimizationSupport = true; };
     };
   };
 
@@ -112,7 +153,7 @@ environment= {
     gnumake
     cmake
     gcc
-    #gdb
+    gdb
     ncurses
     stow
     tmux
@@ -151,7 +192,7 @@ environment= {
     obnam # backup
     python
     gparted
-    #smartmontools
+    smartmontools
     unetbootin
     #makeWrapper
     #no-beep
@@ -168,10 +209,46 @@ environment= {
     i3status
     dmenu
     parcellite
-    #conky
-    #dzen2
+    conky
+    dzen2
     xpra
     winswitch
+#audio
+    ams-lv2
+    drumgizmo
+    mda_lv2
+    #metersLv2
+    swh_lv2
+    audacity
+    a2jmidid
+    #beast
+    caps
+    calf
+    jack2
+    jack_capture
+    jalv
+    qjackctl
+    flac
+    fluidsynth
+    freewheeling
+    hydrogen
+    ingen
+    #jack-oscrolloscope
+    jackmeter
+    liblo
+    lilv
+    ladspaH
+    #ladspaPlugins
+    lame
+    #puredata
+    #(pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    qtractor
+    setbfree
+    supercollider
+    #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
+    vlc
+    yoshimi
+    zynaddsubfx
 #desktop
     #desktop-file-utils
     #firefox
@@ -204,7 +281,7 @@ environment= {
     #python27Packages.alot
     filezilla
     imagemagickBig
-    #evopedia
+    evopedia
     meld
     freemind
     baobab
@@ -224,20 +301,35 @@ environment= {
     libimobiledevice
     spideroak
 #custom packages
-    #faust-compiler
     faust
     faust2alqt
     faust2alsa
+    faust2csound
     faust2firefox
     faust2jack
     faust2jaqt
     faust2lv2
-    #plugin-torture
-    #ladspa-sdk
-    #sooperlooper
+    jaaa
+    sooperlooper
+    zita-dpl1
+    mutt-kz
+    nova-filters
+    zam-plugins-git
+    ardour3
+    ardour4
+    ir.lv2
+    distrho
+    sorcer
+    guitarix
+    artyFX
+    x42-plugins
+    fomp
+    ladspa-sdk
+    plugin-torture
     #SynthSinger
     #nl_wa2014
    ];
+
 /*applist = [*/
 	/*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.sublime3}/bin/sublime";}*/
 	/*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
@@ -245,12 +337,11 @@ environment= {
 	
 	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 	
-/*environment.etc*/
 
 #Set of files that have to be linked in /etc.
   etc =
   { hosts =
-    { source = "/home/bart/.nixosConfig/hosts";
+    { source = "/etc/nixos/hosts";
     };
   };
 /*networking.extraHosts*/
@@ -289,6 +380,7 @@ environment= {
   };
 
   programs.ssh.startAgent = false; #not needed with gpg-agent
+  programs.ssh.forwardX11 = true;
 
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
@@ -301,15 +393,16 @@ environment= {
 
   i18n.consoleFont = "Lat2-Terminus16";
 
-   networking = {
-    firewall.enable = false;
-    hostName = "NIX";
-    connman.enable = true;
-    #wireless.enable = true;
-    #interfaceMonitor.enable = true;
-    #wicd.enable =  true;
-  };
 
+    networking = {
+      firewall.enable = false;
+      hostName = "NIX";
+      connman.enable = true;
+      #extraHosts = builtins.readFile /home/bart/Downloads/hosts;
+      #wireless.enable = true;
+      #interfaceMonitor.enable = true;
+      #wicd.enable =  true;
+    };
 
   time.timeZone = "Europe/Amsterdam";
 

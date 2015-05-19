@@ -22,6 +22,7 @@ musnix = {
   rtirq.enable = true;
   rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
   rtirq.highList = "snd_hrtimer";
+  rtirq.nonThreaded = "rtc0 snd";
 };
 
 #for running alsa trough jack
@@ -53,7 +54,7 @@ environment= {
     jackmeter
     liblo
     ladspaH
-    ladspaPlugins
+    #ladspaPlugins
     lame
     #mda-lv2
     #puredata
@@ -65,7 +66,6 @@ environment= {
     yoshimi
     zynaddsubfx
 #custom packages
-    #faust-compiler
     faust
     faust2alqt
     faust2alsa
@@ -73,9 +73,9 @@ environment= {
     faust2jack
     faust2jaqt
     faust2lv2
-    #plugin-torture
-    #ladspa-sdk
-    #sooperlooper
+    plugin-torture
+    ladspa-sdk
+    sooperlooper
     #SynthSinger
   ];
 };
