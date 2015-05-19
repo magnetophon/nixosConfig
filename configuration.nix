@@ -1,4 +1,3 @@
-#{pkgs, ...}: with pkgs;
 {pkgs, config, ...}: with pkgs;
 /*let*/
   /*hostsFile = /home/bart/Downloads/hosts;*/
@@ -239,8 +238,7 @@ environment= {
     liblo
     lilv
     ladspaH
-    ladspaPlugins
-    #ladspa-plugins
+    #ladspaPlugins
     lame
     #puredata
     #(pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
