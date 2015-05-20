@@ -44,7 +44,11 @@
       enable = true;
       #autorun = false;
       #vaapiDrivers = [ pkgs.vaapiIntel ];
-      displayManager.lightdm.enable = true;
+      #displayManager.lightdm.enable = true;
+      displayManager.kdm = {
+        enable = true;
+        enableXDMCP = true;
+      };
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
       startGnuPGAgent = true;
