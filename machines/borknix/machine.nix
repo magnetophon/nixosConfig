@@ -44,8 +44,13 @@ in
 
   nix.maxJobs = 2;
 
- networking = {
-  # interfaces = { enp1s0 = { ipAddress = "2.2.2.1"; subnetMask = "255.255.255.255"; } ; };
+  networking = {
+  interfaces.enp1s7 = {
+    useDHCP = false;
+    ip4 = [ { address = "2.2.2.2"; prefixLength = 24; } ];
+    #ipAddress = "2.2.2.2";
+    #prefixLength = 24;
+  };
   connman.enable = true;
   wireless.enable = true;
 };

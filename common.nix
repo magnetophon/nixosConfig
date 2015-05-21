@@ -48,6 +48,11 @@
       displayManager.kdm = {
         enable = true;
         enableXDMCP = true;
+        extraConfig =
+        ''
+          [Xdmcp]
+          Xaccess=${pkgs.writeText "Xaccess" "*"}
+        '';
       };
       synaptics = import ./synaptics.nix;
       #todo: horizontal edge scroll
@@ -231,7 +236,7 @@ environment= {
 #Set of files that have to be linked in /etc.
   etc =
   { hosts =
-    { source = "/home/bart/.nixosConfig/hosts";
+    { source = "/home/bart/nixosConfig/hosts";
     };
   };
 
