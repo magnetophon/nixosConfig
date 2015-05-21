@@ -45,17 +45,17 @@ in
   nix.maxJobs = 2;
 
   networking = {
-  interfaces.enp1s7 = {
-    useDHCP = false;
-    #ip4 = [ { address = "2.2.2.2"; prefixLength = 24; } ];
-    #ipAddress = "2.2.2.2";
-    #prefixLength = 24;
-  };
-  #networkmanager.enable = true;
-  connman.enable = true;
-  # fix connman static IP:
-  localCommands = "connmanctl config ethernet_00235472d181_cable --ipv4 manual 2.2.2.2 255.255.255.0";
-  wireless.enable = true;
+    interfaces.enp1s7 = {
+      useDHCP = false;
+      #ip4 = [ { address = "2.2.2.2"; prefixLength = 24; } ];
+      #ipAddress = "2.2.2.2";
+      #prefixLength = 24;
+    };
+    #networkmanager.enable = true;
+    connman.enable = true;
+    # fix connman static IP:
+    localCommands = "ifconfig enp1s7 2.2.2.2 netmask 255.255.255.0 up";
+    wireless.enable = true;
 };
   services.dnsmasq.enable = true;
   #services.dnsmasq.resolveLocalQueries = false;
