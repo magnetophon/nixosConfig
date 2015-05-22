@@ -218,6 +218,7 @@ environment= {
     aspellDicts.nl
     aspellDicts.de
     libreoffice
+    kde4.k3b
 # iDevice stuff:
     usbmuxd
     libimobiledevice
