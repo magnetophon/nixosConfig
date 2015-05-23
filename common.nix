@@ -146,7 +146,9 @@ environment= {
     nix-prefetch-scripts
     nox
     xlaunch
+    xlibs.xkill
     obnam # backup
+    store-backup
     python
     gparted
     smartmontools
@@ -245,22 +247,24 @@ environment= {
       "${pkgs.zsh}/bin/zsh"
       ];
 
+  shellInit = ''
+    export EDITOR="vim"
+    export VISUAL="vim"
+    export LESS=-X
+    export NIXPKGS=/home/bart/source/nixpkgs/
+    export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+  '';
+
+  interactiveShellInit = ''
+    bindkey "^[[A" history-beginning-search-backward
+    bindkey "^[[B" history-beginning-search-forward
+    alias vim="stty stop ''' -ixoff; vim"
+  '';
 };
+
 
   programs.zsh = {
     enable = true;
-    shellInit = ''
-      export EDITOR="vim"
-      export VISUAL="vim"
-      export LESS=-X
-      export NIXPKGS=/home/bart/source/nixpkgs/
-      export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
-    '';
-    interactiveShellInit = ''
-      bindkey "^[[A" history-beginning-search-backward
-      bindkey "^[[B" history-beginning-search-forward
-      alias vim="stty stop ''' -ixoff; vim"
-    '';
   };
 
   programs.ssh.startAgent = false; #not needed with gpg-agent
