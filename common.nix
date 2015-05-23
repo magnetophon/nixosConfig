@@ -148,7 +148,7 @@ environment= {
     xlaunch
     xlibs.xkill
     obnam # backup
-    store-backup
+    storeBackup
     python
     gparted
     smartmontools
