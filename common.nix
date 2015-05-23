@@ -259,6 +259,7 @@ environment= {
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
     alias vim="stty stop ''' -ixoff; vim"
+    unset SSH_ASKPASS
   '';
 };
 
