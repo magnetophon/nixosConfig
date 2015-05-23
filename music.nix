@@ -37,8 +37,10 @@ environment= {
     audacity
     a2jmidid
     #beast
+    bristol
     caps
     calf
+    drumkv1
     jack2
     jack_capture
     qjackctl
@@ -58,11 +60,16 @@ environment= {
     lame
     #mda-lv2
     #puredata
-    #(pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    qsampler
+    qsynth
+    samplv1
+    synthv1
     setbfree
     supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     vlc
+    vmpk
     yoshimi
     zynaddsubfx
 #custom packages
@@ -72,6 +79,7 @@ environment= {
     faust2firefox
     faust2jack
     faust2jaqt
+    faust2lv2
     jaaa
     sooperlooper
     zita-dpl1
@@ -86,10 +94,10 @@ environment= {
     artyFX
     x42-plugins
     fomp
- faust2lv2
     plugin-torture
     ladspa-sdk
     sooperlooper
+    QmidiNet
     #SynthSinger
   ];
 };
