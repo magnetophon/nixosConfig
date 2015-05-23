@@ -49,17 +49,19 @@ environment= {
     flac
     fluidsynth
     freewheeling
+    gigedit
     guitarix
     hydrogen
     ingen
     #jack-oscrolloscope
     jackmeter
     liblo
+    linuxsampler
     ladspaH
     #ladspaPlugins
     lame
-    #mda-lv2
-    #puredata
+    mda_lv2
+    petrifoo
     (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
     qsampler
     qsynth
