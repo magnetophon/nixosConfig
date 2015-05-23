@@ -62,7 +62,11 @@ in
   services.dnsmasq.extraConfig = ''
     port=0
     interface=enp1s7
-    dhcp-range=::,static
-    dhcp-host=nixpire,2.2.2.1
+    dhcp-range=2.2.2.1,2.2.2.1,infinite
   '';
 }
+
+    /*dhcp-host=00:19:bb:e1:07:7c,2.2.2.3,infinite*/
+
+    /*dhcp-host=nixpire,2.2.2.1*/
+    /*dhcp-range=2.2.2.1,2.2.2.3,12h*/

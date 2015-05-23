@@ -74,8 +74,9 @@
 ::1		localhost
 127.0.0.1	local
 #fe80::1%lo0	localhost
-2.2.2.2 borknix-rt
-2.2.2.1 nixpire
+#2.2.2.1 nixpire
+#2.2.2.2 borknix-rt
+#2.2.2.3 compnix
 #</localhost>
 
 #Block Facebook
