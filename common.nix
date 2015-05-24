@@ -29,6 +29,9 @@
     ";
   };
 
+  # Copy the system configuration int to nix-store.
+  #system.copySystemConfiguration = true;
+
   services = {
     nixosManual.showManual = true;
     acpid.enable = true;
@@ -153,7 +156,7 @@ environment= {
     gparted
     smartmontools
     unetbootin
-    #makeWrapper
+    makeWrapper
     #no-beep
     xlibs.xinit
   #vim
