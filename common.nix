@@ -47,7 +47,14 @@
       enable = true;
       #autorun = false;
       #vaapiDrivers = [ pkgs.vaapiIntel ];
-      #displayManager.lightdm.enable = true;
+      /*displayManager.lightdm = {*/
+        /*enable = true;*/
+        /*extraSeatDefaults = ''*/
+          /*[XDMCPServer]*/
+          /*enabled=true*/
+          /*port=177*/
+      /*'';*/
+      /*};*/
       displayManager.kdm = {
         enable = true;
         enableXDMCP = true;
@@ -183,7 +190,8 @@ environment= {
     #chromium
     #chromiumBeta
     w3m
-    youtubeDL
+    # wants pandoc(==haskell)
+    #youtubeDL
     galculator
     #gitit or ikiwiki
     feh

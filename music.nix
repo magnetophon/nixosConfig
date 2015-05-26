@@ -30,6 +30,8 @@ boot.kernelModules = [ "snd-aloop" ];
 
 nixpkgs.config.packageOverrides = pkgs : rec {
    guitarix = pkgs.guitarix.override { optimizationSupport = true; };
+   puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix {  plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
+   #pd-with-plugins = pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
 };
 
 environment= {
@@ -44,7 +46,6 @@ environment= {
     jack2
     jack_capture
     qjackctl
-    ardour
     #distrho
     flac
     fluidsynth
@@ -59,7 +60,8 @@ environment= {
     liblo
     linuxsampler
     ladspaH
-    #ladspaPlugins
+    ladspaPlugins
+    #ladspaPlugins-git
     lame
     mda_lv2
     petrifoo
