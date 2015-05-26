@@ -54,7 +54,7 @@ in
     #networkmanager.enable = true;
     connman.enable = true;
     # fix connman static IP:
-    localCommands = "ifconfig enp1s7 2.2.2.2 netmask 255.255.255.0 up";
+    localCommands = "${inetutils}/bin/ifconfig enp1s7 2.2.2.2 netmask 255.255.255.0 up";
     wireless.enable = true;
 };
   services.dnsmasq.enable = true;

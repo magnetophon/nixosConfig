@@ -133,10 +133,11 @@ environment= {
     latencytop
     gitFull
     mercurial
+    #svn
     curl
     inetutils
-    haskellPackages.ghc
-    haskellPackages.ghcMod
+    /*haskellPackages.ghc*/
+    /*haskellPackages.ghcMod*/
     rubygems
     ruby
     icedtea7_jre

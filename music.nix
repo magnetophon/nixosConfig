@@ -55,6 +55,7 @@ environment= {
     ingen
     #jack-oscrolloscope
     jackmeter
+    jalv
     liblo
     linuxsampler
     ladspaH
@@ -62,7 +63,7 @@ environment= {
     lame
     mda_lv2
     petrifoo
-    (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; })
+    #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
     qsampler
     qsynth
     samplv1
@@ -100,6 +101,7 @@ environment= {
     ladspa-sdk
     sooperlooper
     QmidiNet
+    eq10q
     #SynthSinger
   ];
 };
