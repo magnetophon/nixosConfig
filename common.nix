@@ -128,7 +128,7 @@ environment= {
     #pkgconfig
     #rxvt_unicode_with-plugins
     rxvt_unicode
-    termite
+    /*termite*/
     #terminology
     zsh
     fish

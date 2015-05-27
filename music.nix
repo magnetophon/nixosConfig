@@ -57,6 +57,7 @@ environment= {
     #jack-oscrolloscope
     jackmeter
     jalv
+    lilv
     liblo
     linuxsampler
     ladspaH

@@ -5,7 +5,7 @@ let
   rootUUID = "9b4bc91f-c9d2-413a-811f-34eb21232388";
   swapUUID = "5a88c244-4690-4524-bcb2-76b700475378";
   # ls /dev/disk/by-id/
-  diskID = "ata-ST9160310AS_5SV8AVRQ";
+  diskID = "ata-ST9160310AS_5SV8AVRQ-0:0";
 in
 {
   imports =

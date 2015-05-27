@@ -6,7 +6,7 @@ let
   homeUUID = "2fb96ddd-422f-48db-ad89-0f4008c7b82c";
   swapUUID = "d7654216-4d7a-4e00-b61a-edbc2bcbb4e3";
   # ls /dev/disk/by-id/
-  diskID = "usb-USB2.0_CardReader_SD_606569746801";
+  diskID = "usb-USB2.0_CardReader_SD_606569746801-0:0";
 in
 {
   imports =
@@ -15,7 +15,8 @@ in
 
   boot =
   { # dependant on amount of ram:
-    tmpOnTmpfs = true;
+    #tmpOnTmpfs = true;
+    #loader.grub.device = "/dev/sdd";
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
     #copy from /etc/nixos/hardware-configuration.nix
@@ -34,6 +35,11 @@ in
     "/home" =
     { device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext3";
+      options = "noatime,errors=remount-ro";
+    };
+    "/tmp" =
+    { device = "/dev/disk/by-uuid/43fa23cf-00a6-4672-9a38-4e231eebdc79";
+      fsType = "ext4";
       options = "noatime,errors=remount-ro";
     };
   };
