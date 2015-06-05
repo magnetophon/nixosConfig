@@ -38,11 +38,13 @@ environment= {
   systemPackages = [
     audacity
     a2jmidid
+    ams-lv2
     #beast
     bristol
     caps
     calf
     drumkv1
+    drumgizmo
     jack2
     jack_capture
     qjackctl
@@ -57,12 +59,12 @@ environment= {
     #jack-oscrolloscope
     jackmeter
     jalv
-    lilv
+    lilv-svn
     liblo
     linuxsampler
     ladspaH
-    ladspaPlugins
-    #ladspaPlugins-git
+    #ladspaPlugins
+    ladspaPlugins-git
     lame
     mda_lv2
     petrifoo
@@ -70,6 +72,7 @@ environment= {
     qsampler
     qsynth
     samplv1
+    swh_lv2
     synthv1
     setbfree
     supercollider
@@ -86,9 +89,10 @@ environment= {
     faust2jack
     faust2jaqt
     faust2lv2
-    jaaa
+    #temp broken by lib
+    #jaaa
+    #zita-dpl1
     sooperlooper
-    zita-dpl1
     nova-filters
     zam-plugins-git
     ardour3

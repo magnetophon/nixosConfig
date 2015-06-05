@@ -152,6 +152,7 @@ environment= {
     #vimHugeXWrapper
     ctagsWrapped.ctagsWrapped
     which
+    gnuplot
     nix-repl
     nixpkgs-lint
     nix-prefetch-scripts
@@ -193,10 +194,12 @@ environment= {
     # wants pandoc(==haskell)
     #youtubeDL
     galculator
+    simplescreenrecorder
     #gitit or ikiwiki
     feh
     xrandr-invert-colors
     sselp
+    silver-searcher
     ranger
       # for ranger previews:
       atool
@@ -271,7 +274,6 @@ environment= {
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
     alias vim="stty stop ''' -ixoff; vim"
-    unset SSH_ASKPASS
   '';
 };
 
@@ -282,6 +284,7 @@ environment= {
 
   programs.ssh.startAgent = false; #not needed with gpg-agent
   programs.ssh.forwardX11 = true;
+  programs.ssh.askPassword = "";
 
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
