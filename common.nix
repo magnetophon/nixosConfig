@@ -1,9 +1,7 @@
 {pkgs, config, ...}: with pkgs;
 {
-  /*imports =*/
-  /*[ # music tweaks and progs:*/
-    /*./music.nix*/
-  /*];*/
+
+  #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -19,6 +17,7 @@
   nix = {
     useChroot = true;
     chrootDirs = ["/home/nixchroot"];
+    requireSignedBinaryCaches = true;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
@@ -65,7 +64,6 @@
         '';
       };
       synaptics = import ./synaptics.nix;
-      #todo: horizontal edge scroll
       startGnuPGAgent = true;
       # Enable the i3 window manager
       windowManager.default = "i3" ;
@@ -74,6 +72,13 @@
       xkbOptions = "caps:swapescape";
     /*bitlbee.enable*/
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
+    };
+    psd = {
+	enable = true;
+	users = [ "bart" ];      # At least one is required
+	browsers = [ "firefox" ];    # Leave blank to enable all
+	# only available from kernel 3.18
+	#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode
     };
   };
 
@@ -129,22 +134,24 @@ environment= {
     #rxvt_unicode_with-plugins
     rxvt_unicode
     /*termite*/
-    #terminology
+    e19.terminology
     zsh
     fish
     fasd
     vlock
-    #wicd
     htop
     iotop
+    hdparm
+    glxinfo
+    usbutils
+    pciutils
     latencytop
     gitFull
     mercurial
-    #svn
+    subversion
     curl
     inetutils
-    /*haskellPackages.ghc*/
-    /*haskellPackages.ghcMod*/
+    haskellPackages.ghc
     rubygems
     ruby
     icedtea7_jre
@@ -170,8 +177,6 @@ environment= {
     xlibs.xinit
   #vim
     vifm
-    #spaceFM
-    #gvim
     xdg_utils
     gnupg
 #windowmanager etc:
@@ -186,7 +191,6 @@ environment= {
     winswitch
 #desktop
     #desktop-file-utils
-    #firefox
     firefoxWrapper
     #chromium
     #chromiumBeta
@@ -227,18 +231,20 @@ environment= {
     recoll
     zathura
     xbmc
-    #pidgin
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     skype
     #toxprpl
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    #libreoffice
+    libreoffice
     kde4.k3b
 # iDevice stuff:
     usbmuxd
     libimobiledevice
+    ifuse
+# see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
+# https://gist.github.com/laacz/1180765
     spideroak
 #custom packages
     #nl_wa2014
