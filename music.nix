@@ -18,9 +18,10 @@ musnix = {
   enable = true;
   kernel.optimize = true;
   kernel.realtime = true;
-  soundcardPciId = "00:1b.0";
   rtirq.enable = true;
-  rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
+  # machine specific:
+  /*soundcardPciId = "00:1b.0";*/
+  /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
   rtirq.highList = "snd_hrtimer";
   rtirq.nonThreaded = "rtc0 snd";
 };
