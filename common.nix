@@ -17,7 +17,7 @@
   nix = {
     useChroot = true;
     chrootDirs = ["/home/nixchroot"];
-    requireSignedBinaryCaches = true;
+    #requireSignedBinaryCaches = true;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
@@ -154,7 +154,7 @@ environment= {
     haskellPackages.ghc
     rubygems
     ruby
-    icedtea7_jre
+    icedtea_web
     vim_configurable
     #vimHugeXWrapper
     ctagsWrapped.ctagsWrapped
