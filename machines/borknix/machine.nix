@@ -15,7 +15,8 @@ in
 
   boot =
   { # dependant on amount of ram:
-    tmpOnTmpfs = true;
+    # mount -o remount,size=4G /tmp and your /tmp/ is now bigger
+    tmpOnTmpfs =  false;
     #loader.grub.device = "/dev/sda";
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
