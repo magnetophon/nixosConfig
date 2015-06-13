@@ -17,7 +17,7 @@
   nix = {
     useChroot = true;
     chrootDirs = ["/home/nixchroot"];
-    #requireSignedBinaryCaches = true;
+    requireSignedBinaryCaches = true;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
@@ -133,7 +133,7 @@ environment= {
     #pkgconfig
     #rxvt_unicode_with-plugins
     rxvt_unicode
-    /*termite*/
+    termite
     e19.terminology
     zsh
     fish
