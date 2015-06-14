@@ -97,7 +97,6 @@ environment= {
     VoiceOfFaust
     yoshimi
     zynaddsubfx
-#custom packages
     faust
     faust2alqt
     faust2alsa
@@ -105,12 +104,9 @@ environment= {
     faust2jack
     faust2jaqt
     faust2lv2
-    #temp broken by lib
     jaaa
-    zita-dpl1
     sooperlooper
     nova-filters
-    zam-plugins-git
     ardour3
     ardour4
     ir.lv2
@@ -120,10 +116,13 @@ environment= {
     artyFX
     x42-plugins
     fomp
-    plugin-torture
     ladspa-sdk
     sooperlooper
     QmidiNet
+#custom packages
+    zam-plugins-git
+    zita-dpl1
+    plugin-torture
     #SynthSinger
   ];
 };
