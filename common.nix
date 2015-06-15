@@ -139,6 +139,7 @@ environment= {
     fish
     fasd
     vlock
+    i3lock
     htop
     iotop
     hdparm
@@ -224,6 +225,13 @@ environment= {
     #python27Packages.alot
     filezilla
     imagemagickBig
+    gimp
+    inkscape
+    blender
+    pitivi
+    kde4.kdenlive
+    simplescreenrecorder
+    handbrake
     #evopedia
     meld
     freemind
