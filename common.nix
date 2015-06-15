@@ -33,6 +33,7 @@
 
   services = {
     nixosManual.showManual = true;
+    printing.enable = true;
     acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
