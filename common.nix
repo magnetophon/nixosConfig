@@ -334,4 +334,9 @@ environment= {
     };
     mutableUsers = true;
   };
+
+  security.sudo.extraConfig = ''
+    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/iotop
+    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/vlock
+  '';
 }
