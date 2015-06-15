@@ -35,6 +35,8 @@ nixpkgs.config.packageOverrides = pkgs : rec {
    guitarix = pkgs.guitarix.override { optimizationSupport = true; };
    #puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix {  plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
    #pd-with-plugins = pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
+   plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ];
+   fullPD = puredata-with-plugins plugins;
 };
 
 environment= {
@@ -57,7 +59,7 @@ environment= {
     jack2
     jack_capture
     qjackctl
-    #distrho
+    distrho
     flac
     fluidsynth
     foo-yc20
@@ -66,7 +68,7 @@ environment= {
     guitarix
     hydrogen
     ingen
-    #jack-oscrolloscope
+    jack_oscrolloscope
     jackmeter
     jalv
     lilv-svn
@@ -82,6 +84,7 @@ environment= {
     mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
+    fullPD
     qsampler
     qsynth
     RhythmDelay
@@ -123,7 +126,6 @@ environment= {
     zam-plugins-git
     zita-dpl1
     plugin-torture
-    #SynthSinger
   ];
 };
 }

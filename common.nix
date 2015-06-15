@@ -197,7 +197,7 @@ environment= {
     #chromiumBeta
     w3m
     # wants pandoc(==haskell)
-    #youtubeDL
+    youtubeDL
     galculator
     simplescreenrecorder
     #gitit or ikiwiki
@@ -220,7 +220,7 @@ environment= {
     offlineimap
     notmuch
     remind    #calendar
-    #wyrd      # front end for remind
+    wyrd      # front end for remind
     #pypyPackages.alot
     #python27Packages.alot
     filezilla
@@ -231,8 +231,9 @@ environment= {
     pitivi
     kde4.kdenlive
     simplescreenrecorder
+    scrot
     handbrake
-    #evopedia
+    evopedia
     meld
     freemind
     baobab
@@ -240,6 +241,7 @@ environment= {
     zathura
     xbmc
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    irssi
     skype
     #toxprpl
     aspellDicts.en
