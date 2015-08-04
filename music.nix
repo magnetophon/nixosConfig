@@ -18,6 +18,7 @@ musnix = {
   enable = true;
   kernel.optimize = true;
   kernel.realtime = true;
+  kernel.packages = pkgs.linuxPackages_4_0_rt;
   rtirq.enable = true;
   # machine specific:
   /*soundcardPciId = "00:1b.0";*/
@@ -56,7 +57,7 @@ environment= {
     drumkv1
     drumgizmo
     eq10q
-    jack2
+    #jack2
     jack_capture
     qjackctl
     distrho
@@ -75,8 +76,8 @@ environment= {
     liblo
     linuxsampler
     ladspaH
-    #ladspaPlugins
-    ladspaPlugins-git
+    ladspaPlugins
+    #ladspaPlugins-git
     lame
     LazyLimiter
     MBdistortion
@@ -92,7 +93,7 @@ environment= {
     swh_lv2
     synthv1
     setbfree
-    supercollider
+    #supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vlc
@@ -112,7 +113,7 @@ environment= {
     nova-filters
     ardour3
     ardour4
-    ir.lv2
+    #ir.lv2
     distrho
     sorcer
     guitarix
@@ -123,8 +124,8 @@ environment= {
     sooperlooper
     QmidiNet
 #custom packages
-    zam-plugins-git
-    zita-dpl1
+    #zam-plugins-git
+    #zita-dpl1
     plugin-torture
   ];
 };

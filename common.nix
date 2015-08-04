@@ -85,7 +85,7 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    firefox.enableAdobeFlash = true;
+    #firefox.enableAdobeFlash = true;
     firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
       /*faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; */
@@ -217,6 +217,8 @@ environment= {
       transmission
     #mutt-with-sidebar
     mutt-kz
+    paperkey
+    gpa
     urlview
     offlineimap
     notmuch
