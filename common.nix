@@ -12,6 +12,7 @@
       memtest86.enable = true;
     };
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
+    #kernelPackages = pkgs.linuxPackages_4_0;
   };
 
   nix = {
@@ -84,7 +85,7 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true;
+    #allowUnfree = true;
     #firefox.enableAdobeFlash = true;
     firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
@@ -194,6 +195,8 @@ environment= {
 #desktop
     #desktop-file-utils
     firefoxWrapper
+    gstreamer
+    gst_plugins_good
     #chromium
     #chromiumBeta
     w3m
@@ -245,7 +248,10 @@ environment= {
     xbmc
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     irssi
-    skype
+# non-free:
+    #skype
+    #spideroak
+
     #toxprpl
     aspellDicts.en
     aspellDicts.nl
@@ -258,7 +264,6 @@ environment= {
     ifuse
 # see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
 # https://gist.github.com/laacz/1180765
-    spideroak
 #custom packages
     #nl_wa2014
    ];

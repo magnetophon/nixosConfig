@@ -18,7 +18,8 @@ musnix = {
   enable = true;
   kernel.optimize = true;
   kernel.realtime = true;
-  kernel.packages = pkgs.linuxPackages_4_0_rt;
+  #kernel.packages = pkgs.linuxPackages_4_1_rt;
+  #kernel.latencytop = true;
   rtirq.enable = true;
   # machine specific:
   /*soundcardPciId = "00:1b.0";*/
@@ -74,11 +75,12 @@ environment= {
     jalv
     lilv-svn
     liblo
-    linuxsampler
+    #linuxsampler
     ladspaH
     ladspaPlugins
     #ladspaPlugins-git
     lame
+    #latencytop
     LazyLimiter
     MBdistortion
     mda_lv2
@@ -113,7 +115,7 @@ environment= {
     nova-filters
     ardour3
     ardour4
-    #ir.lv2
+    ir.lv2
     distrho
     sorcer
     guitarix
@@ -124,8 +126,8 @@ environment= {
     sooperlooper
     QmidiNet
 #custom packages
-    #zam-plugins-git
-    #zita-dpl1
+    zam-plugins-git
+    zita-dpl1
     plugin-torture
   ];
 };

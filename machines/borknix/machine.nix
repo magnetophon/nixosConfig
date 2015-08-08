@@ -62,7 +62,7 @@ in
       ip4 = [ { address = "192.168.0.21"; prefixLength = 24; } ];
     };
     #networkmanager.enable = true;
-    #connman.enable = true;
+    connman.enable = true;
     # fix connman static IP:
     #localCommands = "${inetutils}/bin/ifconfig enp1s7 192.168.0.21 netmask 255.255.255.0 gateway 192.168.0.1 up";
     nameservers =  [ "192.168.0.1" ];
