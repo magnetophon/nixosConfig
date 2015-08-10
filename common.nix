@@ -25,7 +25,7 @@
       env-keep-derivations = false
       binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
       trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
-      #auto-optimise-store = true
+      auto-optimise-store = false
     ";
   };
 
@@ -144,11 +144,17 @@ environment= {
     i3lock
     htop
     iotop
+    sysstat
+    iptraf
+    nethogs
+    iftop
     hdparm
     glxinfo
     usbutils
     pciutils
     latencytop
+    lsof
+    psmisc
     gitFull
     mercurial
     subversion
@@ -195,8 +201,13 @@ environment= {
 #desktop
     #desktop-file-utils
     firefoxWrapper
-    gstreamer
-    gst_plugins_good
+  #for vimeo:
+	gstreamer
+	gst_plugins_base
+	gst_plugins_good
+	gst_plugins_bad
+	gst_plugins_ugly
+    torbrowser
     #chromium
     #chromiumBeta
     w3m

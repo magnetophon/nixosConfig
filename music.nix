@@ -84,6 +84,7 @@ environment= {
     LazyLimiter
     MBdistortion
     mda_lv2
+    mixxx
     mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
@@ -115,7 +116,7 @@ environment= {
     nova-filters
     ardour3
     ardour4
-    ir.lv2
+    #ir.lv2
     distrho
     sorcer
     guitarix
