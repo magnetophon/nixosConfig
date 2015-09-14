@@ -129,6 +129,7 @@ environment= {
     gcc
     gdb
     ncurses
+    openjdk
     stow
     tmux
     acpi
@@ -177,6 +178,7 @@ environment= {
     xlibs.xkill
     obnam # backup
     storeBackup
+    syncthing
     python
     gparted
     smartmontools
@@ -187,6 +189,7 @@ environment= {
   #vim
     vifm
     xdg_utils
+    perlPackages.MIMETypes
     gnupg
 #windowmanager etc:
     wget
@@ -215,10 +218,9 @@ environment= {
     youtubeDL
     galculator
     simplescreenrecorder
-    #gitit or ikiwiki
-    feh
     xrandr-invert-colors
     sselp
+    feh
     silver-searcher
     ranger
       # for ranger previews:
