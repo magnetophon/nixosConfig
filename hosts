@@ -92,6 +92,10 @@
 0.0.0.0 www.fbcdn.com
 0.0.0.0 static.ak.connect.facebook.com
 0.0.0.0 www.static.ak.connect.facebook.com
+0.0.0.0 https://www.facebookcorewwwi.onion/
+0.0.0.0 http://www.facebookcorewwwi.onion/
+0.0.0.0 https://facebookcorewwwi.onion/
+0.0.0.0 http://facebookcorewwwi.onion/
 
 #<shock-sites>
 # For example, to block unpleasant pages, try:
