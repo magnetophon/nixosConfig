@@ -19,7 +19,15 @@ in
     tmpOnTmpfs =  false;
     #loader.grub.device = "/dev/sda";
     loader.grub.device = "/dev/disk/by-id/${diskID}";
-    #loader.grub.extraEntries = import ./extraGrub.nix;
+    #loader.grub.extraEntries = ''
+    #  menuentry 'Tails'
+    #  { set root=(hd0,2)
+    #    set isofile="/bart/Downloads/tails-i386-1.5.iso"
+    #    loopback loop (hd0,2)$isofile
+    #    linux (loop)/live/vmlinuz findiso=$isofile boot=live config apparmor=1 security=apparmor nopersistent noprompt timezone=Etc/UTC 
+    #block.events_dfl_poll_msecs=1000 splash noautologin module=Tails quiet i2p
+    #    initrd (loop)/live/initrd.img
+    #  }'';
     #copy from /etc/nixos/hardware-configuration.nix
     initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
     kernelModules = [ ];
@@ -59,15 +67,15 @@ in
   networking = {
     interfaces.enp1s7 = {
       useDHCP = false;
-      ip4 = [ { address = "192.168.0.21"; prefixLength = 24; } ];
+      #ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
     };
     #networkmanager.enable = true;
     connman.enable = true;
     # fix connman static IP:
-    #localCommands = "${inetutils}/bin/ifconfig enp1s7 192.168.0.21 netmask 255.255.255.0 gateway 192.168.0.1 up";
-    nameservers =  [ "192.168.0.1" ];
-    defaultGateway = "192.168.0.1";
-    #wireless.enable = false;
+    localCommands = "${inetutils}/bin/ifconfig enp1s7 2.2.2.1 netmask 255.255.255.0 up";
+    #nameservers =  [ "192.168.0.1" ];
+    #defaultGateway = "192.168.0.1";
+    wireless.enable = true;
     };
     services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
   /*services.dnsmasq.enable = true;*/

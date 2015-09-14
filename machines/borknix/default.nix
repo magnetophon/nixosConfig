@@ -7,7 +7,7 @@
       # on every machine:
       ../../common.nix
       # music tweaks and progs:
-      # ../../music.nix
+       ../../music.nix
     ];
 
   networking.hostName = "borknix";
