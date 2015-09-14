@@ -127,8 +127,8 @@ environment= {
     sooperlooper
     QmidiNet
 #custom packages
-    zam-plugins-git
-    zita-dpl1
+    #zam-plugins-git
+    #zita-dpl1
     plugin-torture
   ];
 };
