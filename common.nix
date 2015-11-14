@@ -65,6 +65,8 @@
           Xaccess=${pkgs.writeText "Xaccess" "*"}
         '';
       };
+      # so it stays on when I cose the lid
+      displayManager.desktopManagerHandlesLidAndPower = true;
       synaptics = import ./synaptics.nix;
       startGnuPGAgent = true;
       # Enable the i3 window manager
@@ -76,11 +78,11 @@
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
     };
     psd = {
-	enable = true;
-	users = [ "bart" ];      # At least one is required
-	browsers = [ "firefox" ];    # Leave blank to enable all
-	# only available from kernel 3.18
-	#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode
+      enable = true;
+      users = [ "bart" ];      # At least one is required
+      browsers = [ "firefox" ];    # Leave blank to enable all
+      # only available from kernel 3.18
+      #useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode
     };
   };
 
@@ -141,6 +143,7 @@ environment= {
     zsh
     fish
     fasd
+    fzf
     vlock
     i3lock
     htop
@@ -165,8 +168,8 @@ environment= {
     rubygems
     ruby
     icedtea_web
-    vim_configurable
-    #vimHugeXWrapper
+    /*vim_configurable*/
+    vimHugeX
     ctagsWrapped.ctagsWrapped
     which
     gnuplot
@@ -181,6 +184,7 @@ environment= {
     syncthing
     python
     gparted
+    parted
     smartmontools
     unetbootin
     makeWrapper
@@ -211,6 +215,7 @@ environment= {
 	gst_plugins_bad
 	gst_plugins_ugly
     torbrowser
+    i2pd
     #chromium
     #chromiumBeta
     w3m
@@ -261,6 +266,7 @@ environment= {
     xbmc
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     irssi
+    gajim
 # non-free:
     #skype
     #spideroak

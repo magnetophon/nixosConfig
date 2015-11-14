@@ -15,9 +15,6 @@ imports =
   ];
 
 musnix = {
-  enable = true;
-  kernel.optimize = true;
-  kernel.realtime = true;
   #kernel.packages = pkgs.linuxPackages_4_1_rt;
   #kernel.latencytop = true;
   rtirq.enable = true;
@@ -25,13 +22,13 @@ musnix = {
   /*soundcardPciId = "00:1b.0";*/
   /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
   rtirq.highList = "snd_hrtimer";
-  rtirq.nonThreaded = "rtc0 snd";
+  /*rtirq.nonThreaded = "rtc0 snd";*/
+  rtirq.resetAll = 1;
 };
 
-services.das_watchdog.enable = true;
+# is default on in musnix
+#services.das_watchdog.enable = true;
 
-#for running alsa trough jack
-boot.kernelModules = [ "snd-aloop" ];
 
 nixpkgs.config.packageOverrides = pkgs : rec {
    guitarix = pkgs.guitarix.override { optimizationSupport = true; };
@@ -58,7 +55,7 @@ environment= {
     drumkv1
     drumgizmo
     eq10q
-    #jack2
+    jack2Full
     jack_capture
     qjackctl
     distrho
@@ -75,10 +72,11 @@ environment= {
     jalv
     lilv-svn
     liblo
+    #unfree:
     #linuxsampler
     ladspaH
-    ladspaPlugins
-    #ladspaPlugins-git
+    #ladspaPlugins
+    ladspaPlugins-git
     lame
     #latencytop
     LazyLimiter
@@ -96,7 +94,7 @@ environment= {
     swh_lv2
     synthv1
     setbfree
-    #supercollider
+    supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vlc
@@ -116,7 +114,7 @@ environment= {
     nova-filters
     ardour3
     ardour4
-    #ir.lv2
+    ir.lv2
     distrho
     sorcer
     guitarix

@@ -7,16 +7,16 @@
       # on every machine:
       ../../common.nix
       # music tweaks and progs:
-      ../../music.nix
+       ../../music.nix
     ];
 
-  networking.hostName = "borknix-rt";
+  networking.hostName = "borknix";
 
   musnix = {
-    /*soundcardPciId = "00:1b.0";*/
-    /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
-    soundcardPciId = "00:1b.0";
-    rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
+    enable = false;
+    kernel.optimize = false;
+    kernel.realtime = false;
   };
+  powerManagement.cpuFreqGovernor = "powersave";
 }
 
