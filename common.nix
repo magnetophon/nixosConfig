@@ -254,6 +254,7 @@ environment= {
     blender
     pitivi
     kde4.kdenlive
+    ffmpeg-full
     simplescreenrecorder
     scrot
     handbrake

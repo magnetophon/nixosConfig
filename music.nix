@@ -56,6 +56,7 @@ environment= {
     drumgizmo
     eq10q
     jack2Full
+    /*jack1*/
     jack_capture
     qjackctl
     distrho

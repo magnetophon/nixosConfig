@@ -21,6 +21,7 @@
     kernel.optimize = true;
     kernel.realtime = true;
     kernel.packages = pkgs.linuxPackages_4_1_rt;
+    /*kernel.latencytop = true;*/
     soundcardPciId = "00:1d.7";
     rtirq.nameList = "rtc0 23";
   rtirq.nonThreaded = "rtc0 23";
