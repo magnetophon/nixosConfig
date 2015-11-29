@@ -123,7 +123,6 @@ environment= {
     x42-plugins
     fomp
     ladspa-sdk
-    sooperlooper
     QmidiNet
 #custom packages
     #zam-plugins-git

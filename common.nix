@@ -4,6 +4,8 @@
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
   hardware.cpu.intel.updateMicrocode = true;
+  # for skype
+  #hardware.pulseaudio.enable = true;
 
   boot = {
     loader.grub = {
@@ -48,6 +50,10 @@
       enable = true;
       #autorun = false;
       #vaapiDrivers = [ pkgs.vaapiIntel ];
+
+      displayManager.lightdm = {
+        enable = true;
+      };
       /*displayManager.lightdm = {*/
         /*enable = true;*/
         /*extraSeatDefaults = ''*/
@@ -56,15 +62,15 @@
           /*port=177*/
       /*'';*/
       /*};*/
-      displayManager.kdm = {
-        enable = true;
-        enableXDMCP = true;
-        extraConfig =
-        ''
-          [Xdmcp]
-          Xaccess=${pkgs.writeText "Xaccess" "*"}
-        '';
-      };
+      /*displayManager.kdm = {*/
+        /*enable = true;*/
+        /*enableXDMCP = true;*/
+        /*extraConfig =*/
+        /*''*/
+          /*[Xdmcp]*/
+          /*Xaccess=${pkgs.writeText "Xaccess" "*"}*/
+        /*'';*/
+      /*};*/
       # so it stays on when I cose the lid
       displayManager.desktopManagerHandlesLidAndPower = true;
       synaptics = import ./synaptics.nix;
@@ -87,7 +93,7 @@
   };
 
   nixpkgs.config = {
-    #allowUnfree = true;
+    # allowUnfree = true;
     #firefox.enableAdobeFlash = true;
     firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
@@ -209,17 +215,18 @@ environment= {
     #desktop-file-utils
     firefoxWrapper
   #for vimeo:
-	gstreamer
-	gst_plugins_base
-	gst_plugins_good
-	gst_plugins_bad
-	gst_plugins_ugly
+      gstreamer
+      gst_plugins_base
+      gst_plugins_good
+      gst_plugins_bad
+      gst_plugins_ugly
     torbrowser
     i2pd
+    qutebrowser
     #chromium
     #chromiumBeta
-    w3m
-    # wants pandoc(==haskell)
+    /*w3m*/
+    (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
     galculator
     simplescreenrecorder
@@ -234,8 +241,10 @@ environment= {
       file
       libcaca
       perlPackages.ImageExifTool
-      poppler
+      poppler_utils
       transmission
+      lynx
+      mediainfo
     #mutt-with-sidebar
     mutt-kz
     paperkey

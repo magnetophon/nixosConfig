@@ -13,7 +13,7 @@
   networking.hostName = "borknix";
 
 #for running alsa trough jack
-#boot.kernelModules = [ "snd-aloop" ];
+boot.kernelModules = [ "snd-aloop" ];
 #sound.enableMediaKeys = true;
 
   musnix = {
@@ -22,7 +22,7 @@
     kernel.realtime = true;
     kernel.packages = pkgs.linuxPackages_4_1_rt;
     /*kernel.latencytop = true;*/
-    soundcardPciId = "00:1d.7";
+    #soundcardPciId = "00:1d.7";
     rtirq.nameList = "rtc0 23";
   rtirq.nonThreaded = "rtc0 23";
     /*rtirq.nameList = "rtc0 usb";*/
