@@ -345,6 +345,7 @@ environment= {
     enableGhostscriptFonts = true;
     fonts = [
       pkgs.terminus_font
+      pkgs.dina-font
     ];
   };
 
