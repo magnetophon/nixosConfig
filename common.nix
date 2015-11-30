@@ -321,6 +321,11 @@ environment= {
     export LESS=-X
     export NIXPKGS=/home/bart/source/nixpkgs/
     export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+    if [ -n "$DISPLAY"  ]; then
+      export BROWSER=qutebrowser
+    else 
+      export BROWSER=w3m
+    fi
   '';
 
   interactiveShellInit = ''
