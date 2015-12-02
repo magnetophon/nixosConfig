@@ -67,12 +67,6 @@
     " Default Colors for CursorLine
     highlight  CursorLine ctermbg=lightgrey ctermfg=None
 
-    " Change Color when entering Insert Mode
-    autocmd InsertEnter * highlight  CursorLine ctermbg=Yellow ctermfg=None
-
-    " Revert Color to default when leaving Insert Mode
-    autocmd InsertLeave * highlight  CursorLine ctermbg=lightgrey ctermfg=None
-
     "hybrid line number:
     set number
     set relativenumber
@@ -355,6 +349,9 @@ nnoremap <leader>u :UndotreeToggle<CR>
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
                 "let g:airline_theme = 'solarized'
+        " Automatically displays all buffers when there's only one tab open.
+            let g:airline#extensions#tabline#enabled = 1
+
     " }
 
 " }
