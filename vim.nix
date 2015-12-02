@@ -48,11 +48,9 @@
 
     " Setting up the directories {
         set backup                  " Backups are nice ...
-        if has('persistent_undo')
             set undofile                " So is persistent undo ...
             set undolevels=1000         " Maximum number of changes that can be undone
             set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
-        endif
     "}
 "}
 
@@ -66,31 +64,28 @@
     highlight  LineNr ctermbg=lightgrey ctermfg=None
     " Default Colors for CursorLine
     highlight  CursorLine ctermbg=lightgrey ctermfg=None
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=lightgrey
+
 
     "hybrid line number:
     set number
     set relativenumber
 
-    if has('cmdline_info')
         set ruler                   " Show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
-    endif
 
-    if has('statusline')
         set laststatus=2
 
         " Broken down into easily includeable segments
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
-        if !exists('g:override_spf13_bundles')
-            set statusline+=%{fugitive#statusline()} " Git Hotness
-        endif
+        set statusline+=%{fugitive#statusline()} " Git Hotness
         set statusline+=\ [%{&ff}/%Y]            " Filetype
         set statusline+=\ [%{getcwd()}]          " Current dir
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -120,7 +115,7 @@
     set tabstop=4                   " An indentation every four columns
     set softtabstop=4               " Let backspace delete indent
     "set matchpairs+=<:>             " Match, to be used with %
-    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+    set pastetoggle=<F2>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
@@ -139,10 +134,6 @@
 
     " End/Start of line motion keys act relative to row/wrap width in the
     " presence of `:set wrap`, and relative to line for `:set nowrap`.
-    " Default vim behaviour is to act relative to text line in both cases
-    " If you prefer the default behaviour, add the following to your
-    " .vimrc.before.local file:
-    "   let g:spf13_no_wrapRelMotion = 1
     " Same for 0, home, end, etc
     function! WrapRelativeMotion(key, ...)
         let vis_sel=""
@@ -174,8 +165,6 @@
     vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
     vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
     " Stupid shift key fixes
-    if !exists('g:spf13_no_keyfixes')
-        if has("user_commands")
             command! -bang -nargs=* -complete=file E e<bang> <args>
             command! -bang -nargs=* -complete=file W w<bang> <args>
             command! -bang -nargs=* -complete=file Wq wq<bang> <args>
@@ -185,10 +174,8 @@
             command! -bang Q q<bang>
             command! -bang QA qa<bang>
             command! -bang Qa qa<bang>
-        endif
 
         cmap Tabe tabe
-    endif
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
@@ -218,8 +205,6 @@ nnoremap <C-L> :nohlsearch<CR>:redraw<CR>:checktime<CR> <C-L>
 autocmd BufNewFile,BufRead *.dsp set filetype=faust
 autocmd BufNewFile,BufRead *.lib set filetype=faust
 
-set pastetoggle=<F2>
-
 " <!----------------------------" gcc compile C files----------------------------------------!>
 autocmd filetype c nnoremap <F5> :w <CR>:!gcc % -o %:r && ./%:r<CR>
 
@@ -240,13 +225,51 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
-nnoremap <leader>u :UndotreeToggle<CR>
+" Automatically jump to end of text you pasted:
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+"Prevent replacing paste buffer on paste:
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ' '
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
 
 " }
 
 " Plugins {
+
+  " Fugitive {
+            nnoremap <silent> <leader>gs :Gstatus<CR>
+            nnoremap <silent> <leader>gd :Gdiff<CR>
+            nnoremap <silent> <leader>gc :Gcommit<CR>
+            nnoremap <silent> <leader>gb :Gblame<CR>
+            nnoremap <silent> <leader>gl :Glog<CR>
+            nnoremap <silent> <leader>gp :Git push<CR>
+            nnoremap <silent> <leader>gr :Gread<CR>
+            nnoremap <silent> <leader>gw :Gwrite<CR>
+            nnoremap <silent> <leader>ge :Gedit<CR>
+            " Mnemonic _i_nteractive
+            nnoremap <silent> <leader>gi :Git add -p %<CR>
+            nnoremap <silent> <leader>gg :SignifyToggle<CR>
+    "}
+
+    " rainbow_parentheses {
+        nnoremap <Leader>r :RainbowParenthesesToggle<CR>
+        au Syntax * RainbowParenthesesLoadRound
+        au Syntax * RainbowParenthesesLoadSquare
+        au Syntax * RainbowParenthesesLoadBraces
+    "}
+
     " Tabularize {
-        if isdirectory(expand("~/.vim/bundle/tabular"))
             nmap <Leader>a& :Tabularize /&<CR>
             vmap <Leader>a& :Tabularize /&<CR>
             nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
@@ -263,34 +286,21 @@ nnoremap <leader>u :UndotreeToggle<CR>
             vmap <Leader>a,, :Tabularize /,\zs<CR>
             nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
             vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        endif
     " }
 
   " ctrlp {
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
   "}
 
-    " TagBar {
-        if isdirectory(expand("~/.vim/bundle/tagbar/"))
-            nnoremap <silent> <leader>tt :TagbarToggle<CR>
-        endif
-    "}
 
+  " UndoTree {
+    nnoremap <leader>u :UndotreeToggle<CR>
+    nnoremap <Leader>u :UndotreeToggle<CR>
+    " If undotree is opened, it is likely one wants to interact with it.
+    let g:undotree_SetFocusWhenToggle=1
 
-    " Fugitive {
-            nnoremap <silent> <leader>gs :Gstatus<CR>
-            nnoremap <silent> <leader>gd :Gdiff<CR>
-            nnoremap <silent> <leader>gc :Gcommit<CR>
-            nnoremap <silent> <leader>gb :Gblame<CR>
-            nnoremap <silent> <leader>gl :Glog<CR>
-            nnoremap <silent> <leader>gp :Git push<CR>
-            nnoremap <silent> <leader>gr :Gread<CR>
-            nnoremap <silent> <leader>gw :Gwrite<CR>
-            nnoremap <silent> <leader>ge :Gedit<CR>
-            " Mnemonic _i_nteractive
-            nnoremap <silent> <leader>gi :Git add -p %<CR>
-            nnoremap <silent> <leader>gg :SignifyToggle<CR>
-    "}
+  "}
+
 
     " YouCompleteMe {
             let g:acp_enableAtStartup = 0
@@ -320,11 +330,7 @@ nnoremap <leader>u :UndotreeToggle<CR>
             endif
 
             " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
-                if has('conceal')
                     set conceallevel=2 concealcursor=i
-                endif
-            endif
 
             " Disable the neosnippet preview candidate window
             " When enabled, there can be too much visual noise
@@ -332,11 +338,6 @@ nnoremap <leader>u :UndotreeToggle<CR>
             set completeopt-=preview
     " }
 
-    " UndoTree {
-            nnoremap <Leader>u :UndotreeToggle<CR>
-            " If undotree is opened, it is likely one wants to interact with it.
-            let g:undotree_SetFocusWhenToggle=1
-    " }
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
         " Use the powerline theme and optionally enable powerline symbols.
@@ -393,6 +394,7 @@ redir END
             "airline"
             "colors-solarized"
             "ctrlp"
+            "fugitive"
             "nerdcommenter"
             "nerdtree"
             "rainbow_parentheses"
@@ -400,7 +402,6 @@ redir END
             "undotree"
             "vim-addon-nix"
             "youcompleteme"
-            "fugitive"
             ]; }
             #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
         ];
