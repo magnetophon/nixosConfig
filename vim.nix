@@ -401,6 +401,8 @@ redir END
             "Tabular"
             "undotree"
             "vim-addon-nix"
+            "VimOutliner"
+            "vimwiki"
             "youcompleteme"
             ]; }
             #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
