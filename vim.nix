@@ -386,7 +386,7 @@ vmap <silent> <expr> p <sid>Repl()
 
 "writes current mappings to a file
 redir! > ~/.vim/vim_keys.txt
-silent verbose map
+silent map
 redir END
 
         '';
