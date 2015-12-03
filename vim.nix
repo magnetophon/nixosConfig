@@ -17,10 +17,12 @@
     "use system clipboard
     set clipboard=unnamed,unnamedplus
     "automatically switch to the current file directory  when a new buffer is opened
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    "autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    set autochdir                       " sets the working directory to the current file.
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-    set virtualedit=onemore             " Allow for cursor beyond last character
+    " {block|insert|all|onemore} sets where the cursor can be positioned when there is no actual character.
+    set virtualedit=block,insert,onemore
     set history=1000                    " Store a ton of history (default is 20)
     set hidden                          " Allow buffer switching without saving
     set iskeyword-=.                    " '.' is an end of word designator
@@ -94,6 +96,7 @@
     set showmatch                   " Show matching brackets/parenthesis
     set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
+    set gdefault                    " makes the s% flag global by default. Use /g to turn the global option off.
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
     set wildmenu                    " Show list instead of just completing
