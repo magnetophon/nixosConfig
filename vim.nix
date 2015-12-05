@@ -68,6 +68,7 @@
     highlight  CursorLine ctermbg=lightgrey ctermfg=None
     set colorcolumn=80
     highlight ColorColumn ctermbg=lightgrey
+    hi Folded ctermbg=White
 
 
     "hybrid line number:
@@ -121,15 +122,39 @@
     set pastetoggle=<F2>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType  faust,c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
+
+    " wiki files get VimOutliner.
+    autocmd BufNewFile,BufRead *.wiki set filetype=votl
+
+    " text and email get flowed format:
+    autocmd FileType mail,text,markdown,md,votl    call Mail_Style()
+    fun! Mail_Style()
+        " Support Format-Flowed in email (mutt).
+        setlocal fo+=aw tw=72
+        setlocal spell
+    endfun
+
+    " Don't use modelines in e-mail messages, avoid trojan horses and nasty
+    " "jokes" (e.g., setting 'textwidth' to 5).
+    autocmd FileType  mail setlocal nomodeline
+
+    " Ensure tabs in Makefiles.
+    autocmd FileType make setlocal noexpandtab
 " }
 
 " Key (re)Mappings {
 
+    " the biggest key for the most used function
+    noremap <Space> :
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location.
     let mapleader = ','
+
+    " redraw screen, also turn off search highlighting, and reload the
+    " file if it changed (works in conjunction with `set autoread`)
+    nnoremap <C-L> :nohlsearch<CR>:redraw<CR>:checktime<CR> <C-L>
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
@@ -197,59 +222,67 @@
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
 
+    " simpler folds
+    " zo opens all folds
+    " zc closes all folds
+    " za to toggle each fold
+    nnoremap zo zR
+    nnoremap zc zM
 
-"set modeline
-" the biggest key for the most used function
-noremap <Space> :
-" redraw screen, also turn off search highlighting, and reload the
-" file if it changed (works in conjunction with `set autoread`)
-nnoremap <C-L> :nohlsearch<CR>:redraw<CR>:checktime<CR> <C-L>
-"faust
-autocmd BufNewFile,BufRead *.dsp set filetype=faust
-autocmd BufNewFile,BufRead *.lib set filetype=faust
+    "faust
+    autocmd BufNewFile,BufRead *.dsp set filetype=faust
+    autocmd BufNewFile,BufRead *.lib set filetype=faust
 
-" <!----------------------------" gcc compile C files----------------------------------------!>
-autocmd filetype c nnoremap <F5> :w <CR>:!gcc % -o %:r && ./%:r<CR>
+    " <!----------------------------" gcc compile C files----------------------------------------!>
+    autocmd filetype c nnoremap <F5> :w <CR>:!gcc % -o %:r && ./%:r<CR>
 
-" <!----------------------------" faust compile files----------------------------------------!>
-autocmd filetype faust nnoremap <F5> :w <CR>:!faust2jack -osc % &&  ./%   <CR>
-"autocmd filetype faust nnoremap <F6> :w <CR>:!faust2jack -osc % &&  ./%  & sleep 1 && jack_disconnect %:out_0 system:playback_1 && jack_disconnect %:out_1 system:playback_2 && jack_connect %:out_0 ardour:insert\ 1/audio_return\ 1 && jack_connect %:out_1 ardour:insert\ 1/audio_return\ 2 && jack_connect %:in_0 ardour:insert\ 1/audio_send\ 1 && jack_connect %:in_1 ardour:insert\ 1/audio_send\ 2 <CR>
-autocmd filetype faust nnoremap <F7> :w <CR>:!faust2firefox % <CR>
+    " <!----------------------------" faust compile files----------------------------------------!>
+    autocmd filetype faust nnoremap <F5> :w <CR>:!faust2jack -osc % &&  ./%   <CR>
+    "autocmd filetype faust nnoremap <F6> :w <CR>:!faust2jack -osc % &&  ./%  & sleep 1 && jack_disconnect %:out_0 system:playback_1 && jack_disconnect %:out_1 system:playback_2 && jack_connect %:out_0 ardour:insert\ 1/audio_return\ 1 && jack_connect %:out_1 ardour:insert\ 1/audio_return\ 2 && jack_connect %:in_0 ardour:insert\ 1/audio_send\ 1 && jack_connect %:in_1 ardour:insert\ 1/audio_send\ 2 <CR>
+    autocmd filetype faust nnoremap <F7> :w <CR>:!faust2firefox % <CR>
 
-"buffer navigation:
-nmap <silent> <Left> :bp<CR>
-nmap <silent> <Right> :bn<CR>
+    "buffer navigation:
+    nmap <silent> <Left> :bp<CR>
+    nmap <silent> <Right> :bn<CR>
 
-"center search results on the screen
-nnoremap <silent> N Nzz
-nnoremap <silent> n nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
+    "center search results on the screen
+    nnoremap <silent> N Nzz
+    nnoremap <silent> n nzz
+    nnoremap <silent> * *zz
+    nnoremap <silent> # #zz
+    nnoremap <silent> g* g*zz
+    nnoremap <silent> g# g#zz
 
-" Automatically jump to end of text you pasted:
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
 
-"Prevent replacing paste buffer on paste:
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ' '
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
+    " Use sane regexes.
+    nnoremap / /\v
+    vnoremap / /\v
+
+    " Automatically jump to end of text you pasted:
+    vnoremap <silent> y y`]
+    vnoremap <silent> p p`]
+    nnoremap <silent> p p`]
+
+    "Prevent replacing paste buffer on paste:
+    " vp doesn't replace paste buffer
+    function! RestoreRegister()
+      let @" = s:restore_reg
+      return ' '
+    endfunction
+    function! s:Repl()
+      let s:restore_reg = @"
+      return "p@=RestoreRegister()\<cr>"
+    endfunction
+    vmap <silent> <expr> p <sid>Repl()
 
 
 " }
 
 " Plugins {
 
+  " CtrlP {
+    noremap <C-b> :CtrlPBuffer<CR>
+  "}
   " Fugitive {
             nnoremap <silent> <leader>gs :Gstatus<CR>
             nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -263,6 +296,10 @@ vmap <silent> <expr> p <sid>Repl()
             " Mnemonic _i_nteractive
             nnoremap <silent> <leader>gi :Git add -p %<CR>
             nnoremap <silent> <leader>gg :SignifyToggle<CR>
+    "}
+
+    " NERDTree {
+    noremap <Leader>e :NERDTreeToggle<CR>
     "}
 
     " rainbow_parentheses {
