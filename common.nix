@@ -157,7 +157,8 @@ environment= {
     fish
     fasd
     fzf
-    vlock
+    /*vlock*/
+    physlock
     i3lock
     htop
     iotop
@@ -389,6 +390,7 @@ environment= {
       createHome = false;
       home = "/home/bart";
       extraGroups = [ "wheel" "audio" "video" "vlock" "usbmux" ];
+      /*extraGroups = [ "wheel" "audio" "video" "usbmux" ];*/
       #useDefaultShell = true;
       #shell = pkgs.zsh + "/usr/bin/zsh";
       #shell = "/run/current-system/sw/bin/zsh";
@@ -399,6 +401,6 @@ environment= {
 
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/iotop
-    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/vlock
+    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/physlock
   '';
 }
