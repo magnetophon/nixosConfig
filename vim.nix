@@ -109,6 +109,19 @@
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set splitright                  " split vertical splits to the right
+    set splitbelow                  " split horizontal splits to the bottom
+
+    function! ILikeHelpToTheRight()
+      if !exists('w:help_is_moved') || w:help_is_moved != "right"
+        wincmd L
+        let w:help_is_moved = "right"
+      endif
+    endfunction
+
+    augroup HelpPages
+      autocmd FileType help nested call ILikeHelpToTheRight()
+    augroup END
 
 " }
 
@@ -282,7 +295,11 @@
     " make this the only window, fe to stop diffing
     noremap <Leader>wo <C-W><C-O>
 
-
+    " easier navigation between split windows
+    nnoremap <c-j> <c-w>j
+    nnoremap <c-k> <c-w>k
+    nnoremap <c-h> <c-w>h
+    nnoremap <c-l> <c-w>l
 " }
 
 " Plugins {
