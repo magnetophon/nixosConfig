@@ -244,6 +244,8 @@
     "autocmd filetype faust nnoremap <F6> :w <CR>:!faust2jack -osc % &&  ./%  & sleep 1 && jack_disconnect %:out_0 system:playback_1 && jack_disconnect %:out_1 system:playback_2 && jack_connect %:out_0 ardour:insert\ 1/audio_return\ 1 && jack_connect %:out_1 ardour:insert\ 1/audio_return\ 2 && jack_connect %:in_0 ardour:insert\ 1/audio_send\ 1 && jack_connect %:in_1 ardour:insert\ 1/audio_send\ 2 <CR>
     autocmd filetype faust nnoremap <F7> :w <CR>:!faust2firefox % <CR>
 
+    autocmd filetype help set keywordprg=:help
+
     "buffer navigation:
     nmap <silent> <Left> :bp<CR>
     nmap <silent> <Right> :bn<CR>
@@ -449,12 +451,14 @@ source ~/.vimrc
             "Tabular"
             "undotree"
             "vim-addon-nix"
-            "VimOutliner"
             "vimwiki"
             "youcompleteme"
             ]; }
             #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
+            #doesn't work:
             #"vim-addon-local-vimrc"
+            #replaced by voom:
+            #"VimOutliner"
 
         ];
       })
