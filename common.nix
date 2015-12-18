@@ -84,13 +84,14 @@
     /*bitlbee.enable*/
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
     };
-    psd = {
-      enable = true;
-      users = [ "bart" ];      # At least one is required
-      browsers = [ "firefox" ];    # Leave blank to enable all
-      # only available from kernel 3.18
-      #useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode
-    };
+    /*psd = {*/
+      /*enable = true;*/
+      /*users = [ "bart" ];      # At least one is required*/
+      /*browsers = [ "firefox" ];    # Leave blank to enable all*/
+      /*# only available from kernel 3.18*/
+      /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
+    /*};*/
+  unclutter.enable = true;
   };
 
   nixpkgs.config = {
@@ -157,6 +158,7 @@ environment= {
     fish
     fasd
     fzf
+    openssl
     /*vlock*/
     physlock
     i3lock
@@ -203,6 +205,10 @@ environment= {
     storeBackup
     syncthing
     python27Packages.syncthing-gtk 
+    khard
+    khal
+    vdirsyncer
+    pypyPackages.keyring
     python
     gparted
     parted
@@ -299,6 +305,7 @@ environment= {
     #spideroak
 
     #toxprpl
+    gtypist
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
@@ -308,6 +315,7 @@ environment= {
     usbmuxd
     libimobiledevice
     ifuse
+    sqlite
 # see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
 # https://gist.github.com/laacz/1180765
 #custom packages
