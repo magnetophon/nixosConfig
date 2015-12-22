@@ -16,6 +16,7 @@ imports =
 
 musnix = {
   #kernel.packages = pkgs.linuxPackages_4_1_rt;
+  kernel.packages = pkgs.linuxPackages_latest_rt;
   #kernel.latencytop = true;
   rtirq.enable = true;
   # machine specific:
