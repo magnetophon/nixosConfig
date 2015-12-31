@@ -30,6 +30,15 @@
     set iskeyword-=#                    " '#' is an end of word designator
     set iskeyword-=-                    " '-' is an end of word designator
 
+    set ttimeout
+    set ttimeoutlen=1000
+
+    if !empty(&viminfo)
+      set viminfo^=!
+    endif
+
+    set sessionoptions="buffers,curdir"
+
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
     au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
@@ -458,7 +467,7 @@
 
 "writes current mappings to a file
 redir! > ~/.vim/vim_keys.txt
-silent map
+silent verbose map
 redir END
 
 " local plugins and synthaxes:
@@ -477,6 +486,7 @@ source ~/.vimrc
             "nerdtree"
             "rainbow_parentheses"
             "Tabular"
+            "UltiSnips"
             "undotree"
             "vim-addon-nix"
             "vimwiki"
@@ -487,6 +497,9 @@ source ~/.vimrc
             #"vim-addon-local-vimrc"
             #replaced by voom:
             #"VimOutliner"
+            #doesn't work:
+            #"YankRing"
+
 
         ];
       })
