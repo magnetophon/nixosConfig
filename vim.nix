@@ -305,10 +305,11 @@
     noremap <Leader>wo <C-W><C-O>
 
     " easier navigation between split windows
-    nnoremap <c-j> <c-w>j
-    nnoremap <c-k> <c-w>k
-    nnoremap <c-h> <c-w>h
-    nnoremap <c-l> <c-w>l
+    " conflicts with <c-l> for redraw
+    " nnoremap <c-j> <c-w>j
+    " nnoremap <c-k> <c-w>k
+    " nnoremap <c-h> <c-w>h
+    " nnoremap <c-l> <c-w>l
 " }
 
 " Plugins {
@@ -486,7 +487,6 @@ source ~/.vimrc
             "nerdtree"
             "rainbow_parentheses"
             "Tabular"
-            "UltiSnips"
             "undotree"
             "vim-addon-nix"
             "vimwiki"
@@ -499,8 +499,8 @@ source ~/.vimrc
             #"VimOutliner"
             #doesn't work:
             #"YankRing"
-
-
+            #gives error on startup:
+            #"UltiSnips"
         ];
       })
   ];
