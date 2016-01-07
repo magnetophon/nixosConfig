@@ -1,7 +1,10 @@
 {pkgs, config, ...}: with pkgs;
 {
 
-  imports = [./vim.nix];
+  imports = [
+    ./vim.nix
+    ./spacemacs.nix
+    ];
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -26,8 +29,8 @@
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
       env-keep-derivations = false
-      binary-caches = https://nixos.org/binary-cache http://cache.nixos.org
-      trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org http://hydra.nixos.org
+      binary-caches = https://nixos.org/binary-cache
+      trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
       auto-optimise-store = false
     ";
   };
@@ -124,7 +127,7 @@
       /*SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };*/
       /*#PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });*/
       /*nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};*/
-      
+
     };
 };
 
@@ -204,7 +207,7 @@ environment= {
     obnam # backup
     storeBackup
     syncthing
-    python27Packages.syncthing-gtk 
+    python27Packages.syncthing-gtk
     khard
     khal
     vdirsyncer
@@ -326,9 +329,9 @@ environment= {
     /*{mimetypes = ["text/plain" "text/css"]; applicationExec = "${pkgs.vim_configurable}/bin/vim";}*/
     /*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
     /*];*/
-	
+
 	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
-	
+
 #Set of files that have to be linked in /etc.
   etc =
   { hosts =
@@ -348,7 +351,7 @@ environment= {
     export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
     if [ -n "$DISPLAY"  ]; then
       export BROWSER=qutebrowser
-    else 
+    else
       export BROWSER=w3m
     fi
   '';
