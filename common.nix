@@ -77,6 +77,11 @@
       /*};*/
       # so it stays on when I cose the lid
       displayManager.desktopManagerHandlesLidAndPower = true;
+      displayManager.sessionCommands =
+      ''
+        ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
+        ${pkgs.emacs}/bin/emacs --daemon
+      '';
       synaptics = import ./synaptics.nix;
       startGnuPGAgent = true;
       # Enable the i3 window manager
@@ -330,7 +335,7 @@ environment= {
     /*{mimetypes = ["text/html"]; applicationExec = "${pkgs.firefox}/bin/firefox";}*/
     /*];*/
 
-	/*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
+  /*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 
 #Set of files that have to be linked in /etc.
   etc =
@@ -389,12 +394,45 @@ environment= {
     firewall.enable = false;
   };
 
+   # systemd.user.services.emacs = {
+   #    description = "Emacs Daemon";
+   #    enable = true;
+   #    environment = {
+   #      GTK_DATA_PREFIX = config.system.path;
+   #      SSH_AUTH_SOCK = "%t/ssh-agent";
+   #      GTK_PATH = "${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0";
+   #      NIX_PROFILES = "${pkgs.lib.concatStringsSep " " config.environment.profiles}";
+   #      TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
+   #      ASPELL_CONF = "dict-dir /run/current-system/sw/lib/aspell";
+   #    };
+   #    serviceConfig = {
+   #      Type = "forking";
+   #      ExecStart = "${pkgs.emacs}/bin/emacs --daemon";
+   #      ExecStop = "${pkgs.emacs}/bin/emacsclient --eval (kill-emacs)";
+   #      Restart = "always";
+   #    };
+   #    wantedBy = [ "default.target" ];
+   #  };
 
-  time.timeZone = "Europe/Amsterdam";
+   #  systemd.services.emacs.enable = true;
 
-  users = {
-    defaultUserShell = "/var/run/current-system/sw/bin/zsh";
-    extraUsers.bart = {
+
+  # systemd.user.services.urxvtd = {
+  #     enable = true;
+  #     description = "RXVT-Unicode Daemon";
+  #     serviceConfig = {
+  #       ExecStart = ''
+  #         ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
+  #       '';
+  #     };
+  #     wantedBy = [ "default.target" ];
+  #   };
+
+    time.timeZone = "Europe/Amsterdam";
+
+    users = {
+      defaultUserShell = "/var/run/current-system/sw/bin/zsh";
+      extraUsers.bart = {
       name = "bart";
       group = "users";
       uid = 1000;
