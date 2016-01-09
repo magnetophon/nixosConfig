@@ -55,6 +55,7 @@
         python27Packages.numpy
       ]);
 
+
       postInstall = with pkgs.python27Packages; (args.postInstall + ''
 
       echo "This is PYTHONPATH: " $PYTHONPATH
