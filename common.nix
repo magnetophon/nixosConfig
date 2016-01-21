@@ -55,9 +55,9 @@
       #autorun = false;
       #vaapiDrivers = [ pkgs.vaapiIntel ];
 
-      displayManager.lightdm = {
-        enable = true;
-      };
+      # displayManager.lightdm = {
+      #   enable = true;
+      # };
       /*displayManager.lightdm = {*/
         /*enable = true;*/
         /*extraSeatDefaults = ''*/
@@ -66,15 +66,15 @@
           /*port=177*/
       /*'';*/
       /*};*/
-      /*displayManager.kdm = {*/
-        /*enable = true;*/
-        /*enableXDMCP = true;*/
-        /*extraConfig =*/
-        /*''*/
-          /*[Xdmcp]*/
-          /*Xaccess=${pkgs.writeText "Xaccess" "*"}*/
-        /*'';*/
-      /*};*/
+      displayManager.kdm = {
+        enable = true;
+        enableXDMCP = true;
+        extraConfig =
+        ''
+          [Xdmcp]
+          Xaccess=${pkgs.writeText "Xaccess" "*"}
+        '';
+      };
       # so it stays on when I cose the lid
       displayManager.desktopManagerHandlesLidAndPower = true;
       displayManager.sessionCommands =
@@ -146,7 +146,6 @@ environment= {
 #system:
     unzip
     zip
-    unrar
     p7zip
     gnumake
     cmake
@@ -302,7 +301,6 @@ environment= {
     baobab
     recoll
     zathura
-    calibre
     xbmc
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     weechat
@@ -311,6 +309,8 @@ environment= {
 # non-free:
     #skype
     #spideroak
+    # unrar
+    # calibre
 
     #toxprpl
     gtypist
