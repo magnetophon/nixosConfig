@@ -101,7 +101,6 @@ environment= {
     supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
-    vlc
     vmpk
     VoiceOfFaust
     yoshimi

@@ -255,6 +255,7 @@ environment= {
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
+    vlc
     galculator
     simplescreenrecorder
     xrandr-invert-colors
