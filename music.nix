@@ -112,6 +112,7 @@ environment= {
     faust2jack
     faust2jaqt
     faust2lv2
+    ( pkgs.fmit.override { jackSupport = true; })
     jaaa
     sooperlooper
     nova-filters
