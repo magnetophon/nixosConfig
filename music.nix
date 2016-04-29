@@ -16,7 +16,7 @@ imports =
 
 musnix = {
   #kernel.packages = pkgs.linuxPackages_4_1_rt;
-  kernel.packages = pkgs.linuxPackages_latest_rt;
+  # kernel.packages = pkgs.linuxPackages_latest_rt;
   #kernel.latencytop = true;
   rtirq.enable = true;
   # machine specific:
@@ -62,7 +62,6 @@ environment= {
     /*jack1*/
     jack_capture
     qjackctl
-    distrho
     flac
     fluidsynth
     foo-yc20
@@ -119,13 +118,14 @@ environment= {
     ardour3
     ardour4
     ir.lv2
-    distrho
+    # needs ladspa-sdk, which has a corrupted download
+    # distrho
     sorcer
     guitarix
     artyFX
     x42-plugins
     fomp
-    ladspa-sdk
+    # ladspa-sdk
     QmidiNet
 #custom packages
     #zam-plugins-git
