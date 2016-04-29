@@ -36,7 +36,7 @@
   };
 
   # Copy the system configuration int to nix-store.
-  #system.copySystemConfiguration = true;
+  system.copySystemConfiguration = true;
 
   services = {
     nixosManual.showManual = true;
@@ -225,7 +225,7 @@ environment= {
     #no-beep
   #vim
     vifm
-    xdg_utils
+    ( pkgs.xdg_utils.override { mimiSupport = true; })
     perlPackages.MIMETypes
     gnupg
 #windowmanager etc:
@@ -255,6 +255,7 @@ environment= {
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
+    (pkgs.vlc.override { jackSupport = true;})
     galculator
     simplescreenrecorder
     xrandr-invert-colors
@@ -288,6 +289,7 @@ environment= {
     imagemagickBig
     gimp
     inkscape
+    # (pkgs.blender.override { jackaudioSupport = true; })
     blender
     pitivi
     kde4.kdenlive

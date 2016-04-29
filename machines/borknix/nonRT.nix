@@ -19,4 +19,3 @@
   };
   powerManagement.cpuFreqGovernor = "powersave";
 }
-
