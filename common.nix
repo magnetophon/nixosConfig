@@ -36,7 +36,7 @@
   };
 
   # Copy the system configuration int to nix-store.
-  system.copySystemConfiguration = true;
+  # system.copySystemConfiguration = true;
 
   services = {
     nixosManual.showManual = true;
@@ -52,6 +52,7 @@
       };
     xserver = {
       enable = true;
+      enableCtrlAltBackspace = true;
       #autorun = false;
       #vaapiDrivers = [ pkgs.vaapiIntel ];
 

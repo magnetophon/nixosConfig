@@ -29,16 +29,16 @@ in
   fileSystems =
   {
     "/" =
-    { 
+    {
       /*device = "/dev/sde1";*/
       device = "/dev/disk/by-uuid/${rootUUID}";
       fsType = "ext4";
-      options = "relatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
     "/home" =
     { device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext4";
-      options = "relatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
   };
 
