@@ -57,6 +57,7 @@ environment= {
     constant-detune-chorus
     drumkv1
     drumgizmo
+    cuetools
     eq10q
     jack2Full
     /*jack1*/
@@ -69,6 +70,7 @@ environment= {
     gigedit
     guitarix
     hydrogen
+    helm
     ingen
     jack_oscrolloscope
     jackmeter
@@ -97,7 +99,7 @@ environment= {
     swh_lv2
     synthv1
     setbfree
-    supercollider
+    # supercollider
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vmpk
@@ -119,16 +121,18 @@ environment= {
     ardour4
     ir.lv2
     # needs ladspa-sdk, which has a corrupted download
-    # distrho
+    distrho
     sorcer
-    guitarix
+    sox
+    shntool
     artyFX
     x42-plugins
     fomp
-    # ladspa-sdk
+    ladspa-sdk
     QmidiNet
 #custom packages
     #zam-plugins-git
+    zam-plugins
     #zita-dpl1
     plugin-torture
   ];
