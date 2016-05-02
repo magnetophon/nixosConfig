@@ -45,6 +45,11 @@
     cron.enable =false;
     #avahi.enable = true;
     #locate.enable = true;
+    journald.extraConfig = ''
+      [Journal]
+      SystemMaxUse=50M
+      SystemMaxFileSize=10M
+    '';
     openssh = {
       enable = true;
       ports = [ 22 ];
@@ -76,8 +81,6 @@
           Xaccess=${pkgs.writeText "Xaccess" "*"}
         '';
       };
-      # so it stays on when I cose the lid
-      displayManager.desktopManagerHandlesLidAndPower = true;
       displayManager.sessionCommands =
       ''
         ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
@@ -156,8 +159,8 @@ environment= {
     openjdk
     stow
     tmux
+    sshfsFuse
     acpi
-    #pkgconfig
     #rxvt_unicode_with-plugins
     rxvt_unicode
     termite
@@ -167,7 +170,6 @@ environment= {
     fasd
     fzf
     openssl
-    /*vlock*/
     physlock
     i3lock
     htop
@@ -223,7 +225,6 @@ environment= {
     smartmontools
     unetbootin
     makeWrapper
-    #no-beep
   #vim
     vifm
     ( pkgs.xdg_utils.override { mimiSupport = true; })
@@ -260,7 +261,9 @@ environment= {
     galculator
     simplescreenrecorder
     xrandr-invert-colors
+    xcalib
     sselp
+    xclip
     feh
     silver-searcher
     ranger
@@ -290,7 +293,7 @@ environment= {
     imagemagickBig
     gimp
     inkscape
-    # (pkgs.blender.override { jackaudioSupport = true; })
+    (pkgs.blender.override { jackaudioSupport = true; })
     blender
     pitivi
     kde4.kdenlive
@@ -441,11 +444,7 @@ environment= {
       uid = 1000;
       createHome = false;
       home = "/home/bart";
-      extraGroups = [ "wheel" "audio" "video" "vlock" "usbmux" ];
-      /*extraGroups = [ "wheel" "audio" "video" "usbmux" ];*/
-      #useDefaultShell = true;
-      #shell = pkgs.zsh + "/usr/bin/zsh";
-      #shell = "/run/current-system/sw/bin/zsh";
+      extraGroups = [ "wheel" "audio" "video" "usbmux" ];
       shell = "${pkgs.zsh}/bin/zsh";
     };
     mutableUsers = true;
