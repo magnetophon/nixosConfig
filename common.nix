@@ -218,7 +218,7 @@ environment= {
     khard
     khal
     vdirsyncer
-    pypyPackages.keyring
+    # pypyPackages.keyring
     python
     gparted
     parted
