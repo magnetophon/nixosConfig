@@ -99,7 +99,7 @@ environment= {
     swh_lv2
     synthv1
     setbfree
-    # supercollider
+     supercollider_scel
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vmpk
