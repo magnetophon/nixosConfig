@@ -53,7 +53,7 @@ in
     /*"/tmp" =*/
     /*{ device = "/dev/disk/by-uuid/43fa23cf-00a6-4672-9a38-4e231eebdc79";*/
       /*fsType = "ext4";*/
-      # options = "noatime,errors=remount-ro";
+      # options = [ "relatime" "errors=remount-ro" ];
     /*};*/
   };
 
