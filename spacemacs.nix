@@ -21,6 +21,7 @@
     ## Flyspell
     aspell
     aspellDicts.en
+    haskellPackages.ShellCheck
 
     ## Magit
     git
