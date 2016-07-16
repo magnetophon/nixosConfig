@@ -157,7 +157,6 @@ environment= {
     gdb
     ncurses
     coreutils
-    timeout
     ntfs3g
     openjdk
     stow
