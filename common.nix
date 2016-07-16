@@ -22,8 +22,12 @@
   };
 
   nix = {
-    useChroot = true;
-    chrootDirs = ["/home/nixchroot"];
+    # renamed;
+    # useChroot = true;
+    useSandbox = true;
+    # renamed;
+    # chrootDirs = ["/home/nixchroot"];
+    sandboxPaths = ["/home/nixchroot"];
     requireSignedBinaryCaches = true;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
@@ -87,7 +91,6 @@
         ${pkgs.emacs}/bin/emacs --daemon
       '';
       synaptics = import ./synaptics.nix;
-      startGnuPGAgent = true;
       # Enable the i3 window manager
       windowManager.default = "i3" ;
       windowManager.i3.enable = true;
@@ -166,7 +169,7 @@ environment= {
     #rxvt_unicode_with-plugins
     rxvt_unicode
     termite
-    e19.terminology
+    # e19.terminology
     zsh
     fish
     fasd
@@ -195,7 +198,9 @@ environment= {
     curl
     inetutils
     haskellPackages.ghc
-    rubygems
+    #renamed;
+    # rubygems
+    ruby
     ruby
     icedtea_web
     /*vim_configurable*/

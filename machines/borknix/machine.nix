@@ -77,7 +77,9 @@ in
     #defaultGateway = "192.168.0.1";
     wireless.enable = true;
     };
-    services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
+    # renamed:
+    # services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
+    hardware.opengl.extraPackages = [ pkgs.vaapiIntel  ];
   /*services.dnsmasq.enable = true;*/
   #services.dnsmasq.resolveLocalQueries = false;
   /*services.dnsmasq.extraConfig = ''*/
