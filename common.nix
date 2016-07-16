@@ -156,6 +156,9 @@ environment= {
     gcc
     gdb
     ncurses
+    coreutils
+    timeout
+    ntfs3g
     openjdk
     stow
     tmux
@@ -273,6 +276,7 @@ environment= {
       file
       libcaca
       perlPackages.ImageExifTool
+      ffmpegthumbnailer
       poppler_utils
       transmission
       lynx
