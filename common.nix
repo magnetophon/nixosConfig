@@ -301,7 +301,7 @@ environment= {
     imagemagickBig
     gimp
     inkscape
-    (pkgs.blender.override { jackaudioSupport = true; })
+    # (pkgs.blender.override { jackaudioSupport = true; })
     blender
     pitivi
     kde4.kdenlive
