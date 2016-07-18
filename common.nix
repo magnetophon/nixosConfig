@@ -22,8 +22,12 @@
   };
 
   nix = {
-    useChroot = true;
-    chrootDirs = ["/home/nixchroot"];
+    # renamed;
+    # useChroot = true;
+    useSandbox = true;
+    # renamed;
+    # chrootDirs = ["/home/nixchroot"];
+    sandboxPaths = ["/home/nixchroot"];
     requireSignedBinaryCaches = true;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
@@ -87,7 +91,6 @@
         ${pkgs.emacs}/bin/emacs --daemon
       '';
       synaptics = import ./synaptics.nix;
-      startGnuPGAgent = true;
       # Enable the i3 window manager
       windowManager.default = "i3" ;
       windowManager.i3.enable = true;
@@ -156,6 +159,8 @@ environment= {
     gcc
     gdb
     ncurses
+    coreutils
+    ntfs3g
     openjdk
     stow
     tmux
@@ -164,7 +169,7 @@ environment= {
     #rxvt_unicode_with-plugins
     rxvt_unicode
     termite
-    e19.terminology
+    # e19.terminology
     zsh
     fish
     fasd
@@ -193,7 +198,9 @@ environment= {
     curl
     inetutils
     haskellPackages.ghc
-    rubygems
+    #renamed;
+    # rubygems
+    ruby
     ruby
     icedtea_web
     /*vim_configurable*/
@@ -218,7 +225,7 @@ environment= {
     khard
     khal
     vdirsyncer
-    pypyPackages.keyring
+    # pypyPackages.keyring
     python
     gparted
     parted
@@ -273,6 +280,7 @@ environment= {
       file
       libcaca
       perlPackages.ImageExifTool
+      ffmpegthumbnailer
       poppler_utils
       transmission
       lynx
@@ -293,7 +301,7 @@ environment= {
     imagemagickBig
     gimp
     inkscape
-    (pkgs.blender.override { jackaudioSupport = true; })
+    # (pkgs.blender.override { jackaudioSupport = true; })
     blender
     pitivi
     kde4.kdenlive

@@ -153,12 +153,12 @@
     "autocmd BufNewFile,BufRead *.wiki set filetype=votl
 
     " text and email get flowed format:
-    autocmd FileType mail,text,markdown,md,votl    call Mail_Style()
-    fun! Mail_Style()
-        " Support Format-Flowed in email (mutt).
-        setlocal fo+=aw tw=72
-        setlocal spell
-    endfun
+    " autocmd FileType mail,text,markdown,md,votl    call Mail_Style()
+    " fun! Mail_Style()
+    "     " Support Format-Flowed in email (mutt).
+    "     setlocal fo+=aw tw=72
+    "     setlocal spell
+    " endfun
 
     " Don't use modelines in e-mail messages, avoid trojan horses and nasty
     " "jokes" (e.g., setting 'textwidth' to 5).

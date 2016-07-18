@@ -30,4 +30,3 @@ boot.kernelModules = [ "snd-aloop" ];
     /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
   };
 }
-

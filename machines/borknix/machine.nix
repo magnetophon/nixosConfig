@@ -24,7 +24,7 @@ in
     #  { set root=(hd0,2)
     #    set isofile="/bart/Downloads/tails-i386-1.5.iso"
     #    loopback loop (hd0,2)$isofile
-    #    linux (loop)/live/vmlinuz findiso=$isofile boot=live config apparmor=1 security=apparmor nopersistent noprompt timezone=Etc/UTC 
+    #    linux (loop)/live/vmlinuz findiso=$isofile boot=live config apparmor=1 security=apparmor nopersistent noprompt timezone=Etc/UTC
     #block.events_dfl_poll_msecs=1000 splash noautologin module=Tails quiet i2p
     #    initrd (loop)/live/initrd.img
     #  }'';
@@ -41,19 +41,19 @@ in
      #device = "/dev/disk/by-label/nixos";
      device = "/dev/disk/by-uuid/${rootUUID}";
       fsType = "ext4";
-      options = "noatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
     "/home" =
     {
       #device = "/dev/disk/by-label/home";
       device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext4";
-      options = "noatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
     /*"/tmp" =*/
     /*{ device = "/dev/disk/by-uuid/43fa23cf-00a6-4672-9a38-4e231eebdc79";*/
       /*fsType = "ext4";*/
-      /*options = "noatime,errors=remount-ro";*/
+      # options = [ "relatime" "errors=remount-ro" ];
     /*};*/
   };
 
@@ -77,7 +77,9 @@ in
     #defaultGateway = "192.168.0.1";
     wireless.enable = true;
     };
-    services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
+    # renamed:
+    # services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
+    hardware.opengl.extraPackages = [ pkgs.vaapiIntel  ];
   /*services.dnsmasq.enable = true;*/
   #services.dnsmasq.resolveLocalQueries = false;
   /*services.dnsmasq.extraConfig = ''*/
