@@ -13,7 +13,7 @@
   networking.hostName = "mixos";
 
 #for running alsa trough jack
-boot.kernelModules = [ "snd-aloop" ];
+# boot.kernelModules = [ "snd-aloop" ];
 #sound.enableMediaKeys = true;
 
   musnix = {
