@@ -21,8 +21,8 @@ in
     #loader.grub.extraEntries = import ./extraGrub.nix;
     #copy from /etc/nixos/hardware-configuration.nix
     /*kernelPackages.kernel.system = "x86_64-linux";*/
-    initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" ];
-    kernelModules = [ "kvm-intel" ];
+    # initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" ];
+    # kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
 
