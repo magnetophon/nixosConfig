@@ -40,8 +40,8 @@
 
   services = {
     nixosManual.showManual = true;
-    printing.enable = true;
-    acpid.enable = true;
+    # printing.enable = true;
+    # acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
     #locate.enable = true;
