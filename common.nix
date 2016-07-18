@@ -360,6 +360,7 @@ environment= {
     export LESS=-X
     export NIXPKGS=/home/bart/source/nixpkgs/
     export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+    export $XDG_DATA_HOME=/home/bart/.local/share
     if [ -n "$DISPLAY"  ]; then
       export BROWSER=qutebrowser
     else
