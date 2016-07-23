@@ -359,20 +359,21 @@ environment= {
   };
 
   shells = [
-      "${pkgs.zsh}/bin/zsh"
+      "/run/current-system/sw/bin/zsh"
       ];
 
-  shellInit = ''
-    export EDITOR="vim"
-    export VISUAL="vim"
-    export LESS=-X
-    export NIXPKGS=/home/bart/source/nixpkgs/
-    export NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
-    export $XDG_DATA_HOME=/home/bart/.local/share
+  # shellInit = ''
+  extraInit = ''
+    EDITOR="vim"
+    VISUAL="vim"
+    LESS=-X
+    NIXPKGS=/home/bart/source/nixpkgs/
+    NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+    XDG_DATA_HOME=/home/bart/.local/share
     if [ -n "$DISPLAY"  ]; then
-      export BROWSER=qutebrowser
+      BROWSER=firefox
     else
-      export BROWSER=w3m
+      BROWSER=w3m
     fi
   '';
 
@@ -382,8 +383,9 @@ environment= {
   '';
 };
 
+  # shellAliases = { ll = "ls -l"; };
+
     #alias vim="stty stop ''' -ixoff; vim"
-    #alias vim=my_vim
 
   programs.zsh = {
     enable = true;
