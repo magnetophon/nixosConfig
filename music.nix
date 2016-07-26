@@ -52,9 +52,6 @@ environment= {
     bristol
     caps
     calf
-    CharacterCompressor
-    CompBus
-    constant-detune-chorus
     drumkv1
     drumgizmo
     cuetools
@@ -84,8 +81,16 @@ environment= {
     ladspaPlugins-git
     lame
     #latencytop
-    LazyLimiter
-    MBdistortion
+    magnetophonDSP.CharacterCompressor
+    magnetophonDSP.CompBus
+    magnetophonDSP.LazyLimiter
+    magnetophonDSP.MBdistortion
+    magnetophonDSP.RhythmDelay
+    magnetophonDSP.VoiceOfFaust
+    magnetophonDSP.constant-detune-chorus
+    magnetophonDSP.faustCompressors
+    magnetophonDSP.lowShelfComp
+    magnetophonDSP.pluginUtils
     mda_lv2
     mixxx
     mod-distortion
@@ -94,7 +99,6 @@ environment= {
     fullPD
     qsampler
     qsynth
-    RhythmDelay
     samplv1
     swh_lv2
     synthv1
@@ -103,7 +107,6 @@ environment= {
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vmpk
-    VoiceOfFaust
     yoshimi
     zynaddsubfx
     faust
