@@ -46,17 +46,18 @@ in
 
   nix.maxJobs = 2;
 
+  networking.interfaces.<name?>.ip4
   networking = {
     interfaces.enp63s0 = {
-      useDHCP = true;
-      #ip4 = [ { address = "2.2.2.3"; prefixLength = 24; } ];
-      #ipAddress = "2.2.2.3";
-      #prefixLength = 24;
+      ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
     };
+    # interfaces.enp0s26f7u3  = {
+    #   useDHCP = true;
+    # };
     #networkmanager.enable = true;
     #connman.enable = true;
     # fix connman static IP:
-    #localCommands = "ifconfig enp1s7 2.2.2.2 netmask 255.255.255.0 up";
+    # localCommands = "ifconfig enp0s26f7u3 2.2.2.2 netmask 255.255.255.0 up";
     #wireless.enable = true;
 };
   #services.dnsmasq.enable = true;
