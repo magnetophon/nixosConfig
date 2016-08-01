@@ -27,7 +27,7 @@ in
   fileSystems =
   {
     "/" =
-    { 
+    {
       #device = "/dev/sda1";
       device = "/dev/disk/by-uuid/${rootUUID}";
       fsType = "ext4";
@@ -67,4 +67,19 @@ in
     #dhcp-range=::,static
     #dhcp-host=nixpire,2.2.2.1
   #'';
+
+
+services.xserver.monitorSection = ''
+  Identifier "VGA1"
+  Modeline "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
+  Option "PreferredMode" "1920x1080_60.00"
+'';
+services.xserver.screenSection = ''
+  Identifier "Screen0"
+  Monitor "VGA1"
+  DefaultDepth 24
+  SubSection "Display"
+    Modes "1920x1080_60.00"
+  EndSubSection
+'';
 }
