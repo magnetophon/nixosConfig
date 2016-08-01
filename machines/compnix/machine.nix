@@ -46,7 +46,6 @@ in
 
   nix.maxJobs = 2;
 
-  networking.interfaces.<name?>.ip4
   networking = {
     interfaces.enp63s0 = {
       ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
