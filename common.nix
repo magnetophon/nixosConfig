@@ -217,13 +217,13 @@ environment= {
     xlibs.xinit
     ltrace
     # obnam # backup
-    borgbackup
+    # borgbackup
     storeBackup
     syncthing
     python27Packages.syncthing-gtk
-    khard
-    khal
-    vdirsyncer
+    # khard
+    # khal
+    # vdirsyncer
     # pypyPackages.keyring
     python
     gparted
@@ -317,7 +317,7 @@ environment= {
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     # weechat
     # irssi
-    gajim
+    # gajim
 # non-free:
     #skype
     #spideroak
