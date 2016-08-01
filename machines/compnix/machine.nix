@@ -6,7 +6,7 @@ let
   homeUUID = "cf984a4b-d356-40ee-bdf5-d236cd8d54fc";
   swapUUID = "2cff3fe8-09d5-464e-b17c-fc6c24d72073";
   # ls /dev/disk/by-id/
-  diskID = "ata-WDC_WD800JD-60LSA5_WD-WMAM9KK45956-0:0";
+  diskID = "ata-WDC_WD800JD-60LSA5_WD-WMAM9KK45956";
 in
 {
   imports =
@@ -31,12 +31,12 @@ in
       #device = "/dev/sda1";
       device = "/dev/disk/by-uuid/${rootUUID}";
       fsType = "ext4";
-      options = "noatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
     "/home" =
     { device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext4";
-      options = "noatime,errors=remount-ro";
+      options = [ "relatime" "errors=remount-ro" ];
     };
   };
 
