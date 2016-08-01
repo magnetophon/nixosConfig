@@ -360,8 +360,8 @@ environment= {
       "/run/current-system/sw/bin/zsh"
       ];
 
-  # shellInit = ''
-  extraInit = ''
+      # extraInit = ''
+  shellInit = ''
     EDITOR="vim"
     VISUAL="vim"
     LESS=-X
