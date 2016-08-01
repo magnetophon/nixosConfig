@@ -62,13 +62,13 @@ environment= {
     qjackctl
     flac
     fluidsynth
-    foo-yc20
+    # foo-yc20
     freewheeling
-    gigedit
+    # gigedit
     guitarix
     hydrogen
     helm
-    ingen
+    # ingen
     jack_oscrolloscope
     jackmeter
     jalv
@@ -103,7 +103,7 @@ environment= {
     swh_lv2
     synthv1
     setbfree
-     supercollider_scel
+    supercollider_scel
     #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
     tetraproc
     vmpk
@@ -115,15 +115,14 @@ environment= {
     faust2firefox
     faust2jack
     faust2jaqt
-    faust2lv2
+    faust2lv2gui
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
-    sooperlooper
+    # sooperlooper
     nova-filters
-    ardour3
+    # ardour3
     ardour4
     ir.lv2
-    # needs ladspa-sdk, which has a corrupted download
     distrho
     sorcer
     sox
