@@ -161,7 +161,7 @@ environment= {
     ncurses
     coreutils
     ntfs3g
-    openjdk
+    # openjdk
     stow
     tmux
     sshfsFuse
@@ -176,7 +176,7 @@ environment= {
     fzf
     openssl
     physlock
-    i3lock
+    # i3lock
     htop
     iotop
     powertop
@@ -198,8 +198,6 @@ environment= {
     curl
     inetutils
     haskellPackages.ghc
-    #renamed;
-    # rubygems
     ruby
     ruby
     icedtea_web
@@ -218,7 +216,8 @@ environment= {
     xlibs.xkill
     xlibs.xinit
     ltrace
-    obnam # backup
+    # obnam # backup
+    borgbackup
     storeBackup
     syncthing
     python27Packages.syncthing-gtk
@@ -266,7 +265,6 @@ environment= {
     youtubeDL
     (pkgs.vlc.override { jackSupport = true;})
     galculator
-    simplescreenrecorder
     xrandr-invert-colors
     xcalib
     sselp
@@ -286,15 +284,16 @@ environment= {
       lynx
       mediainfo
     #mutt-with-sidebar
-    mutt-kz
-    taskwarrior
+    # mutt-kz
+    neomutt
+    # taskwarrior
     paperkey
     gpa
     urlview
     offlineimap
     notmuch
-    remind    #calendar
-    wyrd      # front end for remind
+    # remind    #calendar
+    # wyrd      # front end for remind
     #pypyPackages.alot
     #python27Packages.alot
     filezilla
@@ -302,8 +301,7 @@ environment= {
     gimp
     inkscape
     # (pkgs.blender.override { jackaudioSupport = true; })
-    blender
-    pitivi
+    # blender
     kde4.kdenlive
     ffmpeg-full
     simplescreenrecorder
@@ -315,10 +313,10 @@ environment= {
     baobab
     recoll
     zathura
-    xbmc
+    # xbmc
     (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
-    weechat
-    irssi
+    # weechat
+    # irssi
     gajim
 # non-free:
     #skype
@@ -331,7 +329,7 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    libreoffice
+    # libreoffice
     kde4.k3b
 # iDevice stuff:
     usbmuxd
