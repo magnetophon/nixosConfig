@@ -329,7 +329,7 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    # libreoffice
+    libreoffice
     kde4.k3b
 # iDevice stuff:
     usbmuxd
