@@ -89,7 +89,7 @@ environment= {
     magnetophonDSP.VoiceOfFaust
     magnetophonDSP.constant-detune-chorus
     magnetophonDSP.faustCompressors
-    magnetophonDSP.lowShelfComp
+    magnetophonDSP.shelfMultiBand
     magnetophonDSP.pluginUtils
     mda_lv2
     mixxx
@@ -117,7 +117,6 @@ environment= {
     faust2jaqt
     faust2lv2gui
     graphviz
-    leiningen
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
     # sooperlooper
