@@ -11,8 +11,4 @@
     ];
 
   networking.hostName = "compnix-rt";
-  musnix = {
-    soundcardPciId = "00:1b.0";
-    rtirq.nameList = "rtc0 hpet snd snd_hda_intel";
 }
-
