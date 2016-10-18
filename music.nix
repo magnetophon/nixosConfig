@@ -117,6 +117,7 @@ environment= {
     faust2jaqt
     faust2lv2gui
     graphviz
+    leiningen
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
     # sooperlooper
