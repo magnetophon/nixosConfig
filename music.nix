@@ -87,7 +87,7 @@ environment= {
     magnetophonDSP.MBdistortion
     magnetophonDSP.RhythmDelay
     magnetophonDSP.VoiceOfFaust
-    magnetophonDSP.constant-detune-chorus
+    magnetophonDSP.ConstantDetuneChorus
     magnetophonDSP.faustCompressors
     magnetophonDSP.shelfMultiBand
     magnetophonDSP.pluginUtils
@@ -115,7 +115,7 @@ environment= {
     faust2firefox
     faust2jack
     faust2jaqt
-    faust2lv2gui
+    faust2lv2
     graphviz
     leiningen
     ( pkgs.fmit.override { jackSupport = true; })
