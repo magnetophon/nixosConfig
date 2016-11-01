@@ -62,17 +62,17 @@ environment= {
     qjackctl
     flac
     fluidsynth
-    # foo-yc20
+    # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
-    # gigedit
+    gigedit
     guitarix
     hydrogen
     helm
-    # ingen
+    ingen
     jack_oscrolloscope
     jackmeter
     jalv
-    lilv-svn
+    lilv
     liblo
     #unfree:
     #linuxsampler
@@ -93,7 +93,7 @@ environment= {
     magnetophonDSP.pluginUtils
     mda_lv2
     mixxx
-    mod-distortion
+    # mod-distortion https://github.com/moddevices/mod-distortion/issues/5
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
     fullPD
@@ -120,10 +120,11 @@ environment= {
     leiningen
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
-    # sooperlooper
+    sooperlooper
     nova-filters
     # ardour3
-    ardour4
+    # ardour4
+    ardour5
     ir.lv2
     distrho
     sorcer
