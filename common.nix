@@ -378,6 +378,8 @@ environment= {
   interactiveShellInit = ''
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
+    export GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
+    export NIXPKGS=/home/bart/source/nixpkgs
   '';
 };
 
