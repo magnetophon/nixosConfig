@@ -62,6 +62,7 @@ environment= {
     qjackctl
     flac
     fluidsynth
+    fmsynth
     # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
     gigedit
@@ -77,8 +78,7 @@ environment= {
     #unfree:
     #linuxsampler
     ladspaH
-    #ladspaPlugins
-    ladspaPlugins-git
+    ladspaPlugins
     lame
     #latencytop
     magnetophonDSP.CharacterCompressor
