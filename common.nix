@@ -367,6 +367,7 @@ environment= {
     LESS=-X
     NIXPKGS=/home/bart/source/nixpkgs/
     NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
+    export GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
     XDG_DATA_HOME=/home/bart/.local/share
     if [ -n "$DISPLAY"  ]; then
       BROWSER=firefox
@@ -378,8 +379,6 @@ environment= {
   interactiveShellInit = ''
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
-    export GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
-    export NIXPKGS=/home/bart/source/nixpkgs
   '';
 };
 
