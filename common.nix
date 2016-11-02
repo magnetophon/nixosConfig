@@ -112,7 +112,7 @@
   nixpkgs.config = {
     # allowUnfree = true;
     #firefox.enableAdobeFlash = true;
-    firefox.enableMplayer = true;
+    # firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
       /*faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; */
       /*faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; */
@@ -200,7 +200,7 @@ environment= {
     haskellPackages.ghc
     ruby
     ruby
-    icedtea_web
+    # icedtea_web
     /*vim_configurable*/
     /*vimHugeX*/
     #my_vim
@@ -248,7 +248,7 @@ environment= {
     winswitch
 #desktop
     #desktop-file-utils
-    firefoxWrapper
+    # firefoxWrapper
   #for vimeo:
       gstreamer
       gst_plugins_base
@@ -329,7 +329,7 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    libreoffice
+    # libreoffice
     kde4.k3b
 # iDevice stuff:
     usbmuxd
