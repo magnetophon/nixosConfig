@@ -39,6 +39,10 @@ nixpkgs.config.packageOverrides = pkgs : rec {
    plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
    /*plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ];*/
    fullPD = puredata-with-plugins plugins;
+   qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
+     configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
+   });
+
 };
 
 environment= {
