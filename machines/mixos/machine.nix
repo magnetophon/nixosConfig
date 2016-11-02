@@ -52,8 +52,8 @@ in
 
   networking = {
     interfaces.enp3s0 = {
-      useDHCP = false;
-      ip4 = [ { address = "2.2.2.2"; prefixLength = 24; } ];
+      ipAddress = "2.2.2.2";
+      prefixLength = 24;
     };
     #networkmanager.enable = true;
     connman.enable = false;

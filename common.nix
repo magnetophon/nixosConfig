@@ -43,7 +43,7 @@
   # system.copySystemConfiguration = true;
 
   services = {
-    nixosManual.showManual = true;
+    nixosManual.showManual = false;
     # printing.enable = true;
     # acpid.enable = true;
     cron.enable =false;
@@ -62,20 +62,6 @@
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
-      #autorun = false;
-      #vaapiDrivers = [ pkgs.vaapiIntel ];
-
-      # displayManager.lightdm = {
-      #   enable = true;
-      # };
-      /*displayManager.lightdm = {*/
-        /*enable = true;*/
-        /*extraSeatDefaults = ''*/
-          /*[XDMCPServer]*/
-          /*enabled=true*/
-          /*port=177*/
-      /*'';*/
-      /*};*/
       displayManager.kdm = {
         enable = true;
         enableXDMCP = true;

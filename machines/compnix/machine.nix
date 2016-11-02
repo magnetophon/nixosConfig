@@ -48,7 +48,9 @@ in
 
   networking = {
     interfaces.enp63s0 = {
-      ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
+      ipAddress = "2.2.2.1";
+      prefixLength = 24;
+      # ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
     };
     # interfaces.enp0s26f7u3  = {
     #   useDHCP = true;
