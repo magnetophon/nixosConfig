@@ -74,7 +74,7 @@
       displayManager.sessionCommands =
       ''
         ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
-        ${pkgs.emacs}/bin/emacs --daemon
+        # ${pkgs.emacs}/bin/emacs --daemon
       '';
       synaptics = import ./synaptics.nix;
       # Enable the i3 window manager
@@ -84,6 +84,8 @@
       xkbOptions = "caps:swapescape";
     /*bitlbee.enable*/
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
+    # autofs.enable = true;
+
     };
     /*psd = {*/
       /*enable = true;*/
@@ -92,7 +94,19 @@
       /*# only available from kernel 3.18*/
       /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
     /*};*/
-  unclutter.enable = true;
+    unclutter.enable = true;
+    emacs = {
+      enable = true;
+      # defaultEditor = true;
+      };
+    physlock = {
+      enable = true;
+      user = "bart";
+      lockOn = {
+        suspend = true;
+        hibernate = true;
+      };
+    };
   };
 
   nixpkgs.config = {
@@ -348,13 +362,6 @@ environment= {
 
       # extraInit = ''
   shellInit = ''
-    EDITOR="vim"
-    VISUAL="vim"
-    LESS=-X
-    NIXPKGS=/home/bart/source/nixpkgs/
-    NIXPKGS_ALL=/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix
-    export GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
-    XDG_DATA_HOME=/home/bart/.local/share
     if [ -n "$DISPLAY"  ]; then
       BROWSER=firefox
     else
@@ -362,25 +369,35 @@ environment= {
     fi
   '';
 
-  interactiveShellInit = ''
-    bindkey "^[[A" history-beginning-search-backward
-    bindkey "^[[B" history-beginning-search-forward
-  '';
 };
-
+  environment.sessionVariables = {
+    EDITOR = "vim";
+    VISUAL = "emacs";
+    LESS = "-X";
+    NIXPKGS = "/home/bart/source/nixpkgs/";
+    NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
+    GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
+    XDG_DATA_HOME = "/home/bart/.local/share";
+    TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
+  };
   # shellAliases = { ll = "ls -l"; };
 
     #alias vim="stty stop ''' -ixoff; vim"
 
   programs.zsh = {
     enable = true;
+    interactiveShellInit = ''
+      bindkey "^[[A" history-beginning-search-backward
+      bindkey "^[[B" history-beginning-search-forward
+    '';
   };
 
-  programs.ssh.startAgent = false; #not needed with gpg-agent
-  programs.ssh.forwardX11 = true;
-  programs.ssh.askPassword = "";
+  programs.ssh = {
+    startAgent = false; #not needed with gpg-agent
+    forwardX11 = true;
+    askPassword = "";
+  };
 
-      #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -395,28 +412,6 @@ environment= {
    networking = {
     firewall.enable = false;
   };
-
-   # systemd.user.services.emacs = {
-   #    description = "Emacs Daemon";
-   #    enable = true;
-   #    environment = {
-   #      GTK_DATA_PREFIX = config.system.path;
-   #      SSH_AUTH_SOCK = "%t/ssh-agent";
-   #      GTK_PATH = "${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0";
-   #      NIX_PROFILES = "${pkgs.lib.concatStringsSep " " config.environment.profiles}";
-   #      TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
-   #      ASPELL_CONF = "dict-dir /run/current-system/sw/lib/aspell";
-   #    };
-   #    serviceConfig = {
-   #      Type = "forking";
-   #      ExecStart = "${pkgs.emacs}/bin/emacs --daemon";
-   #      ExecStop = "${pkgs.emacs}/bin/emacsclient --eval (kill-emacs)";
-   #      Restart = "always";
-   #    };
-   #    wantedBy = [ "default.target" ];
-   #  };
-
-   #  systemd.services.emacs.enable = true;
 
 
   # systemd.user.services.urxvtd = {
@@ -433,21 +428,20 @@ environment= {
     time.timeZone = "Europe/Amsterdam";
 
     users = {
-      defaultUserShell = "/var/run/current-system/sw/bin/zsh";
+      defaultUserShell = "${pkgs.zsh}/bin/zsh";
       extraUsers.bart = {
-      name = "bart";
-      group = "users";
-      uid = 1000;
-      createHome = false;
-      home = "/home/bart";
-      extraGroups = [ "wheel" "audio" "video" "usbmux" ];
+        name = "bart";
+        group = "users";
+        uid = 1000;
+        createHome = false;
+        home = "/home/bart";
+        extraGroups = [ "wheel" "audio" "video" "usbmux" ];
       shell = "${pkgs.zsh}/bin/zsh";
-    };
+      };
     mutableUsers = true;
   };
 
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/iotop
-    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/physlock
   '';
 }
