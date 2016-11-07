@@ -59,4 +59,13 @@ in
     connman.enable = false;
     wireless.enable = false;
   };
+<<<<<<< HEAD
+=======
+
+  services.xserver = {
+    # Enable the i3 window manager
+    windowManager.default = "i3" ;
+    windowManager.i3.enable = true;
+  }
+>>>>>>> cleanup
 }
