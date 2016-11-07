@@ -12,7 +12,12 @@
 
   networking.hostName = "mixos";
 
-  services.xserver.autorun = false;
+  services.xserver = {
+    autorun =  false;
+    windowManager.default = "i3" ;
+    windowManager.i3.enable = true;
+  };
+
 
 #for running alsa trough jack
 # boot.kernelModules = [ "snd-aloop" ];

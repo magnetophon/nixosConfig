@@ -62,24 +62,22 @@
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
-      displayManager.kdm = {
-        enable = true;
-        enableXDMCP = true;
-        extraConfig =
-        ''
-          [Xdmcp]
-          Xaccess=${pkgs.writeText "Xaccess" "*"}
-        '';
-      };
-      displayManager.sessionCommands =
-      ''
-        ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
-        # ${pkgs.emacs}/bin/emacs --daemon
-      '';
+      displayManager.lightdm.enable = true;
+      # displayManager.kdm = {
+      #   enable = true;
+      #   enableXDMCP = true;
+      #   extraConfig =
+      #   ''
+      #     [Xdmcp]
+      #     Xaccess=${pkgs.writeText "Xaccess" "*"}
+      #   '';
+      # };
+      # displayManager.sessionCommands =
+      # ''
+      #   ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
+      #   ${pkgs.emacs}/bin/emacs --daemon
+      # '';
       synaptics = import ./synaptics.nix;
-      # Enable the i3 window manager
-      windowManager.default = "i3" ;
-      windowManager.i3.enable = true;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
     /*bitlbee.enable*/
@@ -94,7 +92,7 @@
       /*# only available from kernel 3.18*/
       /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
     /*};*/
-    unclutter.enable = true;
+    # unclutter.enable = true;
     emacs = {
       enable = true;
       # defaultEditor = true;
@@ -398,6 +396,7 @@ environment= {
     askPassword = "";
   };
 
+      #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
