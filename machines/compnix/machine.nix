@@ -11,7 +11,43 @@ in
 {
   imports =
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    ./remote_i3.nix
     ];
+
+  environment.systemPackages = [
+    qmidinet
+    qjackctl
+    jack2Full
+  ];
+
+  systemd.services.qmidinet = {
+    description = "Qmidinet";
+    enable = true;
+    environment = { DISPLAY = "2.2.2.1:0"; };
+    # environment = { DISPLAY = ":${toString config.services.xserver.display}"; };
+    serviceConfig = {
+      # Type = "simple";
+      ExecStart = "${pkgs.qmidinet}/bin/qmidinet -i enp3s0";
+      KillSignal = "SIGUSR2";
+      Restart = "always";
+    };
+    wantedBy = [ "graphical.target" ];
+    after = [ "display-manager.service" ];
+    # after = [ "network-online.target" ];
+  };
+
+  services.xserver = {
+   # autorun = false;
+    displayManager = {
+      sessionCommands = ''
+        xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
+        xrandr --addmode VGA1 1920x1080_60.00
+        xrandr --output VGA1 --mode 1920x1080_60.00
+      '';
+    };
+    windowManager.default = "remote_i3" ;
+    windowManager.remote_i3.enable = true;
+  };
 
   boot =
   { # dependant on amount of ram:
@@ -28,7 +64,6 @@ in
   {
     "/" =
     {
-      #device = "/dev/sda1";
       device = "/dev/disk/by-uuid/${rootUUID}";
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" ];
@@ -50,38 +85,7 @@ in
     interfaces.enp63s0 = {
       ipAddress = "2.2.2.1";
       prefixLength = 24;
-      # ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
     };
-    # interfaces.enp0s26f7u3  = {
-    #   useDHCP = true;
-    # };
-    #networkmanager.enable = true;
-    #connman.enable = true;
-    # fix connman static IP:
-    # localCommands = "ifconfig enp0s26f7u3 2.2.2.2 netmask 255.255.255.0 up";
-    #wireless.enable = true;
-};
-  #services.dnsmasq.enable = true;
-  #services.dnsmasq.resolveLocalQueries = false;
-  #services.dnsmasq.extraConfig = ''
-    #port=0
-    #interface=enp1s7
-    #dhcp-range=::,static
-    #dhcp-host=nixpire,2.2.2.1
-  #'';
-
-
-# services.xserver.monitorSection = ''
-#   Identifier "VGA1"
-#   Modeline "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
-#   Option "PreferredMode" "1920x1080_60.00"
-# '';
-# services.xserver.screenSection = ''
-#   Identifier "Screen0"
-#   Monitor "VGA1"
-#   DefaultDepth 24
-#   SubSection "Display"
-#     Modes "1920x1080_60.00"
-#   EndSubSection
-# '';
+    wireless.enable = false;
+  };
 }

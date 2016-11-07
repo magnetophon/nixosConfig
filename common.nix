@@ -78,6 +78,9 @@
       #   ${pkgs.emacs}/bin/emacs --daemon
       # '';
       synaptics = import ./synaptics.nix;
+      # Enable the i3 window manager
+      # windowManager.default = "i3" ;
+      # windowManager.i3.enable = true;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
     /*bitlbee.enable*/

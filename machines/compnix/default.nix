@@ -10,6 +10,5 @@
       # ../../music.nix
     ];
 
-  networking.hostName = "compnix";
+   networking.hostName = "compnix";
 }
-
