@@ -72,11 +72,6 @@
       #     Xaccess=${pkgs.writeText "Xaccess" "*"}
       #   '';
       # };
-      # displayManager.sessionCommands =
-      # ''
-      #   ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
-      #   ${pkgs.emacs}/bin/emacs --daemon
-      # '';
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
@@ -385,8 +380,12 @@ environment= {
   programs.zsh = {
     enable = true;
     interactiveShellInit = ''
-      bindkey "^[[A" history-beginning-search-backward
-      bindkey "^[[B" history-beginning-search-forward
+      # urxvt:
+      # bindkey "^[[A" history-beginning-search-backward
+      # bindkey "^[[B" history-beginning-search-forward
+      # termite:
+      bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
+      bindkey "$terminfo[kcud1]" down-line-or-beginning-search
     '';
   };
 
@@ -411,18 +410,6 @@ environment= {
    networking = {
     firewall.enable = false;
   };
-
-
-  # systemd.user.services.urxvtd = {
-  #     enable = true;
-  #     description = "RXVT-Unicode Daemon";
-  #     serviceConfig = {
-  #       ExecStart = ''
-  #         ${pkgs.rxvt_unicode}/bin/urxvtd -q -o -f
-  #       '';
-  #     };
-  #     wantedBy = [ "default.target" ];
-  #   };
 
     time.timeZone = "Europe/Amsterdam";
 
