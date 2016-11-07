@@ -57,15 +57,6 @@ in
     };
     #networkmanager.enable = true;
     connman.enable = false;
-    # fix connman static IP:
-    #localCommands = "${inetutils}/bin/ifconfig enp3s0 2.2.2.2 netmask 255.255.255.0 up";
     wireless.enable = false;
-};
-  #services.dnsmasq.enable = true;
-  ##services.dnsmasq.resolveLocalQueries = false;
-  #services.dnsmasq.extraConfig = ''
-    #port=0
-    #interface=enp3s0
-    #dhcp-range=2.2.2.1,2.2.2.1,infinite
-  #'';
+  };
 }
