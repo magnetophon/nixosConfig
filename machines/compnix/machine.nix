@@ -45,8 +45,9 @@ in
         xrandr --output VGA1 --mode 1920x1080_60.00
       '';
     };
-    windowManager.default = "remote_i3" ;
     windowManager.remote_i3.enable = true;
+    windowManager.i3.enable = true;
+    windowManager.default = "remote_i3" ;
   };
 
   boot =
