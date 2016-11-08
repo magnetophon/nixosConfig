@@ -18,15 +18,10 @@
       memtest86.enable = true;
     };
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
-    #kernelPackages = pkgs.linuxPackages_4_0;
   };
 
   nix = {
-    # renamed;
-    # useChroot = true;
     useSandbox = true;
-    # renamed;
-    # chrootDirs = ["/home/nixchroot"];
     sandboxPaths = ["/home/nixchroot"];
     requireSignedBinaryCaches = true;
     extraOptions = "
@@ -90,7 +85,7 @@
     # unclutter.enable = true;
     emacs = {
       enable = true;
-      # defaultEditor = true;
+      defaultEditor = true;
       };
     physlock = {
       enable = true;
@@ -344,10 +339,10 @@ environment= {
 
 #Set of files that have to be linked in /etc.
   etc =
-  { hosts =
-    { source = "/home/bart/nixosConfig/hosts";
+    { hosts =
+      { source = "/home/bart/nixosConfig/hosts";
+      };
     };
-  };
 
   shells = [
       "/run/current-system/sw/bin/zsh"
@@ -364,8 +359,8 @@ environment= {
 
 };
   environment.sessionVariables = {
-    EDITOR = "vim";
-    VISUAL = "emacs";
+    # EDITOR = "emacseditor";
+    # VISUAL = "emacseditor";
     LESS = "-X";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
@@ -379,15 +374,7 @@ environment= {
 
   programs.zsh = {
     enable = true;
-    interactiveShellInit = ''
-      # urxvt:
-      # bindkey "^[[A" history-beginning-search-backward
-      # bindkey "^[[B" history-beginning-search-forward
-      # termite:
-      bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
-      bindkey "$terminfo[kcud1]" down-line-or-beginning-search
-    '';
-  };
+};
 
   programs.ssh = {
     startAgent = false; #not needed with gpg-agent
@@ -398,7 +385,7 @@ environment= {
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
     enableFontDir = true;
-    enableGhostscriptFonts = true;
+    # enableGhostscriptFonts = true;
     fonts = [
       pkgs.terminus_font
       pkgs.dina-font
