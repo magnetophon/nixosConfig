@@ -237,6 +237,7 @@ environment= {
 #desktop
     #desktop-file-utils
     # firefoxWrapper
+    firefox
   #for vimeo:
       gstreamer
       gst_plugins_base
@@ -349,18 +350,19 @@ environment= {
       ];
 
       # extraInit = ''
-  shellInit = ''
-    if [ -n "$DISPLAY"  ]; then
-      BROWSER=firefox
-    else
-      BROWSER=w3m
-    fi
-  '';
+  # shellInit = ''
+  #   if [ -n "$DISPLAY"  ]; then
+  #     BROWSER=firefox
+  #   else
+  #     BROWSER=w3m
+  #   fi
+  # '';
 
 };
   environment.sessionVariables = {
     # EDITOR = "emacseditor";
     # VISUAL = "emacseditor";
+    BROWSER = "firefox";
     LESS = "-X";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
