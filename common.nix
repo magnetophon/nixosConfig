@@ -127,9 +127,17 @@
       /*SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };*/
       /*#PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });*/
       /*nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};*/
-
+      rofi = lib.overrideDerivation pkgs.rofi (attrs: rec {
+        name = "rofi-unstable";
+        src = pkgs.fetchgit {
+          url = https://github.com/DaveDavenport/rofi.git;
+          deepClone = true;
+          rev = "545be58e40562b71dae98a6e7dfccdfe2a8dbf7d";
+          sha256 = "069lmrlm068jwxxagzyb9li193rr1wlgf2r3fipkrzg5hfvn8i80";
+        };
+      });
     };
-};
+  };
 
 
 
@@ -221,7 +229,8 @@ environment= {
     makeWrapper
   #vim
     vifm
-    ( pkgs.xdg_utils.override { mimiSupport = true; })
+    # ( pkgs.xdg_utils.override { mimiSupport = true; })
+    xdg_utils
     perlPackages.MIMETypes
     gnupg
 #windowmanager etc:
@@ -229,7 +238,8 @@ environment= {
     i3
     i3status
     dmenu
-    parcellite
+    clipster
+    rofi
     conky
     dzen2
     xpra
@@ -258,7 +268,7 @@ environment= {
     xcalib
     sselp
     xclip
-    feh
+    sxiv
     silver-searcher
     ranger
       # for ranger previews:
@@ -369,7 +379,11 @@ environment= {
     GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
+    NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
   };
+
+  # services.xserver.displayManager.sessionCommands = "clipster -d";
+
   # shellAliases = { ll = "ls -l"; };
 
     #alias vim="stty stop ''' -ixoff; vim"
