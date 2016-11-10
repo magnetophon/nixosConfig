@@ -351,6 +351,8 @@ environment= {
 #Set of files that have to be linked in /etc.
   etc =
     { hosts =
+    # https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-social/hosts
+    # replace $0 by 0
       { source = "/home/bart/nixosConfig/hosts";
       };
     };
