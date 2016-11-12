@@ -26,7 +26,16 @@ musnix = {
   rtirq.highList = "snd_hrtimer";
   /*rtirq.nonThreaded = "rtc0 snd";*/
   rtirq.resetAll = 1;
+  rtirq.prioLow = 0;
+  das_watchdog.enable = false;
+  alsaSeq.enable = false;
 };
+
+boot.postBootCommands = ''
+  ${pkgs.pciutils}/bin/setpci -v -s '04:01.0' latency_timer=ff
+  ${pkgs.pciutils}/bin/setpci -v -s '04:02.0' latency_timer=ff
+  ${pkgs.pciutils}/bin/setpci -v -s '04:03.0' latency_timer=40
+'';
 
 # is default on in musnix
 #services.das_watchdog.enable = true;
