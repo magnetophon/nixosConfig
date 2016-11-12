@@ -136,6 +136,7 @@
           sha256 = "069lmrlm068jwxxagzyb9li193rr1wlgf2r3fipkrzg5hfvn8i80";
         };
       });
+
     };
   };
 
@@ -382,6 +383,7 @@ environment= {
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
+    RANGER_LOAD_DEFAULT_RC = "FALSE";
   };
 
   # services.xserver.displayManager.sessionCommands = "clipster -d";
