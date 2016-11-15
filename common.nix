@@ -44,15 +44,17 @@
     cron.enable =false;
     #avahi.enable = true;
     #locate.enable = true;
-    journald.extraConfig = ''
-      [Journal]
-      SystemMaxUse=50M
-      SystemMaxFileSize=10M
-    '';
+    # journald.extraConfig = ''
+    #   [Journal]
+    #   SystemMaxUse=50M
+    #   SystemMaxFileSize=10M
+    # '';
     openssh = {
       enable = true;
       ports = [ 22 ];
       forwardX11 = true;
+      permitRootLogin = "without-password";
+      # permitRootLogin = "yes";
       };
     xserver = {
       enable = true;
