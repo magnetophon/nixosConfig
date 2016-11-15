@@ -12,12 +12,18 @@
 
   networking.hostName = "mixos";
 
-  services.xserver = {
+  services = {
+    xserver = {
     autorun =  false;
     windowManager.default = "i3" ;
     windowManager.i3.enable = true;
   };
+    nix-serve = {
+      enable = true;
+      secretKeyFile = "/etc/nix/nix-serve.sec";
+    };
 
+  };
 
   boot.blacklistedKernelModules = [ "mgag200" ];
 
