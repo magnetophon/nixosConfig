@@ -14,6 +14,8 @@ in
     ./remote_i3.nix
     ];
 
+  nixpkgs.system = "x86_64-linux";
+
   environment.systemPackages = [
     qmidinet
     qjackctl
@@ -36,8 +38,11 @@ in
     # after = [ "network-online.target" ];
   };
 
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+
   services.xserver = {
-   # autorun = false;
+    # autorun = false;
+    # videoDrivers = [ intel ];
     displayManager = {
       sessionCommands = ''
         xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
@@ -59,6 +64,7 @@ in
     initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" ];
     kernelModules = [ ];
     extraModulePackages = [ ];
+    blacklistedKernelModules = [ "snd_hda_intel" ];
   };
 
   fileSystems =
@@ -80,7 +86,11 @@ in
     device = "/dev/disk/by-uuid/${swapUUID}";
   }];
 
-  nix.maxJobs = 2;
+  nix = {
+    maxJobs = 0; # force remote building
+    distributedBuilds = true;
+    buildMachines = [ { hostName = "mixos"; maxJobs = 4; sshKey = "/home/bart/.ssh/id_rsa"; sshUser = "bart"; system = "x86_64-linux"; } ];
+  };
 
   networking = {
     interfaces.enp63s0 = {
