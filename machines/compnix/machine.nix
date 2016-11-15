@@ -1,12 +1,16 @@
 {pkgs, config, ...}: with pkgs;
 
 let
+  boot.initrd.availableKernelModules = [ "ata_generic" "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" "usbhid" "sd_mod" ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
   # blkid
-  rootUUID = "c29cd66c-6348-4024-b7c2-82cb92602007";
-  homeUUID = "cf984a4b-d356-40ee-bdf5-d236cd8d54fc";
-  swapUUID = "2cff3fe8-09d5-464e-b17c-fc6c24d72073";
+  rootUUID = "120bac53-cd75-46b2-835f-7b8014b543cb";
+  bootUUID = "50d3b357-2c01-4e1c-8fd1-0e982f1783fb";
+  homeUUID = "ff1eedc7-0f6c-42a7-9ab5-2a613c49b744";
+  swapUUID = "b29d358d-3d93-4a78-94be-6b0da1638d33";
   # ls /dev/disk/by-id/
-  diskID = "ata-WDC_WD800JD-60LSA5_WD-WMAM9KK45956";
+  diskID = "ata-Hitachi_HDS721616PLA380_PVFC04ZFTHE8YE";
 in
 {
   imports =
@@ -75,6 +79,11 @@ in
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" ];
     };
+    "/boot" =
+    { device = "/dev/disk/by-uuid/${bootUUID}";
+      fsType = "ext4";
+      options = [ "relatime" "errors=remount-ro" ];
+    };
     "/home" =
     { device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext4";
@@ -86,14 +95,24 @@ in
     device = "/dev/disk/by-uuid/${swapUUID}";
   }];
 
-  nix = {
+   nix = {
+    requireSignedBinaryCaches = true;
     maxJobs = 0; # force remote building
     distributedBuilds = true;
-    buildMachines = [ { hostName = "mixos"; maxJobs = 4; sshKey = "/home/bart/.ssh/id_rsa"; sshUser = "bart"; system = "x86_64-linux"; } ];
-  };
+    buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+
+    
+    binaryCaches = [ "2.2.2.2:5000/" "https://cache.nixos.org/" ];
+    #binaryCaches = ["2.2.2.2:5000"];
+    #binaryCaches = [""];
+  #  extraOptions = ''
+  #    binary-caches = 2.2.2.2:5000/ 
+  #  '';
+    binaryCachePublicKeys = [ "mixos:hpj9Ic8KDQp4CH33+KgKRhTeLOi+ixuUEdWtfojfnZY=#" ];
+   };
 
   networking = {
-    interfaces.enp63s0 = {
+    interfaces.enp0s25 = {
       ipAddress = "2.2.2.1";
       prefixLength = 24;
     };
