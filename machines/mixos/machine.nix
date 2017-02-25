@@ -24,6 +24,11 @@ in
     # initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" ];
     # kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
+    postBootCommands = ''
+      ${pkgs.pciutils}/bin/setpci -v -s '04:01.0' latency_timer=ff
+      ${pkgs.pciutils}/bin/setpci -v -s '04:02.0' latency_timer=ff
+      ${pkgs.pciutils}/bin/setpci -v -s '04:03.0' latency_timer=40
+    '';
   };
 
   fileSystems =

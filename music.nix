@@ -17,7 +17,7 @@ imports =
 musnix = {
   enable = true;
   #kernel.packages = pkgs.linuxPackages_4_1_rt;
-  kernel.packages = pkgs.linuxPackages_latest_rt;
+  # kernel.packages = pkgs.linuxPackages_latest_rt;
   #kernel.latencytop = true;
   rtirq.enable = true;
   # machine specific:
@@ -30,12 +30,6 @@ musnix = {
   das_watchdog.enable = false;
   alsaSeq.enable = false;
 };
-
-boot.postBootCommands = ''
-  ${pkgs.pciutils}/bin/setpci -v -s '04:01.0' latency_timer=ff
-  ${pkgs.pciutils}/bin/setpci -v -s '04:02.0' latency_timer=ff
-  ${pkgs.pciutils}/bin/setpci -v -s '04:03.0' latency_timer=40
-'';
 
 # is default on in musnix
 #services.das_watchdog.enable = true;
