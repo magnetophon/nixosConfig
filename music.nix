@@ -77,13 +77,14 @@ environment= {
     flac
     fluidsynth
     fmsynth
+    # fmsynth-unstable-2015-02-07
     # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
     gigedit
     guitarix
     hydrogen
     helm
-    ingen
+    # ingen
     jack_oscrolloscope
     jackmeter
     jalv
@@ -138,7 +139,7 @@ environment= {
     nova-filters
     # ardour3
     # ardour4
-    ardour5
+    ardour
     ir.lv2
     distrho
     sorcer
