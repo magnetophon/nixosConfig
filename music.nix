@@ -102,7 +102,8 @@ environment= {
     magnetophonDSP.pluginUtils
     mda_lv2
     mixxx
-    # mod-distortion https://github.com/moddevices/mod-distortion/issues/5
+     # https://github.com/moddevices/mod-distortion/issues/5
+    mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
     fullPD
@@ -135,7 +136,8 @@ environment= {
     # ardour4
     ardour
     ir.lv2
-    distrho
+    # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
+    # distrho
     sorcer
     sox
     shntool
