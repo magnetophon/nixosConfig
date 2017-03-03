@@ -3,7 +3,7 @@
 
   imports = [
     ./vim.nix
-    ./spacemacs.nix
+    # ./spacemacs.nix
     ];
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
@@ -17,6 +17,7 @@
       version = 2;
       memtest86.enable = true;
     };
+    cleanTmpDir = true;
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
   };
 
@@ -84,7 +85,7 @@
       /*# only available from kernel 3.18*/
       /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
     /*};*/
-    # unclutter.enable = true;
+    unclutter.enable = true;
     emacs = {
       enable = true;
       defaultEditor = true;
@@ -104,40 +105,16 @@
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     packageOverrides = pkgs : rec {
-      /*faust = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/default.nix { }; */
-      /*faust2alqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alqt.nix  { }; */
-      /*faust2alsa = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2alsa.nix  { }; */
-      /*faust2firefox = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2firefox.nix  { }; */
-      /*faust2jack = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jack.nix  { }; */
-      /*faust2jaqt = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2jaqt.nix  { }; */
-      /*faust2lv2 = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust/faust2lv2.nix  { }; */
-      /*#faust-compiler = pkgs.callPackage /home/bart/source/nix-faust/nixpkgs/pkgs/applications/audio/faust-compiler/default.nix { }; */
-        /*sooperlooper = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/sooperlooper/default.nix { }; */
-      /*#rtirq = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/tools/audio/rtirq  { };*/
-      /*#jack2 = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/misc/jackaudio/default.nix { };*/
-      /*#puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix { inherit plugins; };*/
-      /*pd-extended = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/default.nix { };*/
-      /*pd-extended-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-extended/wrapper.nix { inherit plugins; };*/
-      /*#helmholtz = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/helmholtz/default.nix { };*/
-      /*timbreid = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/timbreid/default.nix { };*/
-      /*maxlib = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/maxlib/default.nix { };*/
-      /*puremapping = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/puremapping/default.nix { };*/
-      /*zexy = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/zexy/default.nix { };*/
-      /*cyclone = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/cyclone/default.nix { };*/
-      /*osc = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/osc/default.nix { };*/
-      /*#mrpeach = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/pd-plugins/mrpeach/default.nix { };*/
-      /*SynthSinger = pkgs.callPackage /home/bart/faust/SynthSinger/SynthSinger.nix { };*/
-      /*#PitchTracker = (pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid mrpeach ]; });*/
-      /*nl_wa2014 = pkgs.callPackage /home/bart/nixpkgs/pkgs/applications/taxes/nl_wa2014 {};*/
-      rofi = lib.overrideDerivation pkgs.rofi (attrs: rec {
-        name = "rofi-unstable";
-        src = pkgs.fetchgit {
-          url = https://github.com/DaveDavenport/rofi.git;
-          deepClone = true;
-          rev = "545be58e40562b71dae98a6e7dfccdfe2a8dbf7d";
-          sha256 = "069lmrlm068jwxxagzyb9li193rr1wlgf2r3fipkrzg5hfvn8i80";
-        };
-      });
+
+      # rofi = lib.overrideDerivation pkgs.rofi (attrs: rec {
+      #   name = "rofi-unstable";
+      #   src = pkgs.fetchgit {
+      #     url = https://github.com/DaveDavenport/rofi.git;
+      #     deepClone = true;
+      #     rev = "545be58e40562b71dae98a6e7dfccdfe2a8dbf7d";
+      #     sha256 = "069lmrlm068jwxxagzyb9li193rr1wlgf2r3fipkrzg5hfvn8i80";
+      #   };
+      # });
 
     };
   };
@@ -192,34 +169,34 @@ environment= {
     lsof
     psmisc
     gitFull
+    gitAndTools.hub # GitHub extension to git
     mercurial
     subversion
     curl
     inetutils
-    haskellPackages.ghc
-    ruby
+    # haskellPackages.ghc
     ruby
     # icedtea_web
     /*vim_configurable*/
     /*vimHugeX*/
     #my_vim
-    ctagsWrapped.ctagsWrapped
     emacs
+    # ctagsWrapped.ctagsWrapped
     which
     gnuplot
     nix-repl
     nixpkgs-lint
     nix-prefetch-scripts
     nox
-    xlaunch
+    # xlaunch
     xlibs.xkill
     xlibs.xinit
     ltrace
     # obnam # backup
     # borgbackup
     storeBackup
-    syncthing
-    python27Packages.syncthing-gtk
+    # syncthing
+    # python27Packages.syncthing-gtk
     # khard
     # khal
     # vdirsyncer
@@ -231,7 +208,6 @@ environment= {
     unetbootin
     makeWrapper
   #vim
-    vifm
     # ( pkgs.xdg_utils.override { mimiSupport = true; })
     xdg_utils
     perlPackages.MIMETypes
@@ -245,8 +221,8 @@ environment= {
     rofi
     conky
     dzen2
-    xpra
-    winswitch
+    # xpra
+    # winswitch
 #desktop
     #desktop-file-utils
     # firefoxWrapper
@@ -259,7 +235,7 @@ environment= {
       gst_plugins_ugly
     torbrowser
     i2pd
-    qutebrowser
+    # qutebrowser
     #chromium
     #chromiumBeta
     /*w3m*/
@@ -279,6 +255,7 @@ environment= {
       highlight
       file
       libcaca
+      odt2txt
       perlPackages.ImageExifTool
       ffmpegthumbnailer
       poppler_utils
@@ -303,8 +280,8 @@ environment= {
     gimp
     inkscape
     # (pkgs.blender.override { jackaudioSupport = true; })
-    # blender
-    kde4.kdenlive
+    blender
+    kdenlive
     ffmpeg-full
     simplescreenrecorder
     scrot
@@ -316,7 +293,8 @@ environment= {
     recoll
     zathura
     # xbmc
-    (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    # (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    pidgin
     # weechat
     # irssi
     # gajim
@@ -363,7 +341,8 @@ environment= {
     };
 
   shells = [
-      "/run/current-system/sw/bin/zsh"
+      # "/run/current-system/sw/bin/zsh"
+        pkgs.zsh
       ];
 
       # extraInit = ''
