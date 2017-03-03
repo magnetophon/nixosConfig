@@ -16,24 +16,13 @@ imports =
 
 musnix = {
   enable = true;
-  #kernel.packages = pkgs.linuxPackages_4_1_rt;
-  # kernel.packages = pkgs.linuxPackages_latest_rt;
-  #kernel.latencytop = true;
   rtirq.enable = true;
-  # machine specific:
-  /*soundcardPciId = "00:1b.0";*/
-  /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
   rtirq.highList = "snd_hrtimer";
-  /*rtirq.nonThreaded = "rtc0 snd";*/
   rtirq.resetAll = 1;
   rtirq.prioLow = 0;
   das_watchdog.enable = false;
   alsaSeq.enable = false;
 };
-
-# is default on in musnix
-#services.das_watchdog.enable = true;
-
 
 nixpkgs.config.packageOverrides = pkgs : rec {
    guitarix = pkgs.guitarix.override { optimizationSupport = true; };
@@ -46,7 +35,9 @@ nixpkgs.config.packageOverrides = pkgs : rec {
    qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
      configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
    });
-
+   jack2Full = libjack2Unstable;
+   libjack2 = libjack2Unstable;
+   # faust = faust2unstable;
 };
 
 environment= {
@@ -55,6 +46,8 @@ environment= {
     audacity
     a2jmidid
     ams-lv2
+    # airwave # VST bridge
+    aeolus
     #beast
     bitmeter
     bristol
@@ -62,6 +55,7 @@ environment= {
     calf
     drumkv1
     drumgizmo
+    dfasma
     cuetools
     eq10q
     jack2Full
@@ -71,7 +65,6 @@ environment= {
     flac
     fluidsynth
     fmsynth
-    # fmsynth-unstable-2015-02-07
     # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
     gigedit
@@ -102,7 +95,6 @@ environment= {
     magnetophonDSP.pluginUtils
     mda_lv2
     mixxx
-     # https://github.com/moddevices/mod-distortion/issues/5
     mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
@@ -131,6 +123,7 @@ environment= {
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
     sooperlooper
+    squishyball
     nova-filters
     # ardour3
     # ardour4
@@ -146,6 +139,7 @@ environment= {
     fomp
     ladspa-sdk
     QmidiNet
+    rkrlv2
 #custom packages
     #zam-plugins-git
     zam-plugins
