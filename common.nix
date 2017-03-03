@@ -331,13 +331,15 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    # libreoffice
-    kde4.k3b
+    libreoffice
+    k3b
 # iDevice stuff:
-    usbmuxd
-    libimobiledevice
-    ifuse
-    sqlite
+# /pkgs/development/libraries/libplist/default.nix
+# has knownVulnerabilities
+    # usbmuxd
+    # libimobiledevice
+    # ifuse
+    # sqlite
 # see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
 # https://gist.github.com/laacz/1180765
 #custom packages
