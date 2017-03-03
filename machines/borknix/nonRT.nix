@@ -16,6 +16,9 @@
 boot.kernelModules = [ "snd-aloop" ];
 #sound.enableMediaKeys = true;
 
+# save battery when not RT:
+services.tlp.enable = true;
+
   musnix = {
     enable = false;
     kernel.optimize = false;

@@ -62,21 +62,42 @@ in
     #device = "/dev/disk/by-label/swap";
   }];
 
-  nix.maxJobs = 2;
+   nix = {
+    requireSignedBinaryCaches = true;
+    maxJobs = 2; # force remote building
+    distributedBuilds = true;
+    buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
 
+
+    binaryCaches = [ "2.2.2.2:5000/" "https://cache.nixos.org/" ];
+    #binaryCaches = ["2.2.2.2:5000"];
+    #binaryCaches = [""];
+  #  extraOptions = ''
+  #    binary-caches = 2.2.2.2:5000/
+  #  '';
+    binaryCachePublicKeys = [ "mixos:hpj9Ic8KDQp4CH33+KgKRhTeLOi+ixuUEdWtfojfnZY=#" ];
+   };
   networking = {
     interfaces.enp1s7 = {
-      useDHCP = false;
+      # useDHCP = false;
       #ip4 = [ { address = "2.2.2.1"; prefixLength = 24; } ];
     };
     #networkmanager.enable = true;
     connman.enable = true;
     # fix connman static IP:
-    localCommands = "${inetutils}/bin/ifconfig enp1s7 2.2.2.1 netmask 255.255.255.0 up";
+    # localCommands = "${inetutils}/bin/ifconfig enp1s7 2.2.2.1 netmask 255.255.255.0 up";
     #nameservers =  [ "192.168.0.1" ];
     #defaultGateway = "192.168.0.1";
     wireless.enable = true;
     };
+    services = {
+      # tlp.enable= true;
+      xserver.displayManager.sessionCommands =
+        ''
+          ${pkgs.dzen2}/bin/dzen2 -dock -y 915 -h 125 -bg grey &
+        '';
+    };
+    # powerManagement.cpuFreqGovernor = "powersave";
     # renamed:
     # services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
     hardware.opengl.extraPackages = [ pkgs.vaapiIntel  ];

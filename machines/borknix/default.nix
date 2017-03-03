@@ -18,8 +18,8 @@ boot.kernelModules = [ "snd-aloop" ];
 
   musnix = {
     enable = true;
-    kernel.optimize = true;
-    kernel.realtime = true;
+    # kernel.optimize = true;
+    # kernel.realtime = true;
     /*kernel.packages = pkgs.linuxPackages_4_1_rt;*/
     /*kernel.latencytop = true;*/
     #soundcardPciId = "00:1d.7";
