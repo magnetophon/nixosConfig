@@ -5,12 +5,11 @@ let
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   # blkid
-  rootUUID = "120bac53-cd75-46b2-835f-7b8014b543cb";
-  bootUUID = "50d3b357-2c01-4e1c-8fd1-0e982f1783fb";
-  homeUUID = "ff1eedc7-0f6c-42a7-9ab5-2a613c49b744";
-  swapUUID = "b29d358d-3d93-4a78-94be-6b0da1638d33";
+  rootUUID = "a33cd97a-1452-4581-9036-c85f9f925f32";
+  homeUUID = "d60e8a3d-0333-4f06-929c-735ad0329b2c";
+  swapUUID = "58ab248a-59c2-4f25-aa56-de17021bbc1d";
   # ls /dev/disk/by-id/
-  diskID = "ata-Hitachi_HDS721616PLA380_PVFC04ZFTHE8YE";
+  diskID = "ata-ST3250318AS_9VY4EJQV";
 in
 {
   imports =
@@ -33,7 +32,7 @@ in
     # environment = { DISPLAY = ":${toString config.services.xserver.display}"; };
     serviceConfig = {
       # Type = "simple";
-      ExecStart = "${pkgs.qmidinet}/bin/qmidinet -i enp3s0";
+      ExecStart = "${pkgs.qmidinet}/bin/qmidinet -i enp0s18f2u4";
       KillSignal = "SIGUSR2";
       Restart = "always";
     };
@@ -79,11 +78,11 @@ in
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" ];
     };
-    "/boot" =
-    { device = "/dev/disk/by-uuid/${bootUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
-    };
+    #"/boot" =
+    #{ device = "/dev/disk/by-uuid/${bootUUID}";
+    #  fsType = "ext4";
+    #  options = [ "relatime" "errors=remount-ro" ];
+    #};
     "/home" =
     { device = "/dev/disk/by-uuid/${homeUUID}";
       fsType = "ext4";
@@ -100,19 +99,12 @@ in
     maxJobs = 0; # force remote building
     distributedBuilds = true;
     buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
-
-    
-    binaryCaches = [ "2.2.2.2:5000/" "https://cache.nixos.org/" ];
-    #binaryCaches = ["2.2.2.2:5000"];
-    #binaryCaches = [""];
-  #  extraOptions = ''
-  #    binary-caches = 2.2.2.2:5000/ 
-  #  '';
-    binaryCachePublicKeys = [ "mixos:hpj9Ic8KDQp4CH33+KgKRhTeLOi+ixuUEdWtfojfnZY=#" ];
+    binaryCaches = [ "http://2.2.2.2:5000/" "https://cache.nixos.org" ];
+    binaryCachePublicKeys = [ "mixos:4IOWERw6Xcjocz9vQU5+qK7blTaeOB8QpDjLs0xcUFo="];
    };
 
   networking = {
-    interfaces.enp0s25 = {
+    interfaces.enp63s0 = {
       ipAddress = "2.2.2.1";
       prefixLength = 24;
     };

@@ -29,8 +29,8 @@
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
       env-keep-derivations = false
-      binary-caches = https://nixos.org/binary-cache
-      trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
+      # binary-caches = https://nixos.org/binary-cache
+      # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
       auto-optimise-store = false
     ";
   };
