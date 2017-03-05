@@ -19,10 +19,20 @@ in
 
   nixpkgs.system = "x86_64-linux";
 
+  nixpkgs.config.packageOverrides = pkgs : rec {
+    qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
+      configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
+    });
+    jack2Full = libjack2Unstable;
+    libjack2 = libjack2Unstable;
+    # faust = faust2unstable;
+  };
+
   environment.systemPackages = [
     qmidinet
     qjackctl
     jack2Full
+    a2jmidid
   ];
 
   systemd.services.qmidinet = {
@@ -57,6 +67,8 @@ in
     windowManager.i3.enable = true;
     windowManager.default = "remote_i3" ;
   };
+
+  services.compton.enable = true;
 
   boot =
   { # dependant on amount of ram:
