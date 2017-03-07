@@ -22,8 +22,13 @@
       enable = true;
       secretKeyFile = "/etc/nix/nix-serve.sec";
     };
-
+    # name the soundcards
+    udev.extraRules = ''
+      DEVPATH=="/devices/pci0000:00/0000:00:1e.0/0000:04:01.0/sound/card?", ATTR{id}="RME_0"
+      DEVPATH=="/devices/pci0000:00/0000:00:1e.0/0000:04:02.0/sound/card?", ATTR{id}="RME_1"
+    '';
   };
+
 
   boot.blacklistedKernelModules = [ "mgag200" ];
 
