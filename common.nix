@@ -170,6 +170,7 @@ environment= {
     psmisc
     gitFull
     gitAndTools.hub # GitHub extension to git
+    gitAndTools.gitAnnex
     mercurial
     subversion
     curl
@@ -244,6 +245,7 @@ environment= {
     (pkgs.vlc.override { jackSupport = true;})
     galculator
     xrandr-invert-colors
+    arandr
     xcalib
     sselp
     xclip
