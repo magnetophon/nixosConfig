@@ -86,6 +86,7 @@
       /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
     /*};*/
     unclutter.enable = true;
+    # unclutter.threeshold = 10;
     emacs = {
       enable = true;
       defaultEditor = true;
@@ -100,24 +101,13 @@
     };
   };
 
-  nixpkgs.config = {
-    # allowUnfree = true;
-    #firefox.enableAdobeFlash = true;
-    # firefox.enableMplayer = true;
-    packageOverrides = pkgs : rec {
-
-      # rofi = lib.overrideDerivation pkgs.rofi (attrs: rec {
-      #   name = "rofi-unstable";
-      #   src = pkgs.fetchgit {
-      #     url = https://github.com/DaveDavenport/rofi.git;
-      #     deepClone = true;
-      #     rev = "545be58e40562b71dae98a6e7dfccdfe2a8dbf7d";
-      #     sha256 = "069lmrlm068jwxxagzyb9li193rr1wlgf2r3fipkrzg5hfvn8i80";
+  # nixpkgs.config = {
+  #   # allowUnfree = true;
+  #   #firefox.enableAdobeFlash = true;
+  #   # firefox.enableMplayer = true;
+  #   packageOverrides = pkgs : rec {
+  #   };
       #   };
-      # });
-
-    };
-  };
 
 
 
@@ -126,6 +116,7 @@
 environment= {
     systemPackages = [
 
+    geany
 #system:
     unzip
     zip
@@ -166,6 +157,7 @@ environment= {
     usbutils
     pciutils
     latencytop
+    linuxPackages.cpupower
     lsof
     psmisc
     gitFull
@@ -242,6 +234,7 @@ environment= {
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
+    # vlc
     (pkgs.vlc.override { jackSupport = true;})
     galculator
     xrandr-invert-colors
@@ -267,6 +260,7 @@ environment= {
     #mutt-with-sidebar
     # mutt-kz
     neomutt
+    isync
     # taskwarrior
     paperkey
     gpa
@@ -294,7 +288,7 @@ environment= {
     baobab
     recoll
     zathura
-    # xbmc
+    # kodi
     # (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     pidgin
     # weechat
