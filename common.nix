@@ -413,7 +413,7 @@ environment= {
         uid = 1000;
         createHome = false;
         home = "/home/bart";
-        extraGroups = [ "wheel" "audio" "video" "usbmux" ];
+        extraGroups = [ "wheel" "audio" "video" "usbmux" "networkmanager" ];
       shell = "${pkgs.zsh}/bin/zsh";
       };
     mutableUsers = true;

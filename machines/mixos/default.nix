@@ -37,6 +37,7 @@
 #sound.enableMediaKeys = true;
 
   musnix = {
+    enable = true;
     alsaSeq.enable = false;
     kernel.optimize = true;
     kernel.realtime = true;

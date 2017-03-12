@@ -15,7 +15,7 @@ imports =
   ];
 
 musnix = {
-  enable = true;
+  # enable = true;
   rtirq.enable = true;
   rtirq.highList = "snd_hrtimer";
   rtirq.resetAll = 1;
