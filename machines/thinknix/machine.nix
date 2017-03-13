@@ -1,9 +1,6 @@
 {pkgs, config, ...}: with pkgs;
 
 let
-  # boot.initrd.availableKernelModules = [ "ata_generic" "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" "usbhid" "sd_mod" ];
-  # boot.kernelModules = [ "kvm-intel" ];
-  # boot.extraModulePackages = [ ];
   # ls /dev/disk/by-id/
   diskID = "ata-INTEL_SSDSA2BW160G3L_BTPR152201YW160DGN";
 in
@@ -126,7 +123,7 @@ in
       '';
     };
     thinkfan.enable = true;
-    thinkfan.sensor = "/sys/devices/virtual/hwmon/hwmon0/temp1_input";
+    thinkfan.sensor = "/sys/class/thermal/thermal_zone1/temp";
   };
 
   # environment.systemPackages = [ tpacpi-bat ];
