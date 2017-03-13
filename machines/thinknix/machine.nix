@@ -128,6 +128,10 @@ in
     # thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
     # default from i3status?
     thinkfan.sensor = "/sys/class/thermal/thermal_zone1/temp";
+      # Suspend the system when battery level drops to 2% or lower
+    udev.extraRules = ''
+      SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-2]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
+    '';
   };
 
   # environment.systemPackages = [ tpacpi-bat ];

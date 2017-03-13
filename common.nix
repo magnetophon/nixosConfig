@@ -115,6 +115,8 @@
 environment= {
     systemPackages = [
 
+    # for battery shutdown event:
+    acpid
     geany
 #system:
     unzip
