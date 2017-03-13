@@ -120,6 +120,7 @@ in
         DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
         START_CHARGE_THRESH_BAT0=35
         STOP_CHARGE_THRESH_BAT0=85
+        DISK_IOSCHED="deadline"
       '';
     };
     thinkfan.enable = true;
