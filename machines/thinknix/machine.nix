@@ -12,8 +12,12 @@ in
 
   nixpkgs.system = "x86_64-linux";
 
-  # hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-
+  hardware = {
+    opengl.extraPackages = [ pkgs.vaapiIntel ];
+    trackpoint.enable = true;
+    trackpoint.sensitivity = 200;
+    trackpoint.speed = 200;
+  };
 
   boot =
   { # dependant on amount of ram:
