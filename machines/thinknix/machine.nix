@@ -40,7 +40,7 @@ in
     {
       device = "/dev/mapper/thinkVG-nixos";
       fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
+      options = [ "relatime" "errors=remount-ro" "discard" ];
     };
     #"/boot" =
     #{ device = "/dev/disk/by-uuid/${bootUUID}";
@@ -50,7 +50,7 @@ in
     "/home" =
     { device = "/dev/mapper/thinkVG-home";
       fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
+      options = [ "relatime" "errors=remount-ro" "discard" ];
     };
   };
 
@@ -123,6 +123,9 @@ in
       '';
     };
     thinkfan.enable = true;
+    # run strace tlp-stat -t
+    # thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
+    # default from i3status?
     thinkfan.sensor = "/sys/class/thermal/thermal_zone1/temp";
   };
 
