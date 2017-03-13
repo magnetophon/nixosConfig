@@ -126,7 +126,7 @@ in
       '';
     };
     thinkfan.enable = true;
-    thinkfan.sensor = "/sys/devices/virtual/hwmon/hwmon1/temp1_input";
+    thinkfan.sensor = "/sys/devices/virtual/hwmon/hwmon0/temp1_input";
   };
 
   # environment.systemPackages = [ tpacpi-bat ];
