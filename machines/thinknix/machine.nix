@@ -25,16 +25,16 @@ in
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
     #copy from /etc/nixos/hardware-configuration.nix
-    # initrd.availableKernelModules = [  "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage"  ];
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
     kernelModules = [ "acpi_call" "tp_smapi" ];
-    # kernelModules = [ "tp_smapi" ];
-    # extraModulePackages = [ ];
-    # extraModulePackages = [ config.boot.kernelPackages.tp_smapi ];
     extraModulePackages = [ config.boot.kernelPackages.acpi_call config.boot.kernelPackages.tp_smapi ];
+    # Disable beep.
+    blacklistedKernelModules = [ "pcspkr" ];
+    kernelParams = [ "quiet" ];
     # blacklistedKernelModules = [ "snd_hda_intel" ];
   };
+# Disable beep.
 
  # powerManagement.cpuFreqGovernor = "powersave";
 
