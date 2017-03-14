@@ -39,6 +39,9 @@
   # system.copySystemConfiguration = true;
 
   services = {
+
+    # SMART.
+    smartd.enable = true;
     nixosManual.showManual = false;
     # printing.enable = true;
     # acpid.enable = true;
