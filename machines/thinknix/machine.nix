@@ -19,6 +19,16 @@ in
     trackpoint.speed = 200;
   };
 
+  sound.extraConfig = ''
+    pcm.!default {
+    type rate
+    slave {
+      pcm "hw:0"
+      rate 44100
+      }
+    }
+  '';
+
   boot =
   { # dependant on amount of ram:
     tmpOnTmpfs = true;
