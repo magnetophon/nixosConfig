@@ -34,6 +34,7 @@ in
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
+    kernelPackages = pkgs.linuxPackages_4_4;
     #copy from /etc/nixos/hardware-configuration.nix
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
@@ -93,7 +94,7 @@ in
 
   services = {
     xserver = {
-      # videoDrivers = [ intel ];
+      videoDrivers = [ "intel" ];
       # windowManager.remote_i3.enable = true;
       windowManager.i3.enable = true;
       windowManager.default = "i3" ;
