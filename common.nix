@@ -418,6 +418,7 @@ environment= {
   };
 
   security.sudo.extraConfig = ''
-    bart  ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/iotop
+    bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
+    bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
   '';
 }
