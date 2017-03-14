@@ -263,6 +263,7 @@ environment= {
       mediainfo
     #mutt-with-sidebar
     # mutt-kz
+    alot
     neomutt
     isync
     # taskwarrior
