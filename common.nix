@@ -95,7 +95,6 @@
       };
     physlock = {
       enable = true;
-      user = "bart";
       lockOn = {
         suspend = true;
         hibernate = true;
