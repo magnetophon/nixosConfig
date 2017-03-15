@@ -139,6 +139,10 @@ in
         RUNTIME_PM_ON_BAT=auto
         USB_AUTOSUSPEND=1
         USB_BLACKLIST_WWAN=0
+        # not implemented yet in current release:
+        USB_BLACKLIST_PHONE=1
+        # workaround:
+        USB_BLACKLIST="05ac:12a0"
         DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
         # Radio devices to disable on connect.
         DEVICES_TO_DISABLE_ON_LAN_CONNECT="wifi wwan"
