@@ -37,6 +37,7 @@ in
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
+    # workaround for kernel bug https://bbs.archlinux.org/viewtopic.php?id=218581&p=3
     kernelPackages = pkgs.linuxPackages_4_4;
     #copy from /etc/nixos/hardware-configuration.nix
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
@@ -102,6 +103,8 @@ in
       windowManager.i3.enable = true;
       windowManager.default = "i3" ;
     };
+    ntp.enable = false;
+    chrony.enable = true;
     compton = {
       enable = true;
       # time compton --config /dev/null --backend glx --benchmark 100
