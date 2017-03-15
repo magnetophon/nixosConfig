@@ -14,9 +14,12 @@ in
 
   hardware = {
     opengl.extraPackages = [ pkgs.vaapiIntel ];
-    trackpoint.enable = true;
-    trackpoint.sensitivity = 200;
-    trackpoint.speed = 200;
+    trackpoint = {
+      enable = true;
+      sensitivity = 100;
+      speed = 200;
+      emulateWheel = true;
+    };
   };
 
   sound.extraConfig = ''
