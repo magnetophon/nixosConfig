@@ -89,6 +89,7 @@
       /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
     /*};*/
     unclutter-xfixes.enable = true;
+    unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
     emacs = {
       enable = true;
       defaultEditor = true;
