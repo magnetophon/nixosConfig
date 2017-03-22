@@ -8,8 +8,10 @@ horizEdgeScroll = true;
 minSpeed= "0.6";
 maxSpeed = "1.75";
 palmDetect = true;
-# additionalOptions = ''
-
+# disable paste with 2 fingers:
+additionalOptions = ''
+	Option "TapButton2" "3"
+'';
 #     Driver "synaptics"
 #     MatchIsTouchpad "on"
 # 	Option "LeftEdge" "1781"
