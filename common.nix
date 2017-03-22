@@ -64,15 +64,6 @@
       enable = true;
       enableCtrlAltBackspace = true;
       displayManager.lightdm.enable = true;
-      # displayManager.kdm = {
-      #   enable = true;
-      #   enableXDMCP = true;
-      #   extraConfig =
-      #   ''
-      #     [Xdmcp]
-      #     Xaccess=${pkgs.writeText "Xaccess" "*"}
-      #   '';
-      # };
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
@@ -101,6 +92,11 @@
         hibernate = true;
       };
     };
+    mpd = {
+      enable = true;
+      musicDirectory = "/home/bart/Music";
+      user = "bart";
+    };
   };
 
   # nixpkgs.config = {
@@ -121,6 +117,7 @@ environment= {
     # for battery shutdown event:
     acpid
     geany
+    mpd
 #system:
     unzip
     zip
