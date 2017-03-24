@@ -41,7 +41,12 @@
   services = {
 
     # SMART.
-    smartd.enable = true;
+    smartd = {
+      enable = true;
+      devices = [ { device = "/dev/sda"; } ];
+      notifications.test = true;
+      notifications.x11.enable = true;
+    };
     nixosManual.showManual = false;
     # printing.enable = true;
     # acpid.enable = true;
