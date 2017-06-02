@@ -32872,6 +32872,7 @@ fe80::1%lo0 localhost
 0.0.0.0 fbexternal-a.akamaihd.net
 0.0.0.0 fbstatic-a.akamaihd.net
 0.0.0.0 fr-fr.facebook.com
+0.0.0.0 fr-ca.facebook.com
 0.0.0.0 graph.facebook.com
 0.0.0.0 hi-in.facebook.com
 0.0.0.0 inyour-slb-01-05-ash3.facebook.com
