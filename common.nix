@@ -54,7 +54,7 @@
       notifications.x11.enable = true;
     };
     nixosManual.showManual = false;
-    # printing.enable = true;
+    printing.enable = true;
     # acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
