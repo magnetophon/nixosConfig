@@ -21,8 +21,8 @@ services.tlp.enable = true;
 
   musnix = {
     enable = false;
-    kernel.optimize = false;
-    kernel.realtime = false;
+    kernel.optimize = true;
+    kernel.realtime = true;
     /*kernel.packages = pkgs.linuxPackages_4_1_rt;*/
     /*kernel.latencytop = true;*/
     #soundcardPciId = "00:1d.7";
