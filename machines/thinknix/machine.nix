@@ -38,7 +38,7 @@ in
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
     # workaround for kernel bug https://bbs.archlinux.org/viewtopic.php?id=218581&p=3
-    kernelPackages = pkgs.linuxPackages_4_4;
+    # kernelPackages = pkgs.linuxPackages_4_4;
     #copy from /etc/nixos/hardware-configuration.nix
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
@@ -49,7 +49,6 @@ in
     kernelParams = [ "quiet" ];
     # blacklistedKernelModules = [ "snd_hda_intel" ];
   };
-# Disable beep.
 
  # powerManagement.cpuFreqGovernor = "powersave";
 
