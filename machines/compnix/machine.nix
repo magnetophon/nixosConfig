@@ -70,7 +70,9 @@ in
     };
     compton = {
       enable = true;
-      backend = "xrender";
+      # time compton --config /dev/null --backend glx --benchmark 100
+      # time compton --config /dev/null --backend xrender --benchmark 100
+      backend = "glx";
     };
   };
 

@@ -108,7 +108,8 @@ in
       enable = true;
       # time compton --config /dev/null --backend glx --benchmark 100
       # time compton --config /dev/null --backend xrender --benchmark 100
-      backend = "xrender";
+      # the above gives xrender as the quickest option, but it tears, whereas glx does not
+      backend = "glx";
     };
     psd = {
       enable = true;
