@@ -102,14 +102,18 @@ in
       windowManager.i3.enable = true;
       windowManager.default = "i3" ;
     };
+
     ntp.enable = false;
     chrony.enable = true;
+
     compton = {
       enable = true;
       # time compton --config /dev/null --backend glx --benchmark 100
       # time compton --config /dev/null --backend xrender --benchmark 100
       # the above gives xrender as the quickest option, but it tears, whereas glx does not
       backend = "glx";
+      vSync = "opengl-oml";
+      extraOptions = "paint-on-overlay = true";
     };
     psd = {
       enable = true;
