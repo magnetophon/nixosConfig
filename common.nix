@@ -248,6 +248,7 @@ environment= {
     youtubeDL
     # vlc
     (pkgs.vlc.override { jackSupport = true;})
+    mpv
     galculator
     xrandr-invert-colors
     arandr
