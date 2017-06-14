@@ -38,7 +38,7 @@
   virtualisation.virtualbox =
     {
       host.enable = true;
-      guest.enable = true;
+      # guest.enable = true;
     };
 
   # Copy the system configuration int to nix-store.
