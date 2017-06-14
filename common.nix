@@ -108,6 +108,10 @@
       musicDirectory = "/home/bart/Music";
       user = "bart";
     };
+    logind.extraConfig =
+    ''
+      HandleSuspendKey=hibernate
+    '';
   };
 
   # nixpkgs.config = {
