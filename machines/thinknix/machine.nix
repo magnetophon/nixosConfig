@@ -101,6 +101,12 @@ in
       # windowManager.remote_i3.enable = true;
       windowManager.i3.enable = true;
       windowManager.default = "i3" ;
+      displayManager = {
+        sessionCommands = ''
+          xinput set-button-map 10 1 0 3
+        '';
+      };
+
     };
 
     ntp.enable = false;
