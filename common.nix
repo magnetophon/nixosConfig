@@ -35,11 +35,11 @@
     ";
   };
 
-  virtualisation.virtualbox =
-    {
-      host.enable = true;
-      # guest.enable = true;
-    };
+  # virtualisation.virtualbox =
+  #   {
+  #     host.enable = true;
+  #     # guest.enable = true;
+  #   };
 
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
