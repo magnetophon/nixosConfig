@@ -21,6 +21,7 @@ musnix = {
   rtirq.resetAll = 1;
   rtirq.prioLow = 0;
   das_watchdog.enable = false;
+  kernel.packages = pkgs.linuxPackages_latest_rt;
   alsaSeq.enable = false;
 };
 

@@ -40,7 +40,6 @@
     enable = true;
     kernel.optimize = true;
     kernel.realtime = true;
-    kernel.packages = pkgs.linuxPackages_latest_rt;
     # soundcardPciId = "04:01";
 
     rtirq.nameList = "rtc0 snd";
