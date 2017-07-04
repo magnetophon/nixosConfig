@@ -489,7 +489,6 @@ source ~/.vimrc
             "Tabular"
             "undotree"
             "vim-addon-nix"
-            "vimwiki"
             "youcompleteme"
             ]; }
             #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
