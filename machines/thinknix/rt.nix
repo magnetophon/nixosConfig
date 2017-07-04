@@ -10,7 +10,7 @@
      ../../music.nix
     ];
 
-  networking.hostName = "thinknix";
+  networking.hostName = "thinknix-rt";
 
  services.tlp.enable = false;
 

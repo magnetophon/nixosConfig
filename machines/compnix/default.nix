@@ -13,20 +13,10 @@
   networking.hostName = "compnix";
 
   musnix = {
+    enable = true;
     kernel.optimize = true;
     kernel.realtime = true;
-    # kernel.packages = pkgs.linuxPackages_4_1_rt;
     kernel.packages = pkgs.linuxPackages_latest_rt;
-    /*kernel.latencytop = true;*/
-    # soundcardPciId = "04:01";
-
-    # rtirq.nameList = "rtc0 snd_rme9652";
     rtirq.nameList = "rtc0 usb";
-    # rtirq.nameList = "rtc0 snd";
-
-    # rtirq.nonThreaded = "rtc0 snd_rme9652";
-    /*rtirq.nameList = "rtc0 usb";*/
-    /*rtirq.nameList = "rtc0 hpet usb";*/
-    /*rtirq.nameList = "rtc0 hpet snd snd_hda_intel";*/
   };
 }
