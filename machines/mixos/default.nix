@@ -38,7 +38,6 @@
 
   musnix = {
     enable = true;
-    alsaSeq.enable = false;
     kernel.optimize = true;
     kernel.realtime = true;
     # kernel.packages = pkgs.linuxPackages_4_1_rt;

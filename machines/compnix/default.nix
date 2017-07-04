@@ -8,13 +8,11 @@
       ../../common.nix
       # music tweaks and progs:
       ../../music.nix
-      #/home/bart/source/musnix/default.nix
     ];
 
   networking.hostName = "compnix";
 
   musnix = {
-    alsaSeq.enable = false;
     kernel.optimize = true;
     kernel.realtime = true;
     # kernel.packages = pkgs.linuxPackages_4_1_rt;

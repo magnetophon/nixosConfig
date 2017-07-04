@@ -129,7 +129,7 @@ in
       # useOverlayFS = true; # set to true to enable overlayfs or set to false to use the default sync mode
     };
     tlp = {
-      enable = true;
+      # enable = true;
       extraConfig = ''
         CPU_SCALING_GOVERNOR_ON_AC=performance
         CPU_SCALING_GOVERNOR_ON_BAT=powersave
