@@ -57,14 +57,20 @@ in
     xserver = {
       # autorun = false;
       # videoDrivers = [ intel ];
-      displayManager = {
-        sessionCommands = ''
-          xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
-          xrandr --addmode VGA1 1920x1080_60.00
-          xrandr --output VGA1 --mode 1920x1080_60.00
-        '';
-      };
+      # displayManager = {
+      #   sessionCommands = ''
+      #     xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
+      #     xrandr --addmode VGA1 1920x1080_60.00
+      #     xrandr --output VGA1 --mode 1920x1080_60.00
+      #   '';
+      # };
       windowManager.remote_i3.enable = true;
+      windowManager.remote_i3.extraSessionCommands = ''
+          xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
+        xrandr --addmode VGA-0 1920x1080_60.00
+        xrandr --output VGA-0 --mode 1920x1080_60.00
+        '';
+
       windowManager.i3.enable = true;
       windowManager.default = "remote_i3" ;
     };
