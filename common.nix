@@ -389,16 +389,16 @@ environment= {
 
     #alias vim="stty stop ''' -ixoff; vim"
 
-  programs.zsh = {
-    enable = true;
-};
+  programs = {
+    zsh.enable = true;
+    command-not-found.enable = true;
 
-  programs.ssh = {
-    startAgent = false; #not needed with gpg-agent
-    forwardX11 = true;
-    askPassword = "";
+    ssh = {
+      startAgent = false; #not needed with gpg-agent
+      forwardX11 = true;
+      askPassword = "";
+    };
   };
-
       #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
     enableFontDir = true;
