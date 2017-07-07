@@ -320,6 +320,7 @@ environment= {
 
     #toxprpl
     gtypist
+    aspell
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
