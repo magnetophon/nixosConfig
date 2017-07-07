@@ -23,8 +23,8 @@ in
     qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
       configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
     });
-    jack2Full = libjack2Unstable;
-    libjack2 = libjack2Unstable;
+    # jack2Full = libjack2Unstable;
+    # libjack2 = libjack2Unstable;
     # faust = faust2unstable;
   };
 
