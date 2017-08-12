@@ -251,8 +251,8 @@ environment= {
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
-    # vlc
-    (pkgs.vlc.override { jackSupport = true;})
+    vlc
+    # (pkgs.vlc.override { jackSupport = true;})
     (mpv.override { vaapiSupport = true; jackaudioSupport = true; rubberbandSupport = true; })
     galculator
     xrandr-invert-colors
