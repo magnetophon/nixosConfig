@@ -114,13 +114,14 @@
     '';
   };
 
-  # nixpkgs.config = {
-  #   # allowUnfree = true;
-  #   #firefox.enableAdobeFlash = true;
-  #   # firefox.enableMplayer = true;
+  nixpkgs.config = {
+    # allowUnfree = true;
+    #firefox.enableAdobeFlash = true;
+    # firefox.enableMplayer = true;
   #   packageOverrides = pkgs : rec {
   #   };
-  # };
+    # pulseaudio = false;
+  };
 
 
 
@@ -390,14 +391,17 @@ environment= {
 
     #alias vim="stty stop ''' -ixoff; vim"
 
-  programs.zsh = {
-    enable = true;
-};
+  programs = {
 
-  programs.ssh = {
+    zsh.enable = true;
+
+    ssh = {
     startAgent = false; #not needed with gpg-agent
     forwardX11 = true;
     askPassword = "";
+  };
+
+    command-not-found.enable = true;
   };
 
       #export LESS=-X so that less doesn't clear the screen after quit
