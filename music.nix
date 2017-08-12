@@ -95,7 +95,7 @@ environment= {
     magnetophonDSP.shelfMultiBand
     magnetophonDSP.pluginUtils
     mda_lv2
-    mixxx
+    # mixxx
     mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
