@@ -118,8 +118,8 @@
     # allowUnfree = true;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
-  #   packageOverrides = pkgs : rec {
-  #   };
+    # packageOverrides = pkgs : rec {
+    # };
     # pulseaudio = false;
   };
 
@@ -229,6 +229,7 @@ environment= {
     dmenu
     clipster
     rofi
+    networkmanager_dmenu
     conky
     dzen2
     # xpra
@@ -396,10 +397,10 @@ environment= {
     zsh.enable = true;
 
     ssh = {
-    startAgent = false; #not needed with gpg-agent
-    forwardX11 = true;
-    askPassword = "";
-  };
+      startAgent = false; #not needed with gpg-agent
+      forwardX11 = true;
+      askPassword = "";
+    };
 
     command-not-found.enable = true;
   };
