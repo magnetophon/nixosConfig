@@ -330,10 +330,10 @@ environment= {
 # iDevice stuff:
 # /pkgs/development/libraries/libplist/default.nix
 # has knownVulnerabilities
-    # usbmuxd
-    # libimobiledevice
-    # ifuse
-    # sqlite
+    usbmuxd
+    libimobiledevice
+    ifuse
+    sqlite
 # see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
 # https://gist.github.com/laacz/1180765
 #custom packages
