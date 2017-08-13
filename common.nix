@@ -395,6 +395,7 @@ environment= {
   programs = {
 
     zsh.enable = true;
+    command-not-found.enable = true;
 
     ssh = {
       startAgent = false; #not needed with gpg-agent
@@ -402,7 +403,6 @@ environment= {
       askPassword = "";
     };
 
-    command-not-found.enable = true;
   };
 
       #export LESS=-X so that less doesn't clear the screen after quit
