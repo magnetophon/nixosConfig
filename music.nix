@@ -30,8 +30,8 @@ nixpkgs.config.packageOverrides = pkgs : rec {
    #puredata-with-plugins = pkgs.callPackage /home/bart/source/nixpkgs/pkgs/applications/audio/puredata/wrapper.nix {  plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
    #pd-with-plugins = pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; };
    # todo: puremapping has xhanges hash
-   plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
-   /*plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ];*/
+   plugins = [ helmholtz timbreid maxlib zexy puremapping cyclone mrpeach ];
+   # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
    fullPD = puredata-with-plugins plugins;
    qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
      configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
@@ -95,7 +95,7 @@ environment= {
     magnetophonDSP.shelfMultiBand
     magnetophonDSP.pluginUtils
     mda_lv2
-    # mixxx
+    mixxx
     mod-distortion
     petrifoo
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
