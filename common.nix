@@ -103,11 +103,11 @@
         hibernate = true;
       };
     };
-    mpd = {
-      enable = true;
-      musicDirectory = "/home/bart/Music";
-      user = "bart";
-    };
+    # mpd = {
+    #   enable = true;
+    #   musicDirectory = "/home/bart/Music";
+    #   user = "bart";
+    # };
     logind.extraConfig =
     ''
       HandleSuspendKey=hibernate
@@ -285,7 +285,7 @@ environment= {
     paperkey
     gpa
     urlview
-    offlineimap
+    # offlineimap replaced by isync
     notmuch
     # remind    #calendar
     # wyrd      # front end for remind
@@ -301,7 +301,7 @@ environment= {
     ffmpeg-full
     simplescreenrecorder
     scrot
-    handbrake
+    # handbrake
     evopedia
     meld
     freemind
@@ -326,7 +326,7 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    libreoffice
+    libreoffice-fresh
     k3b
 # iDevice stuff:
 # /pkgs/development/libraries/libplist/default.nix
