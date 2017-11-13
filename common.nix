@@ -192,6 +192,7 @@ environment= {
     /*vimHugeX*/
     #my_vim
     emacs
+    mu
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
@@ -238,7 +239,7 @@ environment= {
 #desktop
     #desktop-file-utils
     # firefoxWrapper
-    firefox
+    firefox-esr
   #for vimeo:
       gstreamer
       gst_plugins_base
@@ -247,8 +248,8 @@ environment= {
       gst_plugins_ugly
     torbrowser
     i2pd
-    # qutebrowser
-    #chromium
+    qutebrowser
+    chromium
     #chromiumBeta
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
@@ -256,6 +257,7 @@ environment= {
     vlc
     # (pkgs.vlc.override { jackSupport = true;})
     (mpv.override { vaapiSupport = true; jackaudioSupport = true; rubberbandSupport = true; })
+    shotwell
     galculator
     xrandr-invert-colors
     arandr
