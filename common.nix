@@ -17,6 +17,7 @@
       version = 2;
       memtest86.enable = true;
     };
+    kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
   };
