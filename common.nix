@@ -82,7 +82,6 @@
       xkbOptions = "caps:swapescape";
     /*bitlbee.enable*/
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
-    # autofs.enable = true;
 
     };
     /*psd = {*/
@@ -94,6 +93,11 @@
     /*};*/
     unclutter-xfixes.enable = true;
     unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
+    # autofs =
+    # {
+      # enable = true;
+      # autoMaster =
+    # };
     emacs = {
       enable = true;
       defaultEditor = true;
