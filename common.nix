@@ -463,5 +463,6 @@ environment= {
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
     bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
+    bart  ALL=(ALL) NOPASSWD: /home/bart/.local/bin/brightness.sh
   '';
 }
