@@ -16,8 +16,8 @@ in
     opengl.extraPackages = [ pkgs.vaapiIntel ];
     trackpoint = {
       enable = true;
-      sensitivity = 100;
-      speed = 200;
+      sensitivity = 200;
+      speed = 100;
       emulateWheel = true;
     };
   };
