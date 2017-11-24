@@ -402,8 +402,18 @@ environment= {
     #alias vim="stty stop ''' -ixoff; vim"
 
   programs = {
+  # zsh has an annoying default config which I don't want
+  # so to make it work well I have to turn it off first.
+    zsh = {
+      enable = true;
+      shellInit = "";
+      shellAliases = {};
+      promptInit = "";
+      loginShellInit = "";
+      interactiveShellInit = "";
+      enableCompletion = false;
+    };
 
-    zsh.enable = true;
     command-not-found.enable = true;
 
     ssh = {
