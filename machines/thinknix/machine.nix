@@ -44,10 +44,27 @@ in
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
     kernelModules = [ "acpi_call" "tp_smapi" ];
     extraModulePackages = [ config.boot.kernelPackages.acpi_call config.boot.kernelPackages.tp_smapi ];
-    # Disable beep.
-    blacklistedKernelModules = [ "pcspkr" ];
-    kernelParams = [ "quiet" ];
-    # blacklistedKernelModules = [ "snd_hda_intel" ];
+    kernelParams = [
+      # Kernel GPU Savings Options (NOTE i915 chipset only)
+      "i915.enable_rc6=7"
+      "enable_dc=2"
+      "fastboot=true"
+      "i915.enable_fbc=1"
+      # "i915.lvds_downclock=1"
+      "i915.semaphores=1"
+      "enable_dpcd_backlight=true"
+      # handle screen brightness manually, so we can go lower:
+      "video.brightness_switch_enabled=0"
+      "quiet"
+    ];
+    blacklistedKernelModules = [
+      # Kernel GPU Savings Options (NOTE i915 chipset only)
+      "sierra_net" "cdc_mbim" "cdc_ncm" "btusb"
+      # disable beep
+      "snd_pcsp" "pcspkr"
+      #disable webcam
+      "uvcvideo"
+    ];
   };
 
  # powerManagement.cpuFreqGovernor = "powersave";
