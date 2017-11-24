@@ -123,6 +123,7 @@ environment= {
     leiningen
     ( pkgs.fmit.override { jackSupport = true; })
     jaaa
+    japa
     sooperlooper
     squishyball
     nova-filters
@@ -131,7 +132,7 @@ environment= {
     ardour
     ir.lv2
     # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
-    # distrho
+    distrho
     sorcer
     sox
     shntool
