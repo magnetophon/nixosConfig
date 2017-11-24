@@ -19,7 +19,8 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
-    blacklistedKernelModules = [ "snd_pcsp" "pcspkr" ];
+    # no beep, no webcam
+    blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
   };
 
   nix = {
