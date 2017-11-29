@@ -101,6 +101,7 @@
     emacs = {
       enable = true;
       defaultEditor = true;
+      package = (emacs.override { imagemagick = pkgs.imagemagickBig; } );
       };
     physlock = {
       enable = true;
@@ -127,10 +128,11 @@
     # packageOverrides = pkgs : rec {
     # };
     # pulseaudio = false;
+
+
+    packageOverrides = pkgs: {
+    };
   };
-
-
-
 
 
 environment= {
@@ -196,8 +198,10 @@ environment= {
     /*vim_configurable*/
     /*vimHugeX*/
     #my_vim
-    emacs
+    # emacs
+    # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
     mu
+    # imagemagick
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
