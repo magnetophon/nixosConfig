@@ -202,6 +202,7 @@ environment= {
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
     mu
     # imagemagick
+    dunst
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
