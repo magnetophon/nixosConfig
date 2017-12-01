@@ -325,7 +325,7 @@ environment= {
     simplescreenrecorder
     scrot
     # handbrake
-    evopedia
+    kiwix
     meld
     freemind
     baobab
