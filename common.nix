@@ -284,7 +284,7 @@ environment= {
     xcalib
     sselp
     xclip
-    sxiv
+    pqiv
     silver-searcher
     ranger
       # for ranger previews:
