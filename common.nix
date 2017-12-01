@@ -119,6 +119,14 @@
     ''
       HandleSuspendKey=hibernate
     '';
+    # By default, udisks2 mounts removable drives under the ACL controlled directory /run/media/$USER/. If you wish to mount to /media instead, use this rule:
+    udev.extraRules = ''
+        # UDISKS_FILESYSTEM_SHARED
+        # ==1: mount filesystem to a shared directory (/media/VolumeName)
+        # ==0: mount filesystem to a private directory (/run/media/$USER/VolumeName)
+        # See udisks(8)
+        ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
+    '';
   };
 
   nixpkgs.config = {
@@ -178,6 +186,7 @@ environment= {
     iftop
     hdparm
     testdisk
+    udiskie
     glxinfo
     usbutils
     pciutils
@@ -405,6 +414,19 @@ environment= {
   # shellAliases = { ll = "ls -l"; };
 
     #alias vim="stty stop ''' -ixoff; vim"
+  systemd.user.services.udiskie = {
+        unitConfig = {
+          Description = "udiskie mount daemon";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        serviceConfig = {
+          ExecStart = "${pkgs.pythonPackages.udiskie}/bin/udiskie -2 -s";
+        };
+
+        wantedBy = [ "graphical-session.target" ];
+  };
 
   programs = {
   # zsh has an annoying default config which I don't want
