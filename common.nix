@@ -55,6 +55,7 @@
       notifications.test = true;
       notifications.x11.enable = true;
     };
+    fstrim.enable = true;
     nixosManual.showManual = false;
     printing.enable = true;
     # acpid.enable = true;
