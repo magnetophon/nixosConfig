@@ -286,6 +286,9 @@ environment= {
     xclip
     pqiv
     silver-searcher
+    ripgrep
+    fd  # rust fast find alternative
+    exa # rust ls alternative
     ranger
       # for ranger previews:
       atool
