@@ -213,6 +213,7 @@ environment= {
     mu
     # imagemagick
     dunst
+    libnotify
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
