@@ -413,6 +413,19 @@ environment= {
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
     RANGER_LOAD_DEFAULT_RC = "FALSE";
+    FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git";
+    FZF_DEFAULT_OPTS=''\
+    --exact
+    --reverse \
+    --cycle \
+    --multi \
+    --select-1 \
+    --exit-0 \
+    --bind=alt-z:toggle-preview \
+    --bind=ctrl-a:select-all \
+    --preview='~/.local/bin/preview.sh {}'
+    '';
+
     # set locales for everything but LANG
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
     # LC_CTYPE="nl_NL.UTF-8";
