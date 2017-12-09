@@ -221,7 +221,6 @@ environment= {
     nixpkgs-lint
     nix-prefetch-scripts
     nox
-    # xlaunch
     xlibs.xkill
     xlibs.xinit
     ltrace
