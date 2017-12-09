@@ -52,7 +52,7 @@ in
       "i915.enable_fbc=1"
       # "i915.lvds_downclock=1"
       "i915.semaphores=1"
-      "enable_dpcd_backlight=true"
+      # "enable_dpcd_backlight=true"
       # handle screen brightness manually, so we can go lower:
       "video.brightness_switch_enabled=0"
       "quiet"
