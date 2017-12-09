@@ -85,13 +85,6 @@
     /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
     };
-    /*psd = {*/
-      /*enable = true;*/
-      /*users = [ "bart" ];      # At least one is required*/
-      /*browsers = [ "firefox" ];    # Leave blank to enable all*/
-      /*# only available from kernel 3.18*/
-      /*#useOverlayFS = false; # set to true to enable overlayfs or set to false to use the default sync mode*/
-    /*};*/
     unclutter-xfixes.enable = true;
     unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
     # autofs =
