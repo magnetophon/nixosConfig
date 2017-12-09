@@ -464,7 +464,7 @@ environment= {
     command-not-found.enable = true;
 
     ssh = {
-      startAgent = false; #not needed with gpg-agent
+      startAgent = true;
       forwardX11 = true;
       askPassword = "";
     };
