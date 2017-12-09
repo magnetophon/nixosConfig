@@ -143,6 +143,7 @@ environment= {
     ladspa-sdk
     QmidiNet
     rkrlv2
+    # i-score
 #custom packages
     #zam-plugins-git
     zam-plugins

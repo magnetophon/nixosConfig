@@ -300,7 +300,7 @@ environment= {
       odt2txt
       perlPackages.ImageExifTool
       ffmpegthumbnailer
-      poppler_utils
+      poppler_utils # for pdftotext
       transmission
       lynx
       mediainfo
