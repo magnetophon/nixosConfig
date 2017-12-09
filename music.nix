@@ -72,7 +72,7 @@ environment= {
     guitarix
     hydrogen
     helm
-    # ingen
+    ingen
     jack_oscrolloscope
     jackmeter
     jalv
