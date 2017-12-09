@@ -400,10 +400,10 @@ environment= {
 
 };
   environment.sessionVariables = {
-    # EDITOR = "emacseditor";
-    # VISUAL = "emacseditor";
     BROWSER = "firefox";
     PAGER = "less";
+    LESS = "-isMR";
+    NIX_PAGER = "cat";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
     GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
@@ -439,8 +439,6 @@ environment= {
     LC_MEASUREMENT="nl_NL.UTF-8";
     LC_IDENTIFICATION="nl_NL.UTF-8";
   };
-
-  environment.extraInit = "unset LESS";
 
   # services.xserver.displayManager.sessionCommands = "clipster -d";
 
