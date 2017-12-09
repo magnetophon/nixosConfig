@@ -151,7 +151,7 @@ environment= {
     # for battery shutdown event:
     acpid
     geany
-    mpd
+    # mpd
 #system:
     unzip
     zip
