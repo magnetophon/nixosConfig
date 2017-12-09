@@ -18,7 +18,6 @@
       memtest86.enable = true;
     };
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_4_14;
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];

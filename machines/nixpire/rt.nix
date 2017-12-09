@@ -15,6 +15,7 @@
 
   musnix = {
     enable = true;
+    kernel.packages = pkgs.linuxPackages_latest_rt;
     kernel.optimize = true;
     kernel.realtime = true;
     soundcardPciId = "00:1b.0";

@@ -12,9 +12,11 @@
 
   networking.hostName = "thinknix";
 
-services.tlp.enable = true;
+  services.tlp.enable = true;
 
- musnix = {
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  musnix = {
    # enable = true;
    # kernel.optimize = true;
    # kernel.realtime = true;

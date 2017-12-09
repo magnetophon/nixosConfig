@@ -12,14 +12,15 @@
 
   networking.hostName = "thinknix-rt";
 
- services.tlp.enable = false;
+  services.tlp.enable = false;
 
- musnix = {
-   enable = true;
-   kernel.optimize = true;
-   kernel.realtime = true;
-   rtirq.nameList = "rtc0 usb";
- };
+  musnix = {
+    enable = true;
+    kernel.packages = pkgs.linuxPackages_latest_rt;
+    kernel.optimize = true;
+    kernel.realtime = true;
+    rtirq.nameList = "rtc0 usb";
+  };
 }
 
 # nixos-rebuild test -p rt -I nixos-config=/home/bart/nixosConfig/machines/thinknix/rt.nix -I nixpkgs=$NIXPKGS
