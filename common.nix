@@ -167,7 +167,6 @@ environment= {
     tmux
     sshfsFuse
     acpi
-    #rxvt_unicode_with-plugins
     rxvt_unicode
     termite
     # e19.terminology
