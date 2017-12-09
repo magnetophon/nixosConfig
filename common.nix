@@ -45,6 +45,7 @@
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
 
+
   services = {
 
     # SMART.
