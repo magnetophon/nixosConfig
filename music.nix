@@ -55,6 +55,7 @@ environment= {
     caps
     calf
     drumkv1
+    padthv1
     drumgizmo
     dfasma
     cuetools
