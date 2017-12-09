@@ -259,7 +259,6 @@ environment= {
     # winswitch
 #desktop
     #desktop-file-utils
-    # firefoxWrapper
     firefox-esr
   #for vimeo:
       gstreamer
