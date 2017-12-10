@@ -410,6 +410,9 @@ environment= {
     --select-1 \
     --exit-0 \
     --bind=alt-z:toggle-preview \
+    --bind=alt-w:toggle-preview-wrap \
+    --bind=alt-s:toggle-sort \
+    --bind=alt-a:toggle-all \
     --bind=ctrl-a:select-all \
     --preview='~/.local/bin/preview.sh {}'
     '';
