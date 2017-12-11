@@ -170,6 +170,11 @@ environment= {
     openssl
     physlock
     # i3lock
+    asciinema
+    bench
+    neofetch
+    rtv
+    tree
     htop
     iotop
     powertop
@@ -190,6 +195,7 @@ environment= {
     gitFull
     gitAndTools.hub # GitHub extension to git
     gitAndTools.gitAnnex
+    gitAndTools.diff-so-fancy
     mercurial
     subversion
     curl
@@ -212,6 +218,7 @@ environment= {
     nix-repl
     nixpkgs-lint
     nix-prefetch-scripts
+    nix-index
     nox
     xlibs.xkill
     xlibs.xinit
