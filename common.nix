@@ -416,6 +416,8 @@ environment= {
     --multi \
     --select-1 \
     --exit-0 \
+    --no-height \
+    --ansi \
     --bind=alt-z:toggle-preview \
     --bind=alt-w:toggle-preview-wrap \
     --bind=alt-s:toggle-sort \
@@ -423,6 +425,8 @@ environment= {
     --bind=ctrl-a:select-all \
     --preview='~/.local/bin/preview.sh {}'
     '';
+    _FZF_ZSH_PREVIEW_STRING="--preview 'echo {} | sed '\''s/ *[0-9]* *//'\'' | highlight --syntax=zsh --out-format=ansi'";
+    FZF_CTRL_R_OPTS="$_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
 
     # set locales for everything but LANG
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
