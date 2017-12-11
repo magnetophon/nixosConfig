@@ -104,11 +104,6 @@
         hibernate = true;
       };
     };
-    # mpd = {
-    #   enable = true;
-    #   musicDirectory = "/home/bart/Music";
-    #   user = "bart";
-    # };
     logind.extraConfig =
     ''
       HandleSuspendKey=hibernate
@@ -143,7 +138,6 @@ environment= {
     # for battery shutdown event:
     acpid
     geany
-    # mpd
 #system:
     unzip
     zip
