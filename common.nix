@@ -9,7 +9,7 @@
 
   hardware.cpu.intel.updateMicrocode = true;
   # for skype
-  #hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.enable = true;
 
   boot = {
     loader.grub = {
@@ -459,7 +459,35 @@ environment= {
         wantedBy = [ "graphical-session.target" ];
   };
 
-  programs = {
+   systemd.user.services.clipster = {
+        unitConfig = {
+          Description = "clipster clipboard manager daemon";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        serviceConfig = {
+          ExecStart = "${pkgs.clipster}/bin/clipster -d";
+        };
+
+        wantedBy = [ "graphical-session.target" ];
+  };
+
+   systemd.user.services.dunst = {
+        unitConfig = {
+          Description = "dunst notification daemon";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        serviceConfig = {
+          ExecStart = "${pkgs.dunst}/bin/dunst";
+        };
+
+        wantedBy = [ "graphical-session.target" ];
+  };
+
+programs = {
   # zsh has an annoying default config which I don't want
   # so to make it work well I have to turn it off first.
     zsh = {
