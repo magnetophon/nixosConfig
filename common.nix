@@ -116,6 +116,7 @@
         # See udisks(8)
         ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
+    dbus.socketActivated = true;
   };
 
   nixpkgs.config = {
@@ -400,7 +401,7 @@ environment= {
     GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
-    NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
+    # NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git";
     FZF_DEFAULT_OPTS=''\
