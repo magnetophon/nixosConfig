@@ -13,7 +13,7 @@ in
   nixpkgs.system = "x86_64-linux";
 
   hardware = {
-    opengl.extraPackages = [ pkgs.vaapiIntel ];
+    opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
     trackpoint = {
       enable = true;
       sensitivity = 200;
