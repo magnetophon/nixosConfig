@@ -418,6 +418,7 @@ environment= {
     --bind=alt-s:toggle-sort \
     --bind=alt-a:toggle-all \
     --bind=ctrl-a:select-all \
+    --bind 'alt-y:execute:realpath {} | xclip' \
     --preview='~/.local/bin/preview.sh {}'
     '';
     _FZF_ZSH_PREVIEW_STRING="echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
