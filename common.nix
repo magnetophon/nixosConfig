@@ -497,7 +497,24 @@ programs = {
       shellAliases = {};
       promptInit = "";
       loginShellInit = "";
-      interactiveShellInit = "";
+      interactiveShellInit = ''
+        alias  up='nixos-rebuild test --upgrade '
+        function upn {
+          cd $NIXPKGS &&
+          if [[ $(git status --porcelain ) == "" ]];
+          then
+            echo "checking out commit " $(nixos-version | cut -d" " -f1 | tail -c 12) " under branch name " $(nixos-version | cut -d" " -f1)
+            git fetch upstream && git checkout $(nixos-version | cut -d" " -f1 | tail -c 12) -b $(nixos-version | cut -d" " -f1)
+          else
+            git status
+          fi
+          }
+        alias gcn='cd $NIXPKGS && git checkout $(nixos-version | cut -d" " -f1)'
+        alias  te='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild test'
+        alias ten='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
+        alias  sw='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
+        alias swn='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
+      '';
       enableCompletion = false;
     };
 
