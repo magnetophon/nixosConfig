@@ -45,10 +45,10 @@ in
     kernelModules = [ "acpi_call" "tp_smapi" ];
     extraModulePackages = [ config.boot.kernelPackages.acpi_call config.boot.kernelPackages.tp_smapi ];
     kernelParams = [
+      "fastboot=true"
       # Kernel GPU Savings Options (NOTE i915 chipset only)
       "i915.enable_rc6=7"
       "enable_dc=2"
-      "fastboot=true"
       "i915.enable_fbc=1"
       # "i915.lvds_downclock=1"
       "i915.semaphores=1"
@@ -154,14 +154,25 @@ in
         CPU_SCALING_GOVERNOR_ON_BAT=powersave
         CPU_BOOST_ON_AC=1
         CPU_BOOST_ON_BAT=0
+        CPU_MIN_PERF_ON_BAT=0
+        CPU_MAX_PERF_ON_BAT=0
         SCHED_POWERSAVE_ON_AC=0
         SCHED_POWERSAVE_ON_BAT=1
+        NMI_WATCHDOG=0
+        DISK_DEVICES="$diskID"
+        DISK_IOSCHED="deadline"
         ENERGY_PERF_POLICY_ON_AC=performance
         ENERGY_PERF_POLICY_ON_BAT=powersave
         PCIE_ASPM_ON_AC=performance
         PCIE_ASPM_ON_BAT=powersave
+        SATA_LINKPWR_ON_AC=max_performance
+        SATA_LINKPWR_ON_BAT=min_power
         WIFI_PWR_ON_AC=off
         WIFI_PWR_ON_BAT=on
+        WOL_DISABLE=Y
+        SOUND_POWER_SAVE_ON_AC=0
+        SOUND_POWER_SAVE_ON_BAT=1
+        SOUND_POWER_SAVE_CONTROLLER=Y
         BAY_POWEROFF_ON_BAT=1
         BAY_DEVICE=sr0
         RUNTIME_PM_ON_AC=on
