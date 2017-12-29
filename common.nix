@@ -160,7 +160,9 @@ environment= {
     termite
     # e19.terminology
     zsh
+    nix-zsh-completions
     fish
+    haskellPackages.ShellCheck
     fasd
     fzf
     openssl
