@@ -444,7 +444,6 @@ environment= {
     LC_IDENTIFICATION="nl_NL.UTF-8";
   };
 
-  # services.xserver.displayManager.sessionCommands = "clipster -d";
 
   # shellAliases = { ll = "ls -l"; };
 
@@ -469,11 +468,9 @@ environment= {
           After = [ "graphical-session-pre.target" ];
           PartOf = [ "graphical-session.target" ];
         };
-
         serviceConfig = {
           ExecStart = "${pkgs.clipster}/bin/clipster -d";
         };
-
         wantedBy = [ "graphical-session.target" ];
   };
 
@@ -483,11 +480,9 @@ environment= {
           After = [ "graphical-session-pre.target" ];
           PartOf = [ "graphical-session.target" ];
         };
-
         serviceConfig = {
           ExecStart = "${pkgs.dunst}/bin/dunst";
         };
-
         wantedBy = [ "graphical-session.target" ];
   };
 
