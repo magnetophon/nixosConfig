@@ -486,6 +486,34 @@ environment= {
         wantedBy = [ "graphical-session.target" ];
   };
 
+
+   systemd.user.services.backlightSave = {
+        unitConfig = {
+          Description = "save the backlight on sleep or shutdown";
+          Before = [ "poweroff.target" "halt.target" "reboot.target" "suspend-pre.target" "hibernate-pre.target" ];
+          PartOf = [ "poweroff.target" "halt.target" "reboot.target" "suspend-pre.target" "hibernate-pre.target" ];
+        };
+        serviceConfig = {
+          ExecStart = "${pkgs.light}/bin/light -O";
+          ExecStopPost= "${pkgs.light}/bin/light -I";
+        };
+        wantedBy = [ "poweroff.target" "halt.target" "reboot.target" "suspend-pre.target" "hibernate-pre.target" ];
+  };
+
+
+   systemd.user.services.backlightRestore = {
+        unitConfig = {
+          Description = "restore the backlight on startup or wakeup";
+          After = [ "sysinit.target"  ];
+          PartOf = [ "sysinit.target" ];
+        };
+        serviceConfig = {
+          ExecStart = "${pkgs.light}/bin/light -I";
+        };
+        wantedBy = [ "sysinit.target" ];
+  };
+
+
 programs = {
   # zsh has an annoying default config which I don't want
   # so to make it work well I have to turn it off first.
@@ -523,6 +551,8 @@ programs = {
       forwardX11 = true;
       askPassword = "";
     };
+
+    light.enable = true;
 
   };
 
@@ -565,6 +595,5 @@ programs = {
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
     bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
-    bart  ALL=(ALL) NOPASSWD: /home/bart/.local/bin/brightness.sh
   '';
 }
