@@ -43,16 +43,23 @@ in
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
     kernelModules = [ "acpi_call" "tp_smapi" ];
+    extraModprobeConfig = ''
+      options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
+    '';
     extraModulePackages = [ config.boot.kernelPackages.acpi_call config.boot.kernelPackages.tp_smapi ];
     kernelParams = [
       "fastboot=true"
-      # Kernel GPU Savings Options (NOTE i915 chipset only)
-      "i915.enable_rc6=7"
-      "enable_dc=2"
-      "i915.enable_fbc=1"
-      # "i915.lvds_downclock=1"
-      "i915.semaphores=1"
-      # "enable_dpcd_backlight=true"
+      # # Kernel GPU Savings Options (NOTE i915 chipset only)
+      # "i915.enable_rc6=7"
+      # "enable_dc=2"
+      # "i915.enable_fbc=1"
+      # # "i915.lvds_downclock=1"
+      # "i915.semaphores=1"
+      # # "enable_dpcd_backlight=true"
+      # "i915.enable_rc6=1" "i915.enable_fbc=1"
+			"i915.lvds_use_ssc=0"
+      "drm.debug=0" "drm.vblankoffdelay=1"
+      "nmi_watchdog=0"
       # handle screen brightness manually, so we can go lower:
       "video.brightness_switch_enabled=0"
       "quiet"
@@ -182,7 +189,7 @@ in
         # not implemented yet in current release:
         USB_BLACKLIST_PHONE=1
         # workaround:
-        USB_BLACKLIST="05ac:12a0"
+        # USB_BLACKLIST="05ac:12a0"
         DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
         # Radio devices to disable on connect.
         DEVICES_TO_DISABLE_ON_LAN_CONNECT="wifi wwan"
@@ -194,7 +201,6 @@ in
         DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT=""
         START_CHARGE_THRESH_BAT0=35
         STOP_CHARGE_THRESH_BAT0=85
-        DISK_IOSCHED="deadline"
       '';
     };
     thinkfan.enable = true;
@@ -205,9 +211,14 @@ in
       # Suspend the system when battery level drops to 5% or lower
     udev.extraRules = ''
       SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
+      SUBSYSTEM=="power_supply", ACTION=="change", \
+      OPTIONS+="last_rule", \
+      RUN+=" ${pkgs.light}/bin/light -I"
+
     '';
   };
-
+  # something like this should enable lower backlight, making ~/.local/bin/brightness.sh and the light save and restore unneeded
+      # ENV{ID_BACKLIGHT_CLAMP}="0"
   # environment.systemPackages = [ tpacpi-bat ];
 
 }
