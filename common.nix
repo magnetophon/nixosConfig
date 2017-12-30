@@ -77,7 +77,20 @@
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
-      displayManager.lightdm.enable = true;
+      displayManager.slim = {
+        enable = true;
+        defaultUser = "bart";
+        autoLogin = true;
+        extraConfig = ''
+          sessionstart_cmd    ${pkgs.physlock}/bin/physlock -ds
+        '';
+      };
+      # ^^ workaround for issue 33168
+      # displayManager.lightdm = {
+        # enable = true;
+        # autoLogin.enable = true;
+        # autoLogin.user = "bart";
+        # };
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
@@ -102,6 +115,9 @@
       lockOn = {
         suspend = true;
         hibernate = true;
+        # systemd[1]: Starting Physlock...
+        # physlock-start[774]: physlock: Unable to detect user of tty1
+        # extraTargets = ["display-manager.service"];
       };
     };
     logind.extraConfig =
@@ -109,6 +125,7 @@
       HandleSuspendKey=hibernate
       HandlePowerKey=hybrid-sleep
     '';
+
     # By default, udisks2 mounts removable drives under the ACL controlled directory /run/media/$USER/. If you wish to mount to /media instead, use this rule:
     udev.extraRules = ''
         # UDISKS_FILESYSTEM_SHARED
