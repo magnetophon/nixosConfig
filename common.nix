@@ -123,8 +123,9 @@
     logind.extraConfig =
     ''
       HandleSuspendKey=hibernate
-      HandlePowerKey=hybrid-sleep
     '';
+    # doesn't do anything
+      # HandlePowerKey=hibernate
 
     # By default, udisks2 mounts removable drives under the ACL controlled directory /run/media/$USER/. If you wish to mount to /media instead, use this rule:
     udev.extraRules = ''
