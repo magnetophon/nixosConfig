@@ -16,11 +16,9 @@ imports =
 
 musnix = {
   # enable = true;
-  rtirq.enable = true;
   rtirq.highList = "snd_hrtimer";
   rtirq.resetAll = 1;
   rtirq.prioLow = 0;
-  das_watchdog.enable = true;
   alsaSeq.enable = false;
 };
 

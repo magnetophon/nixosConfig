@@ -43,7 +43,9 @@
     kernel.realtime = true;
     # soundcardPciId = "04:01";
 
+    rtirq.enable = true;
     rtirq.nameList = "rtc0 snd";
+    das_watchdog.enable = true;
     # rtirq.nonThreaded = "rtc0 snd_rme9652";
   };
 }

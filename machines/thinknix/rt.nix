@@ -20,6 +20,8 @@
     kernel.optimize = true;
     kernel.realtime = true;
     rtirq.nameList = "rtc0 usb";
+    rtirq.enable = true;
+    das_watchdog.enable = true;
   };
 }
 
