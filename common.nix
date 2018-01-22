@@ -555,8 +555,8 @@ programs = {
           cd $NIXPKGS &&
           if [[ $(git status --porcelain ) == "" ]];
           then
-            echo "checking out commit " $(nixos-version | cut -d" " -f1 | tail -c 12) " under branch name " $(nixos-version | cut -d" " -f1)
-            git fetch upstream && git checkout $(nixos-version | cut -d" " -f1 | tail -c 12) -b $(nixos-version | cut -d" " -f1)
+            echo "checking out commit " $(nixos-version --hash) " under branch name " $(nixos-version | cut -d" " -f1)
+            git fetch upstream && git checkout $(nixos-version --hash) -b $(nixos-version | cut -d" " -f1)
           else
             git status
           fi
