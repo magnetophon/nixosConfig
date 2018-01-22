@@ -342,7 +342,7 @@ environment= {
     ffmpeg-full
     simplescreenrecorder
     scrot
-    # handbrake
+    handbrake
     kiwix
     meld
     freemind
