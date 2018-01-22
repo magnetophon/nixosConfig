@@ -478,6 +478,7 @@ environment= {
 
         serviceConfig = {
           ExecStart = "${pkgs.pythonPackages.udiskie}/bin/udiskie -2 -s";
+          Restart="always";
         };
 
         wantedBy = [ "graphical-session.target" ];
@@ -491,6 +492,7 @@ environment= {
         };
         serviceConfig = {
           ExecStart = "${pkgs.clipster}/bin/clipster -d";
+          Restart="always";
         };
         wantedBy = [ "graphical-session.target" ];
   };
@@ -503,6 +505,7 @@ environment= {
         };
         serviceConfig = {
           ExecStart = "${pkgs.dunst}/bin/dunst";
+          Restart="always";
         };
         wantedBy = [ "graphical-session.target" ];
   };
