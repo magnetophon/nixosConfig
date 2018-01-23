@@ -582,14 +582,15 @@ programs = {
 
   };
 
-      #export LESS=-X so that less doesn't clear the screen after quit
   fonts = {
-    enableFontDir = true;
-    # enableGhostscriptFonts = true;
     fonts = [
       pkgs.terminus_font
       pkgs.dina-font
+      pkgs.font-awesome-ttf
     ];
+    fontconfig.ultimate = {
+      enable = true;
+    };
   };
 
   i18n = {
