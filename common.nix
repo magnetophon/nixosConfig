@@ -398,10 +398,6 @@ environment= {
       };
     };
 
-  shells = [
-      # "/run/current-system/sw/bin/zsh"
-        pkgs.zsh
-      ];
 
       # extraInit = ''
   # shellInit = ''
@@ -606,7 +602,7 @@ programs = {
     time.timeZone = "Europe/Amsterdam";
 
     users = {
-      defaultUserShell = "${pkgs.zsh}/bin/zsh";
+      defaultUserShell = pkgs.zsh;
       extraUsers.bart = {
         name = "bart";
         group = "users";
@@ -614,7 +610,6 @@ programs = {
         createHome = false;
         home = "/home/bart";
         extraGroups = [ "wheel" "audio" "video" "usbmux" "networkmanager" ];
-      shell = "${pkgs.zsh}/bin/zsh";
       };
     mutableUsers = true;
   };
