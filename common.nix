@@ -162,6 +162,7 @@ environment= {
     unzip
     zip
     p7zip
+    dtrx
     gnumake
     cmake
     gcc
