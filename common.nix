@@ -390,6 +390,10 @@ environment= {
 
   /*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 
+  shells = [
+      # "/run/current-system/sw/bin/zsh"
+        pkgs.zsh
+      ];
 #Set of files that have to be linked in /etc.
   etc =
     { hosts =
@@ -611,6 +615,7 @@ programs = {
         createHome = false;
         home = "/home/bart";
         extraGroups = [ "wheel" "audio" "video" "usbmux" "networkmanager" ];
+      shell = pkgs.zsh;
       };
     mutableUsers = true;
   };
