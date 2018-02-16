@@ -80,6 +80,7 @@ environment= {
     #linuxsampler
     ladspaH
     ladspaPlugins
+    infamousPlugins
     lame
     #latencytop
     magnetophonDSP.CharacterCompressor
