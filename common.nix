@@ -184,7 +184,7 @@ environment= {
     haskellPackages.ShellCheck
     fasd
     fzf
-    blsd
+    bfs
     openssl
     physlock
     # i3lock
@@ -449,7 +449,7 @@ environment= {
 
     FZF_CTRL_R_OPTS="--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
 
-    FZF_ALT_C_COMMAND="blsd";
+    FZF_ALT_C_COMMAND="bfs -color -type d";
     FZF_ALT_C_OPTS="--preview 'tree -L 4 -d -C --noreport -C {} | head -200'";
     # set locales for everything but LANG
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
