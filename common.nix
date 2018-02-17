@@ -214,6 +214,7 @@ environment= {
     gitAndTools.hub # GitHub extension to git
     gitAndTools.gitAnnex
     gitAndTools.diff-so-fancy
+    gitAndTools.grv
     mercurial
     subversion
     curl
@@ -293,6 +294,7 @@ environment= {
     vlc
     # (pkgs.vlc.override { jackSupport = true;})
     (mpv.override { vaapiSupport = true; jackaudioSupport = true; rubberbandSupport = true; })
+    python36Packages.mps-youtube
     shotwell
     galculator
     xrandr-invert-colors
@@ -322,6 +324,7 @@ environment= {
     # mutt-kz
     alot
     neomutt
+    thunderbird
     isync
     # taskwarrior
     paperkey
