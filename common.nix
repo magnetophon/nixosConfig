@@ -276,7 +276,9 @@ environment= {
     # winswitch
 #desktop
     #desktop-file-utils
-    firefox-esr
+    # firefox-esr
+    (firefox-esr.override { nameSuffix="-esr"; })
+    firefox
   #for vimeo:
       gstreamer
       gst_plugins_base
