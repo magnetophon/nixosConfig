@@ -418,7 +418,7 @@ environment= {
 
 };
   environment.sessionVariables = {
-    BROWSER = "firefox";
+    BROWSER = "qutebrowser";
     PAGER = "less";
     LESS = "-isMR";
     NIX_PAGER = "cat";
