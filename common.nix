@@ -349,6 +349,7 @@ environment= {
     simplescreenrecorder
     scrot
     handbrake
+    alsaUtils
     kiwix
     meld
     freemind
