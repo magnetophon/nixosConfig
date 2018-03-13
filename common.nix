@@ -184,6 +184,7 @@ environment= {
     haskellPackages.ShellCheck
     fasd
     fzf
+    skim
     bfs
     openssl
     physlock
