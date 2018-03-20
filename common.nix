@@ -296,7 +296,7 @@ environment= {
     youtubeDL
     vlc
     # (pkgs.vlc.override { jackSupport = true;})
-    (mpv.override { vaapiSupport = true; jackaudioSupport = true; rubberbandSupport = true; })
+    (mpv.override { jackaudioSupport = true; archiveSupport = true; vapoursynthSupport = true; })
     python36Packages.mps-youtube
     shotwell
     galculator
