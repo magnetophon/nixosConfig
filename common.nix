@@ -44,7 +44,11 @@
 
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
-
+# https://www.reddit.com/r/NixOS/comments/84ytiu/is_it_possible_to_access_the_current_systems/
+  # The command provided creates a symbolic link of the current contents of /etc/nixos (copied into the Nix store) into the current Nix profile being generated. All of the configuration files are accessible at /var/run/current-system/full-config/
+  system.extraSystemBuilderCmds = ''
+    ln -s ${./.} $out/full-config
+  '';
 
   services = {
 
