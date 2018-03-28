@@ -597,7 +597,7 @@ programs = {
   fonts = {
     fonts = [
       pkgs.terminus_font
-      pkgs.dina-font
+      pkgs.dina-font-pcf
       pkgs.nerdfonts
     ];
     fontconfig.ultimate = {
