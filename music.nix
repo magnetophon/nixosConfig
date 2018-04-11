@@ -126,6 +126,7 @@ environment= {
     ir.lv2
     # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
     distrho
+    dragonfly-reverb
     sorcer
     sox
     shntool
