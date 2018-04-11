@@ -150,7 +150,7 @@ in
     psd = {
       enable = true;
       users = [ "bart" ];      # At least one is required
-      browsers = [ "firefox" ];    # Leave blank to enable all
+      # browsers = [ "firefox" ];    # Leave blank to enable all
       # only available from kernel 3.18
       # useOverlayFS = true; # set to true to enable overlayfs or set to false to use the default sync mode
     };
@@ -214,7 +214,6 @@ in
       SUBSYSTEM=="power_supply", ACTION=="change", \
       OPTIONS+="last_rule", \
       RUN+=" ${pkgs.light}/bin/light -I"
-
     '';
   };
   # something like this should enable lower backlight, making ~/.local/bin/brightness.sh and the light save and restore unneeded
