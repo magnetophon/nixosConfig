@@ -49,6 +49,10 @@
   system.extraSystemBuilderCmds = ''
     ln -s ${./.} $out/full-config
   '';
+    ## error: attribute 'nixos-version' missing
+    # mkdir -p $out/full-config
+    # cd ${pkgs.nixos-version}/bin/
+    # ./nixos-version > $out/full-config/nixos-version
 
   services = {
 
@@ -294,7 +298,7 @@ environment= {
     i2pd
     qutebrowser
     chromium
-    #chromiumBeta
+    # chromiumBeta
     /*w3m*/
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
