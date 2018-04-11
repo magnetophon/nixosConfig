@@ -174,7 +174,7 @@ environment= {
     ncurses
     coreutils
     ntfs3g
-    # openjdk
+    openjdk
     stow
     tmux
     sshfsFuse
