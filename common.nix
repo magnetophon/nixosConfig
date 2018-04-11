@@ -425,6 +425,9 @@ environment= {
   # '';
 
 };
+
+  sound.enable = true;
+
   environment.sessionVariables = {
     BROWSER = "qutebrowser";
     PAGER = "less";
