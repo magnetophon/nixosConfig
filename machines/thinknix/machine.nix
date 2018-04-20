@@ -34,7 +34,7 @@ in
 
   boot =
   { # dependant on amount of ram:
-    tmpOnTmpfs = true;
+    # tmpOnTmpfs = true;
     loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
     # workaround for kernel bug https://bbs.archlinux.org/viewtopic.php?id=218581&p=3
