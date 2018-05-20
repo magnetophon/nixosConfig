@@ -33,6 +33,7 @@
     useSandbox = true;
     sandboxPaths = ["/home/nixchroot"];
     requireSignedBinaryCaches = true;
+    buildCores = 0;
     extraOptions = "
       gc-keep-outputs = true       # Nice for developers
       gc-keep-derivations = true   # Idem
