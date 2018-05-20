@@ -200,6 +200,7 @@ environment= {
     haskellPackages.ShellCheck
     fasd
     fzf
+    blsd
     skim
     bfs
     openssl
@@ -235,6 +236,7 @@ environment= {
     mercurial
     subversion
     curl
+    nextcloud-client
     inetutils
     # haskellPackages.ghc
     ruby
@@ -613,6 +615,7 @@ programs = {
     fonts = [
       pkgs.terminus_font
       pkgs.dina-font-pcf
+      pkgs.proggyfonts
       pkgs.nerdfonts
     ];
     fontconfig.ultimate = {

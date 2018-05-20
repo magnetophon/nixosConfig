@@ -142,6 +142,7 @@ environment= {
     zam-plugins
     #zita-dpl1
     plugin-torture
+    # M32edit
   ];
 };
 }
