@@ -7,7 +7,14 @@
     ];
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware = {
+    # enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+    cpu = {
+      amd.updateMicrocode = true;
+      intel.updateMicrocode = true;
+    };
+  };
   # for skype
   # hardware.pulseaudio.enable = true;
 
