@@ -7,6 +7,12 @@
     ];
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
 
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.nixos.stateVersion = "18.09"; # Did you read the comment?
+
   hardware = {
     # enableAllFirmware = true;
     enableRedistributableFirmware = true;
@@ -19,11 +25,13 @@
   # hardware.pulseaudio.enable = true;
 
   boot = {
-    loader.grub = {
-      enable = true;
-      version = 2;
-      memtest86.enable = true;
-    };
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    # grub = {
+    #  enable = true;
+    #  version = 2;
+    #  memtest86.enable = true;
+    # };
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
@@ -155,7 +163,7 @@
   };
 
   nixpkgs.config = {
-    # allowUnfree = true;
+    allowUnfree = true;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     # packageOverrides = pkgs : rec {
@@ -170,6 +178,8 @@
 
 environment= {
     systemPackages = [
+
+    # m32edit
 
     # for battery shutdown event:
     acpid
@@ -509,7 +519,7 @@ environment= {
         };
 
         serviceConfig = {
-          ExecStart = "${pkgs.pythonPackages.udiskie}/bin/udiskie -2 -s";
+          ExecStart = "${pkgs.udiskie}/bin/udiskie -2 -s";
           Restart="always";
         };
 
@@ -521,6 +531,7 @@ environment= {
           Description = "clipster clipboard manager daemon";
           After = [ "graphical-session-pre.target" ];
           PartOf = [ "graphical-session.target" ];
+          pidfile = "/var/run/clipster/pid";
         };
         serviceConfig = {
           ExecStart = "${pkgs.clipster}/bin/clipster -d";
