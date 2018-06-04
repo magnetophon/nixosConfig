@@ -160,6 +160,7 @@
         ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
     dbus.socketActivated = true;
+    gnome3.gvfs.enable = true;
   };
 
   nixpkgs.config = {
@@ -353,6 +354,7 @@ environment= {
       mediainfo
     #mutt-with-sidebar
     # mutt-kz
+    xfce.thunar
     alot
     neomutt
     thunderbird
