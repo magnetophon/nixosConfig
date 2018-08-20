@@ -264,7 +264,7 @@ environment= {
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
-    nix-repl
+    # nix-repl
     nixpkgs-lint
     nix-prefetch-scripts
     nix-index
