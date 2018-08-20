@@ -1,3 +1,6 @@
+
+# https://discourse.nixos.org/t/nixos-without-a-display-manager/360/11
+
 {pkgs, config, ...}: with pkgs;
 {
 
@@ -31,7 +34,7 @@
     #  enable = true;
     #  version = 2;
     #  memtest86.enable = true;
-    # };
+#     };
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
@@ -56,7 +59,7 @@
   #   {
   #     host.enable = true;
   #     # guest.enable = true;
-  #   };
+#   };
 
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
@@ -64,6 +67,8 @@
   # The command provided creates a symbolic link of the current contents of /etc/nixos (copied into the Nix store) into the current Nix profile being generated. All of the configuration files are accessible at /var/run/current-system/full-config/
   system.extraSystemBuilderCmds = ''
     ln -s ${./.} $out/full-config
+    # copy current system to ssd, replace it by a link to the copy
+    # cp $out
   '';
     ## error: attribute 'nixos-version' missing
     # mkdir -p $out/full-config
@@ -431,7 +436,7 @@ environment= {
       # "/run/current-system/sw/bin/zsh"
         pkgs.zsh
       ];
-#Set of files that have to be linked in /etc.
+# Set of files that have to be linked in /etc.
   etc =
     { hosts =
     # https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-social/hosts
