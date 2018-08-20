@@ -205,9 +205,9 @@ in
     };
     thinkfan.enable = true;
     # run strace tlp-stat -t
-    thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
-    # default from i3status?
-    # thinkfan.sensor = "/sys/class/thermal/thermal_zone1/temp";
+    # thinkfan.sensor = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
+    thinkfan.sensors = "hwmon /sys/devices/virtual/hwmon/hwmon0/temp1_input (0,0,10)";
+
       # Suspend the system when battery level drops to 5% or lower
     udev.extraRules = ''
       SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
