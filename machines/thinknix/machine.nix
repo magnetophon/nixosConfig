@@ -80,7 +80,7 @@ in
   {
     "/" =
     {
-      device = "/dev/mapper/thinkVG-nixos";
+      device = "/dev/mapper/VolGroup-nixos";
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" "discard" ];
     };
@@ -90,14 +90,14 @@ in
     #  options = [ "relatime" "errors=remount-ro" ];
     #};
     "/home" =
-    { device = "/dev/mapper/thinkVG-home";
+    { device = "/dev/mapper/VolGroup-home";
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" "discard" ];
     };
   };
 
   swapDevices = [{
-    device = "/dev/mapper/thinkVG-swap";
+    device = "/dev/mapper/VolGroup-swap";
   }];
 
    nix = {
