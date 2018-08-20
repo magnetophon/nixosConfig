@@ -436,7 +436,7 @@ environment= {
     { hosts =
     # https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-social/hosts
     # replace $0 by 0
-      { source = "/home/bart/nixosConfig/hosts";
+      { source = /home/bart/nixosConfig/hosts;
       };
     };
 
