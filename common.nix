@@ -307,7 +307,7 @@ environment= {
 #desktop
     #desktop-file-utils
     # firefox-esr
-    (firefox-esr.override { nameSuffix="-esr"; })
+    # (firefox-esr.override { nameSuffix="-esr"; })
     firefox
   #for vimeo:
       gstreamer
