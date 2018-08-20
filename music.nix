@@ -142,7 +142,8 @@ environment= {
     zam-plugins
     #zita-dpl1
     plugin-torture
-    # M32edit
+    m32edit
+    # error: while setting up the build environment: getting attributes of path '/etc/hosts': Permission denied
   ];
 };
 }
