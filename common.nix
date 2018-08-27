@@ -205,6 +205,8 @@ environment= {
     openjdk
     stow
     tmux
+    tealdeer
+    mosh
     sshfsFuse
     acpi
     rxvt_unicode
