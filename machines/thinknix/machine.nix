@@ -3,6 +3,8 @@
 let
   # ls /dev/disk/by-id/
   diskID = "ata-INTEL_SSDSA2BW160G3L_BTPR152201YW160DGN";
+  # blkid
+  bootUUID = "32FC-293A";
 in
 {
   imports =
@@ -84,11 +86,11 @@ in
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" "discard" ];
     };
-    #"/boot" =
-    #{ device = "/dev/disk/by-uuid/${bootUUID}";
-    #  fsType = "ext4";
-    #  options = [ "relatime" "errors=remount-ro" ];
-    #};
+    "/boot" =
+    { device = "/dev/disk/by-uuid/${bootUUID}";
+     # fsType = "vfat";
+     # options = [ "relatime" "errors=remount-ro" ];
+    };
     "/home" =
     { device = "/dev/mapper/VolGroup-home";
       fsType = "ext4";
