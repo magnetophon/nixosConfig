@@ -169,7 +169,7 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true;
+    allowUnfree = false;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     # packageOverrides = pkgs : rec {
@@ -189,6 +189,7 @@ environment= {
 
     # for battery shutdown event:
     acpid
+    acpi
     geany
 #system:
     unzip
@@ -208,7 +209,6 @@ environment= {
     tealdeer
     mosh
     sshfsFuse
-    acpi
     rxvt_unicode
     termite
     # e19.terminology
