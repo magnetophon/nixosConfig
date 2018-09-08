@@ -104,15 +104,23 @@ in
 
    nix = {
     requireSignedBinaryCaches = true;
-    maxJobs = 4; # force remote building
-    # distributedBuilds = true;
-    buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+    maxJobs = 0; # 0 = force remote building. if the server is down, add "--maxJobs 4" to wour build command to temporarily force a local build again.
+    distributedBuilds = true;
+    buildMachines = [ { hostName = "10.205.12.40"; maxJobs = 12;  sshKey = "/home/bart/.ssh/github_rsa"; sshUser = "root"; system = "x86_64-linux"; supportedFeatures = [ "big-parallel" ]; buildCores = 0; } ];
+    # buildMachines = [ { hostName = "10.205.25.89"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+    # buildMachines = [ { hostName = "10.205.12.40"; maxJobs = 12;  sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+    # nix eval nixpkgs.linuxPackages.kernel.requiredSystemFeatures
+    # buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
     # binaryCaches = [ "https://cache.nixos.org" "https://2.2.2.2:5000/" ];
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "mixos:4IOWERw6Xcjocz9vQU5+qK7blTaeOB8QpDjLs0xcUFo="
     ];
-   };
+    # optional, useful when the builder has a faster internet connection than yours
+    extraOptions = ''
+		  builders-use-substitutes = true
+    '';
+  };
 
   networking = {
     networkmanager.enable = true;
