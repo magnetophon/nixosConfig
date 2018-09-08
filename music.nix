@@ -17,9 +17,9 @@ imports =
 musnix = {
   # enable = true;
   rtirq.highList = "snd_hrtimer";
-  rtirq.resetAll = 1;
-  rtirq.prioLow = 0;
-  alsaSeq.enable = false;
+    rtirq.resetAll = 1;
+    rtirq.prioLow = 0;
+    alsaSeq.enable = false;
 };
 
 nixpkgs.config.packageOverrides = pkgs : rec {
@@ -39,6 +39,7 @@ environment= {
     a2jmidid
     ams-lv2
     # airwave # VST bridge
+    # airwindows
     aeolus
     #beast
     bitmeter
@@ -142,8 +143,7 @@ environment= {
     zam-plugins
     #zita-dpl1
     plugin-torture
-    m32edit
-    # error: while setting up the build environment: getting attributes of path '/etc/hosts': Permission denied
+    # m32edit
   ];
 };
 }

@@ -164,8 +164,8 @@
         # See udisks(8)
         ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
-    dbus.socketActivated = true;
-    gnome3.gvfs.enable = true;
+    # dbus.socketActivated = true;
+    # gnome3.gvfs.enable = true;
   };
 
   nixpkgs.config = {
