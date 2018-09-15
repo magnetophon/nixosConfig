@@ -146,4 +146,42 @@ environment= {
     # m32edit
   ];
 };
+
+  systemd.user.services. jackd = {
+    unitConfig = {
+      Description = "jackd audio server";
+      After = [ "sound.target" ];
+    };
+    serviceConfig = {
+      Environment="JACK_NO_AUDIO_RESERVATION=1";
+      # LimitRTPRIO = "infinity";
+      # LimitMEMLOCK = "infinity";
+      # User = "bart";
+      # Group = "audio";
+      Type=simple;
+      ExecStart = ''
+          ${pkgs.jack2}/bin/jackd -v -P71 -p1024 -dalsa -dhw:0 -r44100 -n2
+      '';
+      # Restart="always";
+    };
+    wantedBy = [ "multi.user.target" ];
+  };
+
+  systemd.user.services.papillon = {
+    after = [ "network-online.target" "jackd.target" ];
+    description = "papillon liquidsoap stream";
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.wget pkgs.jack2Full ];
+    # preStart =
+    # ''
+    # mkdir -p /var/log/liquidsoap
+    # chown bart -R /var/log/liquidsoap
+    # '';
+    serviceConfig = {
+      PermissionsStartOnly="true";
+      ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap /home/bart/source/nixradio/papillon.liq";
+      # User = "bart";
+      # Group = "audio";
+    };
+  };
 }
