@@ -147,41 +147,63 @@ environment= {
   ];
 };
 
-  systemd.user.services. jackd = {
-    unitConfig = {
-      Description = "jackd audio server";
-      After = [ "sound.target" ];
-    };
-    serviceConfig = {
-      Environment="JACK_NO_AUDIO_RESERVATION=1";
-      # LimitRTPRIO = "infinity";
-      # LimitMEMLOCK = "infinity";
-      # User = "bart";
-      # Group = "audio";
-      Type=simple;
-      ExecStart = ''
-          ${pkgs.jack2}/bin/jackd -v -P71 -p1024 -dalsa -dhw:0 -r44100 -n2
-      '';
-      # Restart="always";
-    };
-    wantedBy = [ "multi.user.target" ];
+  systemd.services = {
+  #   jack = {
+  #     after = [ "sound.target" ];
+  #     description = "Jack audio server";
+  #     wantedBy = [ "multi-user.target" ];
+  #     serviceConfig = {
+  #       LimitRTPRIO = "infinity";
+  #       LimitMEMLOCK = "infinity";
+  #       Environment="JACK_NO_AUDIO_RESERVATION=1";
+  #       ExecStart = ''
+  #         ${pkgs.jack2}/bin/jackd -P71 -p1024 -dalsa -dhw:0 -r44100 -n2
+  #       '';
+  #       User = "bart";
+  #       Group = "audio";
+  #       KillSignal="SIGKILL";
+  #       Restart="always";
+  #       # ExecStartPre="${pkgs.pulseaudio}/bin/pulseaudio -k";
+  #     };
+  #   };
+
+    # papillon = {
+    #   after = [ "network-online.target" "jack.service" ];
+    #   description = "Papillon liquidsoap stream";
+    #   # wantedBy = [ "multi-user.target" ];
+    #   path = [ pkgs.wget ];
+    #   preStart = ''
+    #     mkdir -p /var/log/liquidsoap
+    #     chown bart -R /var/log/liquidsoap
+    #   '';
+    #   serviceConfig = {
+    #     LimitRTPRIO = "infinity";
+    #     LimitMEMLOCK = "infinity";
+    #     PermissionsStartOnly="true";
+    #     ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap /home/bart/source/nixradio/papillon.liq";
+    #     User = "bart";
+    #     Group = "audio";
+    #     KillSignal="SIGKILL";
+    #     Restart="always";
+    #   };
+    # };
+
+    # tunnel = {
+    #   after = [ "network.target" ];
+    #   description = "Creates a public reverse tunnel from a server to a port of this computer.";
+    #   wantedBy = [ "multi-user.target" ];
+    #   serviceConfig = {
+    #     Environment="AUTOSSH_GATETIME=0";
+    #     ExecStart = ''
+    #       ${pkgs.autossh}/bin/autossh -M 0 -oStrictHostKeyChecking=no -oServerAliveInterval=60 -oServerAliveCountMax=3 -oExitOnForwardFailure=yes -N -R :666:localhost:666 magnetophon@81.7.19.118
+    #     '';
+    #     # Restart="always";
+    #   };
+    # };
   };
 
-  systemd.user.services.papillon = {
-    after = [ "network-online.target" "jackd.target" ];
-    description = "papillon liquidsoap stream";
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.wget pkgs.jack2Full ];
-    # preStart =
-    # ''
-    # mkdir -p /var/log/liquidsoap
-    # chown bart -R /var/log/liquidsoap
-    # '';
-    serviceConfig = {
-      PermissionsStartOnly="true";
-      ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap /home/bart/source/nixradio/papillon.liq";
-      # User = "bart";
-      # Group = "audio";
-    };
-  };
+    security.sudo.extraConfig = ''
+    bart  ALL=(ALL) NOPASSWD: ${pkgs.systemd}/bin/systemctl
+  '';
+
 }

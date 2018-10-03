@@ -75,6 +75,23 @@
     # cd ${pkgs.nixos-version}/bin/
     # ./nixos-version > $out/full-config/nixos-version
 
+  fileSystems= {
+
+    "/mnt/radio" = {
+      device = "//stor.adm/tank_radio";
+      fsType = "cifs";
+      # this line prevents hanging on network split
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.devic\
+e-timeout=5s" "x-systemd.mount-timeout=5s"];
+    };
+
+    "/media/torrent.adm" = {
+      device = "public.adm:/mnt/storage5/torrent.adm";
+      fsType = "nfs";
+      options = ["x-systemd.automount" "noauto"];
+    };
+  };
+
   services = {
 
     # SMART.
@@ -203,6 +220,7 @@ environment= {
     ncurses
     coreutils
     ntfs3g
+    cryptsetup
     openjdk
     stow
     tmux
@@ -211,6 +229,7 @@ environment= {
     sshfsFuse
     rxvt_unicode
     termite
+    alacritty
     # e19.terminology
     zsh
     nix-zsh-completions
@@ -412,7 +431,8 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    libreoffice-fresh
+    # libreoffice-fresh
+    libreoffice
     k3b
 # iDevice stuff:
 # /pkgs/development/libraries/libplist/default.nix
@@ -652,7 +672,7 @@ programs = {
   };
 
    networking = {
-    firewall.enable = false;
+    # firewall.enable = false;
   };
 
     time.timeZone = "Europe/Amsterdam";
