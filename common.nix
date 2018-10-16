@@ -81,8 +81,9 @@
       device = "//stor.adm/tank_radio";
       fsType = "cifs";
       # this line prevents hanging on network split
-      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.devic\
-e-timeout=5s" "x-systemd.mount-timeout=5s"];
+
+      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.devic\
+e-timeout=5s" "x-systemd.mount-timeout=5s" ];
     };
 
     "/media/torrent.adm" = {
@@ -119,7 +120,7 @@ e-timeout=5s" "x-systemd.mount-timeout=5s"];
       forwardX11 = true;
       permitRootLogin = "without-password";
       # permitRootLogin = "yes";
-      };
+    };
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
@@ -133,29 +134,29 @@ e-timeout=5s" "x-systemd.mount-timeout=5s"];
       };
       # ^^ workaround for issue 33168
       # displayManager.lightdm = {
-        # enable = true;
-        # autoLogin.enable = true;
-        # autoLogin.user = "bart";
-        # };
+      # enable = true;
+      # autoLogin.enable = true;
+      # autoLogin.user = "bart";
+      # };
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       xkbOptions = "caps:swapescape";
-    /*bitlbee.enable*/
-    /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
+      /*bitlbee.enable*/
+        /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
-    };
+      };
     unclutter-xfixes.enable = true;
     unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
     # autofs =
     # {
-      # enable = true;
-      # autoMaster =
+    # enable = true;
+    # autoMaster =
     # };
     emacs = {
       enable = true;
       defaultEditor = true;
       package = (emacs.override { imagemagick = pkgs.imagemagickBig; } );
-      };
+    };
     physlock = {
       enable = true;
       lockOn = {
@@ -208,7 +209,7 @@ environment= {
     acpid
     acpi
     geany
-#system:
+    #system:
     unzip
     zip
     p7zip
@@ -233,6 +234,9 @@ environment= {
     # e19.terminology
     zsh
     nix-zsh-completions
+    nix-diff
+    nix-serve
+    nixops
     fish
     haskellPackages.ShellCheck
     fasd
@@ -290,7 +294,6 @@ environment= {
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
-    # nix-repl
     nixpkgs-lint
     nix-prefetch-scripts
     nix-index
@@ -417,7 +420,7 @@ environment= {
     # (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
     pidgin
     # weechat
-    # irssi
+    irssi
     # gajim
 # non-free:
     #skype
