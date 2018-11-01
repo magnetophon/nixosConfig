@@ -141,8 +141,9 @@ in
           xinput set-button-map 10 1 0 3
         '';
       };
-
     };
+
+    # liquidsoap.streams = { papillon = ./papillon.liq; };
 
     ntp.enable = false;
     chrony.enable = true;
@@ -160,10 +161,8 @@ in
     };
     psd = {
       enable = true;
-      users = [ "bart" ];      # At least one is required
+      # users = [ "bart" ];      # At least one is required
       # browsers = [ "firefox" ];    # Leave blank to enable all
-      # only available from kernel 3.18
-      # useOverlayFS = true; # set to true to enable overlayfs or set to false to use the default sync mode
     };
     tlp = {
       # enable = true;
@@ -219,7 +218,7 @@ in
     # thinkfan.sensors = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
     thinkfan.sensors = "hwmon /sys/devices/virtual/hwmon/hwmon0/temp1_input (0,0,10)";
 
-      # Suspend the system when battery level drops to 5% or lower
+    # Suspend the system when battery level drops to 5% or lower
     udev.extraRules = ''
       SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
       SUBSYSTEM=="power_supply", ACTION=="change", \

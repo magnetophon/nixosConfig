@@ -82,14 +82,29 @@
       fsType = "cifs";
       # this line prevents hanging on network split
 
-      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.devic\
-e-timeout=5s" "x-systemd.mount-timeout=5s" ];
+      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
     };
 
-    "/media/torrent.adm" = {
-      device = "public.adm:/mnt/storage5/torrent.adm";
-      fsType = "nfs";
-      options = ["x-systemd.automount" "noauto"];
+   "/mnt/graphic_public" = {
+      device = "//stor.adm/tank_graphic_public";
+      fsType = "cifs";
+      # this line prevents hanging on network split
+      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+
+    };
+   "/mnt/videos" = {
+      device = "//stor.adm/tank_videos";
+      fsType = "cifs";
+      # this line prevents hanging on network split
+      options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+
+    };
+   "/mnt/torrent.adm" = {
+      device = "//stor.adm/tank_torrent.adm";
+      fsType = "cifs";
+      # this line prevents hanging on network split
+      options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+
     };
   };
 
@@ -353,7 +368,7 @@ environment= {
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
     vlc
-    # (pkgs.vlc.override { jackSupport = true;})
+    (mumble.override { jackSupport = true;})
     (mpv.override { jackaudioSupport = true; archiveSupport = true; vapoursynthSupport = true; })
     python36Packages.mps-youtube
     shotwell
@@ -470,6 +485,13 @@ environment= {
       };
     };
 
+    variables.NIX_AUTO_RUN="!";
+
+    # Speaking of i3, if you enable both services.xserver.desktopManager.plasma5.enable = true; and services.xserver.windowManager.i3.enable = true; (for example), you get a neat extra: a combo option to run plasma with i3 as a window manager. Additionally, you can set services.xserver.desktopManager.default = "plasma5"; AND services.xserver.windowManager.default = "i3"; to get that variant by default.
+
+  # <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+  # <nixpkgs/nixos/modules/profiles/headless.nix>
+  # <nixpkgs/nixos/modules/profiles/hardened.nix>
 
       # extraInit = ''
   # shellInit = ''

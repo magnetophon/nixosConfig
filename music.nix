@@ -89,6 +89,7 @@ environment= {
     magnetophonDSP.shelfMultiBand
     magnetophonDSP.pluginUtils
     mda_lv2
+    csa
     mixxx
     mod-distortion
     petrifoo
