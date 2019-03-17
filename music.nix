@@ -49,6 +49,7 @@ environment= {
     drumkv1
     padthv1
     drumgizmo
+    avldrums-lv2
     dfasma
     cuetools
     eq10q
@@ -56,13 +57,16 @@ environment= {
     /*jack1*/
     jack_capture
     qjackctl
+    cadence
     flac
     fluidsynth
     fmsynth
     # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
-    gigedit
+    # gigedit
     guitarix
+    gxplugins-lv2
+    lsp-plugins
     hydrogen
     helm
     ingen
@@ -76,6 +80,7 @@ environment= {
     ladspaH
     ladspaPlugins
     infamousPlugins
+    FIL-plugins
     lame
     #latencytop
     magnetophonDSP.CharacterCompressor
@@ -96,7 +101,7 @@ environment= {
     #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
     fullPD
     qsampler
-    qsynth
+    # qsynth
     samplv1
     swh_lv2
     synthv1
@@ -122,6 +127,7 @@ environment= {
     sooperlooper
     squishyball
     nova-filters
+    wolf-shaper
     # ardour3
     # ardour4
     ardour
