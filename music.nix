@@ -61,6 +61,7 @@ environment= {
     flac
     fluidsynth
     fmsynth
+    adlplug
     # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
     freewheeling
     # gigedit
@@ -75,6 +76,8 @@ environment= {
     jalv
     lilv
     liblo
+    linuxband
+    MMA
     #unfree:
     #linuxsampler
     ladspaH

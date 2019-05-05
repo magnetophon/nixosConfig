@@ -199,6 +199,16 @@
     '';
     # dbus.socketActivated = true;
     # gnome3.gvfs.enable = true;
+     usbmuxd.enable = true;
+
+     # dnsmasq = {
+     #   enable = true;
+     #   extraConfig = ''
+     #     # cache-size=100000
+     #     addn-hosts=/var/lib/hostsblock/hosts.block
+     #  '';
+     #  };
+
   };
 
   nixpkgs.config = {
@@ -234,6 +244,10 @@ environment= {
     gcc
     gdb
     ncurses
+    bat
+    lf
+    nnn
+    ts
     coreutils
     ntfs3g
     cryptsetup
@@ -245,6 +259,7 @@ environment= {
     sshfsFuse
     rxvt_unicode
     termite
+    termite.terminfo
     alacritty
     # e19.terminology
     zsh
@@ -252,6 +267,7 @@ environment= {
     nix-diff
     nix-serve
     nixops
+    nix-du
     fish
     haskellPackages.ShellCheck
     fasd
@@ -259,11 +275,12 @@ environment= {
     blsd
     skim
     bfs
+    broot
+    hyperfine
     openssl
     physlock
     # i3lock
     asciinema
-    bench
     neofetch
     rtv
     tree
@@ -340,6 +357,9 @@ environment= {
     wget
     i3
     i3status
+    i3status-rust
+    wmfocus
+    lm_sensors # for i3status-rust
     dmenu
     clipster
     rofi
@@ -368,7 +388,7 @@ environment= {
     (pkgs.w3m.override { graphicsSupport = true; })
     youtubeDL
     vlc
-    (mumble.override { jackSupport = true;})
+    # (mumble.override { jackSupport = true;})
     (mpv.override { jackaudioSupport = true; archiveSupport = true; vapoursynthSupport = true; })
     python36Packages.mps-youtube
     shotwell
@@ -379,6 +399,7 @@ environment= {
     sselp
     xclip
     pqiv
+    feh
     silver-searcher
     ripgrep
     fd  # rust fast find alternative
@@ -396,11 +417,11 @@ environment= {
       transmission
       lynx
       mediainfo
-    #mutt-with-sidebar
+    # mutt-with-sidebar
     # mutt-kz
+    neomutt
     xfce.thunar
     alot
-    neomutt
     thunderbird
     isync
     # taskwarrior
@@ -425,15 +446,16 @@ environment= {
     scrot
     handbrake
     alsaUtils
-    kiwix
+    # kiwix
     meld
     freemind
     baobab
     recoll
+    # https://github.com/NixOS/nixpkgs/issues/50001 :
     zathura
     # kodi
-    # (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
-    pidgin
+    (pkgs.pidgin-with-plugins.override { plugins = [ pidginotr ]; }) # pidgin + pidgin-otr
+    # pidgin
     # weechat
     irssi
     # gajim
@@ -449,8 +471,8 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    # libreoffice-fresh
-    libreoffice
+    libreoffice-fresh
+    # libreoffice
     k3b
 # iDevice stuff:
 # /pkgs/development/libraries/libplist/default.nix
@@ -473,17 +495,16 @@ environment= {
   /*xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };*/
 
   shells = [
-      # "/run/current-system/sw/bin/zsh"
         pkgs.zsh
       ];
 # Set of files that have to be linked in /etc.
-  etc =
-    { hosts =
+  # etc =
+    # { hosts =
     # https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-social/hosts
     # replace $0 by 0
-      { source = /home/bart/nixosConfig/hosts;
-      };
-    };
+      # { source = /home/bart/nixosConfig/hosts;
+      # };
+    # };
 
     variables.NIX_AUTO_RUN="!";
 
@@ -517,7 +538,6 @@ environment= {
     GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
-    # NO_AT_BRIDGE = "1"; # for clipster, see: https://github.com/NixOS/nixpkgs/issues/16327#issuecomment-227218371
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git";
     FZF_DEFAULT_OPTS=''\
@@ -675,6 +695,7 @@ programs = {
     };
 
     light.enable = true;
+    plotinus.enable = true;
 
   };
 
@@ -720,4 +741,12 @@ programs = {
     bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
     bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
   '';
+
+  security.pam.loginLimits = [
+    { domain = "@audio"; item = "memlock"; type = "-"   ; value = "unlimited"; }
+    { domain = "@audio"; item = "rtprio" ; type = "-"   ; value = "99"       ; }
+    { domain = "@audio"; item = "nofile" ; type = "soft"; value = "99999"    ; }
+    { domain = "@audio"; item = "nofile" ; type = "hard"; value = "99999"    ; }
+  ];
+
 }
