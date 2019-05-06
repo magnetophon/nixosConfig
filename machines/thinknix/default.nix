@@ -14,7 +14,7 @@
 
   services.tlp.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   musnix = {
    # enable = true;

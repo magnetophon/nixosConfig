@@ -404,6 +404,7 @@ environment= {
     ripgrep
     fd  # rust fast find alternative
     exa # rust ls alternative
+    trash-cli
     ranger
       # for ranger previews:
       atool
@@ -695,6 +696,7 @@ programs = {
     };
 
     light.enable = true;
+    # gtk search:
     plotinus.enable = true;
 
   };
@@ -737,9 +739,11 @@ programs = {
     mutableUsers = true;
   };
 
+  # tlp still asks for a password
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
     bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
+    bart  ALL=(ALL) NOPASSWD: ${pkgs.tlp}/bin/tlp
   '';
 
   security.pam.loginLimits = [
