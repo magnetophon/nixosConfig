@@ -104,9 +104,10 @@ in
 
    nix = {
     requireSignedBinaryCaches = true;
-    maxJobs = 0; # 0 = force remote building. if the server is down, add "--maxJobs 4" to wour build command to temporarily force a local build again.
-    distributedBuilds = true;
-    buildMachines = [ { hostName = "10.205.25.98"; maxJobs = 4;  sshKey = "/home/bart/.ssh/github_rsa"; sshUser = "root"; system = "x86_64-linux"; supportedFeatures = [ "big-parallel" ]; buildCores = 0; } ];
+    # maxJobs = 0; # 0 = force remote building. if the server is down, add "--maxJobs 4" to wour build command to temporarily force a local build again.
+    # distributedBuilds = true;
+    # buildMachines = [ { hostName = "buildbox"; maxJobs = 4;  sshKey = "/home/bart/.ssh/github_rsa"; sshUser = "root"; system = "x86_64-linux"; supportedFeatures = [ "big-parallel" ]; buildCores = 0; } ];
+
     # buildMachines = [ { hostName = "10.205.12.40"; maxJobs = 12;  sshKey = "/home/bart/.ssh/github_rsa"; sshUser = "root"; system = "x86_64-linux"; supportedFeatures = [ "big-parallel" ]; buildCores = 0; } ];
     # buildMachines = [ { hostName = "10.205.25.89"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
     # buildMachines = [ { hostName = "10.205.12.40"; maxJobs = 12;  sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
@@ -216,7 +217,9 @@ in
     thinkfan.enable = true;
     # run strace tlp-stat -t
     # thinkfan.sensors = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
-    thinkfan.sensors = "hwmon /sys/devices/virtual/hwmon/hwmon0/temp1_input (0,0,10)";
+
+    # thinkfan.sensors = "hwmon /sys/devices/virtual/hwmon/hwmon0/temp1_input (0,0,10)";
+    thinkfan.sensors = "hwmon /sys/devices/virtual/thermal/thermal_zone0/temp  (0,0,10)";
 
     # Suspend the system when battery level drops to 5% or lower
     udev.extraRules = ''
