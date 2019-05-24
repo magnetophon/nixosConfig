@@ -51,7 +51,7 @@
       env-keep-derivations = false
       # binary-caches = https://nixos.org/binary-cache
       # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
-      auto-optimise-store = false
+      auto-optimise-store = true
     ";
   };
 
@@ -119,7 +119,10 @@
     };
     fstrim.enable = true;
     nixosManual.showManual = false;
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = [ brgenml1cupswrapper ];
+    };
     # acpid.enable = true;
     cron.enable =false;
     #avahi.enable = true;
@@ -212,7 +215,7 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = false;
+    allowUnfree = true;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     # packageOverrides = pkgs : rec {
@@ -311,6 +314,7 @@ environment= {
     curl
     nextcloud-client
     inetutils
+    hostsblock
     # haskellPackages.ghc
     ruby
     # icedtea_web
@@ -319,6 +323,10 @@ environment= {
     #my_vim
     # emacs
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
+    # for emacs markdown-preview:
+      # marked # node package
+      pandoc
+      haskellPackages.markdown
     mu
     # imagemagick
     dunst
@@ -499,13 +507,12 @@ environment= {
         pkgs.zsh
       ];
 # Set of files that have to be linked in /etc.
-  # etc =
-    # { hosts =
-    # https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-social/hosts
-    # replace $0 by 0
-      # { source = /home/bart/nixosConfig/hosts;
-      # };
-    # };
+  etc =
+    { hosts =
+    # hostsblock -f /home/bart/.config/hostsblock/hostsblock.conf -u
+      { source = /home/bart/nixosConfig/hosts;
+      };
+    };
 
     variables.NIX_AUTO_RUN="!";
 
