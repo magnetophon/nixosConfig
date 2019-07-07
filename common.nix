@@ -75,38 +75,38 @@
     # cd ${pkgs.nixos-version}/bin/
     # ./nixos-version > $out/full-config/nixos-version
 
-  fileSystems= {
+  # fileSystems= {
 
-    "/mnt/radio" = {
-      device = "//stor.adm/tank_radio";
-      fsType = "cifs";
-      # this line prevents hanging on network split
+  #   "/mnt/radio" = {
+  #     device = "//stor.adm/tank_radio";
+  #     fsType = "cifs";
+  #     # this line prevents hanging on network split
 
-      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
-    };
+  #     options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
+  #   };
 
-   "/mnt/graphic_public" = {
-      device = "//stor.adm/tank_graphic_public";
-      fsType = "cifs";
-      # this line prevents hanging on network split
-      options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+  #  "/mnt/graphic_public" = {
+  #     device = "//stor.adm/tank_graphic_public";
+  #     fsType = "cifs";
+  #     # this line prevents hanging on network split
+  #     options = [ "x-systemd.automount" "nounix" "noperm" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
 
-    };
-   "/mnt/videos" = {
-      device = "//stor.adm/tank_videos";
-      fsType = "cifs";
-      # this line prevents hanging on network split
-      options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+  #   };
+  #  "/mnt/videos" = {
+  #     device = "//stor.adm/tank_videos";
+  #     fsType = "cifs";
+  #     # this line prevents hanging on network split
+  #     options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
 
-    };
-   "/mnt/torrent.adm" = {
-      device = "//stor.adm/tank_torrent.adm";
-      fsType = "cifs";
-      # this line prevents hanging on network split
-      options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+  #   };
+  #  "/mnt/torrent.adm" = {
+  #     device = "//stor.adm/tank_torrent.adm";
+  #     fsType = "cifs";
+  #     # this line prevents hanging on network split
+  #     options = [ "x-systemd.automount" "nounix" "noperm"  "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
 
-    };
-  };
+  #   };
+  # };
 
   services = {
 
@@ -145,24 +145,34 @@
       displayManager.slim = {
         enable = true;
         defaultUser = "bart";
-        autoLogin = true;
-        extraConfig = ''
-          sessionstart_cmd    ${pkgs.physlock}/bin/physlock -ds
-        '';
+        # autoLogin = true;
+        #   extraConfig = ''
+        #   sessionstart_cmd ${pkgs.physlock}/bin/physlock -ds
+        # '';
+        # sessionstart_cmd /run/current-system/sw/bin/touch ~/1234
       };
-      # ^^ workaround for issue 33168
-      # displayManager.lightdm = {
-      # enable = true;
-      # autoLogin.enable = true;
-      # autoLogin.user = "bart";
-      # };
-      synaptics = import ./synaptics.nix;
-      desktopManager.xterm.enable = false;
-      xkbOptions = "caps:swapescape";
-      /*bitlbee.enable*/
+      displayManager.sessionCommands = ''
+          ${pkgs.physlock}/bin/physlock -ds
+          # '';
+          # physlock -ds
+
+          # ^^ workaround for issue 33168
+          # displayManager.sddm = {
+          #   enable = true;
+          #   autoLogin.enable = true;
+          #   autoLogin.user = "bart";
+          #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
+          # };
+          # Yes, this is a hack.
+          # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
+
+          synaptics = import ./synaptics.nix;
+        desktopManager.xterm.enable = false;
+        xkbOptions = "caps:swapescape";
+        /*bitlbee.enable*/
         /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
-      };
+    };
     unclutter-xfixes.enable = true;
     unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
     # autofs =
@@ -177,6 +187,8 @@
     };
     physlock = {
       enable = true;
+      # disableSysRq = true;
+      allowAnyUser = true;
       lockOn = {
         suspend = true;
         hibernate = true;
@@ -186,11 +198,11 @@
       };
     };
     logind.extraConfig =
-    ''
+      ''
       HandleSuspendKey=hibernate
     '';
     # doesn't do anything
-      # HandlePowerKey=hibernate
+    # HandlePowerKey=hibernate
 
     # By default, udisks2 mounts removable drives under the ACL controlled directory /run/media/$USER/. If you wish to mount to /media instead, use this rule:
     udev.extraRules = ''
@@ -202,15 +214,15 @@
     '';
     # dbus.socketActivated = true;
     # gnome3.gvfs.enable = true;
-     usbmuxd.enable = true;
+    usbmuxd.enable = true;
 
-     # dnsmasq = {
-     #   enable = true;
-     #   extraConfig = ''
-     #     # cache-size=100000
-     #     addn-hosts=/var/lib/hostsblock/hosts.block
-     #  '';
-     #  };
+    # dnsmasq = {
+    #   enable = true;
+    #   extraConfig = ''
+    #     # cache-size=100000
+    #     addn-hosts=/var/lib/hostsblock/hosts.block
+    #  '';
+    #  };
 
   };
 
@@ -480,19 +492,19 @@ environment= {
     aspellDicts.en
     aspellDicts.nl
     aspellDicts.de
-    libreoffice-fresh
-    # libreoffice
+    # libreoffice-fresh
+    libreoffice
     k3b
-# iDevice stuff:
-# /pkgs/development/libraries/libplist/default.nix
-# has knownVulnerabilities
+    # iDevice stuff:
+    # /pkgs/development/libraries/libplist/default.nix
+    # has knownVulnerabilities
     usbmuxd
     libimobiledevice
     ifuse
     sqlite
-# see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
-# https://gist.github.com/laacz/1180765
-#custom packages
+    # see http://linuxsleuthing.blogspot.nl/2012/10/addressing-ios6-address-book-and-sqlite.html
+    # https://gist.github.com/laacz/1180765
+    #custom packages
     #nl_wa2014
    ];
 
@@ -548,26 +560,29 @@ environment= {
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git";
-    FZF_DEFAULT_OPTS=''\
-    --exact
-    --reverse \
-    --cycle \
-    --multi \
-    --select-1 \
-    --exit-0 \
-    --no-height \
-    --ansi \
-    --bind=alt-z:toggle-preview \
-    --bind=alt-w:toggle-preview-wrap \
-    --bind=alt-s:toggle-sort \
-    --bind=alt-a:toggle-all \
-    --bind=ctrl-a:select-all \
-    --bind 'alt-y:execute:realpath {} | xclip' \
-    --preview='~/.local/bin/preview.sh {}'
-    '';
-    _FZF_ZSH_PREVIEW_STRING="echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
+    FZF_DEFAULT_OPTS = ''
+          \
+          --exact \
+          --reverse \
+          --cycle \
+          --multi \
+          --select-1 \
+          --exit-0 \
+          --no-height \
+          --ansi \
+          --bind=alt-z:toggle-preview \
+          --bind=alt-w:toggle-preview-wrap \
+          --bind=alt-s:toggle-sort \
+          --bind=alt-a:toggle-all \
+          --bind=ctrl-a:select-all \
+          --bind 'alt-y:execute:realpath {} | xclip' \
+          --preview='~/.local/bin/preview.sh {}'
+          '';
+    _FZF_ZSH_PREVIEW_STRING =
+    "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
-    FZF_CTRL_R_OPTS="--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
+    FZF_CTRL_R_OPTS =
+    "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
 
     FZF_ALT_C_COMMAND="bfs -color -type d";
     FZF_ALT_C_OPTS="--preview 'tree -L 4 -d -C --noreport -C {} | head -200'";
