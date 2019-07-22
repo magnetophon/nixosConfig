@@ -5,7 +5,7 @@
 {
 
   imports = [
-    ./vim.nix
+    # ./vim.nix
     # ./spacemacs.nix
     ];
   #todo: mixos: https://wiki.archlinux.org/index.php/SSD
@@ -330,15 +330,47 @@ environment= {
     # haskellPackages.ghc
     ruby
     # icedtea_web
+    (vim_configurable.customize {
+      name = "vim";
+
+      vimrcConfig.customRC = ''
+        "use the light solarized theme:
+        "colorscheme solarized
+        let g:solarized_termcolors=256
+        color solarized             " Load a colorscheme
+
+        set background=light
+
+        set number relativenumber
+      '';
+      vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
+      vimrcConfig.vam.pluginDictionaries = [
+        { names = [
+            # "airline"
+            "colors-solarized"
+            # "ctrlp"
+            # "fugitive"
+            "nerdcommenter"
+            # "nerdtree"
+            # "rainbow_parentheses"
+            # "Tabular"
+            "undotree"
+            "vim-addon-nix"
+            "vim-sensible"
+            "vim-sleuth"
+            # "youcompleteme"
+          ]; }
+      ];
+    })
     /*vim_configurable*/
-    /*vimHugeX*/
+    # vimHugeX
     #my_vim
     # emacs
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
     # for emacs markdown-preview:
-      # marked # node package
-      pandoc
-      haskellPackages.markdown
+    # marked # node package
+    pandoc
+       haskellPackages.markdown
     mu
     # imagemagick
     dunst
