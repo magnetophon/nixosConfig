@@ -109,7 +109,6 @@
   # };
 
   services = {
-
     # SMART.
     smartd = {
       enable = true;
@@ -121,7 +120,12 @@
     nixosManual.showManual = false;
     printing = {
       enable = true;
-      drivers = [ brgenml1cupswrapper ];
+      drivers = [ brlaser hplipWithPlugin ];
+    };
+    avahi= {
+      enable = true;
+      nssmdns = true;
+      publish.userServices = true;
     };
     # acpid.enable = true;
     cron.enable =false;
@@ -153,24 +157,24 @@
       };
       displayManager.sessionCommands = ''
           ${pkgs.physlock}/bin/physlock -ds
-          # '';
-          # physlock -ds
+      # '';
+      # physlock -ds
 
-          # ^^ workaround for issue 33168
-          # displayManager.sddm = {
-          #   enable = true;
-          #   autoLogin.enable = true;
-          #   autoLogin.user = "bart";
-          #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
-          # };
-          # Yes, this is a hack.
-          # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
+      # ^^ workaround for issue 33168
+      # displayManager.sddm = {
+      #   enable = true;
+      #   autoLogin.enable = true;
+      #   autoLogin.user = "bart";
+      #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
+      # };
+      # Yes, this is a hack.
+      # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
 
-          synaptics = import ./synaptics.nix;
-        desktopManager.xterm.enable = false;
-        xkbOptions = "caps:swapescape";
-        /*bitlbee.enable*/
-        /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
+      synaptics = import ./synaptics.nix;
+      desktopManager.xterm.enable = false;
+      xkbOptions = "caps:swapescape";
+      /*bitlbee.enable*/
+      /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
     };
     unclutter-xfixes.enable = true;
@@ -330,6 +334,9 @@ environment= {
     # haskellPackages.ghc
     ruby
     # icedtea_web
+    # nixfmt
+    nix-review
+    neovim
     (vim_configurable.customize {
       name = "vim";
 
@@ -369,8 +376,9 @@ environment= {
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
     # for emacs markdown-preview:
     # marked # node package
+    emacs-all-the-icons-fonts
     pandoc
-       haskellPackages.markdown
+    haskellPackages.markdown
     mu
     # imagemagick
     dunst
@@ -434,6 +442,7 @@ environment= {
     torbrowser
     i2pd
     qutebrowser
+    sqlitebrowser
     chromium
     # chromiumBeta
     /*w3m*/
