@@ -14,12 +14,14 @@
 
   services.tlp.enable = true;
 
+  # hardware.pulseaudio.enable = true;
+
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   musnix = {
-   # enable = true;
-   # kernel.optimize = true;
-   # kernel.realtime = true;
-   rtirq.nameList = "rtc0 usb";
- };
+    # enable = true;
+    # kernel.optimize = true;
+    # kernel.realtime = true;
+    rtirq.nameList = "rtc0 usb";
+  };
 }

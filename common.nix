@@ -334,7 +334,7 @@ environment= {
     # haskellPackages.ghc
     ruby
     # icedtea_web
-    # nixfmt
+    nixfmt
     nix-review
     neovim
     (vim_configurable.customize {
@@ -761,8 +761,10 @@ programs = {
     light.enable = true;
     # gtk search:
     plotinus.enable = true;
+    # Android Debug Bridge
+    adb.enable = true;
 
-  };
+};
 
   fonts = {
     fonts = [
@@ -796,8 +798,8 @@ programs = {
         uid = 1000;
         createHome = false;
         home = "/home/bart";
-        extraGroups = [ "wheel" "audio" "video" "usbmux" "networkmanager" ];
-      shell = pkgs.zsh;
+        extraGroups = [ "wheel" "audio" "video" "usbmux" "networkmanager" "adbusers" ];
+        shell = pkgs.zsh;
       };
     mutableUsers = true;
   };

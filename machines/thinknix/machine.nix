@@ -155,10 +155,11 @@ in
       # time compton --config /dev/null --backend xrender --benchmark 100
       # the above gives xrender as the quickest option, but it tears, whereas glx does not
       # backend = "glx";
+      # vSync = true;
       # vSync = "opengl-swc";
       # vSync = "opengl-oml";
       # extraOptions = "paint-on-overlay = true";
-      extraOptions = "unredir-if-possible = true";
+      # settings = "unredir-if-possible = true";
     };
     psd = {
       enable = true;
