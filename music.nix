@@ -63,6 +63,7 @@ environment= {
         bristol
         caps
         calf
+        carla
         drumkv1
         padthv1
         drumgizmo

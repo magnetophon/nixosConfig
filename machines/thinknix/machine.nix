@@ -137,11 +137,14 @@ in
       # windowManager.remote_i3.enable = true;
       windowManager.i3.enable = true;
       windowManager.default = "i3" ;
-      displayManager = {
-        sessionCommands = ''
-          xinput set-button-map 10 1 0 3
-        '';
-      };
+      # displayManager = {
+      #   # disable middle mouse buttons
+      #   sessionCommands = ''
+      #     xinput set-button-map 10 1 0 3  &&
+      #     xinput set-button-map 11 1 0 3  &&
+      #     physlock -ds
+      #   '';
+      # };
     };
 
     # liquidsoap.streams = { papillon = ./papillon.liq; };
@@ -215,12 +218,12 @@ in
         STOP_CHARGE_THRESH_BAT0=85
       '';
     };
-    thinkfan.enable = true;
+    # thinkfan.enable = true;
     # run strace tlp-stat -t
     # thinkfan.sensors = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";
 
     # thinkfan.sensors = "hwmon /sys/devices/virtual/hwmon/hwmon0/temp1_input (0,0,10)";
-    thinkfan.sensors = "hwmon /sys/devices/virtual/thermal/thermal_zone0/temp  (0,0,10)";
+    # thinkfan.sensors = "hwmon /sys/devices/virtual/thermal/thermal_zone0/temp  (0,0,10)";
 
     # Suspend the system when battery level drops to 5% or lower
     udev.extraRules = ''

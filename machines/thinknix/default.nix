@@ -10,8 +10,10 @@
      ../../music.nix
     ];
 
-  networking.hostName = "thinknix";
-
+  networking = {
+    hostName = "thinknix";
+  };
+  
   services.tlp.enable = true;
 
   # hardware.pulseaudio.enable = true;

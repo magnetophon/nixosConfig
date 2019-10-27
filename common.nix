@@ -28,13 +28,16 @@
   # hardware.pulseaudio.enable = true;
 
   boot = {
-    loader.systemd-boot.enable = true;
+    loader.systemd-boot = {
+      enable = true;
+      memtest86.enable = true;
+    };
     loader.efi.canTouchEfiVariables = true;
     # grub = {
     #  enable = true;
     #  version = 2;
     #  memtest86.enable = true;
-#     };
+    #     };
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
@@ -46,12 +49,12 @@
     requireSignedBinaryCaches = true;
     buildCores = 0;
     extraOptions = "
-      gc-keep-outputs = true       # Nice for developers
-      gc-keep-derivations = true   # Idem
-      env-keep-derivations = false
-      # binary-caches = https://nixos.org/binary-cache
+      gc-keep-outputs         = true   # Nice for developers
+      gc-keep-derivations     = true   # Idem
+      env-keep-derivations    = false
+      # binary-caches         = https://nixos.org/binary-cache
       # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
-      auto-optimise-store = true
+      auto-optimise-store     = true
     ";
   };
 
@@ -112,7 +115,7 @@
     # SMART.
     smartd = {
       enable = true;
-      devices = [ { device = "/dev/sda"; } ];
+      devices = [ { device = "/dev/sda"; } { device = "/dev/sdb"; } ];
       notifications.test = true;
       notifications.x11.enable = true;
     };
@@ -146,18 +149,47 @@
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
+
       displayManager.slim = {
         enable = true;
         defaultUser = "bart";
-        # autoLogin = true;
-        #   extraConfig = ''
-        #   sessionstart_cmd ${pkgs.physlock}/bin/physlock -ds
-        # '';
-        # sessionstart_cmd /run/current-system/sw/bin/touch ~/1234
+        autoLogin = true;
+        # sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user && ${pkgs.physlock}/bin/physlock -ds
+        extraConfig = ''
+          sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user
+          sessionstop_cmd     ${pkgs.xorg.sessreg}/bin/sessreg -d -l tty7 %user
+        '';
       };
-      displayManager.sessionCommands = ''
-          ${pkgs.physlock}/bin/physlock -ds
+
+
+      #   #   extraConfig = ''
+      #   #   sessionstart_cmd ${pkgs.physlock}/bin/physlock -ds
+      #   # '';
+      #   # sessionstart_cmd /run/current-system/sw/bin/touch ~/1234
+
+      # displayManager.sddm = {
+      #   enable = true;
+      #   autoLogin = {
+      #     enable = true;
+      #     user = "bart";
+      #   };
+      #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
+      # };
+
+      # displayManager.setupCommands = ''
+      #   {pkgs.physlock}/bin/physlock -ds
       # '';
+
+      # disable middle mouse buttons
+      # to determine id:
+      # xinput list | grep 'id='
+      # lock screen
+      displayManager.sessionCommands = ''
+          xinput set-button-map 10 1 0 3  &&
+          xinput set-button-map 11 1 0 3  &&
+          physlock -ds
+        '';
+
       # physlock -ds
 
       # ^^ workaround for issue 33168
@@ -191,14 +223,15 @@
     };
     physlock = {
       enable = true;
-      # disableSysRq = true;
       allowAnyUser = true;
       lockOn = {
-        suspend = true;
-        hibernate = true;
+        # suspend = true; # true is default
+        # hibernate = true; # true is default
         # systemd[1]: Starting Physlock...
         # physlock-start[774]: physlock: Unable to detect user of tty1
+        # extraTargets = ["graphical.target"];
         # extraTargets = ["display-manager.service"];
+
       };
     };
     logind.extraConfig =
@@ -267,6 +300,8 @@ environment= {
     lf
     nnn
     ts
+    xorg.sessreg
+    heimdall # for installing android etc
     coreutils
     ntfs3g
     cryptsetup
@@ -324,6 +359,7 @@ environment= {
     gitAndTools.hub # GitHub extension to git
     gitAndTools.gitAnnex
     gitAndTools.diff-so-fancy
+    gitAndTools.delta
     gitAndTools.grv
     mercurial
     subversion
@@ -628,6 +664,8 @@ environment= {
     FZF_ALT_C_COMMAND="bfs -color -type d";
     FZF_ALT_C_OPTS="--preview 'tree -L 4 -d -C --noreport -C {} | head -200'";
     # set locales for everything but LANG
+    # TODO: nix specific: https://www.reddit.com/r/NixOS/comments/dck6o1/how_to_change_locale_settings/
+    # See i18n.extraLocaleSettings. You can search for "locale" in man configuration.nix.
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
     # LANGUAGE = "en_US.UTF-8";
     # LC_ALL = "en_US.UTF-8";
@@ -664,18 +702,18 @@ environment= {
         wantedBy = [ "graphical-session.target" ];
   };
 
-   systemd.user.services.clipster = {
-        unitConfig = {
-          Description = "clipster clipboard manager daemon";
-          After = [ "graphical-session-pre.target" ];
-          PartOf = [ "graphical-session.target" ];
-          pidfile = "/var/run/clipster/pid";
-        };
-        serviceConfig = {
-          ExecStart = "${pkgs.clipster}/bin/clipster -d";
-          Restart="always";
-        };
-        wantedBy = [ "graphical-session.target" ];
+  systemd.user.services.clipster = {
+    unitConfig = {
+      Description = "clipster clipboard manager daemon";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+      pidfile = "/var/run/clipster/pid";
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.clipster}/bin/clipster -d";
+      Restart="always";
+    };
+    wantedBy = [ "graphical-session.target" ];
   };
 
    systemd.user.services.dunst = {
@@ -785,12 +823,12 @@ programs = {
   };
 
    networking = {
-    # firewall.enable = false;
-  };
+     # firewall.enable = false;
+   };
 
-    time.timeZone = "Europe/Amsterdam";
+   time.timeZone = "Europe/Amsterdam";
 
-    users = {
+   users = {
       defaultUserShell = pkgs.zsh;
       extraUsers.bart = {
         name = "bart";
@@ -807,9 +845,9 @@ programs = {
   # tlp still asks for a password
   security.sudo.extraConfig = ''
     bart  ALL=(ALL) NOPASSWD: ${pkgs.iotop}/bin/iotop
-    bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
     bart  ALL=(ALL) NOPASSWD: ${pkgs.tlp}/bin/tlp
   '';
+  # bart  ALL=(ALL) NOPASSWD: ${pkgs.physlock}/bin/physlock
 
   security.pam.loginLimits = [
     { domain = "@audio"; item = "memlock"; type = "-"   ; value = "unlimited"; }
