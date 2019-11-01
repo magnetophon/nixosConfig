@@ -30,7 +30,7 @@
   boot = {
     loader.systemd-boot = {
       enable = true;
-      memtest86.enable = true;
+      # memtest86.enable = true; # unfree
     };
     loader.efi.canTouchEfiVariables = true;
     # grub = {
@@ -123,7 +123,8 @@
     nixosManual.showManual = false;
     printing = {
       enable = true;
-      drivers = [ brlaser hplipWithPlugin ];
+      drivers = [ brlaser ];
+      # drivers = [ brlaser hplipWithPlugin ]; # unfree
     };
     avahi= {
       enable = true;
@@ -264,7 +265,8 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true;
+    # allowUnfree = true;
+    allowUnfree = false;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     # packageOverrides = pkgs : rec {
@@ -479,6 +481,7 @@ environment= {
     i2pd
     qutebrowser
     sqlitebrowser
+    python37Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
     chromium
     # chromiumBeta
     /*w3m*/
@@ -497,6 +500,9 @@ environment= {
     xclip
     pqiv
     feh
+    gopass
+    pass
+    rofi-pass
     silver-searcher
     ripgrep
     fd  # rust fast find alternative
@@ -653,8 +659,9 @@ environment= {
           --bind=alt-a:toggle-all \
           --bind=ctrl-a:select-all \
           --bind 'alt-y:execute:realpath {} | xclip' \
-          --preview='~/.local/bin/preview.sh {}'
-          '';
+          --preview='~/.local/bin/preview.sh {}' \
+          --header 'alt-z:toggle-preview alt-w:toggle-preview-wrap alt-s:toggle-sort alt-a:toggle-all ctrl-a:select-all alt-y:yank path'
+      '';
     _FZF_ZSH_PREVIEW_STRING =
     "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
@@ -681,7 +688,7 @@ environment= {
     LC_TELEPHONE="nl_NL.UTF-8";
     LC_MEASUREMENT="nl_NL.UTF-8";
     LC_IDENTIFICATION="nl_NL.UTF-8";
-  };
+};
 
 
   # shellAliases = { ll = "ls -l"; };
