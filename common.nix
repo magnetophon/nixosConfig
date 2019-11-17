@@ -151,19 +151,30 @@
       enable = true;
       enableCtrlAltBackspace = true;
 
-      displayManager.slim = {
+      # displayManager.slim = {
+      #   enable = true;
+      #   defaultUser = "bart";
+      #   autoLogin = true;
+      #   # sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user && ${pkgs.physlock}/bin/physlock -ds
+      #   extraConfig = ''
+      #     sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user
+      #     sessionstop_cmd     ${pkgs.xorg.sessreg}/bin/sessreg -d -l tty7 %user
+      #   '';
+      # };
+
+      displayManager.lightdm = {
         enable = true;
-        defaultUser = "bart";
-        autoLogin = true;
-        # sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user && ${pkgs.physlock}/bin/physlock -ds
-        extraConfig = ''
-          sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user
-          sessionstop_cmd     ${pkgs.xorg.sessreg}/bin/sessreg -d -l tty7 %user
-        '';
+        # autoLogin = {
+        #   enable = true;
+        #   user = "bart";
+        # };
+        # extraSeatDefaults = ''
+        #   [Seat:*]
+        #   greeter-setup-script=physlock
+        # '';
       };
 
-
-      #   #   extraConfig = ''
+      #   extraConfig = ''
       #   #   sessionstart_cmd ${pkgs.physlock}/bin/physlock -ds
       #   # '';
       #   # sessionstart_cmd /run/current-system/sw/bin/touch ~/1234
@@ -174,22 +185,24 @@
       #     enable = true;
       #     user = "bart";
       #   };
-      #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
+      #   # setupScript =  "{pkgs.physlock}/bin/physlock -ds";
+      #   setupScript =  "physlock -ds";
       # };
 
       # displayManager.setupCommands = ''
-      #   {pkgs.physlock}/bin/physlock -ds
+      #   physlock -ds
       # '';
 
       # disable middle mouse buttons
       # to determine id:
       # xinput list | grep 'id='
       # lock screen
-      displayManager.sessionCommands = ''
-          xinput set-button-map 10 1 0 3  &&
-          xinput set-button-map 11 1 0 3  &&
-          physlock -ds
-        '';
+
+      # displayManager.sessionCommands = ''
+      #     physlock -ds
+      #   '';
+      #     xinput set-button-map 10 1 0 3  &&
+      #     xinput set-button-map 11 1 0 3  &&
 
       # physlock -ds
 
@@ -202,6 +215,7 @@
       # };
       # Yes, this is a hack.
       # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
+      # displayManager.setupCommands = "physlock -ds";
 
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
@@ -803,6 +817,8 @@ programs = {
       askPassword = "";
     };
 
+    gnupg.agent.enable = true;
+
     light.enable = true;
     # gtk search:
     plotinus.enable = true;
@@ -818,9 +834,9 @@ programs = {
       pkgs.proggyfonts
       pkgs.nerdfonts
     ];
-    fontconfig.ultimate = {
-      enable = true;
-    };
+    # fontconfig.ultimate = {
+    #   enable = true;
+    # };
   };
 
   i18n = {
