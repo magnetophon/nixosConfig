@@ -68,6 +68,7 @@ environment= {
         padthv1
         drumgizmo
         avldrums-lv2
+        speech-denoiser
         dfasma
         cuetools
         eq10q
@@ -142,7 +143,7 @@ environment= {
         faust2lv2
         graphviz
         leiningen
-        ( pkgs.fmit.override { jackSupport = true; })
+        # ( pkgs.fmit.override { jackSupport = true; })
         jaaa
         japa
         sooperlooper

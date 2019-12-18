@@ -804,7 +804,7 @@ programs = {
         alias gcn='cd $NIXPKGS && git checkout $(nixos-version | cut -d" " -f1)'
         alias  te='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild test'
         alias ten='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
-        alias  sw='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
+        alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
         alias swn='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
       '';
     };
@@ -830,13 +830,16 @@ programs = {
   fonts = {
     fonts = [
       pkgs.terminus_font
+      pkgs.terminus_font_ttf
       pkgs.dina-font-pcf
       pkgs.proggyfonts
       pkgs.nerdfonts
     ];
-    # fontconfig.ultimate = {
-    #   enable = true;
-    # };
+    fontconfig = {
+      # penultimate.enable = true;
+      useEmbeddedBitmaps = true; # pango doesn't support bitmap fonts anymore, so we need terminus_font_ttf for i3bar, which displays wonky without this
+    };
+
   };
 
   i18n = {
