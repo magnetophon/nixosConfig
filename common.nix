@@ -30,6 +30,7 @@
   boot = {
     loader.systemd-boot = {
       enable = true;
+      # consoleMode = "1";
       # memtest86.enable = true; # unfree
     };
     loader.efi.canTouchEfiVariables = true;
@@ -219,6 +220,7 @@
 
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
+      # desktopManager.plasma5.enable = true;
       xkbOptions = "caps:swapescape";
       /*bitlbee.enable*/
       /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
@@ -315,7 +317,10 @@ environment= {
     bat
     lf
     nnn
+    ncdu # disk usage analyzer
+    # dua # disk usage analyzer, doesn't understand symbolic links
     ts
+    xdotool # for auto-type
     xorg.sessreg
     heimdall # for installing android etc
     coreutils
@@ -377,6 +382,7 @@ environment= {
     gitAndTools.diff-so-fancy
     gitAndTools.delta
     gitAndTools.grv
+    gitAndTools.tig
     mercurial
     subversion
     curl
@@ -388,6 +394,8 @@ environment= {
     # icedtea_web
     nixfmt
     nix-review
+    font-manager
+    xfontsel
     neovim
     (vim_configurable.customize {
       name = "vim";
@@ -397,9 +405,7 @@ environment= {
         "colorscheme solarized
         let g:solarized_termcolors=256
         color solarized             " Load a colorscheme
-
         set background=light
-
         set number relativenumber
       '';
       vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
@@ -428,7 +434,6 @@ environment= {
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
     # for emacs markdown-preview:
     # marked # node package
-    emacs-all-the-icons-fonts
     pandoc
     haskellPackages.markdown
     mu
@@ -479,7 +484,6 @@ environment= {
     conky
     dzen2
     # xpra
-    # winswitch
 #desktop
     #desktop-file-utils
     # firefox-esr
@@ -562,7 +566,7 @@ environment= {
     ffmpeg-full
     simplescreenrecorder
     scrot
-    handbrake
+    # handbrake
     alsaUtils
     # kiwix
     meld
@@ -826,30 +830,33 @@ programs = {
     adb.enable = true;
 
 };
-
-  fonts = {
-    fonts = [
-      pkgs.terminus_font
-      pkgs.terminus_font_ttf
-      pkgs.dina-font-pcf
-      pkgs.proggyfonts
-      pkgs.nerdfonts
-    ];
-    fontconfig = {
-      # penultimate.enable = true;
-      useEmbeddedBitmaps = true; # pango doesn't support bitmap fonts anymore, so we need terminus_font_ttf for i3bar, which displays wonky without this
-    };
-
+# Define fonts
+fonts = {
+  enableFontDir = true;
+  fontconfig = {
+    # penultimate.enable = true;
+    useEmbeddedBitmaps = true; # pango doesn't support mixing bitmap fonts with ttf anymore, so we if we want terminus plus icons we need terminus_font_ttf for i3bar, which displays wonky without this
   };
+  fonts = with pkgs; [
+    terminus_font
+    terminus_font_ttf
+    nerdfonts
+    emacs-all-the-icons-fonts
+    google-fonts
+  ];
+};
 
-  i18n = {
-     consoleFont = "Lat2-Terminus16";
-     consoleUseXkbConfig = true;
-     defaultLocale = "en_US.UTF-8";
-  };
+console = {
+  font = "Lat2-Terminus16";
+  useXkbConfig = true;
+};
+i18n = {
+  defaultLocale = "en_US.UTF-8";
+};
 
    networking = {
      # firewall.enable = false;
+     resolvconf.dnsExtensionMechanism = false; # workaround to fix “WiFi in de Trein”
    };
 
    time.timeZone = "Europe/Amsterdam";

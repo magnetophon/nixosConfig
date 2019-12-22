@@ -136,15 +136,16 @@ in
       videoDrivers = [ "intel" ];
       # windowManager.remote_i3.enable = true;
       windowManager.i3.enable = true;
-      windowManager.default = "i3" ;
-      # displayManager = {
-      #   # disable middle mouse buttons
-      #   sessionCommands = ''
+      # windowManager.default = "none+i3" ;
+      displayManager = {
+        defaultSession = "none+i3";
+        #   # disable middle mouse buttons
+        #   sessionCommands = ''
       #     xinput set-button-map 10 1 0 3  &&
       #     xinput set-button-map 11 1 0 3  &&
       #     physlock -ds
       #   '';
-      # };
+      };
     };
 
     # liquidsoap.streams = { papillon = ./papillon.liq; };
