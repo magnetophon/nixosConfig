@@ -270,13 +270,13 @@
     # gnome3.gvfs.enable = true;
     usbmuxd.enable = true;
 
-    # dnsmasq = {
-    #   enable = true;
-    #   extraConfig = ''
-    #     # cache-size=100000
-    #     addn-hosts=/var/lib/hostsblock/hosts.block
-    #  '';
-    #  };
+    dnsmasq = {
+      enable = true;
+      extraConfig = ''
+        # cache-size=100000
+        addn-hosts=/var/lib/hostsblock/hosts.block
+     '';
+    };
 
   };
 
@@ -511,6 +511,7 @@ environment= {
     python36Packages.mps-youtube
     shotwell
     galculator
+    transmission-gtk
     xrandr-invert-colors
     arandr
     xcalib
@@ -620,22 +621,22 @@ environment= {
         pkgs.zsh
       ];
 # Set of files that have to be linked in /etc.
-  etc =
-    { hosts =
-    # hostsblock -f /home/bart/.config/hostsblock/hostsblock.conf -u
-      { source = /home/bart/nixosConfig/hosts;
-      };
-    };
+  # etc =
+  #   { hosts =
+  #       # hostsblock -f /home/bart/.config/hostsblock/hostsblock.conf -u
+  #       { source = /home/bart/nixosConfig/hosts;
+  #       };
+  #   };
 
-    variables.NIX_AUTO_RUN="!";
+  variables.NIX_AUTO_RUN="!";
 
-    # Speaking of i3, if you enable both services.xserver.desktopManager.plasma5.enable = true; and services.xserver.windowManager.i3.enable = true; (for example), you get a neat extra: a combo option to run plasma with i3 as a window manager. Additionally, you can set services.xserver.desktopManager.default = "plasma5"; AND services.xserver.windowManager.default = "i3"; to get that variant by default.
+  # Speaking of i3, if you enable both services.xserver.desktopManager.plasma5.enable = true; and services.xserver.windowManager.i3.enable = true; (for example), you get a neat extra: a combo option to run plasma with i3 as a window manager. Additionally, you can set services.xserver.desktopManager.default = "plasma5"; AND services.xserver.windowManager.default = "i3"; to get that variant by default.
 
   # <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   # <nixpkgs/nixos/modules/profiles/headless.nix>
   # <nixpkgs/nixos/modules/profiles/hardened.nix>
 
-      # extraInit = ''
+  # extraInit = ''
   # shellInit = ''
   #   if [ -n "$DISPLAY"  ]; then
   #     BROWSER=firefox
