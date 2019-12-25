@@ -227,13 +227,15 @@ in
     # thinkfan.sensors = "hwmon /sys/devices/virtual/thermal/thermal_zone0/temp  (0,0,10)";
 
     # Suspend the system when battery level drops to 5% or lower
-    udev.extraRules = ''
-      SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
-      SUBSYSTEM=="power_supply", ACTION=="change", \
-      OPTIONS+="last_rule", \
-      RUN+=" ${pkgs.light}/bin/light -I"
-    '';
-  };
+
+    # udev.extraRules = ''
+    # SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
+    # SUBSYSTEM=="power_supply", ACTION=="change", \
+    # OPTIONS+="last_rule", \
+    # RUN+=" ${pkgs.light}/bin/light -I"
+    # '';
+    };
+
   # something like this should enable lower backlight, making ~/.local/bin/brightness.sh and the light save and restore unneeded
       # ENV{ID_BACKLIGHT_CLAMP}="0"
   # environment.systemPackages = [ tpacpi-bat ];

@@ -218,6 +218,9 @@
       # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
       # displayManager.setupCommands = "physlock -ds";
 
+      displayManager.sessionCommands = ''
+        (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
+      '';
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
@@ -277,7 +280,7 @@
         addn-hosts=/var/lib/hostsblock/hosts.block
      '';
     };
-
+    upower.enable = true;
   };
 
   nixpkgs.config = {
@@ -440,6 +443,7 @@ environment= {
     # imagemagick
     dunst
     libnotify
+    go-upower-notify
     # ctagsWrapped.ctagsWrapped
     which
     gnuplot
