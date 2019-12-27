@@ -219,6 +219,16 @@ in
         STOP_CHARGE_THRESH_BAT0=85
       '';
     };
+    thinkfan = {
+      # enable = true;
+      sensors = ''
+        hwmon /sys/devices/virtual/thermal/thermal_zone0/temp
+        hwmon /sys/devices/virtual/thermal/thermal_zone1/temp
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp3_input
+      '';
+    };
     # thinkfan.enable = true;
     # run strace tlp-stat -t
     # thinkfan.sensors = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input";

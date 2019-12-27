@@ -30,7 +30,7 @@
   boot = {
     loader.systemd-boot = {
       enable = true;
-      # consoleMode = "1";
+      # consoleMode = "max";
       # memtest86.enable = true; # unfree
     };
     loader.efi.canTouchEfiVariables = true;
@@ -225,6 +225,7 @@
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
       xkbOptions = "caps:swapescape";
+      xkbVariant = "altgr-intl";
       /*bitlbee.enable*/
       /*Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client. */
 
@@ -280,8 +281,18 @@
         addn-hosts=/var/lib/hostsblock/hosts.block
      '';
     };
-    upower.enable = true;
+    # upower.enable = true;
+    upower = {
+      enable = true;
+      # noPollBatteries = true;
+      percentageLow = 15;
+      percentageCritical = 10;
+      percentageAction = 5;
+    };
+
   };
+
+  # documentation.nixos.includeAllModules = true;
 
   nixpkgs.config = {
     # allowUnfree = true;
@@ -852,19 +863,26 @@ fonts = {
 };
 
 console = {
-  font = "Lat2-Terminus16";
+  packages = [ pkgs.terminus_font ];
+  font = "${pkgs.terminus_font}/share/consolefonts/ter-u12n.psf.gz";
   useXkbConfig = true;
+  # solarized light
+  colors = ["eee8d5" "dc322f" "859900" "b58900" "268bd2" "d33682" "2aa198" "073642" "002b36" "cb4b16" "586e75" "839496" "657b83" "6c71c4" "586e75" "002b36" ];
+  # solarized dark
+  # colors = [ "839496" "93a1a1" "eee8d5" "2aa198" "fdf6e3" "859900" "d33682" "dc322f" "657b83" "586e75" "cb4b16" "073642" "268bd2" "b58900" "002b36" "6c71c4" ];
+  # setup pretty console ASAP (in initrd).
+  earlySetup=true;
 };
 i18n = {
   defaultLocale = "en_US.UTF-8";
 };
 
-   networking = {
-     # firewall.enable = false;
-     resolvconf.dnsExtensionMechanism = false; # workaround to fix “WiFi in de Trein”
-   };
+networking = {
+  # firewall.enable = false;
+  resolvconf.dnsExtensionMechanism = false; # workaround to fix “WiFi in de Trein”
+};
 
-   time.timeZone = "Europe/Amsterdam";
+time.timeZone = "Europe/Amsterdam";
 
    users = {
       defaultUserShell = pkgs.zsh;
