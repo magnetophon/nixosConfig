@@ -6,28 +6,17 @@
       ./machine.nix
       # on every machine:
       ../../common.nix
+      # on every RT machine:
+      ../../commonRT.nix
       # music tweaks and progs:
      ../../music.nix
     ];
 
   networking.hostName = "thinknix-rt";
+  musnix.rtirq.nameList = "rtc0 usb";
 
-  services.tlp.enable = false;
 
-  # boot.kernelPackages = pkgs.linux_rt.linux_4_19_rt;
-  # boot.kernelPackages = pkgs.linux_rt.linux_5_0_rt;
 
-  musnix = {
-    enable = true;
-    # kernel.packages = pkgs.linuxPackages_latest_rt;
-    kernel.packages = pkgs.linuxPackages_4_19_rt;
-    kernel.optimize = true;
-    kernel.realtime = true;
-    rtirq.nameList = "rtc0 usb";
-    rtirq.enable = true;
-    das_watchdog.enable = true;
-  };
+  # nixos-rebuild test -p rt -I nixos-config=/home/bart/nixosConfig/machines/thinknix/rt.nix -I nixpkgs=$NIXPKGS
+  # nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/thinknix/rt.nix -I nixpkgs=$NIXPKGS
 }
-
-# nixos-rebuild test -p rt -I nixos-config=/home/bart/nixosConfig/machines/thinknix/rt.nix -I nixpkgs=$NIXPKGS
-# nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/thinknix/rt.nix -I nixpkgs=$NIXPKGS

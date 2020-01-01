@@ -36,16 +36,6 @@
 # boot.kernelModules = [ "snd-aloop" ];
 #sound.enableMediaKeys = true;
 
-  musnix = {
-    enable = true;
-    kernel.packages = pkgs.linuxPackages_latest_rt;
-    kernel.optimize = true;
-    kernel.realtime = true;
-    # soundcardPciId = "04:01";
-
-    rtirq.enable = true;
-    rtirq.nameList = "rtc0 snd";
-    das_watchdog.enable = true;
-    # rtirq.nonThreaded = "rtc0 snd_rme9652";
-  };
+  musnix.rtirq.nameList = "rtc0 snd";
+  # musnix.rtirq.nonThreaded = "rtc0 snd_rme9652";
 }

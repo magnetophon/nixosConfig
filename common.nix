@@ -864,7 +864,7 @@ fonts = {
 
 console = {
   packages = [ pkgs.terminus_font ];
-  font = "${pkgs.terminus_font}/share/consolefonts/ter-u12n.psf.gz";
+  font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
   useXkbConfig = true;
   # solarized light
   colors = ["eee8d5" "dc322f" "859900" "b58900" "268bd2" "d33682" "2aa198" "073642" "002b36" "cb4b16" "586e75" "839496" "657b83" "6c71c4" "586e75" "002b36" ];
