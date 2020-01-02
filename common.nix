@@ -1,4 +1,3 @@
-
 # https://discourse.nixos.org/t/nixos-without-a-display-manager/360/11
 
 {pkgs, config, ...}: with pkgs;
@@ -163,11 +162,13 @@
       #   '';
       # };
 
+      # displayManager.startx.enable = true;
       displayManager.lightdm = {
         enable = true;
+        # greeter.enable = false;
         # autoLogin = {
-        #   enable = true;
-        #   user = "bart";
+        # enable = true;
+        # user = "bart";
         # };
         # extraSeatDefaults = ''
         #   [Seat:*]
@@ -215,12 +216,13 @@
       #   setupScript =  "{pkgs.physlock}/bin/physlock -ds";
       # };
       # Yes, this is a hack.
-      # displayManager.setupCommands = "sudo ${pkgs.physlock}/bin/physlock -ds";
+      # displayManager.setupCommands = "${pkgs.physlock}/bin/physlock -ds";
       # displayManager.setupCommands = "physlock -ds";
 
       displayManager.sessionCommands = ''
         (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
       '';
+      # sudo -u bart ${pkgs.physlock}/bin/physlock -ds
       synaptics = import ./synaptics.nix;
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
@@ -252,7 +254,6 @@
         # physlock-start[774]: physlock: Unable to detect user of tty1
         # extraTargets = ["graphical.target"];
         # extraTargets = ["display-manager.service"];
-
       };
     };
     logind.extraConfig =
@@ -281,7 +282,6 @@
         addn-hosts=/var/lib/hostsblock/hosts.block
      '';
     };
-    # upower.enable = true;
     upower = {
       enable = true;
       # noPollBatteries = true;
@@ -415,12 +415,14 @@ environment= {
       name = "vim";
 
       vimrcConfig.customRC = ''
+        set clipboard=unnamedplus
         "use the light solarized theme:
         "colorscheme solarized
         let g:solarized_termcolors=256
         color solarized             " Load a colorscheme
         set background=light
         set number relativenumber
+        "let g:airline#extensions#tabline#enabled = 1
       '';
       vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
       vimrcConfig.vam.pluginDictionaries = [
@@ -429,14 +431,17 @@ environment= {
             "colors-solarized"
             # "ctrlp"
             # "fugitive"
-            "nerdcommenter"
+            # "fzf-vim"
+            # "nerdcommenter"
             # "nerdtree"
             # "rainbow_parentheses"
             # "Tabular"
-            "undotree"
-            "vim-addon-nix"
+            # "undotree"
+            # "vim-addon-nix"
+            # "vim-gitgutter"
+            "vim-nix"
             "vim-sensible"
-            "vim-sleuth"
+            # "vim-sleuth" # Heuristically set buffer options
             # "youcompleteme"
           ]; }
       ];
@@ -446,6 +451,7 @@ environment= {
     #my_vim
     # emacs
     # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
+    texlive.combined.scheme-medium  # :lang org -- for latex previews
     # for emacs markdown-preview:
     # marked # node package
     pandoc

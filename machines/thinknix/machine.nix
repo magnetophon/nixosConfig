@@ -135,16 +135,19 @@ in
     xserver = {
       videoDrivers = [ "intel" ];
       # windowManager.remote_i3.enable = true;
-      windowManager.i3.enable = true;
+      windowManager.i3 = {
+        enable = true;
+        # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
+      };
       # windowManager.default = "none+i3" ;
       displayManager = {
         defaultSession = "none+i3";
         #   # disable middle mouse buttons
         #   sessionCommands = ''
-      #     xinput set-button-map 10 1 0 3  &&
-      #     xinput set-button-map 11 1 0 3  &&
-      #     physlock -ds
-      #   '';
+        #     xinput set-button-map 10 1 0 3  &&
+        #     xinput set-button-map 11 1 0 3  &&
+        #     physlock -ds
+        #   '';
       };
     };
 
@@ -158,8 +161,8 @@ in
       # time compton --config /dev/null --backend glx --benchmark 100
       # time compton --config /dev/null --backend xrender --benchmark 100
       # the above gives xrender as the quickest option, but it tears, whereas glx does not
-      # backend = "glx";
-      # vSync = true;
+      backend = "glx";
+      vSync = true;
       # vSync = "opengl-swc";
       # vSync = "opengl-oml";
       # extraOptions = "paint-on-overlay = true";
