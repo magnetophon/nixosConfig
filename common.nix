@@ -272,7 +272,7 @@
         ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
     # dbus.socketActivated = true;
-    # gnome3.gvfs.enable = true;
+    # gvfs.enable = true; # for url handling of pqiv, see https://github.com/phillipberndt/pqiv/issues/114   doesn't work yet on nixos
     usbmuxd.enable = true;
 
     dnsmasq = {
@@ -369,6 +369,7 @@ environment= {
     openssl
     physlock
     # i3lock
+    i3-layout-manager
     asciinema
     neofetch
     rtv
