@@ -1,16 +1,16 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }:
+with pkgs;
 
 let
   # ls /dev/disk/by-id/
   diskID = "ata-INTEL_SSDSA2BW160G3L_BTPR152201YW160DGN";
   # blkid
   bootUUID = "32FC-293A";
-in
-{
-  imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+in {
+  imports = [
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # ./remote_i3.nix
-    ];
+  ];
 
   nixpkgs.system = "x86_64-linux";
 
@@ -26,29 +26,42 @@ in
 
   sound.extraConfig = ''
     pcm.!default {
-    type rate
-    slave {
-      pcm "hw:0"
-      rate 44100
+      type rate
+      slave {
+        pcm "hw:0"
+        rate 44100
       }
     }
   '';
 
-  boot =
-  { # dependant on amount of ram:
+  boot = { # dependant on amount of ram:
     # tmpOnTmpfs = true;
     # loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;
     # workaround for kernel bug https://bbs.archlinux.org/viewtopic.php?id=218581&p=3
     # kernelPackages = pkgs.linuxPackages_4_4;
-    #copy from /etc/nixos/hardware-configuration.nix
-    initrd.availableKernelModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
+    initrd.availableKernelModules = [
+      #copy from /etc/nixos/hardware-configuration.nix
+      "ehci_pci"
+      "ahci"
+      "usb_storage"
+      "sd_mod"
+      "sr_mod"
+      "sdhci_pci"
+    ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
     kernelModules = [ "acpi_call" "tp_smapi" ];
     extraModprobeConfig = ''
-      options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
+      options
+      iwlwifi
+      power_save=1
+      d0i3_disable=0
+      uapsd_disable=0
     '';
-    extraModulePackages = [ config.boot.kernelPackages.acpi_call config.boot.kernelPackages.tp_smapi ];
+    extraModulePackages = [
+      config.boot.kernelPackages.acpi_call
+      config.boot.kernelPackages.tp_smapi
+    ];
     kernelParams = [
       "fastboot=true"
       # # Kernel GPU Savings Options (NOTE i915 chipset only)
@@ -59,8 +72,9 @@ in
       # "i915.semaphores=1"
       # # "enable_dpcd_backlight=true"
       # "i915.enable_rc6=1" "i915.enable_fbc=1"
-			"i915.lvds_use_ssc=0"
-      "drm.debug=0" "drm.vblankoffdelay=1"
+      "i915.lvds_use_ssc=0"
+      "drm.debug=0"
+      "drm.vblankoffdelay=1"
       "nmi_watchdog=0"
       # handle screen brightness manually, so we can go lower:
       "video.brightness_switch_enabled=0"
@@ -68,41 +82,41 @@ in
     ];
     blacklistedKernelModules = [
       # Kernel GPU Savings Options (NOTE i915 chipset only)
-      "sierra_net" "cdc_mbim" "cdc_ncm" "btusb"
+      "sierra_net"
+      "cdc_mbim"
+      "cdc_ncm"
+      "btusb"
       # disable beep
-      "snd_pcsp" "pcspkr"
+      "snd_pcsp"
+      "pcspkr"
       #disable webcam
       "uvcvideo"
     ];
   };
 
- # powerManagement.cpuFreqGovernor = "powersave";
+  # powerManagement.cpuFreqGovernor = "powersave";
 
-  fileSystems =
-  {
-    "/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "/dev/mapper/VolGroup-nixos";
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" "discard" ];
     };
-    "/boot" =
-    { device = "/dev/disk/by-uuid/${bootUUID}";
-     # fsType = "vfat";
-     # options = [ "relatime" "errors=remount-ro" ];
+    "/boot" = {
+      device = "/dev/disk/by-uuid/${bootUUID}";
+      # fsType = "vfat";
+      # options = [ "relatime" "errors=remount-ro" ];
     };
-    "/home" =
-    { device = "/dev/mapper/VolGroup-home";
+    "/home" = {
+      device = "/dev/mapper/VolGroup-home";
       fsType = "ext4";
       options = [ "relatime" "errors=remount-ro" "discard" ];
     };
   };
 
-  swapDevices = [{
-    device = "/dev/mapper/VolGroup-swap";
-  }];
+  swapDevices = [{ device = "/dev/mapper/VolGroup-swap"; }];
 
-   nix = {
+  nix = {
     requireSignedBinaryCaches = true;
     # maxJobs = 0; # 0 = force remote building. if the server is down, add "--maxJobs 4" to wour build command to temporarily force a local build again.
     # distributedBuilds = true;
@@ -120,7 +134,7 @@ in
     ];
     # optional, useful when the builder has a faster internet connection than yours
     extraOptions = ''
-		  builders-use-substitutes = true
+      builders-use-substitutes = true
     '';
   };
 
@@ -247,10 +261,10 @@ in
     # OPTIONS+="last_rule", \
     # RUN+=" ${pkgs.light}/bin/light -I"
     # '';
-    };
+  };
 
   # something like this should enable lower backlight, making ~/.local/bin/brightness.sh and the light save and restore unneeded
-      # ENV{ID_BACKLIGHT_CLAMP}="0"
+  # ENV{ID_BACKLIGHT_CLAMP}="0"
   # environment.systemPackages = [ tpacpi-bat ];
 
 }
