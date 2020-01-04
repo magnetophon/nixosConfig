@@ -273,6 +273,7 @@
     '';
     # dbus.socketActivated = true;
     # gvfs.enable = true; # for url handling of pqiv, see https://github.com/phillipberndt/pqiv/issues/114   doesn't work yet on nixos
+    # gvfs.package = pkgs.gnome3.gvfs;
     usbmuxd.enable = true;
 
     dnsmasq = {
@@ -467,6 +468,7 @@ environment= {
     gnuplot
     nixpkgs-lint
     nix-prefetch-scripts
+    nix-prefetch-git
     nix-index
     nox
     xlibs.xkill
@@ -614,6 +616,7 @@ environment= {
     gtypist
     aspell
     aspellDicts.en
+    aspellDicts.en-computers
     aspellDicts.nl
     aspellDicts.de
     # libreoffice-fresh
@@ -676,7 +679,7 @@ environment= {
     PAGER = "less";
     LESS = "-isMR";
     NIX_PAGER = "cat";
-    TERMCMD = "termite";
+    TERMCMD = "alacritty";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
     GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
