@@ -170,8 +170,9 @@ in {
     ntp.enable = false;
     chrony.enable = true;
 
-    compton = {
-      enable = true;
+    picom = {
+      # we start it as needed, config in dotfiles
+      # enable = true;
       # time compton --config /dev/null --backend glx --benchmark 100
       # time compton --config /dev/null --backend xrender --benchmark 100
       # the above gives xrender as the quickest option, but it tears, whereas glx does not
@@ -180,6 +181,7 @@ in {
       # vSync = "opengl-swc";
       # vSync = "opengl-oml";
       # extraOptions = "paint-on-overlay = true";
+      # settings = "unredir-if-possible = true";
       # settings = "unredir-if-possible = true";
     };
     psd = {

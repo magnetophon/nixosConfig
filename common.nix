@@ -32,11 +32,6 @@ with pkgs; {
       # memtest86.enable = true; # unfree
     };
     loader.efi.canTouchEfiVariables = true;
-    # grub = {
-    #  enable = true;
-    #  version = 2;
-    #  memtest86.enable = true;
-    #     };
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
@@ -69,8 +64,6 @@ with pkgs; {
   # The command provided creates a symbolic link of the current contents of /etc/nixos (copied into the Nix store) into the current Nix profile being generated. All of the configuration files are accessible at /var/run/current-system/full-config/
   system.extraSystemBuilderCmds = ''
     ln -s ${./.} $out/full-config
-    # copy current system to ssd, replace it by a link to the copy
-    # cp $out
   '';
   ## error: attribute 'nixos-version' missing
   # mkdir -p $out/full-config
@@ -346,6 +339,7 @@ with pkgs; {
       termite
       termite.terminfo
       alacritty
+      picom # compton fork
       # e19.terminology
       zsh
       nix-zsh-completions
@@ -371,6 +365,7 @@ with pkgs; {
       rtv
       tree
       htop
+      s-tui
       iotop
       powertop
       sysstat
@@ -394,6 +389,7 @@ with pkgs; {
       gitAndTools.delta
       gitAndTools.grv
       gitAndTools.tig
+      bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
       subversion
       curl
@@ -547,6 +543,7 @@ with pkgs; {
       rofi-pass
       silver-searcher
       ripgrep
+      ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
       exa # rust ls alternative
       trash-cli
@@ -674,6 +671,7 @@ with pkgs; {
   sound.enable = true;
 
   environment.sessionVariables = {
+    # EDITOR = "edit";
     BROWSER = "qutebrowser";
     PAGER = "less";
     LESS = "-isMR";
@@ -832,6 +830,8 @@ with pkgs; {
         alias ten='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
         alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
         alias swn='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
+        vi() {emacseditor --create-frame --quiet --no-wait "$@"}
+        # export EDITOR="vi"
       '';
     };
 

@@ -22,7 +22,7 @@ with pkgs; {
 
     nixpkgs = {
         config.packageOverrides = pkgs: rec {
-            guitarix = pkgs.guitarix.override { optimizationSupport = true; };
+            guitarix = pkgs.guitarix.override { optimizationSupport = true; }; # TODO: upstream
             plugins = [ helmholtz timbreid maxlib zexy puremapping cyclone mrpeach ];
             # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
             fullPD = puredata-with-plugins plugins;
