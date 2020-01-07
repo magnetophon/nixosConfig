@@ -562,6 +562,8 @@ with pkgs; {
       transmission
       lynx
       mediainfo
+      fontforge
+      openscad
       python3Packages.ueberzug
       # mutt-with-sidebar
       # mutt-kz
