@@ -451,7 +451,8 @@ with pkgs; {
       haskellPackages.markdown
       mu
       # imagemagick
-      dunst
+      # dunst
+      (dunst.override { dunstify = true; })
       libnotify
       go-upower-notify
       # ctagsWrapped.ctagsWrapped
@@ -483,6 +484,7 @@ with pkgs; {
       #vim
       # ( pkgs.xdg_utils.override { mimiSupport = true; })
       xdg_utils
+      shared_mime_info
       perlPackages.MIMETypes
       gnupg
       #windowmanager etc:
@@ -560,6 +562,7 @@ with pkgs; {
       transmission
       lynx
       mediainfo
+      python3Packages.ueberzug
       # mutt-with-sidebar
       # mutt-kz
       neomutt

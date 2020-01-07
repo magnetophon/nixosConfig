@@ -65,13 +65,11 @@ in {
     kernelParams = [
       "fastboot=true"
       # # Kernel GPU Savings Options (NOTE i915 chipset only)
-      # "i915.enable_rc6=7"
-      # "enable_dc=2"
+      "i915.enable_rc6=1"
       # "i915.enable_fbc=1"
-      # # "i915.lvds_downclock=1"
+      # "i915.lvds_downclock=1"
       # "i915.semaphores=1"
-      # # "enable_dpcd_backlight=true"
-      # "i915.enable_rc6=1" "i915.enable_fbc=1"
+      # "enable_dpcd_backlight=true"
       "i915.lvds_use_ssc=0"
       "drm.debug=0"
       "drm.vblankoffdelay=1"
@@ -185,7 +183,9 @@ in {
       # settings = "unredir-if-possible = true";
     };
     psd = {
-      enable = true;
+      # annoying find /home/ "-type d -name *crashrecovery*" at startup
+      # https://github.com/graysky2/anything-sync-daemon/issues/56
+      # enable = true;
       # users = [ "bart" ];      # At least one is required
       # browsers = [ "firefox" ];    # Leave blank to enable all
     };
