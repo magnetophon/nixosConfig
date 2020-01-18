@@ -265,7 +265,9 @@ with pkgs; {
     # dbus.socketActivated = true;
     # gvfs.enable = true; # for url handling of pqiv, see https://github.com/phillipberndt/pqiv/issues/114   doesn't work yet on nixos
     # gvfs.package = pkgs.gnome3.gvfs;
-    usbmuxd.enable = true;
+    # plug-n-play tethering for iPhones:
+    # disabled because of https://github.com/NixOS/nixpkgs/issues/77189
+    # usbmuxd.enable = true;
 
     dnsmasq = {
       enable = true;
@@ -333,6 +335,7 @@ with pkgs; {
       stow
       tmux
       tealdeer
+      languagetool
       mosh
       sshfsFuse
       rxvt_unicode
@@ -532,6 +535,8 @@ with pkgs; {
       python36Packages.mps-youtube
       shotwell
       galculator
+      qalculate-gtk
+      libqalculate
       transmission-gtk
       xrandr-invert-colors
       arandr
@@ -583,6 +588,7 @@ with pkgs; {
       #pypyPackages.alot
       #python27Packages.alot
       filezilla
+      kcolorchooser
       imagemagickBig
       gimp
       inkscape
@@ -850,6 +856,40 @@ with pkgs; {
 
     gnupg.agent.enable = true;
 
+    chromium = {
+      enable = true;
+      # Imperatively installed extensions will seamlessly merge with these.
+      # Removing extensions here will remove them from chromium, no matter how
+      # they were installed.
+      defaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
+      extensions = [
+        # "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
+        # "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
+        "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # privacy badger
+        "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
+        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
+        "ldpochfccmkkmhdbclfhpagapcfdljkj" # Decentraleyes
+        # "cmedhionkhpnakcndndgjdbohmhepckk" # Adblock for Youtube™
+        # "gfbliohnnapiefjpjlpjnehglfpaknnc" # Surfingkeys
+        # "ignpacbgnbnkaiooknalneoeladjnfgb" # Url in title
+        "poahndpaaanbpbeafbkploiobpiiieko" # Display anchors
+        "klbibkeccnjlkjkiokjodocebajanakg" # the great suspender
+        # "kajibbejlbohfaggdiogboambcijhkke" # mailvelope
+      ];
+      extraOpts = {
+        DefaultSearchProviderEnabled = true;
+        DefaultSearchProviderName = "DuckDuckGo";
+        PasswordManagerEnabled = false;
+        BrowserSignin = 0;
+        AudioCaptureAllowed = false;
+        RestoreOnStartup = 5;
+        NetworkPredictionOptions = 2;
+        SafeBrowsingEnabled = true;
+        SafeBrowsingExtendedReportingEnabled = false;
+        SearchSuggestEnabled = false;
+      };
+};
+
     light.enable = true;
     # gtk search:
     plotinus.enable = true;
@@ -871,6 +911,7 @@ with pkgs; {
       nerdfonts
       emacs-all-the-icons-fonts
       google-fonts
+      liberation_ttf
     ];
   };
 

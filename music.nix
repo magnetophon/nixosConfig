@@ -154,7 +154,7 @@ with pkgs; {
             ardour
             ir.lv2
             # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
-            distrho
+            # distrho
             dragonfly-reverb
             sorcer
             sox
