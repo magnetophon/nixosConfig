@@ -140,6 +140,7 @@ with pkgs; {
             faust2jack
             faust2jaqt
             faust2lv2
+            octave
             graphviz
             leiningen
             # ( pkgs.fmit.override { jackSupport = true; })

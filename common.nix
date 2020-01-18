@@ -399,7 +399,7 @@ with pkgs; {
       nextcloud-client
       inetutils
       hostsblock
-      # haskellPackages.ghc
+      haskellPackages.ghc
       ruby
       # icedtea_web
       nixfmt
@@ -536,6 +536,7 @@ with pkgs; {
       shotwell
       galculator
       qalculate-gtk
+      bc
       libqalculate
       transmission-gtk
       xrandr-invert-colors
@@ -568,7 +569,6 @@ with pkgs; {
       lynx
       mediainfo
       fontforge
-      openscad
       python3Packages.ueberzug
       # mutt-with-sidebar
       # mutt-kz
@@ -594,6 +594,7 @@ with pkgs; {
       inkscape
       # (pkgs.blender.override { jackaudioSupport = true; })
       blender
+      openscad
       kdenlive
       ffmpeg-full
       simplescreenrecorder
