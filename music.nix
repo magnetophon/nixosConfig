@@ -114,6 +114,16 @@ with pkgs; {
             magnetophonDSP.faustCompressors
             magnetophonDSP.shelfMultiBand
             magnetophonDSP.pluginUtils
+            ensemble-chorus
+            eteroj.lv2
+            gxmatcheq-lv2
+            hybridreverb2
+            noise-repellent
+            # sisco.lv2 todo: fix build
+            spectmorph
+            stone-phaser
+            # string-machine # todo:uncomment when it gets in unstable
+            tambura
             mda_lv2
             csa
             mixxx

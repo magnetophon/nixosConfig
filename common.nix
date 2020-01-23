@@ -361,8 +361,6 @@ with pkgs; {
       hyperfine
       openssl
       physlock
-      # i3lock
-      i3-layout-manager
       asciinema
       neofetch
       rtv
@@ -495,7 +493,11 @@ with pkgs; {
       i3
       i3status
       i3status-rust
+      # i3lock
+      i3-layout-manager
       wmfocus
+      xorg.xprop # get window props like class and insctance
+      xorg.xev #	get the name of a key or key-combo
       lm_sensors # for i3status-rust
       dmenu
       clipster
@@ -608,6 +610,7 @@ with pkgs; {
       recoll
       # https://github.com/NixOS/nixpkgs/issues/50001 :
       zathura
+      evince
       # kodi
       (pkgs.pidgin-with-plugins.override {
         plugins = [ pidginotr ];
