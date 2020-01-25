@@ -491,6 +491,8 @@ with pkgs; {
       #windowmanager etc:
       wget
       i3
+      polybarFull
+      jq
       i3status
       i3status-rust
       # i3lock
@@ -911,6 +913,8 @@ with pkgs; {
     };
     fonts = with pkgs; [
       terminus_font
+      siji # bitmap icons
+      tewi-font  # bitmap icons + letters
       terminus_font_ttf
       nerdfonts
       emacs-all-the-icons-fonts
