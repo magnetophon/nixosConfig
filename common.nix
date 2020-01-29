@@ -446,11 +446,19 @@ with pkgs; {
       # emacs
       # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
       texlive.combined.scheme-medium # :lang org -- for latex previews
+      wordnet # for offline dictionary and thesaurus support
       # for emacs markdown-preview:
       # marked # node package
       pandoc
       haskellPackages.markdown
       mu
+      editorconfig-core-c # per-project style config
+      gnutls              # for TLS connectivity
+      imagemagick         # for image-dired
+      (lib.mkIf (config.programs.gnupg.agent.enable)
+        pinentry_emacs)   # in-emacs gnupg prompts
+      zstd                # for undo-tree compression
+
       # imagemagick
       # dunst
       (dunst.override { dunstify = true; })
@@ -500,6 +508,7 @@ with pkgs; {
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev #	get the name of a key or key-combo
+      busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
       lm_sensors # for i3status-rust
       dmenu
       clipster
@@ -554,7 +563,7 @@ with pkgs; {
       pass
       rofi-pass
       silver-searcher
-      ripgrep
+      (ripgrep.override {withPCRE2 = true;})
       ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
       exa # rust ls alternative
@@ -613,6 +622,7 @@ with pkgs; {
       # https://github.com/NixOS/nixpkgs/issues/50001 :
       zathura
       evince
+      diff-pdf
       # kodi
       (pkgs.pidgin-with-plugins.override {
         plugins = [ pidginotr ];
@@ -632,6 +642,7 @@ with pkgs; {
       aspell
       aspellDicts.en
       aspellDicts.en-computers
+      aspellDicts.en-science
       aspellDicts.nl
       aspellDicts.de
       # libreoffice-fresh
@@ -830,7 +841,60 @@ with pkgs; {
       shellAliases = { };
       promptInit = "";
       loginShellInit = "";
+      # debug with:
+      # nix-instantiate --eval '<nixpkgs/nixos>' -A config.programs.zsh.interactiveShellInit --json | jq -r | bat
       interactiveShellInit = ''
+          #####################################################################
+          # shell independent prompts #########################################
+          #####################################################################
+
+          # Read a single char from /dev/tty, prompting with "$*"
+          # Note: pressing enter will return a null string. Perhaps a version terminated with X and then remove it in caller?
+          # See https://unix.stackexchange.com/a/367880/143394 for dealing with multi-byte, etc.
+          function get_keypress {
+            local REPLY IFS=
+            >/dev/tty printf '%s' "$*"
+            [[ $ZSH_VERSION ]] && read -rk1  # Use -u0 to read from STDIN
+            # See https://unix.stackexchange.com/q/383197/143394 regarding '\n' -> '''
+            [[ $BASH_VERSION ]] && </dev/tty read -rn1
+            printf '%s' "$REPLY"
+          }
+
+          # Get a y/n from the user, return yes=0, no=1 enter=$2
+          # Prompt using $1.
+          # If set, return $2 on pressing enter, useful for cancel or defualting
+          function get_yes_keypress {
+            local prompt="''${1:-Are you sure [y/n]? }"
+            local enter_return=$2
+            local REPLY
+            # [[ ! $prompt ]] && prompt="[y/n]? "
+            while REPLY=$(get_keypress "$prompt"); do
+              [[ $REPLY ]] && printf '\n' # $REPLY blank if user presses enter
+              case "$REPLY" in
+                Y|y)  return 0;;
+                N|n)  return 1;;
+                ''')   [[ $enter_return ]] && return "$enter_return"
+              esac
+            done
+          }
+
+          # Credit: http://unix.stackexchange.com/a/14444/143394
+          # Prompt to confirm, defaulting to NO on <enter>
+          # Usage: confirm "Dangerous. Are you sure?" && rm *
+          function confirm {
+            local prompt="''${*:-Are you sure} [y/N]? "
+            get_yes_keypress "$prompt" 1
+          }
+
+          # Prompt to confirm, defaulting to YES on <enter>
+          function confirm_yes {
+            local prompt="''${*:-Are you sure} [Y/n]? "
+            get_yes_keypress "$prompt" 0
+          }
+          #####################################################################
+          #####################################################################
+          #####################################################################
+
         alias  up='nixos-rebuild test --upgrade '
         function upn {
           cd $NIXPKGS &&
@@ -847,8 +911,79 @@ with pkgs; {
         alias ten='nixos-rebuild test   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
         alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
         alias swn='nixos-rebuild switch -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
+
+        nga() {
+          if confirm "Delete all generations and vacuum the systemd journal?"; then
+            nix-collect-garbage -d && journalctl --vacuum-time=2d
+          else
+            echo "\nOK, we'll keep it all"
+          fi
+        }
+
+        ngd() {
+          if [[ -n "$1" ]] && [[ "$1" =~ ^-?[0-9]+$ ]]; then
+            if confirm "Delete all generations and vacuum the systemd journal except for the last $1 days?"; then
+              nix-collect-garbage --delete-older-than $1d && journalctl --vacuum-time=$1d
+            else
+              echo "\nOK, we'll keep it all."
+            fi
+          else
+            echo "\nYou need to give the number of days you want to keep!"
+          fi
+        }
+
+        lg() {
+          echo "System generations\n"
+          nix-env -p /nix/var/nix/profiles/system --list-generations
+          echo "\n\nRT generations:\n"
+          nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
+        }
+
+        lgs() {
+          echo "System generations\n"
+          nix-env -p /nix/var/nix/profiles/system --list-generations
+        }
+
+        lgr() {
+          echo "RT generations:\n"
+          nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
+        }
+
+        dgs() {
+          if [[ -n "$@" ]]
+            for i in "$@"
+            do
+              if [[ "$i" =~ ^-?[0-9]+$ ]]; then
+
+              else
+                echo "\nYou need to tell me which generations to delete!"
+                kill -INT $$
+              fi
+            done
+            confirm "Delete system generations $@" &&
+            nix-env -p /nix/var/nix/profiles/system --delete-generations $@
+        }
+
+        dgr() {
+          if [[ -n "$@" ]]
+            for i in "$@"
+            do
+              if [[ "$i" =~ ^-?[0-9]+$ ]]; then
+
+              else
+                echo "\nYou need to tell me which generations to delete!"
+                kill -INT $$
+              fi
+            done
+            confirm "Delete realtime generations $@" &&
+            nix-env -p /nix/var/nix/profiles/system-profiles/rt --delete-generations $@
+        }
+
+        alias ns='nix-shell --command zsh $NIXPKGS'
+
         vi() {emacseditor --create-frame --quiet --no-wait "$@"}
         # export EDITOR="vi"
+
       '';
     };
 

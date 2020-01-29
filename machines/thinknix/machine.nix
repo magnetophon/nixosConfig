@@ -257,6 +257,10 @@ in {
 
     # Suspend the system when battery level drops to 5% or lower
 
+    # SUBSYSTEM=="power_supply",ACTION=change,RUN+="${pkgs.coreutils}/bin/sleep 1 $$  ${pkgs.light}/bin/light -I"
+    # udev.extraRules = ''
+    # SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_STATUS}=="Unknown", RUN+="${pkgs.coreutils}/bin/mktemp -t "ttestung.XXXXXXXXXX"
+    # '';
     # udev.extraRules = ''
     # SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
     # SUBSYSTEM=="power_supply", ACTION=="change", \
