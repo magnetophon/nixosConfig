@@ -163,6 +163,7 @@ with pkgs; {
             # ardour3
             # ardour4
             ardour
+            helio-workstation
             ir.lv2
             # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
             # distrho

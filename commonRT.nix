@@ -9,8 +9,8 @@
 
   musnix = {
     enable = true;
-    kernel.packages = pkgs.linuxPackages_latest_rt;
-    # kernel.packages = pkgs.linuxPackages_4_19_rt;
+    # kernel.packages = pkgs.linuxPackages_latest_rt;
+    kernel.packages = pkgs.linuxPackages_4_19_rt;
     kernel.optimize = true;
     kernel.realtime = true;
     rtirq.enable = true;
@@ -18,9 +18,21 @@
   };
 
   services = {
-    jack.jackd = {
-      enable = true;
-      # extraOptions =
+    jack = {
+      jackd = {
+        # enable = true;
+        # per device:
+        # extraOptions = [
+        # "-v" "-P71" "-p1024" "-dalsa" "-dhw:PCH" "-r48000" "-p2048" "-n2" "-P"
+        # ];
+        session = "a2jmidid -e";
+      };
+      # support ALSA only programs via ALSA JACK PCM pluginor loopback
+      alsa.enable = false;
+      # loopback = {
+      # enable = true;
+      # config = "";
+      # };
     };
   };
 }

@@ -138,6 +138,7 @@ with pkgs; {
       forwardX11 = true;
       permitRootLogin = "without-password";
       # permitRootLogin = "yes";
+      startWhenNeeded = true;
     };
     xserver = {
       enable = true;
@@ -513,6 +514,8 @@ with pkgs; {
       dmenu
       clipster
       rofi
+      rofi-systemd
+
       networkmanager_dmenu
       conky
       dzen2
@@ -550,7 +553,9 @@ with pkgs; {
       galculator
       qalculate-gtk
       bc
+      calc
       libqalculate
+      rink # Unit conversion tool and library written in rust
       transmission-gtk
       xrandr-invert-colors
       arandr
@@ -578,7 +583,6 @@ with pkgs; {
       perlPackages.ImageExifTool
       ffmpegthumbnailer
       poppler_utils # for pdftotext
-      transmission
       lynx
       mediainfo
       fontforge
@@ -645,6 +649,9 @@ with pkgs; {
       aspellDicts.en-science
       aspellDicts.nl
       aspellDicts.de
+      hunspellDicts.en_US-large
+      # hunspellDicts.nl_NL
+      hunspellDicts.de_DE
       # libreoffice-fresh
       libreoffice
       k3b
@@ -980,6 +987,7 @@ with pkgs; {
         }
 
         alias ns='nix-shell --command zsh $NIXPKGS'
+        alias nsn='nix-shell -I nixpkgs=$NIXPKGS --command zsh'
 
         vi() {emacseditor --create-frame --quiet --no-wait "$@"}
         # export EDITOR="vi"
@@ -1105,7 +1113,7 @@ with pkgs; {
       createHome = false;
       home = "/home/bart";
       extraGroups =
-        [ "wheel" "audio" "video" "usbmux" "networkmanager" "adbusers" ];
+        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" ];
       shell = pkgs.zsh;
     };
     mutableUsers = true;
