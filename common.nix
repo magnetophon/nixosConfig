@@ -38,6 +38,21 @@ with pkgs; {
   };
 
   nix = {
+    distributedBuilds = true;
+    buildMachines = [
+      { hostName = "nxb-4";
+        system = "x86_64-linux";
+        maxJobs = 100;
+        supportedFeatures = [ "benchmark" ];
+      }
+      { hostName = "nxb-16";
+        system = "x86_64-linux";
+        maxJobs = 100;
+        supportedFeatures = [ "benchmark" ];
+        mandatoryFeatures = [ "big-parallel" ];
+      }
+    ];
+
     useSandbox = true;
     sandboxPaths = [ "/home/nixchroot" ];
     requireSignedBinaryCaches = true;
@@ -1001,6 +1016,22 @@ with pkgs; {
       startAgent = true;
       forwardX11 = true;
       askPassword = "";
+      extraConfig = ''
+        Host beta.nixbuild.net nxb-*
+          Port 2222
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+          PubkeyAcceptedKeyTypes ssh-ed25519
+          IdentityFile /home/bart/.ssh/id_ed25519
+
+        Host nxb-4
+          HostName beta.nixbuild.net
+          SetEnv CPU=4
+
+        Host nxb-16
+          HostName beta.nixbuild.net
+          SetEnv CPU=16
+      '';
     };
 
     gnupg.agent.enable = true;
