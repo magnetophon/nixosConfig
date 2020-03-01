@@ -54,7 +54,6 @@ with pkgs; {
             audacity
             a2jmidid
             ams-lv2
-            # airwave # VST bridge
             # airwindows
             aeolus
             #beast
@@ -96,8 +95,6 @@ with pkgs; {
             liblo
             linuxband
             MMA
-            #unfree:
-            #linuxsampler
             ladspaH
             ladspaPlugins
             infamousPlugins
@@ -114,16 +111,16 @@ with pkgs; {
             magnetophonDSP.faustCompressors
             magnetophonDSP.shelfMultiBand
             magnetophonDSP.pluginUtils
+            tambura
             ensemble-chorus
             eteroj.lv2
             gxmatcheq-lv2
             hybridreverb2
             noise-repellent
-            # sisco.lv2 todo: fix build
+            # sisco.lv2 #  todo: fix build
             spectmorph
             stone-phaser
-            # string-machine # todo:uncomment when it gets in unstable
-            tambura
+            string-machine # todo:uncomment when it gets in unstable
             mda_lv2
             csa
             mixxx
@@ -177,13 +174,17 @@ with pkgs; {
             ladspa-sdk
             QmidiNet
             rkrlv2
-            # i-score
+            # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             #custom packages
             #zam-plugins-git
             zam-plugins
             #zita-dpl1
             plugin-torture
-            # m32edit
+            # m32edit # unfree
+            # reaper # unfree
+            # sunvox # unfree
+            # airwave # VST bridge # unfree
+            # linuxsampler # unfree:
         ];
     };
 

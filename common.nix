@@ -366,6 +366,13 @@ with pkgs; {
       nix-serve
       nixops
       nix-du
+      nixfmt
+      nix-review
+      nixpkgs-lint
+      nix-prefetch-scripts
+      nix-prefetch-git
+      nix-index
+      nox
       fish
       haskellPackages.ShellCheck
       fasd
@@ -416,8 +423,6 @@ with pkgs; {
       haskellPackages.ghc
       ruby
       # icedtea_web
-      nixfmt
-      nix-review
       font-manager
       xfontsel
       neovim
@@ -483,11 +488,6 @@ with pkgs; {
       # ctagsWrapped.ctagsWrapped
       which
       gnuplot
-      nixpkgs-lint
-      nix-prefetch-scripts
-      nix-prefetch-git
-      nix-index
-      nox
       xlibs.xkill
       xlibs.xinit
       ltrace
