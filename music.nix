@@ -87,7 +87,7 @@ with pkgs; {
             lsp-plugins
             hydrogen
             helm
-            # ingen
+            ingen
             jack_oscrolloscope
             jackmeter
             jalv
@@ -102,13 +102,13 @@ with pkgs; {
             lame
             #latencytop
             magnetophonDSP.CharacterCompressor
-            # magnetophonDSP.CompBus
+            magnetophonDSP.CompBus
             magnetophonDSP.LazyLimiter
-            magnetophonDSP.MBdistortion
+            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
             magnetophonDSP.RhythmDelay
-            # magnetophonDSP.VoiceOfFaust
+            magnetophonDSP.VoiceOfFaust
             magnetophonDSP.ConstantDetuneChorus
-            magnetophonDSP.faustCompressors
+            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
             magnetophonDSP.shelfMultiBand
             magnetophonDSP.pluginUtils
             tambura
@@ -129,8 +129,9 @@ with pkgs; {
             #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
             qsampler
-            # qsynth
+            qsynth
             samplv1
+            sfizz # pro sampler
             swh_lv2
             synthv1
             setbfree
@@ -150,7 +151,7 @@ with pkgs; {
             octave
             graphviz
             leiningen
-            # ( pkgs.fmit.override { jackSupport = true; })
+            ( pkgs.fmit.override { jackSupport = true; })
             jaaa
             japa
             sooperlooper
@@ -162,8 +163,7 @@ with pkgs; {
             ardour
             helio-workstation
             ir.lv2
-            # https://github.com/DISTRHO/DISTRHO-Ports/issues/17
-            # distrho
+            distrho
             dragonfly-reverb
             sorcer
             sox

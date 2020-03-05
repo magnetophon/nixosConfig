@@ -154,6 +154,7 @@ with pkgs; {
       permitRootLogin = "without-password";
       # permitRootLogin = "yes";
       startWhenNeeded = true;
+
     };
     xserver = {
       enable = true;
@@ -362,11 +363,11 @@ with pkgs; {
       # e19.terminology
       zsh
       nix-zsh-completions
-      nix-diff
+      # nix-diff #  marked as broken, refusing to evaluate
+      # nixfmt #  marked as broken, refusing to evaluate
       nix-serve
       nixops
       nix-du
-      nixfmt
       nix-review
       nixpkgs-lint
       nix-prefetch-scripts
@@ -377,11 +378,12 @@ with pkgs; {
       haskellPackages.ShellCheck
       fasd
       fzf
-      blsd
+      # blsd # build failed
       skim
       bfs
       broot
-      hyperfine
+      hyperfine # benchmarker
+      stress # cpu stress
       openssl
       physlock
       asciinema
@@ -393,7 +395,7 @@ with pkgs; {
       iotop
       powertop
       sysstat
-      iptraf
+      # iptraf # build failed
       nethogs
       iftop
       hdparm
@@ -411,7 +413,7 @@ with pkgs; {
       gitAndTools.gitAnnex
       gitAndTools.diff-so-fancy
       gitAndTools.delta
-      gitAndTools.grv
+      # gitAndTools.grv # build failed
       gitAndTools.tig
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
@@ -557,13 +559,14 @@ with pkgs; {
       (pkgs.w3m.override { graphicsSupport = true; })
       youtubeDL
       vlc
+      mumble
       # (mumble.override { jackSupport = true;})
       (mpv.override {
         jackaudioSupport = true;
         archiveSupport = true;
         vapoursynthSupport = true;
       })
-      python36Packages.mps-youtube
+      mps-youtube
       shotwell
       galculator
       qalculate-gtk
@@ -631,7 +634,7 @@ with pkgs; {
       ffmpeg-full
       simplescreenrecorder
       scrot
-      # handbrake
+      handbrake
       alsaUtils
       # kiwix
       meld
