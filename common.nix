@@ -624,7 +624,7 @@ with pkgs; {
       imagemagickBig
       gimp
       inkscape
-      # (pkgs.blender.override { jackaudioSupport = true; })
+      (pkgs.blender.override { jackaudioSupport = true; })
       blender
       openscad
       kdenlive
@@ -1018,7 +1018,7 @@ with pkgs; {
       askPassword = "";
       extraConfig = ''
         Host beta.nixbuild.net nxb-*
-          Port 2222
+          Port 22
           StrictHostKeyChecking no
           UserKnownHostsFile /dev/null
           PubkeyAcceptedKeyTypes ssh-ed25519
