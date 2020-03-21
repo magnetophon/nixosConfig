@@ -122,7 +122,10 @@ with pkgs; {
     # SMART.
     smartd = {
       enable = true;
-      devices = [ { device = "/dev/sda"; } { device = "/dev/sdb"; } ];
+      devices = [
+        { device = "/dev/sda"; }
+        # { device = "/dev/sdb"; }
+      ];
       notifications.test = true;
       notifications.x11.enable = true;
     };
@@ -627,7 +630,7 @@ with pkgs; {
       imagemagickBig
       gimp
       inkscape
-      (pkgs.blender.override { jackaudioSupport = true; })
+      # (pkgs.blender.override { jackaudioSupport = true; })
       blender
       openscad
       kdenlive

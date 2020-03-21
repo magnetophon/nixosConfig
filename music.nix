@@ -30,6 +30,15 @@ with pkgs; {
                 configureFlags =
                     "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
+            # faust = pkgs.stdenv.lib.overrideDerivation pkgs.faust (oldAttrs: {
+            # version = "unstable-2020-03-20";
+            # src = fetchFromGitHub {
+            # owner = "grame-cncm";
+            # repo = "faust";
+            # rev = "2782088d4485f1c572755f41e7a072b41cb7148a";
+            # sha256 = "1l7bi2mq10s5wm8g4cdipg8gndd478x897qv0h7nqi1s2q9nq99p";
+            # fetchSubmodules = true;
+            # };
         };
 
         # overlays = lib.singleton (lib.const (super: {
@@ -70,6 +79,9 @@ with pkgs; {
             dfasma
             cuetools
             eq10q
+            bsequencer
+            bshapr
+            bslizr
             jack2Full
             # jack1
             jack_capture
@@ -101,10 +113,10 @@ with pkgs; {
             FIL-plugins
             lame
             #latencytop
-            magnetophonDSP.CharacterCompressor
-            magnetophonDSP.CompBus
-            magnetophonDSP.LazyLimiter
             # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
+            magnetophonDSP.CompBus # long build, not used
+            magnetophonDSP.CharacterCompressor
+            magnetophonDSP.LazyLimiter
             magnetophonDSP.RhythmDelay
             magnetophonDSP.VoiceOfFaust
             magnetophonDSP.ConstantDetuneChorus

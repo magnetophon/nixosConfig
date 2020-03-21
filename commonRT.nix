@@ -10,6 +10,7 @@
   musnix = {
     enable = true;
     # kernel.packages = pkgs.linuxPackages_latest_rt;
+    # kernel.packages = pkgs.linuxPackages_5_0_rt;
     kernel.packages = pkgs.linuxPackages_4_19_rt;
     kernel.optimize = true;
     kernel.realtime = true;
