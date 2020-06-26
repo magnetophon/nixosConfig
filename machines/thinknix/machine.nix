@@ -9,6 +9,8 @@ let
 in {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    <nixos-hardware/lenovo/thinkpad/t420>
+    <nixos-hardware/common/pc/ssd>
     # ./remote_i3.nix
   ];
 
@@ -64,12 +66,13 @@ in {
     ];
     kernelParams = [
       "fastboot=true"
-      # # Kernel GPU Savings Options (NOTE i915 chipset only)
+      # # fixups for kernel 5_5
+      # see https://linuxreviews.org/Linux_Kernel_5.5_Will_Not_Fix_The_Frequent_Intel_GPU_Hangs_In_Recent_Kernels
+      # search for Update on the page
+      "intel_idle.max_cstate=1"
+      "i915.enable_dc=0"
+      # Kernel GPU Savings Options (NOTE i915 chipset only)
       "i915.enable_rc6=1"
-      # "i915.enable_fbc=1"
-      # "i915.lvds_downclock=1"
-      # "i915.semaphores=1"
-      # "enable_dpcd_backlight=true"
       "i915.lvds_use_ssc=0"
       "drm.debug=0"
       "drm.vblankoffdelay=1"
@@ -151,7 +154,6 @@ in {
         enable = true;
         # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
       };
-      # windowManager.default = "none+i3" ;
       displayManager = {
         defaultSession = "none+i3";
         #   # disable middle mouse buttons
@@ -239,13 +241,13 @@ in {
       '';
     };
     thinkfan = {
-      # enable = true;
+      enable = true;
       sensors = ''
         hwmon /sys/devices/virtual/thermal/thermal_zone0/temp
         hwmon /sys/devices/virtual/thermal/thermal_zone1/temp
-        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
-        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input
-        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp3_input
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp2_input
+        hwmon /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp3_input
       '';
     };
     # thinkfan.enable = true;

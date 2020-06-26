@@ -16,8 +16,8 @@ with pkgs; {
 
   # hardware.pulseaudio.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_4_19;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_4_19;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   musnix = {

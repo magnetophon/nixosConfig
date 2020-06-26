@@ -159,33 +159,29 @@ with pkgs; {
       startWhenNeeded = true;
 
     };
+
+    # mingetty.autologinUser = "bart";
+
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
 
-      # displayManager.slim = {
-      #   enable = true;
-      #   defaultUser = "bart";
-      #   autoLogin = true;
-      #   # sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user && ${pkgs.physlock}/bin/physlock -ds
-      #   extraConfig = ''
-      #     sessionstart_cmd    ${pkgs.xorg.sessreg}/bin/sessreg -a -l tty7 %user
-      #     sessionstop_cmd     ${pkgs.xorg.sessreg}/bin/sessreg -d -l tty7 %user
-      #   '';
-      # };
 
-      # displayManager.startx.enable = true;
-      displayManager.lightdm = {
-        enable = true;
-        # greeter.enable = false;
-        # autoLogin = {
-        # enable = true;
-        # user = "bart";
-        # };
+
+      displayManager = {
+        # startx.enable = true;
+        lightdm = {
+          enable = true;
+          # greeter.enable = false;
+          # autoLogin = {
+          # enable = true;
+          # user = "bart";
+        };
         # extraSeatDefaults = ''
         #   [Seat:*]
         #   greeter-setup-script=physlock
         # '';
+        # };
       };
 
       #   extraConfig = ''
@@ -235,7 +231,11 @@ with pkgs; {
         (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
       '';
       # sudo -u bart ${pkgs.physlock}/bin/physlock -ds
-      synaptics = import ./synaptics.nix;
+      # synaptics = import ./synaptics.nix;
+      libinput = {
+        enable = true;
+        middleEmulation = false;
+      };
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
       xkbOptions = "caps:swapescape";
@@ -244,6 +244,7 @@ with pkgs; {
       # Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client.
 
     };
+
     unclutter-xfixes.enable = true;
     unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
     # autofs =
@@ -254,7 +255,14 @@ with pkgs; {
     emacs = {
       enable = true;
       defaultEditor = true;
-      package = (emacs.override { imagemagick = pkgs.imagemagickBig; });
+      # package = (emacs.override { imagemagick = pkgs.imagemagickBig; });
+      package =
+        ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [
+          epkgs.vterm
+        ]));
+      # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
+        # epkgs.emacs-libvterm
+        # ]));
     };
     physlock = {
       enable = true;
@@ -332,7 +340,7 @@ with pkgs; {
       #system:
       unzip
       zip
-      p7zip
+      p7zip # insecure: https://github.com/NixOS/nixpkgs/commit/aa80b4780d849a00d86c28d6b3c78a777dd02e9a
       dtrx
       gnumake
       cmake
@@ -366,8 +374,8 @@ with pkgs; {
       # e19.terminology
       zsh
       nix-zsh-completions
-      # nix-diff #  marked as broken, refusing to evaluate
-      # nixfmt #  marked as broken, refusing to evaluate
+      nix-diff #  marked as broken, refusing to evaluate
+      nixfmt #  marked as broken, refusing to evaluate
       nix-serve
       nixops
       nix-du
@@ -392,6 +400,7 @@ with pkgs; {
       asciinema
       neofetch
       rtv
+      tuir
       tree
       htop
       s-tui
@@ -416,15 +425,16 @@ with pkgs; {
       gitAndTools.gitAnnex
       gitAndTools.diff-so-fancy
       gitAndTools.delta
-      # gitAndTools.grv # build failed
+      gitAndTools.grv # build failed
       gitAndTools.tig
+      gist # upload to git.github.com
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
       subversion
       curl
       nextcloud-client
       inetutils
-      hostsblock
+      # hostsblock
       haskellPackages.ghc
       ruby
       # icedtea_web
@@ -477,12 +487,11 @@ with pkgs; {
       # marked # node package
       pandoc
       haskellPackages.markdown
-      mu
+      (mu.override { withMug = true; })
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
       imagemagick         # for image-dired
-      (lib.mkIf (config.programs.gnupg.agent.enable)
-        pinentry_emacs)   # in-emacs gnupg prompts
+      # pinentry_emacs      # in-emacs gnupg prompts
       zstd                # for undo-tree compression
 
       # imagemagick
@@ -509,7 +518,7 @@ with pkgs; {
       gparted
       parted
       smartmontools
-      unetbootin
+      unetbootin  # has p7zip
       makeWrapper
       #vim
       # ( pkgs.xdg_utils.override { mimiSupport = true; })
@@ -556,7 +565,8 @@ with pkgs; {
       qutebrowser
       sqlitebrowser
       python37Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
-      chromium
+      ungoogled-chromium
+      # chromium
       # chromiumBeta
       # w3m
       (pkgs.w3m.override { graphicsSupport = true; })
@@ -564,9 +574,9 @@ with pkgs; {
       vlc
       mumble
       # (mumble.override { jackSupport = true;})
-      (mpv.override {
+      (mpv-unwrapped.override {
         jackaudioSupport = true;
-        archiveSupport = true;
+        # archiveSupport = true;
         vapoursynthSupport = true;
       })
       mps-youtube
@@ -656,8 +666,10 @@ with pkgs; {
       # weechat
       irssi
       # gajim
+      skype_call_recorder
+
       # non-free:
-      #skype
+      # skypeforlinux
       #spideroak
       # unrar
       # calibre
@@ -1009,6 +1021,10 @@ with pkgs; {
 
         alias ns='nix-shell --command zsh $NIXPKGS'
         alias nsn='nix-shell -I nixpkgs=$NIXPKGS --command zsh'
+ # this will leave the build directory behind for you to inspect:
+        # alias nb='nix-build -K -A $1 $(pwd)'
+# doesn't work, this one does:
+# nix-build -K -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
 
         vi() {emacseditor --create-frame --quiet --no-wait "$@"}
         # export EDITOR="vi"
@@ -1078,15 +1094,26 @@ with pkgs; {
 
     light.enable = true;
     # gtk search:
-    plotinus.enable = true;
+    # plotinus.enable = true;
     # Android Debug Bridge
     adb.enable = true;
-
+    # for zrythm, see: https://github.com/NixOS/nixpkgs/issues/85546
+    dconf.enable = true;
+    # dconf.profiles.user = pkgs.writeText "dconf-user-profile" ''
+    # user-db:user
+    # system-db:local
+    # '';
   };
   # Define fonts
   fonts = {
     enableFontDir = true;
     fontconfig = {
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "IBM Plex Mono" ];
+        sansSerif = [ "IBM Plex Sans" ];
+        serif = [ "IBM Plex Serif" ];
+      };
       # penultimate.enable = true;
       useEmbeddedBitmaps =
         true; # pango doesn't support mixing bitmap fonts with ttf anymore, so we if we want terminus plus icons we need terminus_font_ttf for i3bar, which displays wonky without this
@@ -1100,6 +1127,8 @@ with pkgs; {
       emacs-all-the-icons-fonts
       google-fonts
       liberation_ttf
+      ibm-plex
+      # core-fonts
     ];
   };
 

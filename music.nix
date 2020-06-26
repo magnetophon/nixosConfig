@@ -59,100 +59,148 @@ with pkgs; {
 
     environment = {
         systemPackages = [
-            AMB-plugins
-            audacity
-            a2jmidid
-            ams-lv2
+            # #################################################################
+            #                             plugins                             #
+            ###################################################################
             # airwindows
+            # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
+            #zita-dpl1
+            AMB-plugins
+            FIL-plugins
+            adlplug
             aeolus
-            #beast
-            bitmeter
-            bristol
-            caps
-            calf
-            carla
-            drumkv1
-            padthv1
-            drumgizmo
+            ams-lv2
+            artyFX
             avldrums-lv2
-            speech-denoiser
-            dfasma
-            cuetools
-            eq10q
+            # bchoppr
+            bitmeter
+            bjumblr
+            bristol
             bsequencer
             bshapr
             bslizr
+            calf
+            caps
+            csa
+            distrho
+            dragonfly-reverb
+            drumgizmo
+            drumkv1
+            ensemble-chorus
+            eq10q
+            eteroj.lv2
+            fluidsynth
+            fmsynth
+            fomp
+            gxmatcheq-lv2
+            gxplugins-lv2
+            helm
+            hybridreverb2
+            hydrogen
+            infamousPlugins
+            ingen
+            ir.lv2
+            jaaa
+            jack_oscrolloscope
+            jackmeter
+            japa
+            ladspaH
+            ladspaPlugins
+            lsp-plugins
+            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
+            magnetophonDSP.CharacterCompressor
+            magnetophonDSP.CompBus # long build, not used
+            magnetophonDSP.ConstantDetuneChorus
+            magnetophonDSP.LazyLimiter
+            magnetophonDSP.RhythmDelay
+            magnetophonDSP.VoiceOfFaust
+            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
+            magnetophonDSP.pluginUtils
+            magnetophonDSP.shelfMultiBand
+            mda_lv2
+            ninjas2
+            noise-repellent
+            nova-filters
+            padthv1
+            plugin-torture
+            qsampler
+            qsynth
+            rkrlv2
+            samplv1
+            setbfree
+            sfizz # pro sampler
+            sorcer
+            spectmorph
+            speech-denoiser
+            stone-phaser
+            string-machine # todo:uncomment when it gets in unstable
+            swh_lv2
+            synthv1
+            tambura
+            # tamgamp
+            tetraproc
+            wolf-shaper
+            x42-plugins
+            yoshimi
+            zam-plugins
+            zynaddsubfx
+            ###################################################################
+            #                              hosts                              #
+            ###################################################################
+
+            ardour
+            ardour_5
+            helio-workstation
+            #beast
+            carla
+            audacity
+            jalv
+            mod-distortion
+            petrifoo
+            guitarix
+            # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
+            ###################################################################
+            #                            utilities                            #
+            ###################################################################
+            cuetools
             jack2Full
             # jack1
             jack_capture
             qjackctl
             cadence
+            vmpk
+            QmidiNet
+            ###################################################################
+            #                            analizers                            #
+            ###################################################################
+            squishyball
+            shntool
+            ###################################################################
+            #                            converters                           #
+            ###################################################################
             flac
-            fluidsynth
-            fmsynth
-            adlplug
-            # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
+            lame
+            sox
+            ###################################################################
+            #                             various                             #
+            ###################################################################
+            polyphone # soundfont / sfz editor
+            dfasma
             freewheeling
             # gigedit
-            guitarix
-            gxplugins-lv2
-            lsp-plugins
-            hydrogen
-            helm
-            ingen
-            jack_oscrolloscope
-            jackmeter
-            jalv
-            lilv
-            liblo
             linuxband
             MMA
-            ladspaH
-            ladspaPlugins
-            infamousPlugins
-            FIL-plugins
-            lame
             #latencytop
-            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
-            magnetophonDSP.CompBus # long build, not used
-            magnetophonDSP.CharacterCompressor
-            magnetophonDSP.LazyLimiter
-            magnetophonDSP.RhythmDelay
-            magnetophonDSP.VoiceOfFaust
-            magnetophonDSP.ConstantDetuneChorus
-            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
-            magnetophonDSP.shelfMultiBand
-            magnetophonDSP.pluginUtils
-            tambura
-            ensemble-chorus
-            eteroj.lv2
-            gxmatcheq-lv2
-            hybridreverb2
-            noise-repellent
-            # sisco.lv2 #  todo: fix build
-            spectmorph
-            stone-phaser
-            string-machine # todo:uncomment when it gets in unstable
-            mda_lv2
-            csa
             mixxx
-            mod-distortion
-            petrifoo
             #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
-            qsampler
-            qsynth
-            samplv1
-            sfizz # pro sampler
-            swh_lv2
-            synthv1
-            setbfree
             supercollider_scel
+            ( pkgs.fmit.override { jackSupport = true; })
+            sooperlooper
             #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
-            tetraproc
-            vmpk
-            yoshimi
-            zynaddsubfx
+            ###################################################################
+            #                           develpoment                           #
+            ###################################################################
             faust
             faust2alqt
             faust2alsa
@@ -163,40 +211,17 @@ with pkgs; {
             octave
             graphviz
             leiningen
-            ( pkgs.fmit.override { jackSupport = true; })
-            jaaa
-            japa
-            sooperlooper
-            squishyball
-            nova-filters
-            wolf-shaper
-            # ardour3
-            # ardour4
-            ardour
-            helio-workstation
-            ir.lv2
-            distrho
-            dragonfly-reverb
-            sorcer
-            sox
-            shntool
-            artyFX
-            x42-plugins
-            fomp
             ladspa-sdk
-            QmidiNet
-            rkrlv2
-            # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
-            #custom packages
-            #zam-plugins-git
-            zam-plugins
-            #zita-dpl1
-            plugin-torture
+            ###################################################################
+            #                              unfree                             #
+            ###################################################################
             # m32edit # unfree
             # reaper # unfree
             # sunvox # unfree
             # airwave # VST bridge # unfree
-            # linuxsampler # unfree:
+            # linuxsampler # unfree
+            # vcv-rack # unfree
+
         ];
     };
 
