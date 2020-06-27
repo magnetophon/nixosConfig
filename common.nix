@@ -23,7 +23,15 @@ with pkgs; {
     };
   };
   # for skype
-  # hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    # enable = true;
+    package = pkgs.pulseaudio.override { jackaudioSupport = true; };
+  };
+
+  # done in jack module:
+  # systemd.user.services.pulseaudio.environment = {
+  # JACK_PROMISCUOUS_SERVER = "jackaudio";
+  # };
 
   boot = {
     loader.systemd-boot = {

@@ -18,6 +18,7 @@
     das_watchdog.enable = true;
   };
 
+
   services = {
     jack = {
       jackd = {
@@ -30,10 +31,10 @@
       };
       # support ALSA only programs via ALSA JACK PCM pluginor loopback
       alsa.enable = false;
-      # loopback = {
-      # enable = true;
-      # config = "";
-      # };
+      loopback = {
+        enable = true;
+        # config = "";
+      };
     };
   };
 }
