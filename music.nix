@@ -40,7 +40,6 @@ with pkgs; {
             # fetchSubmodules = true;
             # };
         };
-
         # overlays = lib.singleton (lib.const (super: {
         #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
         #         kernel = ksuper.kernel.override {
@@ -72,7 +71,7 @@ with pkgs; {
             ams-lv2
             artyFX
             avldrums-lv2
-            # bchoppr
+            bchoppr
             bitmeter
             bjumblr
             bristol
@@ -92,11 +91,15 @@ with pkgs; {
             fluidsynth
             fmsynth
             fomp
+            # freqtweak
+            fverb
+            geonkick
             gxmatcheq-lv2
             gxplugins-lv2
             helm
             hybridreverb2
             hydrogen
+            industrializer
             infamousPlugins
             ingen
             ir.lv2
@@ -104,6 +107,7 @@ with pkgs; {
             jack_oscrolloscope
             jackmeter
             japa
+            # kapitonov-plugins-pack
             ladspaH
             ladspaPlugins
             lsp-plugins
@@ -118,6 +122,8 @@ with pkgs; {
             magnetophonDSP.pluginUtils
             magnetophonDSP.shelfMultiBand
             mda_lv2
+            # molot-lite
+            # mooSpace
             ninjas2
             noise-repellent
             nova-filters
@@ -125,6 +131,7 @@ with pkgs; {
             plugin-torture
             qsampler
             qsynth
+            # rc-effect-playground
             rkrlv2
             samplv1
             setbfree
@@ -139,6 +146,7 @@ with pkgs; {
             tambura
             # tamgamp
             tetraproc
+            # uhhyou.lv2
             wolf-shaper
             x42-plugins
             yoshimi
@@ -162,10 +170,13 @@ with pkgs; {
             ###################################################################
             #                            utilities                            #
             ###################################################################
+            a2jmidid
             cuetools
             jack2Full
             # jack1
             jack_capture
+            lilv
+            mamba
             qjackctl
             cadence
             vmpk
@@ -194,6 +205,7 @@ with pkgs; {
             mixxx
             #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
+            real_time_config_quick_scan
             supercollider_scel
             ( pkgs.fmit.override { jackSupport = true; })
             sooperlooper

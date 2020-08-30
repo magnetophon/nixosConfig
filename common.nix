@@ -138,7 +138,7 @@ with pkgs; {
       notifications.x11.enable = true;
     };
     fstrim.enable = true;
-    nixosManual.showManual = false;
+    # nixosManual.showManual = false;
     printing = {
       enable = true;
       drivers = [ brlaser ];
@@ -591,9 +591,10 @@ with pkgs; {
       shotwell
       galculator
       qalculate-gtk
+      libqalculate
       bc
       calc
-      libqalculate
+      units
       rink # Unit conversion tool and library written in rust
       transmission-gtk
       xrandr-invert-colors
