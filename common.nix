@@ -265,7 +265,7 @@ with pkgs; {
       defaultEditor = true;
       # package = (emacs.override { imagemagick = pkgs.imagemagickBig; });
       package =
-        ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [
+        ((emacsPackagesFor emacs26).emacsWithPackages (epkgs: [  # emacs 27 is default, but breaks faust for now
           epkgs.vterm
         ]));
       # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
