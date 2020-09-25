@@ -315,9 +315,9 @@ with pkgs; {
     upower = {
       enable = true;
       # noPollBatteries = true;
-      percentageLow = 15;
-      percentageCritical = 10;
-      percentageAction = 5;
+      # percentageLow = 15;
+      # percentageCritical = 10;
+      # percentageAction = 5;
     };
 
   };
