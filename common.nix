@@ -46,7 +46,7 @@ with pkgs; {
   };
 
   nix = {
-    distributedBuilds = true;
+    # distributedBuilds = true;
     buildMachines = [
       { hostName = "nxb-4";
         system = "x86_64-linux";
