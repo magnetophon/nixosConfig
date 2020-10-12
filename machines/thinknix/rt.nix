@@ -21,6 +21,7 @@ with pkgs; {
 
   # per device:
   services.jack.jackd.extraOptions = [
-    "-v" "-P71" "-p1024" "-dalsa" "-dhw:PCH" "-r48000" "-p2048" "-n2" "-P"
+    # "-v" "-P71" "-p1024" "-dalsa" "-dhw:PCH" "-r48000" "-p2048" "-n2" "-P"
+    "-P71" "-p2048" "-dalsa" "-dhw:USB" "-r48000" "-p4096" "-n3"
   ];
 }
