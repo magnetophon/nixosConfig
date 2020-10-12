@@ -392,12 +392,12 @@ with pkgs; {
       nix-prefetch-scripts
       nix-prefetch-git
       nix-index
+      manix
       nox
       fish
       haskellPackages.ShellCheck
       fasd
       fzf
-      # blsd # build failed
       skim
       bfs
       broot
@@ -411,6 +411,7 @@ with pkgs; {
       tuir
       tree
       htop
+      # bottom # not merged yet
       s-tui
       iotop
       powertop
@@ -435,6 +436,7 @@ with pkgs; {
       gitAndTools.delta
       gitAndTools.grv # build failed
       gitAndTools.tig
+      gitAndTools.gitui
       gist # upload to git.github.com
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
@@ -442,7 +444,7 @@ with pkgs; {
       curl
       nextcloud-client
       inetutils
-      # hostsblock
+      hostsblock
       haskellPackages.ghc
       ruby
       # icedtea_web
@@ -489,6 +491,7 @@ with pkgs; {
       #my_vim
       # emacs
       # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
+      # (pkgs.emacsPackagesGen pkgs.emacsGcc).emacsWithPackages (epkgs: ([epkgs.vterm]))
       texlive.combined.scheme-medium # :lang org -- for latex previews
       wordnet # for offline dictionary and thesaurus support
       # for emacs markdown-preview:
@@ -498,7 +501,7 @@ with pkgs; {
       (mu.override { withMug = true; })
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
-      imagemagick         # for image-dired
+      imagemagickBig         # for image-dired
       # pinentry_emacs      # in-emacs gnupg prompts
       zstd                # for undo-tree compression
 
@@ -513,11 +516,11 @@ with pkgs; {
       xlibs.xkill
       xlibs.xinit
       ltrace
-      # obnam # backup
-      # borgbackup
+      borgbackup
+      restic
       storeBackup
-      # syncthing
-      # python27Packages.syncthing-gtk
+      syncthing
+      syncthing-gtk
       # khard
       # khal
       # vdirsyncer
@@ -543,6 +546,7 @@ with pkgs; {
       i3status-rust
       # i3lock
       i3-layout-manager
+      # i3-resurrect
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev #	get the name of a key or key-combo
@@ -556,18 +560,18 @@ with pkgs; {
       networkmanager_dmenu
       conky
       dzen2
-      # xpra
+      xpra
       #desktop
       #desktop-file-utils
       # firefox-esr
       # (firefox-esr.override { nameSuffix="-esr"; })
       firefox
       #for vimeo:
-      gstreamer
-      gst_plugins_base
-      gst_plugins_good
-      gst_plugins_bad
-      gst_plugins_ugly
+      # gstreamer
+      # gst_plugins_base
+      # gst_plugins_good
+      # gst_plugins_bad
+      # gst_plugins_ugly
       torbrowser
       i2pd
       qutebrowser
@@ -584,11 +588,11 @@ with pkgs; {
       # (mumble.override { jackSupport = true;})
       (mpv-unwrapped.override {
         jackaudioSupport = true;
-        # archiveSupport = true;
+        archiveSupport = true;
         vapoursynthSupport = true;
       })
       mps-youtube
-      shotwell
+      shotwell # gst-plugins-base == broken
       galculator
       qalculate-gtk
       libqalculate
@@ -646,7 +650,6 @@ with pkgs; {
       #python27Packages.alot
       filezilla
       kcolorchooser
-      imagemagickBig
       gimp
       inkscape
       # (pkgs.blender.override { jackaudioSupport = true; })
@@ -656,9 +659,8 @@ with pkgs; {
       ffmpeg-full
       simplescreenrecorder
       scrot
-      handbrake
+      handbrake # gst-plugins-base == broken
       alsaUtils
-      # kiwix
       meld
       freemind
       baobab
@@ -667,14 +669,14 @@ with pkgs; {
       zathura
       evince
       diff-pdf
-      # kodi
+      kodi
       (pkgs.pidgin-with-plugins.override {
         plugins = [ pidginotr ];
       }) # pidgin + pidgin-otr
       # pidgin
       # weechat
       irssi
-      # gajim
+      gajim
       skype_call_recorder
 
       # non-free:
@@ -1099,7 +1101,7 @@ with pkgs; {
         SafeBrowsingExtendedReportingEnabled = false;
         SearchSuggestEnabled = false;
       };
-};
+    };
 
     light.enable = true;
     # gtk search:
