@@ -63,7 +63,7 @@ with pkgs; {
             ###################################################################
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
-            #zita-dpl1
+            # zita-dpl1
             AMB-plugins
             FIL-plugins
             adlplug
@@ -146,7 +146,7 @@ with pkgs; {
             tambura
             # tamgamp
             tetraproc
-            # uhhyou.lv2
+            uhhyou.lv2
             wolf-shaper
             x42-plugins
             yoshimi
@@ -171,14 +171,16 @@ with pkgs; {
             #                            utilities                            #
             ###################################################################
             a2jmidid
+            cadence
             cuetools
             jack2Full
             # jack1
             jack_capture
             lilv
+            lv2bm
             mamba
             qjackctl
-            cadence
+            sonic-lineup
             vmpk
             QmidiNet
             ###################################################################

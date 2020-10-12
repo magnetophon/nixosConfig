@@ -1117,7 +1117,7 @@ with pkgs; {
   };
   # Define fonts
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
@@ -1175,8 +1175,8 @@ with pkgs; {
 
   networking = {
     # firewall.enable = false;
-    resolvconf.dnsExtensionMechanism =
-      false; # workaround to fix “WiFi in de Trein”
+    # resolvconf.dnsExtensionMechanism =
+    # false; # workaround to fix “WiFi in de Trein”
   };
 
   time.timeZone = "Europe/Amsterdam";
