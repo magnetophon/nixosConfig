@@ -821,7 +821,7 @@ with pkgs; {
     };
 
     serviceConfig = {
-      ExecStart = "${pkgs.udiskie}/bin/udiskie -2 -s";
+      ExecStart = "${pkgs.udiskie}/bin/udiskie -s";
       Restart = "always";
     };
 
