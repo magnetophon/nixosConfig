@@ -91,7 +91,7 @@ with pkgs; {
             fluidsynth
             fmsynth
             fomp
-            # freqtweak
+            freqtweak
             fverb
             geonkick
             gxmatcheq-lv2
@@ -107,13 +107,13 @@ with pkgs; {
             jack_oscrolloscope
             jackmeter
             japa
-            # kapitonov-plugins-pack
+            kapitonov-plugins-pack
             ladspaH
             ladspaPlugins
             lsp-plugins
             # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
             magnetophonDSP.CharacterCompressor
-            magnetophonDSP.CompBus # long build, not used
+            # magnetophonDSP.CompBus # long build, not used
             magnetophonDSP.ConstantDetuneChorus
             magnetophonDSP.LazyLimiter
             magnetophonDSP.RhythmDelay
@@ -122,8 +122,8 @@ with pkgs; {
             magnetophonDSP.pluginUtils
             magnetophonDSP.shelfMultiBand
             mda_lv2
-            # molot-lite
-            # mooSpace
+            molot-lite
+            mooSpace
             ninjas2
             noise-repellent
             nova-filters
