@@ -424,7 +424,7 @@ in
       tuir
       tree
       htop
-      # bottom # not merged yet
+      bottom
       s-tui
       iotop
       powertop
@@ -570,6 +570,7 @@ in
       clipster
       rofi
       rofi-systemd
+      rofimoji
 
       networkmanager_dmenu
       conky
@@ -673,6 +674,7 @@ in
       ffmpeg-full
       simplescreenrecorder
       scrot
+      flameshot
       handbrake # gst-plugins-base == broken
       alsaUtils
       meld
