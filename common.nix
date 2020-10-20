@@ -837,7 +837,7 @@ in
     };
 
     serviceConfig = {
-      ExecStart = "${pkgs.udiskie}/bin/udiskie -s";
+      ExecStart = "${pkgs.udiskie}/bin/udiskie -t";
       Restart = "always";
     };
 
