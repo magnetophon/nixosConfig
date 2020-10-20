@@ -1,7 +1,18 @@
 # https://discourse.nixos.org/t/nixos-without-a-display-manager/360/11
 
 { pkgs, config, ... }:
-with pkgs; {
+with pkgs;
+let
+  my-python-packages = python-packages: with python-packages; [
+    # pandas
+    # requests
+    pyperclip
+    ueberzug
+    # other python packages you want
+  ];
+  python-with-my-packages = python3.withPackages my-python-packages;
+in
+{
 
   imports = [
     # ./vim.nix
@@ -85,6 +96,8 @@ with pkgs; {
   # system.copySystemConfiguration = true;
   # https://www.reddit.com/r/NixOS/comments/84ytiu/is_it_possible_to_access_the_current_systems/
   # The command provided creates a symbolic link of the current contents of /etc/nixos (copied into the Nix store) into the current Nix profile being generated. All of the configuration files are accessible at /var/run/current-system/full-config/
+  #
+  # todo; more elaborate version: https://git.ophanim.de/derped/nixos/src/branch/master/options/copySysConf.nix
   system.extraSystemBuilderCmds = ''
     ln -s ${./.} $out/full-config
   '';
@@ -525,7 +538,8 @@ with pkgs; {
       # khal
       # vdirsyncer
       # pypyPackages.keyring
-      python
+      # python3
+      python-with-my-packages
       gparted
       parted
       smartmontools
@@ -576,7 +590,7 @@ with pkgs; {
       i2pd
       qutebrowser
       sqlitebrowser
-      python37Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
+      # python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
       ungoogled-chromium
       # chromium
       # chromiumBeta
@@ -630,7 +644,7 @@ with pkgs; {
       lynx
       mediainfo
       fontforge
-      python3Packages.ueberzug
+      # python3Packages.ueberzug
       # mutt-with-sidebar
       # mutt-kz
       neomutt
