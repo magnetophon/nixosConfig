@@ -17,7 +17,12 @@ in {
   nixpkgs.system = "x86_64-linux";
 
   hardware = {
-    opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau ];
+    opengl.extraPackages = with pkgs; [
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      intel-media-driver
+    ];
     trackpoint = {
       enable = true;
       sensitivity = 200;
@@ -52,7 +57,7 @@ in {
       "sdhci_pci"
     ];
     # kernelModules = [ "kvm-intel" ]; # for virtualisation
-    kernelModules = [ "acpi_call" "tp_smapi" ];
+    kernelModules = [ "acpi_call" "tp_smapi" "i915" ];
     extraModprobeConfig = ''
       options
       iwlwifi
