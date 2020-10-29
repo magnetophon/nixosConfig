@@ -391,6 +391,7 @@ in
       termite
       termite.terminfo
       alacritty
+      kitty
       picom # compton fork
       # e19.terminology
       zsh
@@ -405,6 +406,8 @@ in
       nix-prefetch-scripts
       nix-prefetch-git
       nix-index
+      nixpkgs-review
+      rnix-lsp
       manix
       nox
       fish
@@ -600,6 +603,8 @@ in
       youtubeDL
       vlc
       mumble
+      jitsi-meet-electron
+      # zoom-us # unfree
       # (mumble.override { jackSupport = true;})
       (mpv-unwrapped.override {
         jackaudioSupport = true;
@@ -706,7 +711,7 @@ in
       aspell
       aspellDicts.en
       aspellDicts.en-computers
-      aspellDicts.en-science
+      aspellDicts.en-science # doesn't build:   https://github.com/NixOS/nixpkgs/issues/101184
       aspellDicts.nl
       aspellDicts.de
       hunspellDicts.en_US-large
