@@ -107,23 +107,11 @@ with pkgs; {
             jack_oscrolloscope
             jackmeter
             japa
-            kapitonov-plugins-pack
             ladspaH
             ladspaPlugins
             lsp-plugins
-            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
-            magnetophonDSP.CharacterCompressor
-            # magnetophonDSP.CompBus # long build, not used
-            magnetophonDSP.ConstantDetuneChorus
-            magnetophonDSP.LazyLimiter
-            magnetophonDSP.RhythmDelay
-            magnetophonDSP.VoiceOfFaust
-            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
-            magnetophonDSP.pluginUtils
-            magnetophonDSP.shelfMultiBand
             mda_lv2
             molot-lite
-            mooSpace
             ninjas2
             noise-repellent
             nova-filters
@@ -131,7 +119,7 @@ with pkgs; {
             plugin-torture
             qsampler
             qsynth
-            # rc-effect-playground
+            # rc-effect-playground # https://github.com/jpcima/rc-effect-playground/issues/4
             rkrlv2
             samplv1
             setbfree
@@ -143,8 +131,7 @@ with pkgs; {
             string-machine # todo:uncomment when it gets in unstable
             swh_lv2
             synthv1
-            tambura
-            # tamgamp
+            tamgamp.lv2
             tetraproc
             uhhyou.lv2
             wolf-shaper
@@ -152,6 +139,31 @@ with pkgs; {
             yoshimi
             zam-plugins
             zynaddsubfx
+            ###################################################################
+            #                              faust                              #
+            ###################################################################
+
+            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
+            magnetophonDSP.CharacterCompressor
+            # magnetophonDSP.CompBus # long build, not used
+            magnetophonDSP.ConstantDetuneChorus
+            magnetophonDSP.LazyLimiter
+            magnetophonDSP.RhythmDelay
+            magnetophonDSP.VoiceOfFaust
+            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
+            magnetophonDSP.pluginUtils
+            magnetophonDSP.shelfMultiBand
+            tambura
+            faust
+            faust2alqt
+            faust2alsa
+            faust2firefox
+            faust2jack
+            faust2jaqt
+            faust2lv2
+            kapitonov-plugins-pack
+            mooSpace
+
             ###################################################################
             #                              hosts                              #
             ###################################################################
@@ -215,13 +227,6 @@ with pkgs; {
             ###################################################################
             #                           develpoment                           #
             ###################################################################
-            faust
-            faust2alqt
-            faust2alsa
-            faust2firefox
-            faust2jack
-            faust2jaqt
-            faust2lv2
             octave
             graphviz
             leiningen
