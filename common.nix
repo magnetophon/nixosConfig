@@ -284,6 +284,10 @@ in
         # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
         # epkgs.emacs-libvterm
         # ]));
+      package =
+        ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
+          epkgs.vterm
+        ]));
     };
     physlock = {
       enable = true;
@@ -537,9 +541,10 @@ in
       storeBackup
       syncthing
       syncthing-gtk
-      # khard
-      # khal
-      # vdirsyncer
+      khard
+      khal
+      vdirsyncerStable
+      # https://github.com/NixOS/nixpkgs/issues/103026
       # pypyPackages.keyring
       # python3
       python-with-my-packages
@@ -698,7 +703,7 @@ in
       # weechat
       irssi
       gajim
-      skype_call_recorder
+      tdesktop
 
       # non-free:
       # skypeforlinux
