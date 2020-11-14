@@ -391,6 +391,7 @@ in
       languagetool
       mosh
       sshfsFuse
+      gnutls # for doom emacs irc
       rxvt_unicode
       termite
       termite.terminfo
