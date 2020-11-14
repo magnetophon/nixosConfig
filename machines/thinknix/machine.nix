@@ -66,14 +66,7 @@ in {
     ];
     kernelParams = [
       "fastboot=true"
-      # # fixups for kernel 5_5
-      # see https://linuxreviews.org/Linux_Kernel_5.5_Will_Not_Fix_The_Frequent_Intel_GPU_Hangs_In_Recent_Kernels
-      # search for Update on the page
-      "intel_idle.max_cstate=1"
-      "i915.enable_dc=0"
       # Kernel GPU Savings Options (NOTE i915 chipset only)
-      "i915.enable_rc6=1"
-      "i915.lvds_use_ssc=0"
       "drm.debug=0"
       "drm.vblankoffdelay=1"
       "nmi_watchdog=0"
