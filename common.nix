@@ -393,8 +393,8 @@ in
       sshfsFuse
       gnutls # for doom emacs irc
       rxvt_unicode
-      termite
-      termite.terminfo
+      # termite          # https://github.com/thestinger/termite/issues/760
+      # termite.terminfo # https://github.com/thestinger/termite/issues/760
       alacritty
       kitty
       picom # compton fork
