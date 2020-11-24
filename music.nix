@@ -78,6 +78,9 @@ with pkgs; {
             bsequencer
             bshapr
             bslizr
+            bschaffl
+            bjumblr
+            bchoppr
             calf
             caps
             csa

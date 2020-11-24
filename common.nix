@@ -541,7 +541,7 @@ in
       restic
       storeBackup
       syncthing
-      syncthing-gtk
+      # syncthing-gtk # broken: https://github.com/NixOS/nixpkgs/commit/330ac8b3dcf1fbd76c21e05d4d88826799327d9c
       khard
       khal
       vdirsyncerStable
@@ -696,11 +696,13 @@ in
       zathura
       evince
       diff-pdf
+      xournalpp # anotate pdf's
       kodi
       (pkgs.pidgin-with-plugins.override {
         plugins = [ pidginotr ];
       }) # pidgin + pidgin-otr
       # pidgin
+      hexchat
       # weechat
       irssi
       gajim
