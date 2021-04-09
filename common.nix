@@ -356,8 +356,8 @@ in
       # m32edit
 
       # for battery shutdown event:
-      acpid
-      acpi
+      # acpid
+      # acpi
       geany
       #system:
       unzip
