@@ -156,6 +156,7 @@ in
     # nssmdns = true;
     # publish.userServices = true;
     # };
+    acpid.enable = true;
     cron.enable = false;
     #avahi.enable = true;
     #locate.enable = true;
