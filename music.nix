@@ -26,11 +26,11 @@ with pkgs; {
             plugins = [ helmholtz timbreid maxlib zexy puremapping cyclone mrpeach ];
             # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
             fullPD = puredata-with-plugins plugins;
-            qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
+            qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
                 configureFlags =
                     "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
-            # faust = pkgs.stdenv.lib.overrideDerivation pkgs.faust (oldAttrs: {
+            # faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
             # version = "unstable-2020-03-20";
             # src = fetchFromGitHub {
             # owner = "grame-cncm";

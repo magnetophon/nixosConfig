@@ -20,7 +20,7 @@ in
   nixpkgs.system = "x86_64-linux";
 
   nixpkgs.config.packageOverrides = pkgs : rec {
-    qjackctl = pkgs.stdenv.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
+    qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
       configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
     });
     # jack2Full = libjack2Unstable;
