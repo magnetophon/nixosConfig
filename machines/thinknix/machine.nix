@@ -157,6 +157,16 @@ in {
         #   '';
       };
     };
+    smartd = {
+      enable = true;
+      devices = [
+        { device = "/dev/sda"; }
+        # { device = "/dev/nvme0n1"; }
+        # { device = "/dev/sdb"; }
+      ];
+      notifications.test = true;
+      notifications.x11.enable = true;
+    };
 
     # liquidsoap.streams = { papillon = ./papillon.liq; };
 

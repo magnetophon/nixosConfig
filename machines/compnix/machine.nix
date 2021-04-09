@@ -74,6 +74,17 @@ in
       windowManager.i3.enable = true;
       windowManager.default = "remote_i3" ;
     };
+    smartd = {
+      enable = true;
+      devices = [
+        { device = "/dev/sda"; }
+        # { device = "/dev/nvme0n1"; }
+        # { device = "/dev/sdb"; }
+      ];
+      notifications.test = true;
+      notifications.x11.enable = true;
+
+    };
     compton = {
       enable = true;
       # time compton --config /dev/null --backend glx --benchmark 100

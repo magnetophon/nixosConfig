@@ -96,6 +96,17 @@ in
         ''
           ${pkgs.dzen2}/bin/dzen2 -dock -y 915 -h 125 -bg grey &
         '';
+        smartd = {
+          enable = true;
+          devices = [
+            { device = "/dev/sda"; }
+            # { device = "/dev/nvme0n1"; }
+            # { device = "/dev/sdb"; }
+          ];
+          notifications.test = true;
+          notifications.x11.enable = true;
+
+        };
     };
     # powerManagement.cpuFreqGovernor = "powersave";
     # renamed:

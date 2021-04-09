@@ -141,15 +141,6 @@ in
 
   services = {
     # SMART.
-    smartd = {
-      enable = true;
-      devices = [
-        { device = "/dev/sda"; }
-        # { device = "/dev/sdb"; }
-      ];
-      notifications.test = true;
-      notifications.x11.enable = true;
-    };
     fstrim.enable = true;
     # nixosManual.showManual = false;
     printing = {

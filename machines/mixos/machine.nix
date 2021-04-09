@@ -63,5 +63,20 @@ in
     #networkmanager.enable = true;
     connman.enable = false;
     wireless.enable = false;
+
+    services = {
+      smartd = {
+        enable = true;
+        devices = [
+          { device = "/dev/sda"; }
+          # { device = "/dev/nvme0n1"; }
+          # { device = "/dev/sdb"; }
+        ];
+        notifications.test = true;
+        notifications.x11.enable = true;
+      };
+
+    }
+
   };
 }
