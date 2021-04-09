@@ -148,12 +148,11 @@ in
       drivers = [ brlaser ];
       # drivers = [ brlaser hplipWithPlugin ]; # unfree
     };
-    avahi = {
-      enable = true;
-      nssmdns = true;
-      publish.userServices = true;
-    };
-    # acpid.enable = true;
+    # avahi = {
+    # enable = true;
+    # nssmdns = true;
+    # publish.userServices = true;
+    # };
     cron.enable = false;
     #avahi.enable = true;
     #locate.enable = true;
