@@ -249,7 +249,10 @@ in
       # synaptics = import ./synaptics.nix;
       libinput = {
         enable = true;
-        middleEmulation = false;
+        touchpad = {
+          middleEmulation = false;
+          accelSpeed = "0.5";
+        };
       };
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
