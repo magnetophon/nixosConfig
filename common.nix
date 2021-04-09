@@ -322,7 +322,7 @@ in
     dnsmasq = {
       enable = true;
       extraConfig = ''
-        # cache-size=100000
+        cache-size=100000
         addn-hosts=/var/lib/hostsblock/hosts.block
       '';
     };
