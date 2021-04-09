@@ -142,6 +142,9 @@ in
   services = {
     # SMART.
     fstrim.enable = true;
+
+    fwupd.enable = true;
+
     # nixosManual.showManual = false;
     printing = {
       enable = true;
