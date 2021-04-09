@@ -118,6 +118,7 @@ with pkgs; {
             ninjas2
             noise-repellent
             nova-filters
+            oxefmsynth
             padthv1
             plugin-torture
             qsampler

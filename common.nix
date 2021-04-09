@@ -441,6 +441,7 @@ in
       testdisk
       udiskie
       glxinfo
+      libva-utils # collection of utilities and examples to exercise VA-API
       usbutils
       pciutils
       latencytop
@@ -524,8 +525,8 @@ in
       zstd                # for undo-tree compression
 
       # imagemagick
-      # dunst
-      (dunst.override { dunstify = true; })
+       dunst
+      #(dunst.override { dunstify = true; })  # dunstify is installed by default
       libnotify
       go-upower-notify
       # ctagsWrapped.ctagsWrapped
@@ -599,6 +600,7 @@ in
       sqlitebrowser
       # python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
       ungoogled-chromium
+      nyxt
       # chromium
       # chromiumBeta
       # w3m
