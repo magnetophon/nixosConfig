@@ -4,7 +4,7 @@
   twoFingerScroll = true;
   vertEdgeScroll = false;
   horizTwoFingerScroll = false;
-  horizEdgeScroll = true;
+  # horizEdgeScroll = true;
   minSpeed = "0.6";
   maxSpeed = "1.75";
   palmDetect = true;
