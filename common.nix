@@ -1146,7 +1146,7 @@ in
   };
   # Define fonts
   fonts = {
-    fontDir.enable = true;
+    # fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
@@ -1155,6 +1155,7 @@ in
         serif = [ "IBM Plex Serif" ];
       };
       # penultimate.enable = true;
+      # allowType1 = true;
       useEmbeddedBitmaps =
         true; # pango doesn't support mixing bitmap fonts with ttf anymore, so we if we want terminus plus icons we need terminus_font_ttf for i3bar, which displays wonky without this
     };
