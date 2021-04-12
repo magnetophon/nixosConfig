@@ -67,6 +67,7 @@ with pkgs;
 
     thinkfan = {
       enable = true;
+      smartSupport = true;
       sensors =
         [
           {
@@ -79,42 +80,19 @@ with pkgs;
             # working:
             indices = [ 0 1 2 3 4 5 6 ];
           }
-          {
-            query = "/sys/class/hwmon/hwmon4/";
-            type = "hwmon";
-            indices = [ 1  ];
-            # indices = [ 1 2 3 4 5 ];
-            optional = true; # don't exit if the sensor can't be read
-          }
+          # {
+          # query = "/sys/class/hwmon/hwmon4/";
+          # type = "hwmon";
+          # indices = [ 1 ];
+          # optional = true; # don't exit if the sensor can't be read
+          # }
         ];
 
       levels = [
-        [0 0 50]
-        ["level auto" 45 55]
-        ["level full-speed" 55 255]
+        ["level auto" 0 55]           # normal cooling when we're cold
+        [7 55 65]                     # max 5000 RPM when we're getting hot
+        ["level full-speed" 65 32767] # max 6700 RPM when we're hot, above fan spec!
       ];
-
-      # ];
-      # [
-        # {
-        # type = "hwmon";
-        # query = "/sys/devices/virtual/thermal/thermal_zone";
-        # }
-        # ];
-        # sensors = ''
-      # hwmon /sys/devices/virtual/thermal/thermal_zone0/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone1/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone2/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone3/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone4/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone5/temp
-      # hwmon /sys/devices/virtual/thermal/thermal_zone6/temp
-      # hwmon /sys/class/hwmon/hwmon4/temp1_input
-      # hwmon /sys/class/hwmon/hwmon4/temp2_input
-      # hwmon /sys/class/hwmon/hwmon4/temp3_input
-      # hwmon /sys/class/hwmon/hwmon4/temp4_input
-      # hwmon /sys/class/hwmon/hwmon4/temp5_input
-      # '';
     };
 
     picom = {
