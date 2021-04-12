@@ -571,7 +571,17 @@ in
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev #	get the name of a key or key-combo
-      busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
+      # busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
+      (busybox.overrideAttrs (oldAttrs: {
+        postFixup  = ''
+          mkdir -p /tmp/xxxxxqqqqqyyyyy
+          cp $out/bin/usleep /tmp/xxxxxqqqqqyyyyy
+          cp $out/bin/busybox /tmp/xxxxxqqqqqyyyyy
+          rm $out/bin/*
+          cp /tmp/xxxxxqqqqqyyyyy/usleep $out/bin/
+          cp /tmp/xxxxxqqqqqyyyyy/busybox $out/bin/
+        '';
+      }))
       lm_sensors # for i3status-rust
       dmenu
       clipster
