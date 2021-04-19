@@ -59,7 +59,10 @@
 
   # ZFS services
   services.zfs.autoSnapshot.enable = true;
-  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "daily";
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
