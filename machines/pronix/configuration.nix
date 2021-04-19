@@ -123,13 +123,21 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
   };
-  
-  services.fail2ban.enable = true;
+
+  services.fail2ban = {
+    enable = true;
+    jails.sshd =
+      ''
+        enabled = true
+        filter = sshd
+        ignoreip = 127.0.0.1/8,192.168.178.1/24
+       '';
+  };
 
   # Enable Wake on LAN
   services.wakeonlan.interfaces = [
-	    { interface = "eno1"; method = "magicpacket"; }
-  	  ];
+	  { interface = "eno1"; method = "magicpacket"; }
+  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
