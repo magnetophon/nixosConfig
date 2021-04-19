@@ -87,21 +87,45 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
+  users.extraUsers.nixBuild = {
+    name = "nixBuild";
+    isSystemUser = true;
+    useDefaultShell = true;
+    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID1kJ2pCgAaixNICnm2WB6ILvE7+BTvNTaWPYBOvaXsv nixBuild" ];
+  };
+
+  nix = {
+    allowedUsers = [ "nixBuild" ];
+    trustedUsers  = [ "nixBuild" ];
+  };
+
+
+
+  services.openssh.extraConfig = ''
+      Match User nixBuild
+        AllowAgentForwarding no
+        AllowTcpForwarding no
+        PermitTTY no
+        PermitTunnel no
+        X11Forwarding no
+      Match All
+    '';
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  # Commandline tools
-  coreutils
-  gitAndTools.gitFull
-  man
-  tmux
-  tree
-  wget
-  vim
-  mkpasswd
-  ranger
-  htop
-  lm_sensors
+    # Commandline tools
+    coreutils
+    gitAndTools.gitFull
+    man
+    tmux
+    tree
+    wget
+    vim
+    mkpasswd
+    ranger
+    htop
+    lm_sensors
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
