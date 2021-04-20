@@ -23,6 +23,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/bu" =
+    { device = "bu_pool/bu";
+      fsType = "zfs";
+    };
+
   #fileSystems."/boot" =
     #{ device = "/dev/disk/by-uuid/1AFD-DA91";
       #fsType = "vfat";

@@ -26,7 +26,7 @@
   boot.kernelParams = [ "elevator=none" ];
   #/dev/disk/by-id/wwn-0x5000c5005f5cb3b3"rt- Define on which hard drive you want to install Grub.
   boot.loader.grub.devices = [ # or "nodev" for efi only
-# DISK1: if none of the other disks are there, we don't have a system, so no need for a bootloader
+# DISK1: swap, if none of the other disks are there, we don't have a system, so no need for a bootloader
     "/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2
     "/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3
     "/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4
