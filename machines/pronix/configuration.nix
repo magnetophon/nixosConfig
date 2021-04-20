@@ -159,9 +159,22 @@
   };
 
   # Enable Wake on LAN
-  services.wakeonlan.interfaces = [
-	  { interface = "eno1"; method = "magicpacket"; }
-  ];
+  # services.wakeonlan.interfaces = [
+#	  { interface = "eno1"; method = "magicpacket"; }
+#  ];
+
+
+
+  systemd.services.wol-eth0 = {
+    description = "Wake-on-LAN for eno1";
+    requires = [ "network.target" ];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ethtool}/bin/ethtool -s eno1 wol g"; # magicpacket
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
