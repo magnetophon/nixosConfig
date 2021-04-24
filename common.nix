@@ -1232,6 +1232,7 @@ in
       extraGroups =
         [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" ];
       shell = pkgs.zsh;
+      isNormalUser = true;
     };
     mutableUsers = true;
   };
