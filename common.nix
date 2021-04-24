@@ -58,24 +58,24 @@ in
 
   nix = {
     # distributedBuilds = true;
-    buildMachines = [
-      { hostName = "nxb-4";
-        system = "x86_64-linux";
-        maxJobs = 100;
-        supportedFeatures = [ "benchmark" ];
-      }
-      { hostName = "nxb-16";
-        system = "x86_64-linux";
-        maxJobs = 100;
-        supportedFeatures = [ "benchmark" ];
-        mandatoryFeatures = [ "big-parallel" ];
-      }
-    ];
+    # buildMachines = [
+    # { hostName = "nxb-4";
+    # system = "x86_64-linux";
+    # maxJobs = 100;
+    # supportedFeatures = [ "benchmark" ];
+    # }
+    # { hostName = "nxb-16";
+    # system = "x86_64-linux";
+    # maxJobs = 100;
+    # supportedFeatures = [ "benchmark" ];
+    # mandatoryFeatures = [ "big-parallel" ];
+    # }
+    # ];
 
     useSandbox = true;
     sandboxPaths = [ "/home/nixchroot" ];
     requireSignedBinaryCaches = true;
-    buildCores = 0;
+    # buildCores = 0;
     extraOptions = ''
       gc-keep-outputs         = true   # Nice for developers
       gc-keep-derivations     = true   # Idem
