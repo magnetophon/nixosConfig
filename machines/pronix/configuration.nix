@@ -159,12 +159,13 @@
   };
 
   # Enable Wake on LAN
-  # services.wakeonlan.interfaces = [
-#	  { interface = "eno1"; method = "magicpacket"; }
-#  ];
-
-
-
+  # this service runs before my NW card is ready
+  # but is still needed for when I wake up from sleep
+  # see: https://github.com/NixOS/nixpkgs/pull/97362?notification_referrer_id=MDE4Ok5vdGlmaWNhdGlvblRocmVhZDExMzcyNTU1MDI6NzY0NTcxMQ%3D%3D&notifications_query=is%3Aunread#issuecomment-823307947
+  services.wakeonlan.interfaces = [
+	  { interface = "eno1"; method = "magicpacket"; }
+  ];
+  # this covers the rest of the cases
   systemd.services.wol-eth0 = {
     description = "Wake-on-LAN for eno1";
     requires = [ "network.target" ];
