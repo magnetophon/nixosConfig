@@ -12,6 +12,10 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  # fixed a kernel panic by disabling CPU virtualisation:
+  # System options -> Processor options -> Intel VT-d (Intel) or AMD-Vi IOMMU (AMD).
+  # https://support.hpe.com/hpesc/public/docDisplay?docLocale=en_US&docId=emr_na-c03477090
+  # boot.kernelParams = [ "intel_iommu=off" ];
 
   fileSystems."/" =
     { device = "sys_pool/root/nixos";
