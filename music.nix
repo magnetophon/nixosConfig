@@ -65,6 +65,7 @@ with pkgs; {
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             # zita-dpl1
             AMB-plugins
+            CHOWTapeModel
             FIL-plugins
             adlplug
             aeolus
@@ -84,6 +85,7 @@ with pkgs; {
             calf
             caps
             csa
+            diopser
             distrho
             dragonfly-reverb
             drumgizmo
@@ -173,7 +175,7 @@ with pkgs; {
             ###################################################################
 
             ardour
-            ardour_5
+            # ardour_5
             helio-workstation
             #beast
             carla
