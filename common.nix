@@ -34,11 +34,72 @@ in
     };
   };
   # for skype
-  hardware.pulseaudio = {
-    # enable = true;
-    package = pkgs.pulseaudio.override { jackaudioSupport = true; };
-  };
+  # hardware.pulseaudio = {
+  # enable = true;
+  # package = pkgs.pulseaudio.override { jackaudioSupport = true; };
+  # };
 
+  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
+  sound.enable = false;
+
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    pulse.enable = true;
+    socketActivation = true;
+    config.pipewire = {
+      "context.properties" = {
+        #"link.max-buffers" = 64;
+        "link.max-buffers" = 16; # version < 3 clients can't handle more than this
+        "log.level" = 2; # https://docs.pipewire.org/#Logging
+        "default.clock.rate" = 44100;
+        # "default.clock.rate" = 48000;
+        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 ];
+        #"default.clock.quantum" = 1024;
+        #"default.clock.min-quantum" = 32;
+        #"default.clock.max-quantum" = 8192;
+      };
+    };
+    # config.pipewire = {
+      #   "properties" = {
+    #     #"link.max-buffers" = 64;
+	  #     "link.max-buffers" = 16; # version < 3 clients can't handle more than this
+	  #     "log.level" = 2;
+    #     "default.clock.rate" = 48000;
+    #     "default.clock.quantum" = 1024;
+    #     "default.clock.min-quantum" = 128;
+    #     "default.clock.max-quantum" = 4096;
+    #   };
+    #   "context.objects" = [
+    #     {
+    #       # A default dummy driver. This handles nodes marked with the "node.always-driver"
+    #       # properyty when no other driver is currently active. JACK clients need this.
+    #       factory = "spa-node-factory";
+    #       args = {
+    #         "factory.name"     = "support.node.driver";
+    #         "node.name"        = "Dummy-Driver";
+    #         "node.group"       = "pipewire.dummy";
+    #         "priority.driver"  = 20000;
+    #       };
+    #     }
+    #     {
+    #       # Freewheeling driver. This is used e.g. by Ardour for exporting projects faster than realtime.
+    #       factory = "spa-node-factory";
+    #       args = {
+    #         "factory.name"     = "support.node.driver";
+    #         "node.name"        = "Freewheel-Driver";
+    #         "node.group"       = "pipewire.freewheel";
+    #         "node.freewheel"   = true;
+    #         "priority.driver"  = 19000;
+    #       };
+    #     }
+    #   ];
+    # };
+  };
   # done in jack module:
   # systemd.user.services.pulseaudio.environment = {
   # JACK_PROMISCUOUS_SERVER = "jackaudio";
@@ -54,6 +115,8 @@ in
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
+    kernel.sysctl = { "net.ipv4.ip_forward" = 1; }; # for network in VM
+    kernelModules = [ "kvm-intel" "kvm-amd" "tun" "virtio" ];
   };
 
   nix = {
@@ -86,6 +149,7 @@ in
     '';
   };
 
+  virtualisation.libvirtd.enable = true;
   # virtualisation.virtualbox =
   #   {
   #     host.enable = true;
@@ -171,6 +235,7 @@ in
       forwardX11 = true;
       permitRootLogin = "without-password";
       # permitRootLogin = "yes";
+      passwordAuthentication = false;
       startWhenNeeded = true;
 
     };
@@ -281,6 +346,10 @@ in
         # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
         # epkgs.emacs-libvterm
         # ]));
+
+      # package = pkgs.emacs.override {
+      # nativeComp = true;
+      # };
       package =
         ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
           epkgs.vterm
@@ -339,8 +408,8 @@ in
   # documentation.nixos.includeAllModules = true;
 
   nixpkgs.config = {
-    # allowUnfree = true;
-    allowUnfree = false;
+    allowUnfree = true;
+    # allowUnfree = false;
     #firefox.enableAdobeFlash = true;
     # firefox.enableMplayer = true;
     # packageOverrides = pkgs : rec {
@@ -401,7 +470,7 @@ in
       nix-diff #  marked as broken, refusing to evaluate
       nixfmt #  marked as broken, refusing to evaluate
       nix-serve
-      nixops
+      # nixops
       nix-du
       nix-review
       nixpkgs-lint
@@ -425,7 +494,7 @@ in
       physlock
       asciinema
       neofetch
-      rtv
+      # rtv
       tuir
       tree
       htop
@@ -434,6 +503,7 @@ in
       iotop
       powertop
       sysstat
+      virt-manager
       # iptraf # build failed
       nethogs
       iftop
@@ -608,9 +678,9 @@ in
       i2pd
       qutebrowser
       sqlitebrowser
-      # python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
-      ungoogled-chromium
+      python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
       nyxt
+      ungoogled-chromium
       # chromium
       # chromiumBeta
       # w3m
@@ -620,7 +690,7 @@ in
       mumble
       jitsi-meet-electron
       # zoom-us # unfree
-      # (mumble.override { jackSupport = true;})
+      (mumble.override { jackSupport = true;})
       (mpv-unwrapped.override {
         jackaudioSupport = true;
         archiveSupport = true;
@@ -699,6 +769,7 @@ in
       alsaUtils
       meld
       freemind
+      arduino
       baobab
       recoll
       # https://github.com/NixOS/nixpkgs/issues/50001 :
@@ -734,8 +805,8 @@ in
       hunspellDicts.en_US-large
       # hunspellDicts.nl_NL
       hunspellDicts.de_DE
-      # libreoffice-fresh
-      libreoffice
+      libreoffice-fresh
+      # libreoffice
       k3b
       # iDevice stuff:
       # /pkgs/development/libraries/libplist/default.nix
@@ -785,7 +856,6 @@ in
 
   };
 
-  sound.enable = true;
 
   environment.sessionVariables = {
     # EDITOR = "edit";
@@ -796,7 +866,7 @@ in
     TERMCMD = "alacritty";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
-    GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt";
+    GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt"; #TODO still needed? https://github.com/NixOS/nixpkgs/pull/96763
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     RANGER_LOAD_DEFAULT_RC = "FALSE";
@@ -1230,7 +1300,7 @@ in
       createHome = false;
       home = "/home/bart";
       extraGroups =
-        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" ];
+        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" "libvirtd" ];
       shell = pkgs.zsh;
       isNormalUser = true;
     };
