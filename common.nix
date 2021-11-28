@@ -316,7 +316,7 @@ in
         enable = true;
         touchpad = {
           middleEmulation = false;
-          accelSpeed = "0.5";
+          accelSpeed = "0.1";
         };
       };
       config = ''
@@ -460,7 +460,8 @@ in
       openjdk
       stow
       tmux
-      tealdeer
+      tealdeer # tldr
+      navi # An interactive cheatsheet tool for the command-line
       languagetool
       mosh
       sshfsFuse
@@ -491,12 +492,15 @@ in
       fish
       haskellPackages.ShellCheck
       fasd
+      zoxide
       fzf
       skim
       bfs
       broot
       hyperfine # benchmarker
       stress # cpu stress
+      grex # create regex from example
+      rdfind
       openssl
       physlock
       asciinema
@@ -511,7 +515,7 @@ in
       powertop
       sysstat
       virt-manager
-      # iptraf # build failed
+      # iptraf # broken
       nethogs
       iftop
       hdparm
@@ -598,11 +602,11 @@ in
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
       imagemagickBig         # for image-dired
-      # pinentry_emacs      # in-emacs gnupg prompts
+      pinentry_emacs      # in-emacs gnupg prompts
       zstd                # for undo-tree compression
 
-      # imagemagick
-       dunst
+      imagemagick
+      dunst
       #(dunst.override { dunstify = true; })  # dunstify is installed by default
       libnotify
       go-upower-notify
@@ -622,7 +626,7 @@ in
       vdirsyncerStable
       # https://github.com/NixOS/nixpkgs/issues/103026
       # pypyPackages.keyring
-      # python3
+      python3
       python-with-my-packages
       gparted
       parted
@@ -644,7 +648,7 @@ in
       i3status-rust
       # i3lock
       i3-layout-manager
-      # i3-resurrect
+      i3-resurrect
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev #	get the name of a key or key-combo
@@ -742,7 +746,7 @@ in
       lynx
       mediainfo
       fontforge
-      # python3Packages.ueberzug
+      python3Packages.ueberzug
       # mutt-with-sidebar
       # mutt-kz
       neomutt
@@ -768,6 +772,7 @@ in
       blender
       openscad
       kdenlive
+      olive-editor
       ffmpeg-full
       simplescreenrecorder
       scrot
@@ -785,12 +790,14 @@ in
       diff-pdf
       xournalpp # anotate pdf's
       kodi
-      (pkgs.pidgin-with-plugins.override {
-        plugins = [ pidginotr ];
-      }) # pidgin + pidgin-otr
+      # (pkgs.pidgin-with-plugins.override {
+      # plugins = [ pidginotr ];
+      # }) # pidgin + pidgin-otr
       # pidgin
       hexchat
-      # weechat
+      signal-desktop
+      tdesktop
+      weechat
       irssi
       gajim
       tdesktop
@@ -810,7 +817,7 @@ in
       aspellDicts.nl
       aspellDicts.de
       hunspellDicts.en_US-large
-      # hunspellDicts.nl_NL
+      hunspellDicts.nl_NL
       hunspellDicts.de_DE
       libreoffice-fresh
       # libreoffice
