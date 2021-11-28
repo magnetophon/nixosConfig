@@ -19,12 +19,12 @@ with pkgs;
 
   hardware.enableAllFirmware = true;
 
-  hardware.trackpoint = {
-    enable = true;
-    emulateWheel = true;
-    speed = 250;
-    sensitivity = 140;
-  };
+  # hardware.trackpoint = {
+  # enable = true;
+  # emulateWheel = true;
+  # speed = 250;
+  # sensitivity = 140;
+  # };
   networking = {
     networkmanager.enable = true;
     networkmanager.packages = [ pkgs.networkmanagerapplet ];

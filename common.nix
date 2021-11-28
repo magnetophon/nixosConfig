@@ -319,6 +319,13 @@ in
           accelSpeed = "0.5";
         };
       };
+      config = ''
+      Section "InputClass"
+        Identifier     "Enable libinput for TrackPoint"
+        MatchIsPointer "on"
+        Driver         "libinput"
+      EndSection
+    '';
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
       xkbOptions = "caps:swapescape";
