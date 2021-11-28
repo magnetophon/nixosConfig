@@ -122,6 +122,7 @@ with pkgs; {
             nova-filters
             oxefmsynth
             padthv1
+            quadrafuzz
             plugin-torture
             qsampler
             qsynth
@@ -133,8 +134,9 @@ with pkgs; {
             sorcer
             spectmorph
             speech-denoiser
+            stochas
             stone-phaser
-            string-machine # todo:uncomment when it gets in unstable
+            string-machine
             swh_lv2
             synthv1
             tamgamp.lv2
@@ -152,7 +154,7 @@ with pkgs; {
             # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
             magnetophonDSP.CharacterCompressor
             # magnetophonDSP.CompBus # long build, not used
-            magnetophonDSP.ConstantDetuneChorus
+            # magnetophonDSP.ConstantDetuneChorus
             magnetophonDSP.LazyLimiter
             magnetophonDSP.RhythmDelay
             magnetophonDSP.VoiceOfFaust
@@ -175,7 +177,6 @@ with pkgs; {
             ###################################################################
 
             ardour
-            # ardour_5
             helio-workstation
             #beast
             carla
