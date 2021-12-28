@@ -27,7 +27,7 @@ in
 
   hardware = {
     # enableAllFirmware = true;
-    enableRedistributableFirmware = true;
+    # enableRedistributableFirmware = true;
     cpu = {
       amd.updateMicrocode = true;
       intel.updateMicrocode = true;
@@ -39,67 +39,10 @@ in
   # package = pkgs.pulseaudio.override { jackaudioSupport = true; };
   # };
 
-  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-  sound.enable = false;
 
   # rtkit is optional but recommended
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-    pulse.enable = true;
-    socketActivation = true;
-    config.pipewire = {
-      "context.properties" = {
-        #"link.max-buffers" = 64;
-        "link.max-buffers" = 16; # version < 3 clients can't handle more than this
-        "log.level" = 2; # https://docs.pipewire.org/#Logging
-        "default.clock.rate" = 44100;
-        # "default.clock.rate" = 48000;
-        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 ];
-        #"default.clock.quantum" = 1024;
-        #"default.clock.min-quantum" = 32;
-        #"default.clock.max-quantum" = 8192;
-      };
-    };
-    # config.pipewire = {
-      #   "properties" = {
-    #     #"link.max-buffers" = 64;
-	  #     "link.max-buffers" = 16; # version < 3 clients can't handle more than this
-	  #     "log.level" = 2;
-    #     "default.clock.rate" = 48000;
-    #     "default.clock.quantum" = 1024;
-    #     "default.clock.min-quantum" = 128;
-    #     "default.clock.max-quantum" = 4096;
-    #   };
-    #   "context.objects" = [
-    #     {
-    #       # A default dummy driver. This handles nodes marked with the "node.always-driver"
-    #       # properyty when no other driver is currently active. JACK clients need this.
-    #       factory = "spa-node-factory";
-    #       args = {
-    #         "factory.name"     = "support.node.driver";
-    #         "node.name"        = "Dummy-Driver";
-    #         "node.group"       = "pipewire.dummy";
-    #         "priority.driver"  = 20000;
-    #       };
-    #     }
-    #     {
-    #       # Freewheeling driver. This is used e.g. by Ardour for exporting projects faster than realtime.
-    #       factory = "spa-node-factory";
-    #       args = {
-    #         "factory.name"     = "support.node.driver";
-    #         "node.name"        = "Freewheel-Driver";
-    #         "node.group"       = "pipewire.freewheel";
-    #         "node.freewheel"   = true;
-    #         "priority.driver"  = 19000;
-    #       };
-    #     }
-    #   ];
-    # };
-  };
+
   # done in jack module:
   # systemd.user.services.pulseaudio.environment = {
   # JACK_PROMISCUOUS_SERVER = "jackaudio";
@@ -335,8 +278,11 @@ in
 
     };
 
-    unclutter-xfixes.enable = true;
-    unclutter-xfixes.extraOptions = [ "ignore-scrolling" ];
+    unclutter-xfixes =
+      { enable = true;
+        threshold = 2;
+        extraOptions = [ "ignore-scrolling" ];
+      };
     # autofs =
     # {
     # enable = true;
@@ -349,10 +295,10 @@ in
       # package =
       # ((emacsPackagesFor emacs26).emacsWithPackages (epkgs: [  # emacs 27 is default, but breaks faust for now
       # epkgs.vterm
-        # ]));
-        # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
-        # epkgs.emacs-libvterm
-        # ]));
+      # ]));
+      # ((emacsPackagesFor ((emacs.override { imagemagick = nixpkgs.imagemagickBig; srcRepo = true; }).overrideAttrs )).emacsWithPackages (epkgs: [
+      # epkgs.emacs-libvterm
+      # ]));
 
       # package = pkgs.emacs.override {
       # nativeComp = true;
@@ -474,6 +420,7 @@ in
       picom # compton fork
       # e19.terminology
       zsh
+      nixos-option
       nix-zsh-completions
       nix-diff #  marked as broken, refusing to evaluate
       nixfmt #  marked as broken, refusing to evaluate
@@ -531,7 +478,7 @@ in
       psmisc
       gitFull
       gitAndTools.hub # GitHub extension to git
-      gitAndTools.gitAnnex
+      # gitAndTools.gitAnnex
       gitAndTools.diff-so-fancy
       gitAndTools.delta
       gitAndTools.grv # build failed
@@ -696,7 +643,8 @@ in
       # chromiumBeta
       # w3m
       (pkgs.w3m.override { graphicsSupport = true; })
-      youtubeDL
+      # youtubeDL
+      yt-dlp
       vlc
       mumble
       jitsi-meet-electron
@@ -851,7 +799,7 @@ in
     #       };
     #   };
 
-    variables.NIX_AUTO_RUN = "!";
+    # variables.NIX_AUTO_RUN = "!";
 
     # Speaking of i3, if you enable both services.xserver.desktopManager.plasma5.enable = true; and services.xserver.windowManager.i3.enable = true; (for example), you get a neat extra: a combo option to run plasma with i3 as a window manager. Additionally, you can set services.xserver.desktopManager.default = "plasma5"; AND services.xserver.windowManager.default = "i3"; to get that variant by default.
 
@@ -1307,7 +1255,7 @@ in
 
   users = {
     defaultUserShell = pkgs.zsh;
-    extraUsers.bart = {
+    users.bart = {
       name = "bart";
       group = "users";
       uid = 1000;

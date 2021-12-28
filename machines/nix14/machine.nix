@@ -129,6 +129,37 @@ with pkgs;
   };
   # boot.kernelParams = [ "acpi_backlight=native" ];
 
+  # fix graphical glitches in 5.10 kernel?
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1925346
+  # boot.kernelParams = [ "i915.mitigations=off" ];
+  #
+  nix = {
+    maxJobs = 8;
+    trustedUsers = [ "root" "nixBuild" "bart" ];
+    distributedBuilds = true;
+    # hostName = "62.251.18.196";
+    buildMachines = [{
+      hostName = "builder";
+      maxJobs = 4;
+      # buildCores = 6;
+      sshKey = "/root/.ssh/id_nixBuild";
+      sshUser = "nixBuild";
+      system = "x86_64-linux";
+      speedFactor = 10;
+      supportedFeatures = [
+        "benchmark"
+        "big-parallel"
+        "kvm"
+        "nixos-test"
+      ];
+      mandatoryFeatures = [ ];
+    }];
+	  # optional, useful when the builder has a faster internet connection than yours
+	  extraOptions = ''
+		  builders-use-substitutes = true
+    '';
+  };
+
   boot = {
     kernelModules = [ "acpi_call" ];
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];

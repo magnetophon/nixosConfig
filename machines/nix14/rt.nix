@@ -33,4 +33,7 @@ with pkgs; {
   # use throttled to not throttle CPU early (thanks Lenovo)
   services.throttled.enable = true;
 
+  # environment.sessionVariables = {
+  # NIXOS_CONFIG = "/home/bart/nixosConfig/machines/nix14/rt.nix";
+  # };
 }

@@ -220,7 +220,6 @@ with pkgs; {
             dfasma
             freewheeling
             # gigedit
-            linuxband
             MMA
             #latencytop
             mixxx

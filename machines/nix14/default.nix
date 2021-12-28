@@ -7,6 +7,8 @@ with pkgs; {
     ./machine.nix
     # on every machine:
     ../../common.nix
+    # non realtime:
+    ../../commonNonRT.nix
     # music tweaks and progs:
     ../../music.nix
   ];
@@ -56,8 +58,10 @@ with pkgs; {
   # hardware.pulseaudio.enable = true;
 
   # boot.kernelPackages = pkgs.linuxPackages_4_19;
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_10;
+  # boot.kernelPackages = pkgs.linuxPackages_5_11;
+  # boot.kernelPackages = pkgs.linuxPackages_5_4;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   musnix = {
@@ -75,4 +79,8 @@ with pkgs; {
     LXVST_PATH  = "$HOME/.lxvst:$HOME/.nix-profile/lib/lxvst:/run/current-system/sw/lib/lxvst";
     VST_PATH    = "$HOME/.vst:$HOME/.nix-profile/lib/vst:/run/current-system/sw/lib/vst";
   };
+
+  # environment.sessionVariables = {
+  # NIXOS_CONFIG = "/home/bart/nixosConfig/machines/nix14/default.nix";
+  # };
 }

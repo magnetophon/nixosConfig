@@ -9,6 +9,8 @@
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_10;
   boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
+  sound.enable = true;
+
   musnix = {
     enable = true;
     # kernel.packages = pkgs.linuxPackages_latest_rt;
@@ -21,7 +23,11 @@
   };
 
 
+  hardware.pulseaudio.enable = false;
+
   services = {
+    pipewire.enable = false;
+    # alsa.enable = true;
     jack = {
       jackd = {
         # enable = true;
@@ -32,11 +38,11 @@
         session = "a2jmidid -e";
       };
       # support ALSA only programs via ALSA JACK PCM pluginor loopback
-      alsa.enable = false;
-      loopback = {
-        enable = true;
-        # config = "";
-      };
+      alsa.enable = true;
+      # loopback = {
+      # enable = true;
+      # config = "";
+      # };
     };
   };
 }

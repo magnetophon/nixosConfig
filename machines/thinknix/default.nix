@@ -6,6 +6,8 @@ with pkgs; {
     ./machine.nix
     # on every machine:
     ../../common.nix
+    # non realtime:
+    ../../commonNonRT.nix
     # music tweaks and progs:
     ../../music.nix
   ];
