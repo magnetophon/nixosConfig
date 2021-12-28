@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -18,7 +17,7 @@
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Add ZFS support.
-  boot.supportedFilesystems = ["zfs"];
+  boot.supportedFilesystems = [ "zfs" ];
   # head -c 8 /etc/machine-id
   networking.hostId = "392d5564";
   # Note: If you do partition the disk, make sure you set the disk’s scheduler to none. ZFS takes this step automatically if it does control the entire disk.
@@ -26,10 +25,13 @@
   boot.kernelParams = [ "elevator=none" ];
   #/dev/disk/by-id/wwn-0x5000c5005f5cb3b3"rt- Define on which hard drive you want to install Grub.
   boot.loader.grub.devices = [ # or "nodev" for efi only
-# DISK1: if none of the other disks are there, we don't have a system, so no need for a bootloader
-    "/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2
-    "/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3
-    "/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4
+    # DISK1: swap, if none of the other disks are there, we don't have a system, so no need for a bootloader
+    # TODO: replace DISK2 with DISK9 after badblocks and long test
+    #"/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2   DEAD
+    "/dev/disk/by-id/wwn-0x5000c500629dc827" # DISK9   SPARE
+    "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3" # DISK1
+    #"/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
+    #"/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4 DEAD
   ];
   networking.hostName = "pronix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -59,7 +61,10 @@
 
   # ZFS services
   services.zfs.autoSnapshot.enable = true;
-  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "daily";
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -79,28 +84,76 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.bart = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  users = {
+    defaultUserShell = pkgs.zsh;
+    groups.nixBuild = { };
+    users = {
+      bart = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+        # shell = pkgs.zsh;
+      };
+      nixBuild = {
+        name = "nixBuild";
+        isSystemUser = true;
+        useDefaultShell = true;
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID1kJ2pCgAaixNICnm2WB6ILvE7+BTvNTaWPYBOvaXsv nixBuild"
+        ];
+        group = "nixBuild";
+      };
+    };
   };
+
+  nix = {
+    allowedUsers = [ "nixBuild" ];
+    trustedUsers = [ "nixBuild" ];
+  };
+
+  services.openssh.extraConfig = ''
+    Match User nixBuild
+      AllowAgentForwarding no
+      AllowTcpForwarding no
+      PermitTTY no
+      PermitTunnel no
+      X11Forwarding no
+    Match All
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  # Commandline tools
-  coreutils
-  gitAndTools.gitFull
-  man
-  tmux
-  tree
-  wget
-  vim
-  mkpasswd
-  ranger
-  htop
-  lm_sensors
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      # Commandline tools
+      coreutils
+      gitAndTools.gitFull
+      man
+      tmux
+      tree
+      wget
+      vim
+      mkpasswd
+      smartmontools
+      ranger
+      htop
+      lm_sensors
+      nix-zsh-completions
+      nixos-option
+      nixfmt
+      fzf
+      bottom
+      xclip
+      # doom emacs dependencies
+      git
+      emacs # Emacs 27.2
+      ripgrep
+      coreutils # basic GNU utilities
+      fd
+      clang
+    ];
 
+    shells = [ pkgs.zsh ];
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -120,13 +173,38 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
   };
-  
-  services.fail2ban.enable = true;
+
+  services.fail2ban = {
+    enable = true;
+    jails.sshd = ''
+      enabled = true
+      filter = sshd
+      ignoreip = 127.0.0.1/8,192.168.178.1/24
+    '';
+  };
 
   # Enable Wake on LAN
-  services.wakeonlan.interfaces = [
-	    { interface = "eno1"; method = "magicpacket"; }
-  	  ];
+  # this service runs before my NW card is ready
+  # but is still needed for when I wake up from sleep
+  # see: https://github.com/NixOS/nixpkgs/pull/97362?notification_referrer_id=MDE4Ok5vdGlmaWNhdGlvblRocmVhZDExMzcyNTU1MDI6NzY0NTcxMQ%3D%3D&notifications_query=is%3Aunread#issuecomment-823307947
+  # services.wakeonlan.interfaces = [
+  # { interface = "eno1"; method = "magicpacket"; }
+  # ];
+  networking.interfaces.eno1.wakeOnLan = {
+    enable = true;
+    # method = "magicpacket";
+  };
+  # this covers the rest of the cases
+  systemd.services.wol-eth0 = {
+    description = "Wake-on-LAN for eno1";
+    requires = [ "network.target" ];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ethtool}/bin/ethtool -s eno1 wol g"; # magicpacket
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -143,4 +221,3 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-
