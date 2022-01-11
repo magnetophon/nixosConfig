@@ -140,7 +140,7 @@ with pkgs;
     # hostName = "62.251.18.196";
     buildMachines = [{
       hostName = "builder";
-      maxJobs = 4;
+      maxJobs = 24;
       # buildCores = 6;
       sshKey = "/root/.ssh/id_nixBuild";
       sshUser = "nixBuild";

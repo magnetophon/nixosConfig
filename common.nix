@@ -385,7 +385,8 @@ in
       unzip
       zip
       p7zip # insecure: https://github.com/NixOS/nixpkgs/commit/aa80b4780d849a00d86c28d6b3c78a777dd02e9a
-      dtrx
+      # dtrx has been removed from nixpkgs as the upstream has abandoned the project.
+      unar
       gnumake
       cmake
       gcc
