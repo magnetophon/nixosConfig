@@ -30,7 +30,7 @@
     #"/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2   DEAD
     "/dev/disk/by-id/wwn-0x5000c500629dc827" # DISK9   SPARE
     "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3" # DISK1
-    #"/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
+    "/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
     #"/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4 DEAD
   ];
   networking.hostName = "pronix"; # Define your hostname.
@@ -141,8 +141,11 @@
       nixos-option
       nixfmt
       fzf
+      skim
       bottom
       xclip
+      tealdeer
+      shellcheck
       # doom emacs dependencies
       git
       emacs # Emacs 27.2

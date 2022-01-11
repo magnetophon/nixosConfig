@@ -23,14 +23,24 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/bu" =
+    { device = "bu_pool/bu";
+      fsType = "zfs";
+    };
+
   #fileSystems."/boot" =
     #{ device = "/dev/disk/by-uuid/1AFD-DA91";
       #fsType = "vfat";
     #};
 
   swapDevices =
-    [ { device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1"; }
+    [ {
+      # 2.5" disk:
+      # device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1";
+      # DISK10, 4TB.  TODO: get and use a smaller disk
+      device = "/dev/disk/by-id/wwn-0x5000c500629410c7-part1";
+    }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }
