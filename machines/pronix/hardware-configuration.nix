@@ -14,12 +14,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "sys_pool/root/nixos";
+    { device = "sys_pool_2/root/nixos";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "sys_pool/home";
+    { device = "sys_pool_2/home";
       fsType = "zfs";
     };
 
@@ -38,7 +38,9 @@
       # 2.5" disk:
       # device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1";
       # DISK10, 4TB.  TODO: get and use a smaller disk
-      device = "/dev/disk/by-id/wwn-0x5000c500629410c7-part1";
+      # device = "/dev/disk/by-id/wwn-0x5000c500629410c7-part1";
+      # DISK1, 600GB
+      device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1";
     }
     ];
 

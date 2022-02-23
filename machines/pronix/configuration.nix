@@ -27,12 +27,21 @@
   boot.loader.grub.devices = [ # or "nodev" for efi only
     # DISK1: swap, if none of the other disks are there, we don't have a system, so no need for a bootloader
     # TODO: replace DISK2 with DISK9 after badblocks and long test
-    #"/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2   DEAD
-    "/dev/disk/by-id/wwn-0x5000c500629dc827" # DISK9   SPARE
-    "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3" # DISK1
-    "/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
+    # "/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2   DEAD
+    # "/dev/disk/by-id/wwn-0x5000c500629dc827" # DISK9   SPARE
+    # "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3" # DISK1
+    "/dev/disk/by-id/wwn-0x5000c500681b817b" # DISK14
+    "/dev/disk/by-id/wwn-0x5000c500684c2f73" # DISK15
+    "/dev/disk/by-id/wwn-0x5000c5004be2033b" # DISK16
+    # "/dev/disk/by-id/wwn-0x5000c500681b26fb" # DISK17
+    # "/dev/disk/by-id/wwn-0x5000c500763332ff" # DISK18
+    #
+    # DEAD:
+    #
+    # "/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
     #"/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4 DEAD
   ];
+  boot.tmpOnTmpfs = true;
   networking.hostName = "pronix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -63,7 +72,7 @@
   services.zfs.autoSnapshot.enable = true;
   services.zfs.autoScrub = {
     enable = true;
-    interval = "daily";
+    interval = "weekly";
   };
 
   # Enable the X11 windowing system.
@@ -105,9 +114,9 @@
     };
   };
 
-  nix = {
-    allowedUsers = [ "nixBuild" ];
-    trustedUsers = [ "nixBuild" ];
+  nix.settings = {
+    allowed-users = [ "nixBuild" ];
+    trusted-users = [ "nixBuild" ];
   };
 
   services.openssh.extraConfig = ''
@@ -126,6 +135,7 @@
     systemPackages = with pkgs; [
       # Commandline tools
       coreutils
+      parted
       gitAndTools.gitFull
       man
       tmux
@@ -172,7 +182,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    ports = [ 27511 ];
+    ports = [ 511 ];
     passwordAuthentication = false;
     permitRootLogin = "no";
   };
