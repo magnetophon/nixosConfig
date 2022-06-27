@@ -69,10 +69,12 @@ with pkgs; {
             FIL-plugins
             adlplug
             aeolus
+            aether-lv2
             ams-lv2
             artyFX
             avldrums-lv2
             bchoppr
+            bespokesynth
             bitmeter
             bjumblr
             bristol
@@ -84,6 +86,11 @@ with pkgs; {
             bchoppr
             calf
             caps
+            cardinal
+            ChowKick
+            ChowPhaser
+            CHOWTapeModel
+            ChowCentaur
             csa
             diopser
             distrho
@@ -92,7 +99,20 @@ with pkgs; {
             drumkv1
             ensemble-chorus
             eq10q
-            eteroj.lv2
+            # open-music-kontrollers.eteroj
+
+            open-music-kontrollers.eteroj
+            open-music-kontrollers.jit
+            open-music-kontrollers.mephisto
+            open-music-kontrollers.midi_matrix
+            open-music-kontrollers.moony
+            open-music-kontrollers.orbit
+            open-music-kontrollers.patchmatrix
+            open-music-kontrollers.router
+            open-music-kontrollers.sherlock
+            open-music-kontrollers.synthpod
+            open-music-kontrollers.vm
+
             fluidsynth
             fmsynth
             fomp
@@ -115,8 +135,11 @@ with pkgs; {
             ladspaH
             ladspaPlugins
             lsp-plugins
+            LibreArp
+            LibreArp-lv2
             mda_lv2
             molot-lite
+            mod-arpeggiator-lv2
             ninjas2
             noise-repellent
             nova-filters
@@ -139,9 +162,12 @@ with pkgs; {
             string-machine
             swh_lv2
             synthv1
+            # surge
+            surge-XT
             tamgamp.lv2
             tetraproc
             uhhyou.lv2
+            vocproc
             wolf-shaper
             x42-plugins
             yoshimi
@@ -185,6 +211,7 @@ with pkgs; {
             mod-distortion
             petrifoo
             guitarix
+            zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             ###################################################################
             #                            utilities                            #
@@ -199,9 +226,9 @@ with pkgs; {
             lv2bm
             mamba
             qjackctl
-            sonic-lineup
+            # sonic-lineup
             vmpk
-            QmidiNet
+            qmidinet
             ###################################################################
             #                            analizers                            #
             ###################################################################

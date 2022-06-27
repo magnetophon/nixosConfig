@@ -26,7 +26,7 @@ in
   system.stateVersion = "18.09"; # Did you read the comment?
 
   hardware = {
-    # enableAllFirmware = true;
+    enableAllFirmware = true;
     # enableRedistributableFirmware = true;
     cpu = {
       amd.updateMicrocode = true;
@@ -78,26 +78,28 @@ in
     # }
     # ];
 
-    useSandbox = true;
-    sandboxPaths = [ "/home/nixchroot" ];
-    requireSignedBinaryCaches = true;
-    # buildCores = 0;
-    extraOptions = ''
+    settings = {
+      sandbox = true;
+      extra-sandbox-paths = [ "/home/nixchroot" ];
+      require-sigs = true;
+    };
+    # useSandbox = true;
+    # sandboxPaths = [ "/home/nixchroot" ];
+    # requireSignedBinaryCaches = true;
+
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+      ''
       gc-keep-outputs         = true   # Nice for developers
       gc-keep-derivations     = true   # Idem
       env-keep-derivations    = false
       # binary-caches         = https://nixos.org/binary-cache
       # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
       auto-optimise-store     = true
+      experimental-features = nix-command flakes
     '';
+    package = pkgs.nixFlakes;
   };
 
-  virtualisation.libvirtd.enable = true;
-  # virtualisation.virtualbox =
-  #   {
-  #     host.enable = true;
-  #     # guest.enable = true;
-  #   };
 
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
@@ -304,7 +306,7 @@ in
       # nativeComp = true;
       # };
       package =
-        ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [
+        ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
           epkgs.vterm
         ]));
     };
@@ -320,9 +322,11 @@ in
         # extraTargets = ["display-manager.service"];
       };
     };
-    logind.extraConfig = ''
-      HandleSuspendKey=hibernate
-    '';
+    logind.lidSwitch = "suspend-then-hibernate";
+    # logind.lidSwitch = "hibernate";
+    # logind.extraConfig = ''
+    # HandleSuspendKey=hibernate
+    # '';
     # doesn't do anything
     # HandlePowerKey=hibernate
 
@@ -378,14 +382,13 @@ in
       # m32edit
 
       # for battery shutdown event:
-      # acpid
-      # acpi
+      acpid
+      acpi
       geany
       #system:
       unzip
       zip
       p7zip # insecure: https://github.com/NixOS/nixpkgs/commit/aa80b4780d849a00d86c28d6b3c78a777dd02e9a
-      # dtrx has been removed from nixpkgs as the upstream has abandoned the project.
       unar
       gnumake
       cmake
@@ -397,6 +400,8 @@ in
       nnn
       ncdu # disk usage analyzer
       # dua # disk usage analyzer, doesn't understand symbolic links
+      gdu
+      lfs
       ts
       xdotool # for auto-type
       xorg.sessreg
@@ -411,13 +416,16 @@ in
       navi # An interactive cheatsheet tool for the command-line
       languagetool
       mosh
-      sshfsFuse
+      sshfs-fuse
       gnutls # for doom emacs irc
+      nodejs # for doom lsp mode
+      rust-analyzer # for doom rust
+      rustup # for doom rust
       rxvt_unicode
       # termite          # https://github.com/thestinger/termite/issues/760
       # termite.terminfo # https://github.com/thestinger/termite/issues/760
       alacritty
-      kitty
+      # kitty
       picom # compton fork
       # e19.terminology
       zsh
@@ -428,6 +436,7 @@ in
       nix-serve
       # nixops
       nix-du
+      nix-tree
       nix-review
       nixpkgs-lint
       nix-prefetch-scripts
@@ -462,7 +471,7 @@ in
       iotop
       powertop
       sysstat
-      virt-manager
+      # virt-manager
       # iptraf # broken
       nethogs
       iftop
@@ -482,7 +491,7 @@ in
       # gitAndTools.gitAnnex
       gitAndTools.diff-so-fancy
       gitAndTools.delta
-      gitAndTools.grv # build failed
+      # gitAndTools.grv # build failed
       gitAndTools.tig
       gitAndTools.gitui
       gist # upload to git.github.com
@@ -546,7 +555,8 @@ in
       # marked # node package
       pandoc
       haskellPackages.markdown
-      (mu.override { withMug = true; })
+      # (mu.override { withMug = true; }) # mug got removed upstream
+      mu
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
       imagemagickBig         # for image-dired
@@ -561,8 +571,8 @@ in
       # ctagsWrapped.ctagsWrapped
       which
       gnuplot
-      xlibs.xkill
-      xlibs.xinit
+      xorg.xkill
+      xorg.xinit
       ltrace
       borgbackup
       restic
@@ -584,7 +594,7 @@ in
       #vim
       # ( pkgs.xdg_utils.override { mimiSupport = true; })
       xdg_utils
-      shared_mime_info
+      shared-mime-info
       perlPackages.MIMETypes
       gnupg
       #windowmanager etc:
@@ -593,8 +603,6 @@ in
       polybarFull
       jq
       i3status
-      i3status-rust
-      # i3lock
       i3-layout-manager
       i3-resurrect
       wmfocus
@@ -633,7 +641,7 @@ in
       # gst_plugins_good
       # gst_plugins_bad
       # gst_plugins_ugly
-      torbrowser
+      tor-browser-bundle-bin
       i2pd
       qutebrowser
       sqlitebrowser
@@ -646,6 +654,7 @@ in
       (pkgs.w3m.override { graphicsSupport = true; })
       # youtubeDL
       yt-dlp
+      freetube
       vlc
       mumble
       jitsi-meet-electron
@@ -682,6 +691,7 @@ in
       fd # rust fast find alternative
       exa # rust ls alternative
       trash-cli
+      joshuto
       ranger
       # for ranger previews:
       atool
@@ -700,7 +710,6 @@ in
       # mutt-kz
       neomutt
       xfce.thunar
-      alot
       thunderbird
       isync
       # taskwarrior
@@ -709,6 +718,7 @@ in
       urlview
       # offlineimap replaced by isync
       notmuch
+      alot
       # remind    #calendar
       # wyrd      # front end for remind
       #pypyPackages.alot
@@ -717,11 +727,11 @@ in
       kcolorchooser
       gimp
       inkscape
-      # (pkgs.blender.override { jackaudioSupport = true; })
-      blender
+      (pkgs.blender.override { jackaudioSupport = true; })
+      # blender
       openscad
       kdenlive
-      olive-editor
+      # olive-editor
       ffmpeg-full
       simplescreenrecorder
       scrot
@@ -768,8 +778,8 @@ in
       hunspellDicts.en_US-large
       hunspellDicts.nl_NL
       hunspellDicts.de_DE
-      libreoffice-fresh
-      # libreoffice
+      # libreoffice-fresh
+      libreoffice
       k3b
       # iDevice stuff:
       # /pkgs/development/libraries/libplist/default.nix
@@ -1177,7 +1187,7 @@ in
 
     light.enable = true;
     # gtk search:
-    # plotinus.enable = true;
+    plotinus.enable = true;
     # Android Debug Bridge
     adb.enable = true;
     # for zrythm, see: https://github.com/NixOS/nixpkgs/issues/85546
@@ -1250,6 +1260,7 @@ in
     # firewall.enable = false;
     # resolvconf.dnsExtensionMechanism =
     # false; # workaround to fix “WiFi in de Trein”
+    # resolvconf.dnsExtensionMechanism = false;
   };
 
   time.timeZone = "Europe/Amsterdam";
@@ -1263,7 +1274,7 @@ in
       createHome = false;
       home = "/home/bart";
       extraGroups =
-        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" "libvirtd" ];
+        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" "libvirtd" "camera" ];
       shell = pkgs.zsh;
       isNormalUser = true;
     };

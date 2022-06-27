@@ -35,11 +35,11 @@ with pkgs; {
       INTEL_GPU_MAX_FREQ_ON_AC = "1150";
       INTEL_GPU_MAX_FREQ_ON_BAT = "300";
       INTEL_GPU_BOOST_FREQ_ON_AC = "1150";
-      # INTEL_GPU_BOOST_FREQ_ON_BAT = "1150";
+      INTEL_GPU_BOOST_FREQ_ON_BAT = "300";
       ENERGY_PERF_POLICY_ON_BAT = "powersave";
       # DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "wifi";
       DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi";
-      # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi";
+      DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi";
       # Enable audio power saving for Intel HDA, AC97 devices (timeout in secs).
       # A value of 0 disables, >= 1 enables power saving.
       # Note: 1 is recommended for Linux desktop environments with PulseAudio,
@@ -58,10 +58,11 @@ with pkgs; {
   # hardware.pulseaudio.enable = true;
 
   # boot.kernelPackages = pkgs.linuxPackages_4_19;
+  # boot.kernelPackages = pkgs.linuxPackages_5_4;
   # boot.kernelPackages = pkgs.linuxPackages_5_10;
   # boot.kernelPackages = pkgs.linuxPackages_5_11;
-  # boot.kernelPackages = pkgs.linuxPackages_5_4;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   musnix = {

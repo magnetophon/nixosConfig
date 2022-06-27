@@ -28,7 +28,7 @@ with pkgs;
   # };
   networking = {
     networkmanager.enable = true;
-    networkmanager.packages = [ pkgs.networkmanagerapplet ];
+    # networkmanager.packages = [ pkgs.networkmanagerapplet ];
     # for zfs:
     # head -c 8 /etc/machine-id
     hostId = "3a7c3b31";
@@ -134,8 +134,9 @@ with pkgs;
   # boot.kernelParams = [ "i915.mitigations=off" ];
   #
   nix = {
-    maxJobs = 8;
-    trustedUsers = [ "root" "nixBuild" "bart" ];
+    settings.max-jobs = 8;
+    # trustedUsers = [ "root" "nixBuild" "bart" ];
+    settings.trusted-users = [ "root" "nixBuild" "bart" ];
     distributedBuilds = true;
     # hostName = "62.251.18.196";
     buildMachines = [{
