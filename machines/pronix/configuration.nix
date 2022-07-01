@@ -121,6 +121,12 @@
     Match All
   '';
 
+  virtualisation.virtualbox =
+    {
+      host.enable = true;
+      # guest.enable = true;
+    };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
@@ -146,11 +152,28 @@
       xclip
       # doom emacs dependencies
       git
-      emacs # Emacs 27.2
+      # emacs # Emacs 27.2
+      cmake
+      gnumake
+      pandoc
+      haskellPackages.markdown
+      mu
+      mbsync
+      editorconfig-core-c # per-project style config
+      gnutls              # for TLS connectivity
+      imagemagickBig         # for image-dired
+      pinentry_emacs      # in-emacs gnupg prompts
+      zstd                # for undo-tree compression
+      aspell
+      sqlite
+      nodejs
+      faust
       ripgrep
       coreutils # basic GNU utilities
       fd
       clang
+      nix-du
+      nix-tree
     ];
 
     shells = [ pkgs.zsh ];
@@ -163,10 +186,27 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.mosh.enable = true;
-
+  programs = {
+    mosh.enable = true;
+    # For emacs with nativeComp
+  };
   # List services that you want to enable:
 
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    package = pkgs.emacs.override {
+      nativeComp = true;
+    };
+    # package =
+    # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
+    # epkgs.vterm
+    # ]));
+
+    # extraPackages = epkgs: with epkgs; [
+    # vterm
+    # ];
+  };
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
