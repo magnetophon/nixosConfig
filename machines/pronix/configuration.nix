@@ -158,7 +158,7 @@
       pandoc
       haskellPackages.markdown
       mu
-      mbsync
+      isync
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
       imagemagickBig         # for image-dired
