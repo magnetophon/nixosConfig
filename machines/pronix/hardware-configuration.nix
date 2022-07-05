@@ -14,12 +14,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "sys_pool/root/nixos";
+    { device = "sys_pool_2/root/nixos";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "sys_pool/home";
+    { device = "sys_pool_2/home";
       fsType = "zfs";
     };
 
@@ -32,5 +32,5 @@
     [ { device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }
