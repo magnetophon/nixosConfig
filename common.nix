@@ -563,7 +563,6 @@ in
       pinentry_emacs      # in-emacs gnupg prompts
       zstd                # for undo-tree compression
 
-      imagemagick
       dunst
       #(dunst.override { dunstify = true; })  # dunstify is installed by default
       libnotify
