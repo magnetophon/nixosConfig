@@ -521,9 +521,12 @@ in
           set number relativenumber
           "let g:airline#extensions#tabline#enabled = 1
         '';
-        vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-        vimrcConfig.vam.pluginDictionaries = [{
-          names = [
+        # vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
+        # vimrcConfig.vam.pluginDictionaries = [{
+        # names =
+        vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+          # loaded on launch:
+          start = [
             # "airline"
             "colors-solarized"
             # "ctrlp"
@@ -541,8 +544,13 @@ in
             # "vim-sleuth" # Heuristically set buffer options
             # "youcompleteme"
           ];
-        }];
+          # manually loadable by calling `:packadd $plugin-name`
+          # opt = [ phpCompletion elm-vim ];
+          # To automatically load a plugin when opening a filetype, add vimrc lines like:
+          # autocmd FileType php :packadd phpCompletion
+        } ;
       })
+
       # vim_configurable
       # vimHugeX
       #my_vim
