@@ -3,16 +3,16 @@
 { pkgs, config, ... }:
 with pkgs;
 let
-  my-python-packages = python-packages: with python-packages; [
-    # pandas
-    # requests
-    pyperclip
-    ueberzug
-    # other python packages you want
-  ];
+  my-python-packages = python-packages:
+    with python-packages; [
+      # pandas
+      # requests
+      pyperclip
+      ueberzug
+      # other python packages you want
+    ];
   python-with-my-packages = python3.withPackages my-python-packages;
-in
-{
+in {
 
   imports = [
     # ./vim.nix
@@ -38,7 +38,6 @@ in
   # enable = true;
   # package = pkgs.pulseaudio.override { jackaudioSupport = true; };
   # };
-
 
   # rtkit is optional but recommended
   security.rtkit.enable = true;
@@ -87,8 +86,7 @@ in
     # sandboxPaths = [ "/home/nixchroot" ];
     # requireSignedBinaryCaches = true;
 
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      ''
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes) ''
       gc-keep-outputs         = true   # Nice for developers
       gc-keep-derivations     = true   # Idem
       env-keep-derivations    = false
@@ -99,7 +97,6 @@ in
     '';
     package = pkgs.nixFlakes;
   };
-
 
   # Copy the system configuration int to nix-store.
   # system.copySystemConfiguration = true;
@@ -191,8 +188,6 @@ in
       enable = true;
       enableCtrlAltBackspace = true;
 
-
-
       displayManager = {
         # startx.enable = true;
         lightdm = {
@@ -265,12 +260,12 @@ in
         };
       };
       config = ''
-      Section "InputClass"
-        Identifier     "Enable libinput for TrackPoint"
-        MatchIsPointer "on"
-        Driver         "libinput"
-      EndSection
-    '';
+        Section "InputClass"
+          Identifier     "Enable libinput for TrackPoint"
+          MatchIsPointer "on"
+          Driver         "libinput"
+        EndSection
+      '';
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
       xkbOptions = "caps:swapescape";
@@ -280,11 +275,11 @@ in
 
     };
 
-    unclutter-xfixes =
-      { enable = true;
-        threshold = 2;
-        extraOptions = [ "ignore-scrolling" ];
-      };
+    unclutter-xfixes = {
+      enable = true;
+      threshold = 2;
+      extraOptions = [ "ignore-scrolling" ];
+    };
     # autofs =
     # {
     # enable = true;
@@ -305,10 +300,8 @@ in
       # package = pkgs.emacs.override {
       # nativeComp = true;
       # };
-      package =
-        ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
-          epkgs.vterm
-        ]));
+      package = ((emacsPackagesFor emacsNativeComp).emacsWithPackages
+        (epkgs: [ epkgs.vterm ]));
     };
     physlock = {
       enable = true;
@@ -431,8 +424,8 @@ in
       zsh
       nixos-option
       nix-zsh-completions
-      nix-diff #  marked as broken, refusing to evaluate
-      nixfmt #  marked as broken, refusing to evaluate
+      nix-diff # marked as broken, refusing to evaluate
+      nixfmt # marked as broken, refusing to evaluate
       nix-serve
       # nixops
       nix-du
@@ -548,7 +541,7 @@ in
           # opt = [ phpCompletion elm-vim ];
           # To automatically load a plugin when opening a filetype, add vimrc lines like:
           # autocmd FileType php :packadd phpCompletion
-        } ;
+        };
       })
 
       # vim_configurable
@@ -566,10 +559,10 @@ in
       # (mu.override { withMug = true; }) # mug got removed upstream
       mu
       editorconfig-core-c # per-project style config
-      gnutls              # for TLS connectivity
-      imagemagickBig         # for image-dired
-      pinentry_emacs      # in-emacs gnupg prompts
-      zstd                # for undo-tree compression
+      gnutls # for TLS connectivity
+      imagemagickBig # for image-dired
+      pinentry_emacs # in-emacs gnupg prompts
+      zstd # for undo-tree compression
 
       dunst
       #(dunst.override { dunstify = true; })  # dunstify is installed by default
@@ -596,7 +589,7 @@ in
       gparted
       parted
       smartmontools
-      unetbootin  # has p7zip
+      unetbootin # has p7zip
       makeWrapper
       #vim
       # ( pkgs.xdg_utils.override { mimiSupport = true; })
@@ -614,10 +607,10 @@ in
       i3-resurrect
       wmfocus
       xorg.xprop # get window props like class and insctance
-      xorg.xev #	get the name of a key or key-combo
+      xorg.xev # get the name of a key or key-combo
       # busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
       (busybox.overrideAttrs (oldAttrs: {
-        postFixup  = ''
+        postFixup = ''
           mkdir -p /tmp/xxxxxqqqqqyyyyy
           cp $out/bin/usleep /tmp/xxxxxqqqqqyyyyy
           cp $out/bin/busybox /tmp/xxxxxqqqqqyyyyy
@@ -666,7 +659,7 @@ in
       mumble
       jitsi-meet-electron
       # zoom-us # unfree
-      (mumble.override { jackSupport = true;})
+      (mumble.override { jackSupport = true; })
       (mpv-unwrapped.override {
         jackaudioSupport = true;
         archiveSupport = true;
@@ -693,10 +686,11 @@ in
       pass
       rofi-pass
       silver-searcher
-      (ripgrep.override {withPCRE2 = true;})
+      (ripgrep.override { withPCRE2 = true; })
       ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
       exa # rust ls alternative
+      inotify-tools # notify when a file changes
       trash-cli
       joshuto
       ranger
@@ -766,7 +760,6 @@ in
       weechat
       irssi
       gajim
-      tdesktop
 
       # non-free:
       # skypeforlinux
@@ -836,7 +829,6 @@ in
 
   };
 
-
   environment.sessionVariables = {
     # EDITOR = "edit";
     BROWSER = "qutebrowser";
@@ -846,7 +838,8 @@ in
     TERMCMD = "alacritty";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
-    GIT_SSL_CAINFO = "/etc/ssl/certs/ca-certificates.crt"; #TODO still needed? https://github.com/NixOS/nixpkgs/pull/96763
+    GIT_SSL_CAINFO =
+      "/etc/ssl/certs/ca-certificates.crt"; # TODO still needed? https://github.com/NixOS/nixpkgs/pull/96763
     XDG_DATA_HOME = "/home/bart/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     RANGER_LOAD_DEFAULT_RC = "FALSE";
@@ -884,7 +877,7 @@ in
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
     LANGUAGE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
-    LC_CTYPE="nl_NL.UTF-8";
+    LC_CTYPE = "nl_NL.UTF-8";
     # LC_NUMERIC="nl_NL.UTF-8";
     # LC_TIME = "nl_NL.UTF-8";
     # LC_COLLATE="nl_NL.UTF-8";
@@ -983,151 +976,151 @@ in
       # debug with:
       # nix-instantiate --eval '<nixpkgs/nixos>' -A config.programs.zsh.interactiveShellInit --json | jq -r | bat
       interactiveShellInit = ''
-          #####################################################################
-          # shell independent prompts #########################################
-          #####################################################################
+                  #####################################################################
+                  # shell independent prompts #########################################
+                  #####################################################################
 
-          # Read a single char from /dev/tty, prompting with "$*"
-          # Note: pressing enter will return a null string. Perhaps a version terminated with X and then remove it in caller?
-          # See https://unix.stackexchange.com/a/367880/143394 for dealing with multi-byte, etc.
-          function get_keypress {
-            local REPLY IFS=
-            >/dev/tty printf '%s' "$*"
-            [[ $ZSH_VERSION ]] && read -rk1  # Use -u0 to read from STDIN
-            # See https://unix.stackexchange.com/q/383197/143394 regarding '\n' -> '''
-            [[ $BASH_VERSION ]] && </dev/tty read -rn1
-            printf '%s' "$REPLY"
-          }
+                  # Read a single char from /dev/tty, prompting with "$*"
+                  # Note: pressing enter will return a null string. Perhaps a version terminated with X and then remove it in caller?
+                  # See https://unix.stackexchange.com/a/367880/143394 for dealing with multi-byte, etc.
+                  function get_keypress {
+                    local REPLY IFS=
+                    >/dev/tty printf '%s' "$*"
+                    [[ $ZSH_VERSION ]] && read -rk1  # Use -u0 to read from STDIN
+                    # See https://unix.stackexchange.com/q/383197/143394 regarding '\n' -> '''
+                    [[ $BASH_VERSION ]] && </dev/tty read -rn1
+                    printf '%s' "$REPLY"
+                  }
 
-          # Get a y/n from the user, return yes=0, no=1 enter=$2
-          # Prompt using $1.
-          # If set, return $2 on pressing enter, useful for cancel or defualting
-          function get_yes_keypress {
-            local prompt="''${1:-Are you sure [y/n]? }"
-            local enter_return=$2
-            local REPLY
-            # [[ ! $prompt ]] && prompt="[y/n]? "
-            while REPLY=$(get_keypress "$prompt"); do
-              [[ $REPLY ]] && printf '\n' # $REPLY blank if user presses enter
-              case "$REPLY" in
-                Y|y)  return 0;;
-                N|n)  return 1;;
-                ''')   [[ $enter_return ]] && return "$enter_return"
-              esac
-            done
-          }
+                  # Get a y/n from the user, return yes=0, no=1 enter=$2
+                  # Prompt using $1.
+                  # If set, return $2 on pressing enter, useful for cancel or defualting
+                  function get_yes_keypress {
+                    local prompt="''${1:-Are you sure [y/n]? }"
+                    local enter_return=$2
+                    local REPLY
+                    # [[ ! $prompt ]] && prompt="[y/n]? "
+                    while REPLY=$(get_keypress "$prompt"); do
+                      [[ $REPLY ]] && printf '\n' # $REPLY blank if user presses enter
+                      case "$REPLY" in
+                        Y|y)  return 0;;
+                        N|n)  return 1;;
+                        ''')   [[ $enter_return ]] && return "$enter_return"
+                      esac
+                    done
+                  }
 
-          # Credit: http://unix.stackexchange.com/a/14444/143394
-          # Prompt to confirm, defaulting to NO on <enter>
-          # Usage: confirm "Dangerous. Are you sure?" && rm *
-          function confirm {
-            local prompt="''${*:-Are you sure} [y/N]? "
-            get_yes_keypress "$prompt" 1
-          }
+                  # Credit: http://unix.stackexchange.com/a/14444/143394
+                  # Prompt to confirm, defaulting to NO on <enter>
+                  # Usage: confirm "Dangerous. Are you sure?" && rm *
+                  function confirm {
+                    local prompt="''${*:-Are you sure} [y/N]? "
+                    get_yes_keypress "$prompt" 1
+                  }
 
-          # Prompt to confirm, defaulting to YES on <enter>
-          function confirm_yes {
-            local prompt="''${*:-Are you sure} [Y/n]? "
-            get_yes_keypress "$prompt" 0
-          }
-          #####################################################################
-          #####################################################################
-          #####################################################################
+                  # Prompt to confirm, defaulting to YES on <enter>
+                  function confirm_yes {
+                    local prompt="''${*:-Are you sure} [Y/n]? "
+                    get_yes_keypress "$prompt" 0
+                  }
+                  #####################################################################
+                  #####################################################################
+                  #####################################################################
 
-        alias  up='nixos-rebuild test --upgrade '
-        alias no=nixos-option
-        function upn {
-          cd $NIXPKGS &&
-          if [[ $(git status --porcelain ) == "" ]];
-          then
-            echo "checking out commit " $(nixos-version --hash) " under branch name " $(nixos-version | cut -d" " -f1)
-            git fetch upstream && git checkout $(nixos-version --hash) -b $(nixos-version | cut -d" " -f1)
-          else
-            git status
-          fi
-        }
-        alias gcn='cd $NIXPKGS && git checkout $(nixos-version | cut -d" " -f1)'
-        alias  te='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild test'
-        alias ten='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
-        alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
-        alias swn='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
+                alias  up='nixos-rebuild test --upgrade '
+                alias no=nixos-option
+                function upn {
+                  cd $NIXPKGS &&
+                  if [[ $(git status --porcelain ) == "" ]];
+                  then
+                    echo "checking out commit " $(nixos-version --hash) " under branch name " $(nixos-version | cut -d" " -f1)
+                    git fetch upstream && git checkout $(nixos-version --hash) -b $(nixos-version | cut -d" " -f1)
+                  else
+                    git status
+                  fi
+                }
+                alias gcn='cd $NIXPKGS && git checkout $(nixos-version | cut -d" " -f1)'
+                alias  te='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild test'
+                alias ten='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
+                alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
+                alias swn='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
 
-        nga() {
-          if confirm "Delete all generations and vacuum the systemd journal?"; then
-            nix-collect-garbage -d && journalctl --vacuum-time=2d
-          else
-            echo "\nOK, we'll keep it all"
-          fi
-        }
+                nga() {
+                  if confirm "Delete all generations and vacuum the systemd journal?"; then
+                    nix-collect-garbage -d && journalctl --vacuum-time=2d
+                  else
+                    echo "\nOK, we'll keep it all"
+                  fi
+                }
 
-        ngd() {
-          if [[ -n "$1" ]] && [[ "$1" =~ ^-?[0-9]+$ ]]; then
-            if confirm "Delete all generations and vacuum the systemd journal except for the last $1 days?"; then
-              nix-collect-garbage --delete-older-than $1d && journalctl --vacuum-time=$1d
-            else
-              echo "\nOK, we'll keep it all."
-            fi
-          else
-            echo "\nYou need to give the number of days you want to keep!"
-          fi
-        }
+                ngd() {
+                  if [[ -n "$1" ]] && [[ "$1" =~ ^-?[0-9]+$ ]]; then
+                    if confirm "Delete all generations and vacuum the systemd journal except for the last $1 days?"; then
+                      nix-collect-garbage --delete-older-than $1d && journalctl --vacuum-time=$1d
+                    else
+                      echo "\nOK, we'll keep it all."
+                    fi
+                  else
+                    echo "\nYou need to give the number of days you want to keep!"
+                  fi
+                }
 
-        lg() {
-          echo "System generations\n"
-          nix-env -p /nix/var/nix/profiles/system --list-generations
-          echo "\n\nRT generations:\n"
-          nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
-        }
+                lg() {
+                  echo "System generations\n"
+                  nix-env -p /nix/var/nix/profiles/system --list-generations
+                  echo "\n\nRT generations:\n"
+                  nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
+                }
 
-        lgs() {
-          echo "System generations\n"
-          nix-env -p /nix/var/nix/profiles/system --list-generations
-        }
+                lgs() {
+                  echo "System generations\n"
+                  nix-env -p /nix/var/nix/profiles/system --list-generations
+                }
 
-        lgr() {
-          echo "RT generations:\n"
-          nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
-        }
+                lgr() {
+                  echo "RT generations:\n"
+                  nix-env -p /nix/var/nix/profiles/system-profiles/rt --list-generations
+                }
 
-        dgs() {
-          if [[ -n "$@" ]]
-            for i in "$@"
-            do
-              if [[ "$i" =~ ^-?[0-9]+$ ]]; then
+                dgs() {
+                  if [[ -n "$@" ]]
+                    for i in "$@"
+                    do
+                      if [[ "$i" =~ ^-?[0-9]+$ ]]; then
 
-              else
-                echo "\nYou need to tell me which generations to delete!"
-                kill -INT $$
-              fi
-            done
-            confirm "Delete system generations $@" &&
-            nix-env -p /nix/var/nix/profiles/system --delete-generations $@
-        }
+                      else
+                        echo "\nYou need to tell me which generations to delete!"
+                        kill -INT $$
+                      fi
+                    done
+                    confirm "Delete system generations $@" &&
+                    nix-env -p /nix/var/nix/profiles/system --delete-generations $@
+                }
 
-        dgr() {
-          if [[ -n "$@" ]]
-            for i in "$@"
-            do
-              if [[ "$i" =~ ^-?[0-9]+$ ]]; then
+                dgr() {
+                  if [[ -n "$@" ]]
+                    for i in "$@"
+                    do
+                      if [[ "$i" =~ ^-?[0-9]+$ ]]; then
 
-              else
-                echo "\nYou need to tell me which generations to delete!"
-                kill -INT $$
-              fi
-            done
-            confirm "Delete realtime generations $@" &&
-            nix-env -p /nix/var/nix/profiles/system-profiles/rt --delete-generations $@
-        }
+                      else
+                        echo "\nYou need to tell me which generations to delete!"
+                        kill -INT $$
+                      fi
+                    done
+                    confirm "Delete realtime generations $@" &&
+                    nix-env -p /nix/var/nix/profiles/system-profiles/rt --delete-generations $@
+                }
 
-        alias ns='nix-shell --command zsh $NIXPKGS'
-        alias nsn='nix-shell -I nixpkgs=$NIXPKGS --command zsh'
- # this will leave the build directory behind for you to inspect:
-        # alias nb='nix-build -K -A $1 $(pwd)'
-# doesn't work, this one does:
-# nix-build -K -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
+                alias ns='nix-shell --command zsh $NIXPKGS'
+                alias nsn='nix-shell -I nixpkgs=$NIXPKGS --command zsh'
+         # this will leave the build directory behind for you to inspect:
+                # alias nb='nix-build -K -A $1 $(pwd)'
+        # doesn't work, this one does:
+        # nix-build -K -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
 
-        vi() {emacseditor --create-frame --quiet --no-wait "$@"}
-        # export EDITOR="vi"
+                vi() {emacseditor --create-frame --quiet --no-wait "$@"}
+                # export EDITOR="vi"
 
       '';
     };
@@ -1163,7 +1156,8 @@ in
       # Imperatively installed extensions will seamlessly merge with these.
       # Removing extensions here will remove them from chromium, no matter how
       # they were installed.
-      defaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
+      defaultSearchProviderSearchURL =
+        "https://duckduckgo.com/?q={searchTerms}";
       extensions = [
         # "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
         # "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
@@ -1191,7 +1185,6 @@ in
         SearchSuggestEnabled = false;
       };
     };
-
     light.enable = true;
     # gtk search:
     plotinus.enable = true;
@@ -1222,7 +1215,7 @@ in
     fonts = with pkgs; [
       terminus_font
       siji # bitmap icons
-      tewi-font  # bitmap icons + letters
+      tewi-font # bitmap icons + letters
       terminus_font_ttf
       nerdfonts
       emacs-all-the-icons-fonts
@@ -1280,8 +1273,17 @@ in
       uid = 1000;
       createHome = false;
       home = "/home/bart";
-      extraGroups =
-        [ "wheel" "audio" "jackaudio" "video" "usbmux" "networkmanager" "adbusers" "libvirtd" "camera" ];
+      extraGroups = [
+        "wheel"
+        "audio"
+        "jackaudio"
+        "video"
+        "usbmux"
+        "networkmanager"
+        "adbusers"
+        "libvirtd"
+        "camera"
+      ];
       shell = pkgs.zsh;
       isNormalUser = true;
     };
