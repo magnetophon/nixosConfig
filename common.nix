@@ -32,6 +32,7 @@ in {
       amd.updateMicrocode = true;
       intel.updateMicrocode = true;
     };
+    bluetooth.enable = true;
   };
   # for skype
   # hardware.pulseaudio = {
@@ -352,7 +353,8 @@ in {
       # percentageCritical = 10;
       # percentageAction = 5;
     };
-
+    # bluetooth gui:
+    blueman.enable = true;
   };
 
   # documentation.nixos.includeAllModules = true;
