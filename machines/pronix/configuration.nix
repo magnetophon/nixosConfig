@@ -32,9 +32,10 @@
     # "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3" # DISK1
     #"/dev/disk/by-id/wwn-0x5000c50068875a67" # DISK3 DEAD
     #"/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4 DEAD
-    "/dev/disk/by-id/wwn-0x5000c500681b817b" #    DISK14
+    # "/dev/disk/by-id/wwn-0x5000c500681b817b" # DISK14 DEAD
     "/dev/disk/by-id/wwn-0x5000c500684c2f73" # DISK15
     "/dev/disk/by-id/wwn-0x5000c5004be2033b" # DISK16
+    "/dev/disk/by-id/wwn-0x5000c500681b26fb" # DISK17
   ];
   boot.tmpOnTmpfs = true;
   networking.hostName = "pronix"; # Define your hostname.
