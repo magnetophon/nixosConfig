@@ -114,15 +114,6 @@
     trusted-users = [ "nixBuild" ];
   };
 
-  services.openssh.extraConfig = ''
-    Match User nixBuild
-      AllowAgentForwarding no
-      AllowTcpForwarding no
-      PermitTTY no
-      PermitTunnel no
-      X11Forwarding no
-    Match All
-  '';
 
   #virtualisation.virtualbox =
   #{
@@ -199,36 +190,54 @@
   };
   # List services that you want to enable:
 
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-    package = pkgs.emacs.override {
-      nativeComp = true;
+
+  services = {
+
+    # Enable the OpenSSH daemon.
+    openssh = {
+      enable = true;
+      ports = [ 511 ];
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+      extraConfig = ''
+        Match User nixBuild
+        AllowAgentForwarding no
+        AllowTcpForwarding no
+        PermitTTY no
+        PermitTunnel no
+        X11Forwarding no
+        Match All
+      '';
     };
-    # package =
-    # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
-    # epkgs.vterm
-    # ]));
 
-    # extraPackages = epkgs: with epkgs; [
-    # vterm
-    # ];
-  };
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    ports = [ 511 ];
-    passwordAuthentication = false;
-    permitRootLogin = "no";
-  };
-
-  services.fail2ban = {
-    enable = true;
-    jails.sshd = ''
+    fail2ban = {
+      enable = true;
+      jails.sshd = ''
       enabled = true
       filter = sshd
       ignoreip = 127.0.0.1/8,192.168.178.1/24
     '';
+    };
+
+    smartd = {
+      enable = true;
+    };
+
+    emacs = {
+      enable = true;
+      defaultEditor = true;
+      package = pkgs.emacs.override {
+        nativeComp = true;
+      };
+      # package =
+      # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
+      # epkgs.vterm
+      # ]));
+
+      # extraPackages = epkgs: with epkgs; [
+      # vterm
+      # ];
+  };
   };
 
   # Enable Wake on LAN
