@@ -87,7 +87,7 @@ in {
     # sandboxPaths = [ "/home/nixchroot" ];
     # requireSignedBinaryCaches = true;
 
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes) ''
+    extraOptions = lib.optionalString (config.nix.package == nixVersions.stable) ''
       gc-keep-outputs         = true   # Nice for developers
       gc-keep-derivations     = true   # Idem
       env-keep-derivations    = false
@@ -96,7 +96,7 @@ in {
       auto-optimise-store     = true
       experimental-features = nix-command flakes
     '';
-    package = pkgs.nixFlakes;
+    package = nixVersions.stable;
   };
 
   # Copy the system configuration int to nix-store.
@@ -416,7 +416,7 @@ in {
       nodejs # for doom lsp mode
       rust-analyzer # for doom rust
       rustup # for doom rust
-      rxvt_unicode
+      rxvt-unicode-unwrapped
       # termite          # https://github.com/thestinger/termite/issues/760
       # termite.terminfo # https://github.com/thestinger/termite/issues/760
       alacritty
@@ -432,7 +432,7 @@ in {
       # nixops
       nix-du
       nix-tree
-      nix-review
+      nixpkgs-review
       nixpkgs-lint
       nix-prefetch-scripts
       nix-prefetch-git
@@ -563,7 +563,7 @@ in {
       editorconfig-core-c # per-project style config
       gnutls # for TLS connectivity
       imagemagickBig # for image-dired
-      pinentry_emacs # in-emacs gnupg prompts
+      pinentry-emacs # in-emacs gnupg prompts
       zstd # for undo-tree compression
 
       dunst
@@ -583,7 +583,7 @@ in {
       # syncthing-gtk # broken: https://github.com/NixOS/nixpkgs/commit/330ac8b3dcf1fbd76c21e05d4d88826799327d9c
       khard
       khal
-      vdirsyncerStable
+      vdirsyncer
       # https://github.com/NixOS/nixpkgs/issues/103026
       # pypyPackages.keyring
       python3
@@ -595,7 +595,7 @@ in {
       makeWrapper
       #vim
       # ( pkgs.xdg_utils.override { mimiSupport = true; })
-      xdg_utils
+      xdg-utils
       shared-mime-info
       perlPackages.MIMETypes
       gnupg
@@ -740,7 +740,7 @@ in {
       scrot
       flameshot
       handbrake # gst-plugins-base == broken
-      alsaUtils
+      alsa-utils
       meld
       freemind
       arduino

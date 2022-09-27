@@ -160,7 +160,7 @@
       editorconfig-core-c # per-project style config
       gnutls              # for TLS connectivity
       imagemagickBig         # for image-dired
-      pinentry_emacs      # in-emacs gnupg prompts
+      pinentry-emacs      # in-emacs gnupg prompts
       zstd                # for undo-tree compression
       aspell
       sqlite
