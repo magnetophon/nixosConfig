@@ -34,4 +34,6 @@
       # host.enableExtensionPack = true;
     };
 
+  # Add ZFS support.
+  boot.supportedFilesystems = [ "zfs" ];
 }

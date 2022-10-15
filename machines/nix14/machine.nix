@@ -2,7 +2,6 @@
 with pkgs;
 {
   boot.loader.systemd-boot.memtest86.enable = true;
-  boot.supportedFilesystems = [ "zfs" ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };

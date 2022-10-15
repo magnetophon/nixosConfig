@@ -519,31 +519,31 @@ in {
         # vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
         # vimrcConfig.vam.pluginDictionaries = [{
         # names =
-        vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-          # loaded on launch:
-          start = [
-            # "airline"
-            "colors-solarized"
-            # "ctrlp"
-            # "fugitive"
-            # "fzf-vim"
-            # "nerdcommenter"
-            # "nerdtree"
-            # "rainbow_parentheses"
-            # "Tabular"
-            # "undotree"
-            # "vim-addon-nix"
-            # "vim-gitgutter"
-            "vim-nix"
-            "vim-sensible"
-            # "vim-sleuth" # Heuristically set buffer options
-            # "youcompleteme"
-          ];
-          # manually loadable by calling `:packadd $plugin-name`
-          # opt = [ phpCompletion elm-vim ];
-          # To automatically load a plugin when opening a filetype, add vimrc lines like:
-          # autocmd FileType php :packadd phpCompletion
-        };
+        # vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+        #   # loaded on launch:
+        #   start = [
+        #     # "airline"
+        #     "colors-solarized"
+        #     # "ctrlp"
+        #     # "fugitive"
+        #     # "fzf-vim"
+        #     # "nerdcommenter"
+        #     # "nerdtree"
+        #     # "rainbow_parentheses"
+        #     # "Tabular"
+        #     # "undotree"
+        #     # "vim-addon-nix"
+        #     # "vim-gitgutter"
+        #     "vim-nix"
+        #     "vim-sensible"
+        #     # "vim-sleuth" # Heuristically set buffer options
+        #     # "youcompleteme"
+        #   ];
+        #   # manually loadable by calling `:packadd $plugin-name`
+        #   # opt = [ phpCompletion elm-vim ];
+        #   # To automatically load a plugin when opening a filetype, add vimrc lines like:
+        #   # autocmd FileType php :packadd phpCompletion
+        # };
       })
 
       # vim_configurable
@@ -582,7 +582,7 @@ in {
       syncthing
       # syncthing-gtk # broken: https://github.com/NixOS/nixpkgs/commit/330ac8b3dcf1fbd76c21e05d4d88826799327d9c
       khard
-      khal
+      # khal
       vdirsyncer
       # https://github.com/NixOS/nixpkgs/issues/103026
       # pypyPackages.keyring
