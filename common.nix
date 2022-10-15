@@ -504,54 +504,28 @@ in {
       xfontsel
       neovim
       (vim_configurable.customize {
-        name = "vim";
+        vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+          # loaded on launch
+          start = [
+            "vim-sensible"
+            "vim-sleuth" # Heuristically set buffer options
 
+          ];
+          # manually loadable by calling `:packadd $plugin-name`
+          # however, if a Vim plugin has a dependency that is not explicitly listed in
+          # opt that dependency will always be added to start to avoid confusion.
+          # opt = [ phpCompletion elm-vim ];
+          # To automatically load a plugin when opening a filetype, add vimrc lines like:
+          # autocmd FileType php :packadd phpCompletion
+        };
         vimrcConfig.customRC = ''
           set clipboard=unnamedplus
-          "use the light solarized theme:
-          "colorscheme solarized
-          let g:solarized_termcolors=256
-          color solarized             " Load a colorscheme
-          set background=light
+          " relaive numbers
           set number relativenumber
-          "let g:airline#extensions#tabline#enabled = 1
+          " Turn on syntax highlighting by default
+          syntax on
         '';
-        # vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-        # vimrcConfig.vam.pluginDictionaries = [{
-        # names =
-        # vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-        #   # loaded on launch:
-        #   start = [
-        #     # "airline"
-        #     "colors-solarized"
-        #     # "ctrlp"
-        #     # "fugitive"
-        #     # "fzf-vim"
-        #     # "nerdcommenter"
-        #     # "nerdtree"
-        #     # "rainbow_parentheses"
-        #     # "Tabular"
-        #     # "undotree"
-        #     # "vim-addon-nix"
-        #     # "vim-gitgutter"
-        #     "vim-nix"
-        #     "vim-sensible"
-        #     # "vim-sleuth" # Heuristically set buffer options
-        #     # "youcompleteme"
-        #   ];
-        #   # manually loadable by calling `:packadd $plugin-name`
-        #   # opt = [ phpCompletion elm-vim ];
-        #   # To automatically load a plugin when opening a filetype, add vimrc lines like:
-        #   # autocmd FileType php :packadd phpCompletion
-        # };
       })
-
-      # vim_configurable
-      # vimHugeX
-      #my_vim
-      # emacs
-      # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
-      # (pkgs.emacsPackagesGen pkgs.emacsGcc).emacsWithPackages (epkgs: ([epkgs.vterm]))
       texlive.combined.scheme-medium # :lang org -- for latex previews
       wordnet # for offline dictionary and thesaurus support
       # for emacs markdown-preview:
