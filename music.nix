@@ -72,7 +72,7 @@ with pkgs; {
             aether-lv2
             ams-lv2
             artyFX
-            avldrums-lv2
+            x42-avldrums
             bchoppr
             bespokesynth
             bitmeter
@@ -219,7 +219,7 @@ with pkgs; {
             a2jmidid
             cadence
             cuetools
-            jack2Full
+            jack2
             # jack1
             jack_capture
             lilv

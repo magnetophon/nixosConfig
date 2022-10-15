@@ -23,7 +23,6 @@ in
     qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
       configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
     });
-    # jack2Full = libjack2Unstable;
     # libjack2 = libjack2Unstable;
     # faust = faust2unstable;
   };
@@ -31,7 +30,7 @@ in
   environment.systemPackages = [
     qmidinet
     qjackctl
-    jack2Full
+    jack2
     a2jmidid
   ];
 
