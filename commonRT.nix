@@ -3,22 +3,22 @@
 {
 
   services.tlp.enable = false;
-
+  # services.pipewire.config.client-rt
   # boot.kernelPackages = pkgs.linux_rt.linux_4_19_rt;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_4;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_10;
   # boot.kernelPackages = pkgs.linuxPackages-rt;
-  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+  # boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
   sound.enable = true;
 
   musnix = {
     enable = true;
-    # kernel.packages = pkgs.linuxPackages_latest_rt;
+    kernel.packages = pkgs.linuxPackages_latest_rt;
     # kernel.packages = pkgs.linuxPackages_5_0_rt;
-    # kernel.packages = pkgs.linuxPackages_4_19_rt;
-    # kernel.optimize = true;
-    # kernel.realtime = true;
+    # kernel.packages = pkgs.linuxPackages_5_19_rt;
+    kernel.optimize = true;
+    kernel.realtime = true;
     rtirq.enable = true;
     das_watchdog.enable = true;
   };
