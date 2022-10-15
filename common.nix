@@ -87,15 +87,16 @@ in {
     # sandboxPaths = [ "/home/nixchroot" ];
     # requireSignedBinaryCaches = true;
 
-    extraOptions = lib.optionalString (config.nix.package == nixVersions.stable) ''
-      gc-keep-outputs         = true   # Nice for developers
-      gc-keep-derivations     = true   # Idem
-      env-keep-derivations    = false
-      # binary-caches         = https://nixos.org/binary-cache
-      # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
-      auto-optimise-store     = true
-      experimental-features = nix-command flakes
-    '';
+    extraOptions =
+      lib.optionalString (config.nix.package == nixVersions.stable) ''
+        gc-keep-outputs         = true   # Nice for developers
+        gc-keep-derivations     = true   # Idem
+        env-keep-derivations    = false
+        # binary-caches         = https://nixos.org/binary-cache
+        # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
+        auto-optimise-store     = true
+        experimental-features = nix-command flakes
+      '';
     package = nixVersions.stable;
   };
 
