@@ -56,6 +56,10 @@ with pkgs;
         enable = true;
         # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
       };
+      windowManager.leftwm = {
+        enable = true;
+        # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
+      };
       displayManager = {
         defaultSession = "none+i3";
         #   # disable middle mouse buttons
