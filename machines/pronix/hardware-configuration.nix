@@ -23,6 +23,8 @@
       fsType = "zfs";
     };
 
+  boot.zfs.extraPools = [ "bu_pool" ];
+
   #fileSystems."/boot" =
     #{ device = "/dev/disk/by-uuid/1AFD-DA91";
       #fsType = "vfat";

@@ -20,6 +20,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   # head -c 8 /etc/machine-id
   networking.hostId = "392d5564";
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # Note: If you do partition the disk, make sure you set the disk’s scheduler to none. ZFS takes this step automatically if it does control the entire disk.
   # On NixOS, you an set your scheduler to none via:
   boot.kernelParams = [ "elevator=none" ];
@@ -70,6 +71,7 @@
     enable = true;
     interval = "weekly";
   };
+  services.zfs.trim.enable = true;
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -131,6 +133,7 @@
       parted
       man
       tmux
+      thumbs # tmux-thumbs
       tree
       wget
       vim
@@ -172,6 +175,12 @@
       clang
       nix-du
       nix-tree
+
+      cargo
+      rustc
+
+      jq
+      # dirname
     ];
 
     shells = [ pkgs.zsh ];
