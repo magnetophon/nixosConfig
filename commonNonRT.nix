@@ -26,7 +26,7 @@
               "default.clock.max-quantum" = 8192;
           };
       };
-      wireplumber.enable = true;
+      # wireplumber.enable = true; // default
   };
   virtualisation.virtualbox =
     {
@@ -34,6 +34,4 @@
       # host.enableExtensionPack = true;
     };
 
-  # Add ZFS support.
-  boot.supportedFilesystems = [ "zfs" ];
 }

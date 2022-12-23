@@ -60,6 +60,8 @@ in {
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
     kernel.sysctl = { "net.ipv4.ip_forward" = 1; }; # for network in VM
     kernelModules = [ "kvm-intel" "kvm-amd" "tun" "virtio" ];
+    # Add ZFS support.
+    supportedFilesystems = [ "zfs" ];
   };
 
   nix = {
