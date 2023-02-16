@@ -23,7 +23,8 @@ in {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.09"; # Did you read the comment?
+
+  # system.stateVersion = "18.09"; # Did you read the comment?
 
   hardware = {
     enableAllFirmware = true;
@@ -49,12 +50,12 @@ in {
   # };
 
   boot = {
-    loader.systemd-boot = {
-      enable = true;
+    # loader.systemd-boot = {
+      # enable = true;
       # consoleMode = "max";
       # memtest86.enable = true; # unfree
-    };
-    loader.efi.canTouchEfiVariables = true;
+    # };
+    # loader.efi.canTouchEfiVariables = true;
     cleanTmpDir = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
@@ -179,9 +180,11 @@ in {
       enable = true;
       ports = [ 22 ];
       forwardX11 = true;
-      permitRootLogin = "without-password";
+      settings = {
+        permitRootLogin = "without-password";
       # permitRootLogin = "yes";
-      passwordAuthentication = false;
+        passwordAuthentication = false;
+      };
       startWhenNeeded = true;
 
     };
@@ -276,7 +279,7 @@ in {
       xkbVariant = "altgr-intl";
       # bitlbee.enable
       # Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client.
-
+      desktopManager.wallpaper.mode = "fill";
     };
 
     unclutter-xfixes = {
@@ -311,15 +314,24 @@ in {
       enable = true;
       allowAnyUser = true;
       lockOn = {
-        # suspend = true; # true is default
-        # hibernate = true; # true is default
+        suspend = true; # true is default
+        hibernate = true; # true is default
         # systemd[1]: Starting Physlock...
         # physlock-start[774]: physlock: Unable to detect user of tty1
         # extraTargets = ["graphical.target"];
         # extraTargets = ["display-manager.service"];
       };
     };
-    logind.lidSwitch = "suspend-then-hibernate";
+    logind =
+      {
+        lidSwitch = "suspend-then-hibernate";
+        lidSwitchExternalPower = "suspend-then-hibernate";
+        lidSwitchDocked = "ignore";
+        extraConfig = ''
+          HandlePowerKey=suspend-then-hibernate
+          HibernateDelaySec=ih'';
+      };
+
     # logind.lidSwitch = "hibernate";
     # logind.extraConfig = ''
     # HandleSuspendKey=hibernate
@@ -359,6 +371,9 @@ in {
     # bluetooth gui:
     blueman.enable = true;
   };
+
+  # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
+
 
   # documentation.nixos.includeAllModules = true;
 
@@ -644,7 +659,7 @@ in {
         archiveSupport = true;
         vapoursynthSupport = true;
       })
-      mps-youtube
+      yewtube
       shotwell # gst-plugins-base == broken
       galculator
       qalculate-gtk
@@ -1110,22 +1125,6 @@ in {
       startAgent = true;
       forwardX11 = true;
       askPassword = "";
-      extraConfig = ''
-        Host beta.nixbuild.net nxb-*
-          Port 22
-          StrictHostKeyChecking no
-          UserKnownHostsFile /dev/null
-          PubkeyAcceptedKeyTypes ssh-ed25519
-          IdentityFile /home/bart/.ssh/id_ed25519
-
-        Host nxb-4
-          HostName beta.nixbuild.net
-          SetEnv CPU=4
-
-        Host nxb-16
-          HostName beta.nixbuild.net
-          SetEnv CPU=16
-      '';
     };
 
     gnupg.agent.enable = true;
