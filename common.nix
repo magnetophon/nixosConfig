@@ -179,11 +179,12 @@ in {
     openssh = {
       enable = true;
       ports = [ 22 ];
-      forwardX11 = true;
       settings = {
         permitRootLogin = "without-password";
       # permitRootLogin = "yes";
         passwordAuthentication = false;
+        X11Forwarding = true;
+
       };
       startWhenNeeded = true;
 
@@ -254,9 +255,6 @@ in {
       # displayManager.setupCommands = "${pkgs.physlock}/bin/physlock -ds";
       # displayManager.setupCommands = "physlock -ds";
 
-      displayManager.sessionCommands = ''
-        (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
-      '';
       # sudo -u bart ${pkgs.physlock}/bin/physlock -ds
       # synaptics = import ./synaptics.nix;
       libinput = {
@@ -363,7 +361,6 @@ in {
     };
     upower = {
       enable = true;
-      # noPollBatteries = true;
       # percentageLow = 15;
       # percentageCritical = 10;
       # percentageAction = 5;
@@ -561,7 +558,6 @@ in {
       dunst
       #(dunst.override { dunstify = true; })  # dunstify is installed by default
       libnotify
-      go-upower-notify
       # ctagsWrapped.ctagsWrapped
       which
       gnuplot
@@ -930,30 +926,18 @@ in {
     wantedBy = [ "graphical-session.target" ];
   };
 
-  # systemd.user.services.backlightSave = {
-  # unitConfig = {
-  # Description = "save the backlight on sleep or shutdown";
-  # Before = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # PartOf = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # };
-  # serviceConfig = {
-  # ExecStartPre = "${pkgs.light}/bin/light -O";
-  # };
-  # wantedBy = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # };
 
-  # systemd.user.services.backlightRestore = {
-  # unitConfig = {
-  # Description = "restore the backlight on startup or wakeup";
-  # After = [ "sysinit.target" "sleep.target"  ];
-  # PartOf = [ "sysinit.target" "sleep.target" ];
-  # };
-  # serviceConfig = {
-  # ExecStartPost = "${pkgs.light}/bin/light -I";
-  # ExecStopPost= "${pkgs.light}/bin/light -I";
-  # };
-  # wantedBy = [ "sysinit.target" "sleep.target" ];
-  # };
+  systemd.services.audio-off = {
+    description = "Mute audio before suspend";
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      Environment = "XDG_RUNTIME_DIR=/run/user/1001";
+      User = "bart";
+      RemainAfterExit = "yes";
+      ExecStart = "${pkgs.alsa-utils}/bin/amixer -q -c 0 set Master mute";
+    };
+  };
 
   powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
   powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
@@ -1123,7 +1107,6 @@ in {
 
     ssh = {
       startAgent = true;
-      forwardX11 = true;
       askPassword = "";
     };
 

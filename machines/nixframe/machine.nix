@@ -87,8 +87,11 @@ with pkgs;
     };
     fwupd.enable = true;
     thermald.enable = true;
+    # Framework laptop doesn't require battery polling.
+    upower.noPollBatteries = true;
   };
 
+  # needed for saving in Cardinal:
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
