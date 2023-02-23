@@ -1,15 +1,11 @@
 { pkgs, config, ... }:
-with pkgs;
-{
-  imports = [
-    <nixos-hardware/framework/12th-gen-intel>
-  ];
+with pkgs; {
+  imports = [ <nixos-hardware/framework/12th-gen-intel> ];
 
   networking.hostId = "f2119c72";
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
-  # boot.kernelParams = [ "module_blacklist=hid_sensor_hub" ];
 
   system.stateVersion = "23.05"; # Did you read the comment?
   # HiDPI
@@ -135,60 +131,72 @@ with pkgs;
   #   extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   # };
 
-
-
   networking.networkmanager.enable = true;
 
   # imports =
   #[ (modulesPath + "/installer/scan/not-detected.nix")
   #];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   # boot.kernelParams = [ "zfs.zfs_arc_max=12884901888" ]; # 12GB max ARC cache
-  boot.kernelParams = [ "zfs.zfs_arc_max=4294967296" ]; # 4GB max ARC cache
+  boot.kernelParams = [
+    "zfs.zfs_arc_max=4294967296" # 4GB max ARC cache
+    # sensor hub module conflicts with manual brightness adjustment
+    # "module_blacklist=hid_sensor_hub"
+    # disabling psr (panel self-refresh rate) as workaround for iGPU hangs
+    # https://discourse.nixos.org/t/intel-12th-gen-igpu-freezes/21768/4
+    # NOTE: Instead of setting the option to 1 as in the linked forum topic,
+    # setting it to 0 in combination with the 'modesetting' driver seems to fix the problem for me.
+    # "i915.enable_psr=0"
 
-  fileSystems."/" =
-    { device = "rpool/nixos/root";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  ];
 
-  fileSystems."/home" =
-    { device = "rpool/nixos/home";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/" = {
+    device = "rpool/nixos/root";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/var/lib" =
-    { device = "rpool/nixos/var/lib";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/home" = {
+    device = "rpool/nixos/home";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/var/log" =
-    { device = "rpool/nixos/var/log";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/lib" = {
+    device = "rpool/nixos/var/lib";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "bpool/nixos/root";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/log" = {
+    device = "rpool/nixos/var/log";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1" =
-    { device = "/dev/disk/by-uuid/A366-D51A";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "bpool/nixos/root";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
 
-  fileSystems."/boot/efi" =
-    { device = "/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+  fileSystems."/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1" = {
+    device = "/dev/disk/by-uuid/A366-D51A";
+    fsType = "vfat";
+  };
 
-  swapDevices = [{
-    device = "/dev/disk/by-label/swap";
-  }];
+  fileSystems."/boot/efi" = {
+    device = "/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
   # Importing a suspended pool can corrupt it
   boot.zfs.forceImportRoot = false;
@@ -248,23 +256,21 @@ with pkgs;
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.zfsSupport = true;
-  boot.loader.grub.extraPrepareConfig = ''
-  mkdir -p /boot/efis
-  for i in  /boot/efis/*; do mount $i ; done
+  # boot.loader.grub.extraPrepareConfig = ''
+  # mkdir -p /boot/efis
+  # for i in  /boot/efis/*; do mount $i ; done
 
-  mkdir -p /boot/efi
-  mount /boot/efi
-'';
+  # mkdir -p /boot/efi
+  # mount /boot/efi
+  # '';
   boot.loader.grub.extraInstallCommands = ''
-ESP_MIRROR=$(mktemp -d)
-cp -r /boot/efi/EFI $ESP_MIRROR
-for i in /boot/efis/*; do
- cp -r $ESP_MIRROR/EFI $i
-done
-rm -rf $ESP_MIRROR
-'';
-  boot.loader.grub.devices = [
-    "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744"
-  ];
-  users.users.root.initialHashedPassword = "$6$mJiITMbHmuoWnQsG$AOEwaH53nPSXFTa4/eplTjEk3Jtb4a7xo7ph3hyxyRxmXnzhfei.pWPol0lwHxM2z1uTvwCLNhv2JVY.vHwdX.";
+    ESP_MIRROR=$(mktemp -d)
+    cp -r /boot/efi/EFI $ESP_MIRROR
+    for i in /boot/efis/*; do
+    cp -r $ESP_MIRROR/EFI $i
+    done
+    rm -rf $ESP_MIRROR
+  '';
+  boot.loader.grub.devices =
+    [ "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744" ];
 }
