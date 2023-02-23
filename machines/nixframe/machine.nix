@@ -16,6 +16,16 @@ with pkgs;
   # Leaving here for documentation
   hardware.video.hidpi.enable = true;
 
+  environment = {
+    systemPackages =  [
+      (import /home/bart/source/fw-ectool/default.nix)
+      intel-gpu-tools  # for verifying HW acceleration with intel_gpu_top
+    ];
+  };
+  security.sudo.extraConfig = ''
+  bart  ALL=(root) NOPASSWD: /root/.local/bin/key_brightness.sh
+  '';
+
   #
   services = {
     xserver = {
