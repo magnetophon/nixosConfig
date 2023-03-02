@@ -456,6 +456,7 @@ in {
       rnix-lsp
       manix
       nox
+      comma
       fish
       haskellPackages.ShellCheck
       fasd
@@ -481,7 +482,7 @@ in {
       iotop
       powertop
       sysstat
-      # virt-manager
+      virt-manager
       # iptraf # broken
       nethogs
       iftop
