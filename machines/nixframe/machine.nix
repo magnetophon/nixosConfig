@@ -19,12 +19,15 @@ with pkgs; {
     ];
   };
   security.sudo.extraConfig = ''
-  bart  ALL=(root) NOPASSWD: /root/.local/bin/key_brightness.sh
+    bart  ALL=(root) NOPASSWD: /root/.local/bin/key_brightness.sh
+    bart  ALL=(root) NOPASSWD: /root/.local/bin/get_fan_rpm.sh
+    bart  ALL=(root) NOPASSWD: /root/.local/bin/toggle_fan_max.sh
   '';
 
   #
   services = {
     xserver = {
+      # videoDrivers = [ "modesetting" ];
       # Fix font sizes in X
       dpi = 120;
       # videoDrivers = [ "intel" ];
@@ -65,7 +68,6 @@ with pkgs; {
 
     ntp.enable = false;
     chrony.enable = true;
-
 
     picom = {
       # we start it as needed, config in dotfiles
