@@ -720,8 +720,8 @@ in {
       kcolorchooser
       gimp
       inkscape
-      (pkgs.blender.override { jackaudioSupport = true; })
-      # blender
+      # (pkgs.blender.override { jackaudioSupport = true; })
+      blender
       openscad
       kdenlive
       # olive-editor
