@@ -262,6 +262,7 @@ in {
         touchpad = {
           middleEmulation = false;
           accelSpeed = "0.1";
+          tappingButtonMap = "lrm";
         };
       };
       config = ''
