@@ -31,15 +31,20 @@ with pkgs; {
       CIE_ASPM_ON_AC = "performance";
       CIE_ASPM_ON_BAT = "powersupersave";
       INTEL_GPU_MIN_FREQ_ON_AC = "300";
-      INTEL_GPU_MIN_FREQ_ON_BAT = "300";
-      INTEL_GPU_MAX_FREQ_ON_AC = "1150";
+      INTEL_GPU_MIN_FREQ_ON_BAT = "100";
+      INTEL_GPU_MAX_FREQ_ON_AC = "1300";
       INTEL_GPU_MAX_FREQ_ON_BAT = "300";
-      INTEL_GPU_BOOST_FREQ_ON_AC = "1150";
+      INTEL_GPU_BOOST_FREQ_ON_AC = "1300";
       INTEL_GPU_BOOST_FREQ_ON_BAT = "300";
+
+      PCIE_ASPM_ON_BAT="powersupersave";
+
       ENERGY_PERF_POLICY_ON_BAT = "powersave";
       # DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "wifi";
       DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi";
       DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi";
+
+
       # Enable audio power saving for Intel HDA, AC97 devices (timeout in secs).
       # A value of 0 disables, >= 1 enables power saving.
       # Note: 1 is recommended for Linux desktop environments with PulseAudio,
@@ -53,7 +58,8 @@ with pkgs; {
       # Default: Y
       # SOUND_POWER_SAVE_CONTROLLER = "N";
       USB_EXCLUDE_PHONE = "1";
-      USB_AUTOSUSPEND = "0";
+      # USB_AUTOSUSPEND = "0";
+      USB_DENYLIST="0bda:8156";
     };
   };
   # hardware.pulseaudio.enable = true;
