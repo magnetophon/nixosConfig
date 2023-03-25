@@ -65,30 +65,6 @@
   #   keyMap = "us";
   # };
 
-  # ZFS services
-  services.zfs.autoSnapshot.enable = true;
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-  };
-  services.zfs.trim.enable = true;
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
@@ -138,8 +114,15 @@
       wget
       vim
       mkpasswd
+      pass
+      gnupg
+      pinentry
+      pinentry-curses
       smartmontools
       ranger
+      zoxide
+      lf
+      joshuto
       htop
       lm_sensors
       nix-zsh-completions
@@ -195,10 +178,36 @@
 
   programs = {
     mosh.enable = true;
-    # For emacs with nativeComp
-  };
-  # List services that you want to enable:
 
+    # Mail notification for ZFS Event Daemon:
+    msmtp = {
+      enable = true;
+      setSendmail = true;
+      defaults = {
+        aliases = "/etc/aliases";
+        port = 465;
+        tls_trust_file = "/etc/ssl/certs/ca-certificates.crt";
+        tls = "on";
+        auth = "login";
+        tls_starttls = "off";
+      };
+      accounts = {
+        default = {
+          host = "sub5.mail.dreamhost.com";
+          passwordeval = "pass mail";
+          user = "bart@magnetophon.nl";
+          from = "bart@magnetophon.nl";
+        };
+      };
+    };
+    gnupg.agent = {
+      enable = true;
+      # pinentryFlavor = "curses"; # should be automatic
+      enableSSHSupport = true;
+    };
+  };
+
+  # List services that you want to enable:
 
   services = {
 
@@ -206,8 +215,10 @@
     openssh = {
       enable = true;
       ports = [ 511 ];
-      passwordAuthentication = false;
-      permitRootLogin = "no";
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
       extraConfig = ''
         Match User nixBuild
         AllowAgentForwarding no
@@ -232,6 +243,48 @@
       enable = true;
     };
 
+    # ZFS services
+    zfs= {
+      autoSnapshot.enable = true;
+      autoScrub = {
+        enable = true;
+        interval = "weekly";
+      };
+      trim.enable = true;
+      zed = {
+        settings = {
+        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+        ZED_EMAIL_ADDR = [ "root" ];
+        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+        ZED_EMAIL_OPTS = "@ADDRESS@";
+
+        ZED_NOTIFY_INTERVAL_SECS = 3600;
+        ZED_NOTIFY_VERBOSE = true;
+
+        ZED_USE_ENCLOSURE_LEDS = true;
+        ZED_SCRUB_AFTER_RESILVER = true;
+      };
+      # this option does not work; will return error
+      enableMail = false;
+      };
+    };
+
+    # Enable the X11 windowing system.
+    # services.xserver.enable = true;
+
+    # Configure keymap in X11
+    # services.xserver.layout = "us";
+    # services.xserver.xkbOptions = "eurosign:e";
+
+    # Enable CUPS to print documents.
+    # services.printing.enable = true;
+
+    # Enable sound.
+    # sound.enable = true;
+    # hardware.pulseaudio.enable = true;
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    # services.xserver.libinput.enable = true;
     emacs = {
       enable = true;
       defaultEditor = true;
@@ -246,7 +299,8 @@
       # extraPackages = epkgs: with epkgs; [
       # vterm
       # ];
-  };
+    };
+    pcscd.enable = true;
   };
 
   # Enable Wake on LAN
