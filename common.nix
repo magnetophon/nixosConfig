@@ -56,7 +56,7 @@ in {
       # memtest86.enable = true; # unfree
     # };
     # loader.efi.canTouchEfiVariables = true;
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
     kernel.sysctl = { "net.ipv4.ip_forward" = 1; }; # for network in VM
@@ -432,6 +432,7 @@ in {
       nodejs # for doom lsp mode
       rust-analyzer # for doom rust
       rustup # for doom rust
+      cookiecutter
       rxvt-unicode-unwrapped
       # termite          # https://github.com/thestinger/termite/issues/760
       # termite.terminfo # https://github.com/thestinger/termite/issues/760
@@ -684,6 +685,9 @@ in {
       exa # rust ls alternative
       inotify-tools # notify when a file changes
       trash-cli
+      so # stack overflow from the cli
+      # atuin # magical shell history
+      mcfly # shell history
       joshuto
       ranger
       # for ranger previews:
@@ -1190,8 +1194,9 @@ in {
   };
 
   console = {
-    packages = [ pkgs.terminus_font ];
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
+    # packages = [ pkgs.terminus_font ];
+    # font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
+    font = null;
     useXkbConfig = true;
     # solarized light
     colors = [

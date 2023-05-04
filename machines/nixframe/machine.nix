@@ -59,7 +59,9 @@ with pkgs; {
       enable = true;
       devices = [
         # { device = "/dev/sda"; }
-        { device = "/dev/nvme0n1"; }
+        {
+          device = "/dev/nvme0n1";
+        }
         # { device = "/dev/sdb"; }
       ];
       notifications.test = true;
@@ -114,17 +116,12 @@ with pkgs; {
       sshUser = "nixBuild";
       system = "x86_64-linux";
       speedFactor = 10;
-      supportedFeatures = [
-        "benchmark"
-        "big-parallel"
-        "kvm"
-        "nixos-test"
-      ];
+      supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
       mandatoryFeatures = [ ];
     }];
-	  # optional, useful when the builder has a faster internet connection than yours
-	  extraOptions = ''
-		  builders-use-substitutes = true
+    # optional, useful when the builder has a faster internet connection than yours
+    extraOptions = ''
+      builders-use-substitutes = true
     '';
   };
 
