@@ -6,16 +6,12 @@ with pkgs; {
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
-
   system.stateVersion = "23.05"; # Did you read the comment?
-  # HiDPI
-  # Leaving here for documentation
-  hardware.video.hidpi.enable = true;
 
   environment = {
-    systemPackages =  [
+    systemPackages = [
       (import /home/bart/source/fw-ectool/default.nix)
-      intel-gpu-tools  # for verifying HW acceleration with intel_gpu_top
+      intel-gpu-tools # for verifying HW acceleration with intel_gpu_top
     ];
   };
   security.sudo.extraConfig = ''
@@ -86,9 +82,8 @@ with pkgs; {
       # settings = "unredir-if-possible = true";
     };
     fwupd.enable = true;
-    thermald.enable = true;
     # Framework laptop doesn't require battery polling.
-    upower.noPollBatteries = true;
+    # upower.noPollBatteries = true;
   };
 
   # needed for saving in Cardinal:
@@ -103,9 +98,12 @@ with pkgs; {
   # boot.kernelParams = [ "i915.mitigations=off" ];
   #
   nix = {
-    settings.max-jobs = 8;
-    # trustedUsers = [ "root" "nixBuild" "bart" ];
-    settings.trusted-users = [ "root" "nixBuild" "bart" ];
+    settings = {
+      max-jobs = 0;
+      trusted-users = [ "root" "nixBuild" "bart" ];
+      # optional, useful when the builder has a faster internet connection than yours
+      builders-use-substitutes = true;
+    };
     distributedBuilds = true;
     # hostName = "62.251.18.196";
     buildMachines = [{
@@ -119,10 +117,6 @@ with pkgs; {
       supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
       mandatoryFeatures = [ ];
     }];
-    # optional, useful when the builder has a faster internet connection than yours
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
   };
 
   # boot = {
