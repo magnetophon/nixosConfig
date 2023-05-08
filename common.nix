@@ -23,7 +23,8 @@ in {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.09"; # Did you read the comment?
+
+  # system.stateVersion = "18.09"; # Did you read the comment?
 
   hardware = {
     enableAllFirmware = true;
@@ -49,17 +50,19 @@ in {
   # };
 
   boot = {
-    loader.systemd-boot = {
-      enable = true;
+    # loader.systemd-boot = {
+      # enable = true;
       # consoleMode = "max";
       # memtest86.enable = true; # unfree
-    };
-    loader.efi.canTouchEfiVariables = true;
-    cleanTmpDir = true;
+    # };
+    # loader.efi.canTouchEfiVariables = true;
+    tmp.cleanOnBoot = true;
     # no beep, no webcam
     blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
     kernel.sysctl = { "net.ipv4.ip_forward" = 1; }; # for network in VM
     kernelModules = [ "kvm-intel" "kvm-amd" "tun" "virtio" ];
+    # Add ZFS support.
+    supportedFilesystems = [ "zfs" ];
   };
 
   nix = {
@@ -87,15 +90,16 @@ in {
     # sandboxPaths = [ "/home/nixchroot" ];
     # requireSignedBinaryCaches = true;
 
-    extraOptions = lib.optionalString (config.nix.package == nixVersions.stable) ''
-      gc-keep-outputs         = true   # Nice for developers
-      gc-keep-derivations     = true   # Idem
-      env-keep-derivations    = false
-      # binary-caches         = https://nixos.org/binary-cache
-      # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
-      auto-optimise-store     = true
-      experimental-features = nix-command flakes
-    '';
+    extraOptions =
+      lib.optionalString (config.nix.package == nixVersions.stable) ''
+        gc-keep-outputs         = true   # Nice for developers
+        gc-keep-derivations     = true   # Idem
+        env-keep-derivations    = false
+        # binary-caches         = https://nixos.org/binary-cache
+        # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
+        auto-optimise-store     = true
+        experimental-features = nix-command flakes
+      '';
     package = nixVersions.stable;
   };
 
@@ -175,10 +179,13 @@ in {
     openssh = {
       enable = true;
       ports = [ 22 ];
-      forwardX11 = true;
-      permitRootLogin = "without-password";
+      settings = {
+        permitRootLogin = "without-password";
       # permitRootLogin = "yes";
-      passwordAuthentication = false;
+        passwordAuthentication = false;
+        X11Forwarding = true;
+
+      };
       startWhenNeeded = true;
 
     };
@@ -248,9 +255,6 @@ in {
       # displayManager.setupCommands = "${pkgs.physlock}/bin/physlock -ds";
       # displayManager.setupCommands = "physlock -ds";
 
-      displayManager.sessionCommands = ''
-        (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
-      '';
       # sudo -u bart ${pkgs.physlock}/bin/physlock -ds
       # synaptics = import ./synaptics.nix;
       libinput = {
@@ -258,6 +262,7 @@ in {
         touchpad = {
           middleEmulation = false;
           accelSpeed = "0.1";
+          tappingButtonMap = "lrm";
         };
       };
       config = ''
@@ -273,7 +278,7 @@ in {
       xkbVariant = "altgr-intl";
       # bitlbee.enable
       # Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client.
-
+      desktopManager.wallpaper.mode = "fill";
     };
 
     unclutter-xfixes = {
@@ -308,15 +313,24 @@ in {
       enable = true;
       allowAnyUser = true;
       lockOn = {
-        # suspend = true; # true is default
-        # hibernate = true; # true is default
+        suspend = true; # true is default
+        hibernate = true; # true is default
         # systemd[1]: Starting Physlock...
         # physlock-start[774]: physlock: Unable to detect user of tty1
         # extraTargets = ["graphical.target"];
         # extraTargets = ["display-manager.service"];
       };
     };
-    logind.lidSwitch = "suspend-then-hibernate";
+    logind =
+      {
+        lidSwitch = "suspend-then-hibernate";
+        lidSwitchExternalPower = "suspend-then-hibernate";
+        lidSwitchDocked = "ignore";
+        extraConfig = ''
+          HandlePowerKey=suspend-then-hibernate
+          HibernateDelaySec=ih'';
+      };
+
     # logind.lidSwitch = "hibernate";
     # logind.extraConfig = ''
     # HandleSuspendKey=hibernate
@@ -348,7 +362,6 @@ in {
     };
     upower = {
       enable = true;
-      # noPollBatteries = true;
       # percentageLow = 15;
       # percentageCritical = 10;
       # percentageAction = 5;
@@ -356,6 +369,9 @@ in {
     # bluetooth gui:
     blueman.enable = true;
   };
+
+  # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
+
 
   # documentation.nixos.includeAllModules = true;
 
@@ -416,6 +432,7 @@ in {
       nodejs # for doom lsp mode
       rust-analyzer # for doom rust
       rustup # for doom rust
+      cookiecutter
       rxvt-unicode-unwrapped
       # termite          # https://github.com/thestinger/termite/issues/760
       # termite.terminfo # https://github.com/thestinger/termite/issues/760
@@ -441,6 +458,7 @@ in {
       rnix-lsp
       manix
       nox
+      comma
       fish
       haskellPackages.ShellCheck
       fasd
@@ -466,7 +484,7 @@ in {
       iotop
       powertop
       sysstat
-      # virt-manager
+      virt-manager
       # iptraf # broken
       nethogs
       iftop
@@ -504,54 +522,28 @@ in {
       xfontsel
       neovim
       (vim_configurable.customize {
-        name = "vim";
+        vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+          # loaded on launch
+          start = [
+            "vim-sensible"
+            "vim-sleuth" # Heuristically set buffer options
 
+          ];
+          # manually loadable by calling `:packadd $plugin-name`
+          # however, if a Vim plugin has a dependency that is not explicitly listed in
+          # opt that dependency will always be added to start to avoid confusion.
+          # opt = [ phpCompletion elm-vim ];
+          # To automatically load a plugin when opening a filetype, add vimrc lines like:
+          # autocmd FileType php :packadd phpCompletion
+        };
         vimrcConfig.customRC = ''
           set clipboard=unnamedplus
-          "use the light solarized theme:
-          "colorscheme solarized
-          let g:solarized_termcolors=256
-          color solarized             " Load a colorscheme
-          set background=light
+          " relaive numbers
           set number relativenumber
-          "let g:airline#extensions#tabline#enabled = 1
+          " Turn on syntax highlighting by default
+          syntax on
         '';
-        # vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-        # vimrcConfig.vam.pluginDictionaries = [{
-        # names =
-        # vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-        #   # loaded on launch:
-        #   start = [
-        #     # "airline"
-        #     "colors-solarized"
-        #     # "ctrlp"
-        #     # "fugitive"
-        #     # "fzf-vim"
-        #     # "nerdcommenter"
-        #     # "nerdtree"
-        #     # "rainbow_parentheses"
-        #     # "Tabular"
-        #     # "undotree"
-        #     # "vim-addon-nix"
-        #     # "vim-gitgutter"
-        #     "vim-nix"
-        #     "vim-sensible"
-        #     # "vim-sleuth" # Heuristically set buffer options
-        #     # "youcompleteme"
-        #   ];
-        #   # manually loadable by calling `:packadd $plugin-name`
-        #   # opt = [ phpCompletion elm-vim ];
-        #   # To automatically load a plugin when opening a filetype, add vimrc lines like:
-        #   # autocmd FileType php :packadd phpCompletion
-        # };
       })
-
-      # vim_configurable
-      # vimHugeX
-      #my_vim
-      # emacs
-      # (emacs.override { imagemagick = pkgs.imagemagickBig; } )
-      # (pkgs.emacsPackagesGen pkgs.emacsGcc).emacsWithPackages (epkgs: ([epkgs.vterm]))
       texlive.combined.scheme-medium # :lang org -- for latex previews
       wordnet # for offline dictionary and thesaurus support
       # for emacs markdown-preview:
@@ -569,7 +561,6 @@ in {
       dunst
       #(dunst.override { dunstify = true; })  # dunstify is installed by default
       libnotify
-      go-upower-notify
       # ctagsWrapped.ctagsWrapped
       which
       gnuplot
@@ -667,7 +658,7 @@ in {
         archiveSupport = true;
         vapoursynthSupport = true;
       })
-      mps-youtube
+      yewtube
       shotwell # gst-plugins-base == broken
       galculator
       qalculate-gtk
@@ -694,6 +685,9 @@ in {
       exa # rust ls alternative
       inotify-tools # notify when a file changes
       trash-cli
+      so # stack overflow from the cli
+      # atuin # magical shell history
+      mcfly # shell history
       joshuto
       ranger
       # for ranger previews:
@@ -730,8 +724,8 @@ in {
       kcolorchooser
       gimp
       inkscape
-      (pkgs.blender.override { jackaudioSupport = true; })
-      # blender
+      # (pkgs.blender.override { jackaudioSupport = true; })
+      blender
       openscad
       kdenlive
       # olive-editor
@@ -938,30 +932,18 @@ in {
     wantedBy = [ "graphical-session.target" ];
   };
 
-  # systemd.user.services.backlightSave = {
-  # unitConfig = {
-  # Description = "save the backlight on sleep or shutdown";
-  # Before = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # PartOf = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # };
-  # serviceConfig = {
-  # ExecStartPre = "${pkgs.light}/bin/light -O";
-  # };
-  # wantedBy = [ "poweroff.target" "halt.target" "reboot.target" "sleep.target" ];
-  # };
 
-  # systemd.user.services.backlightRestore = {
-  # unitConfig = {
-  # Description = "restore the backlight on startup or wakeup";
-  # After = [ "sysinit.target" "sleep.target"  ];
-  # PartOf = [ "sysinit.target" "sleep.target" ];
-  # };
-  # serviceConfig = {
-  # ExecStartPost = "${pkgs.light}/bin/light -I";
-  # ExecStopPost= "${pkgs.light}/bin/light -I";
-  # };
-  # wantedBy = [ "sysinit.target" "sleep.target" ];
-  # };
+  systemd.services.audio-off = {
+    description = "Mute audio before suspend";
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      Environment = "XDG_RUNTIME_DIR=/run/user/1001";
+      User = "bart";
+      RemainAfterExit = "yes";
+      ExecStart = "${pkgs.alsa-utils}/bin/amixer -q -c 0 set Master mute";
+    };
+  };
 
   powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
   powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
@@ -1131,24 +1113,7 @@ in {
 
     ssh = {
       startAgent = true;
-      forwardX11 = true;
       askPassword = "";
-      extraConfig = ''
-        Host beta.nixbuild.net nxb-*
-          Port 22
-          StrictHostKeyChecking no
-          UserKnownHostsFile /dev/null
-          PubkeyAcceptedKeyTypes ssh-ed25519
-          IdentityFile /home/bart/.ssh/id_ed25519
-
-        Host nxb-4
-          HostName beta.nixbuild.net
-          SetEnv CPU=4
-
-        Host nxb-16
-          HostName beta.nixbuild.net
-          SetEnv CPU=16
-      '';
     };
 
     gnupg.agent.enable = true;
@@ -1229,8 +1194,9 @@ in {
   };
 
   console = {
-    packages = [ pkgs.terminus_font ];
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
+    # packages = [ pkgs.terminus_font ];
+    # font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
+    font = null;
     useXkbConfig = true;
     # solarized light
     colors = [
@@ -1326,4 +1292,7 @@ in {
     }
   ];
 
+  virtualisation.libvirtd.enable = true;
+  # programs.dconf.enable = true;
+  # environment.systemPackages = with pkgs; [ virt-manager ];
 }

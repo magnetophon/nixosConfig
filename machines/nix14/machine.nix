@@ -16,6 +16,12 @@ with pkgs;
     ];
   };
 
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+
+  system.stateVersion = "18.09"; # Did you read the comment?
 
   hardware.enableAllFirmware = true;
 
@@ -137,10 +143,12 @@ with pkgs;
   # boot.kernelParams = [ "i915.mitigations=off" ];
   #
   nix = {
-    settings.max-jobs = 8;
-    # trustedUsers = [ "root" "nixBuild" "bart" ];
-    settings.trusted-users = [ "root" "nixBuild" "bart" ];
-    distributedBuilds = true;
+    settings = {
+      max-jobs = 8;
+      trusted-users = [ "root" "nixBuild" "bart" ];
+      # optional, useful when the builder has a faster internet connection than yours
+      builders-use-substitutes = true;
+    };
     # hostName = "62.251.18.196";
     buildMachines = [{
       hostName = "builder";
@@ -158,15 +166,18 @@ with pkgs;
       ];
       mandatoryFeatures = [ ];
     }];
-	  # optional, useful when the builder has a faster internet connection than yours
-	  extraOptions = ''
-		  builders-use-substitutes = true
-    '';
   };
 
   boot = {
-    kernelModules = [ "acpi_call" ];
-    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+
+    loader.systemd-boot = {
+      enable = true;
+      # consoleMode = "max";
+      # memtest86.enable = true; # unfree
+      # };
+      loader.efi.canTouchEfiVariables = true;
+      kernelModules = [ "acpi_call" ];
+      extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   };
 
 
