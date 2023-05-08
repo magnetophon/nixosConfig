@@ -38,7 +38,7 @@
     "/dev/disk/by-id/wwn-0x5000c5004be2033b" # DISK16
     "/dev/disk/by-id/wwn-0x5000c500681b26fb" # DISK17
   ];
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
   networking.hostName = "pronix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -177,6 +177,7 @@
   # };
 
   programs = {
+    zsh.enable = true;
     mosh.enable = true;
 
     # Mail notification for ZFS Event Daemon:
