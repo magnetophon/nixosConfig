@@ -88,7 +88,7 @@
     };
   };
   nix.settings = {
-    allowed-users = [ "nixBuild" ];
+    allowed-users = [ "nixBuild" "@wheel" ];
     trusted-users = [ "nixBuild" ];
   };
 
