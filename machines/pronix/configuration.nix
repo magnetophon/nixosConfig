@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   imports = [ # Include the results of the hardware scan.
@@ -11,7 +11,6 @@
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.copyKernels = true;
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
@@ -233,7 +232,7 @@
 
     fail2ban = {
       enable = true;
-      jails.sshd = ''
+      jails.sshd = lib.mkForce ''
       enabled = true
       filter = sshd
       ignoreip = 127.0.0.1/8,192.168.178.1/24
@@ -254,19 +253,19 @@
       trim.enable = true;
       zed = {
         settings = {
-        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-        ZED_EMAIL_ADDR = [ "root" ];
-        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-        ZED_EMAIL_OPTS = "@ADDRESS@";
+          ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+          ZED_EMAIL_ADDR = [ "root" ];
+          ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+          ZED_EMAIL_OPTS = "@ADDRESS@";
 
-        ZED_NOTIFY_INTERVAL_SECS = 3600;
-        ZED_NOTIFY_VERBOSE = true;
+          ZED_NOTIFY_INTERVAL_SECS = 3600;
+          ZED_NOTIFY_VERBOSE = true;
 
-        ZED_USE_ENCLOSURE_LEDS = true;
-        ZED_SCRUB_AFTER_RESILVER = true;
-      };
-      # this option does not work; will return error
-      enableMail = false;
+          ZED_USE_ENCLOSURE_LEDS = true;
+          ZED_SCRUB_AFTER_RESILVER = true;
+        };
+        # this option does not work; will return error
+        enableMail = false;
       };
     };
 
@@ -290,7 +289,7 @@
       enable = true;
       defaultEditor = true;
       package = pkgs.emacs.override {
-        nativeComp = true;
+        withNativeCompilation = true;
       };
       # package =
       # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
