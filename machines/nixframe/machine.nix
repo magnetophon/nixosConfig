@@ -84,8 +84,21 @@ with pkgs; {
     fwupd.enable = true;
     # Framework laptop doesn't require battery polling.
     # upower.noPollBatteries = true;
-  };
 
+  };
+  services.fwupd.extraRemotes = [ "lvfs-testing" ];
+  environment.etc."fwupd/fwupd.conf" = lib.mkForce {
+    source =
+      pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
+        { } ''
+        cat ${pkgs.fwupd}/etc/fwupd/fwupd.conf > $out
+        cat >> $out <<EOF
+
+        [uefi_capsule]
+        DisableCapsuleUpdateOnDisk=true
+        EOF
+      '';
+  };
   # needed for saving in Cardinal:
   xdg.portal = {
     enable = true;
@@ -137,7 +150,9 @@ with pkgs; {
   boot.extraModulePackages = [ ];
   # boot.kernelParams = [ "zfs.zfs_arc_max=12884901888" ]; # 12GB max ARC cache
   boot.kernelParams = [
-    "zfs.zfs_arc_max=4294967296" # 4GB max ARC cache
+    # "zfs.zfs_arc_max=4294967296" # 4GB max ARC cache
+    # "zfs.zfs_arc_max=8589934592" # 8GB max ARC cache
+    "zfs.zfs_arc_max=12884901888" # 12GB max ARC cache
     # sensor hub module conflicts with manual brightness adjustment
     # "module_blacklist=hid_sensor_hub"
     # disabling psr (panel self-refresh rate) as workaround for iGPU hangs
@@ -245,7 +260,6 @@ with pkgs; {
   boot.loader.generationsDir.copyKernels = true;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.zfsSupport = true;

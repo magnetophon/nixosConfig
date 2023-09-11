@@ -99,6 +99,9 @@ in {
         # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
         auto-optimise-store     = true
         experimental-features = nix-command flakes
+# The timeout (in seconds) for receiving data from servers during download. Nix cancels idle downloads after this timeout's duration.
+# default 300
+        stalled-download-timeout = 600
       '';
     package = nixVersions.stable;
   };
@@ -180,9 +183,9 @@ in {
       enable = true;
       ports = [ 22 ];
       settings = {
-        permitRootLogin = "without-password";
-      # permitRootLogin = "yes";
-        passwordAuthentication = false;
+        PermitRootLogin = "without-password";
+        # permitRootLogin = "yes";
+        PasswordAuthentication = false;
         X11Forwarding = true;
 
       };
@@ -456,6 +459,7 @@ in {
       nix-index
       nixpkgs-review
       rnix-lsp
+      nix-output-monitor
       manix
       nox
       comma
@@ -682,7 +686,7 @@ in {
       (ripgrep.override { withPCRE2 = true; })
       ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
-      exa # rust ls alternative
+      eza # rust ls alternative
       inotify-tools # notify when a file changes
       trash-cli
       so # stack overflow from the cli
@@ -1011,7 +1015,7 @@ in {
                   #####################################################################
                   #####################################################################
 
-                alias  up='nixos-rebuild test --upgrade '
+                alias  up='unbuffer nixos-rebuild test --upgrade ' |& nom
                 alias no=nixos-option
                 function upn {
                   cd $NIXPKGS &&
@@ -1024,10 +1028,10 @@ in {
                   fi
                 }
                 alias gcn='cd $NIXPKGS && git checkout $(nixos-version | cut -d" " -f1)'
-                alias  te='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild test'
-                alias ten='nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild test   -I nixpkgs=$NIXPKGS'
-                alias  sw='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     && nixos-rebuild switch'
-                alias swn='nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS && nixos-rebuild switch -I nixpkgs=$NIXPKGS'
+                alias  te='unbuffer nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                    |& nom && unbuffer nixos-rebuild test |& nom'
+                alias ten='unbuffer nixos-rebuild build   -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS|& nom && unbuffer nixos-rebuild test   -I nixpkgs=$NIXPKGS |& nom'
+                alias  sw='unbuffer nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix                     |& nom && unbuffer nixos-rebuild switch |& nom'
+                alias swn='unbuffer nixos-rebuild boot -p rt -I nixos-config=/home/bart/nixosConfig/machines/$(hostname | cut -d"-" -f1)/rt.nix -I nixpkgs=$NIXPKGS |& nom && unbuffer nixos-rebuild switch -I nixpkgs=$NIXPKGS |& nom'
 
                 nga() {
                   if confirm "Delete all generations and vacuum the systemd journal?"; then
@@ -1186,7 +1190,7 @@ in {
       terminus_font_ttf
       nerdfonts
       emacs-all-the-icons-fonts
-      google-fonts
+      # google-fonts
       liberation_ttf
       ibm-plex
       # core-fonts
@@ -1238,7 +1242,7 @@ in {
     users.bart = {
       name = "bart";
       group = "users";
-      uid = 1000;
+      # uid = 1000;
       createHome = false;
       home = "/home/bart";
       extraGroups = [
