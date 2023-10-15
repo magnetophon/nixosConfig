@@ -209,6 +209,7 @@ with pkgs; {
   # Importing a suspended pool can corrupt it
   boot.zfs.forceImportRoot = false;
   boot.zfs.forceImportAll = false;
+  boot.zfs.enableUnstable = true;
 
   # Configure hibernation
   boot.resumeDevice = lib.mkIf (config.swapDevices != [ ])
