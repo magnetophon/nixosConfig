@@ -1166,6 +1166,9 @@ in {
     # system-db:local
     # '';
   };
+
+  xdg.sounds.enable = false;
+
   # Define fonts
   fonts = {
     # fontDir.enable = true;
