@@ -272,12 +272,12 @@ with pkgs; {
   # mount /boot/efi
   # '';
   boot.loader.grub.extraInstallCommands = ''
-    ESP_MIRROR=$(mktemp -d)
-    cp -r /boot/efi/EFI $ESP_MIRROR
+    ESP_MIRROR=$(${pkgs.coreutils}/bin/mktemp -d)
+    ${pkgs.coreutils}/bin/cp -r /boot/efi/EFI $ESP_MIRROR
     for i in /boot/efis/*; do
-    cp -r $ESP_MIRROR/EFI $i
+     ${pkgs.coreutils}/bin/cp -r $ESP_MIRROR/EFI $i
     done
-    rm -rf $ESP_MIRROR
+    ${pkgs.coreutils}/bin/rm -rf $ESP_MIRROR
   '';
   boot.loader.grub.devices =
     [ "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744" ];
