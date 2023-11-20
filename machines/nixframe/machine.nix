@@ -10,7 +10,8 @@ with pkgs; {
 
   environment = {
     systemPackages = [
-      (import /home/bart/source/fw-ectool/default.nix)
+      # (import /home/bart/source/fw-ectool/default.nix)
+      fw-ectool
       intel-gpu-tools # for verifying HW acceleration with intel_gpu_top
     ];
   };
@@ -217,12 +218,18 @@ with pkgs; {
   # Snapshot daily
   services.zfs.autoSnapshot = {
     enable = true;
-    flags = "-k -p --utc";
-    monthly = 0;
-    weekly = 2;
-    daily = 6;
-    hourly = 0;
-    frequent = 0;
+    # Default:
+    # "-k -p"
+    # -k              Keep zero-sized snapshots.
+    # -p              Create snapshots in parallel.
+    flags = "-p";
+    # by default
+    # ZFS will keep a snapshot for the latest 4 15-minute, 24 hourly, 7 daily, 4 weekly and 12 monthly snapshots.
+    # monthly = 1;
+    # weekly = 2;
+    # daily = 6;
+    # hourly = 4;
+    # frequent = 0;
   };
 
   # znapzend = {
