@@ -64,95 +64,95 @@ with pkgs; {
     };
     thermald = {
       enable = true;
-      configFile = builtins.toFile "thermal-conf.xml" ''
-        <?xml version="1.0"?>
-         <!-- BEGIN -->
-         <ThermalConfiguration>
-         <Platform>
-        	<Name> Auto generated </Name>
-        	<ProductName>Laptop (12th Gen Intel Core)</ProductName>
-        	<Preference>QUIET</Preference>
-        	<PPCC>
-        		<PowerLimitIndex>0</PowerLimitIndex>
-        		<PowerLimitMinimum>5000</PowerLimitMinimum>
-        		<PowerLimitMaximum>30000</PowerLimitMaximum>
-        		<TimeWindowMinimum>30000</TimeWindowMinimum>
-        		<TimeWindowMaximum>30000</TimeWindowMaximum>
-        		<StepSize>100</StepSize>
-        	</PPCC>
-        	<ThermalZones>
-        		<ThermalZone>
-        			<Type>auto_zone_0</Type>
-        			<TripPoints>
-        				<TripPoint>
-        					<SensorType>SEN3</SensorType>
-        					<Temperature>45000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        						<TargetState>15000000</TargetState>
-        					</CoolingDevice>
-        				</TripPoint>
-        				<TripPoint>
-        					<SensorType>SEN3</SensorType>
-        					<Temperature>75000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        						<TargetState>15000000</TargetState>
-        					</CoolingDevice>
-        				</TripPoint>
-        				<TripPoint>
-        					<SensorType>SEN3</SensorType>
-        					<Temperature>78000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        						<TargetState>12000000</TargetState>
-        					</CoolingDevice>
-        				</TripPoint>
-        				<TripPoint>
-        					<SensorType>SEN3</SensorType>
-        					<Temperature>80000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        						<TargetState>10000000</TargetState>
-        					</CoolingDevice>
-        				</TripPoint>
-        				<TripPoint>
-        					<SensorType>SEN3</SensorType>
-        					<Temperature>85000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        					</CoolingDevice>
-        				</TripPoint>
-        			</TripPoints>
-        		</ThermalZone>
-        		<ThermalZone>
-        			<Type>auto_zone_1</Type>
-        			<TripPoints>
-        				<TripPoint>
-        					<SensorType>SEN5</SensorType>
-        					<Temperature>90000</Temperature>
-        					<Type>Passive</Type>
-        					<CoolingDevice>
-        						<Type>B0D4</Type>
-        						<SamplingPeriod>3</SamplingPeriod>
-        					</CoolingDevice>
-        				</TripPoint>
-        			</TripPoints>
-        		</ThermalZone>
-        	</ThermalZones>
-        </Platform>
-        </ThermalConfiguration>
-        <!-- END --> '';
+      # configFile = builtins.toFile "thermal-conf.xml" ''
+      # <?xml version="1.0"?>
+      # <!-- BEGIN -->
+      # <ThermalConfiguration>
+      # <Platform>
+      # <Name> Auto generated </Name>
+      # <ProductName>Laptop (12th Gen Intel Core)</ProductName>
+      # <Preference>QUIET</Preference>
+      # <PPCC>
+      # <PowerLimitIndex>0</PowerLimitIndex>
+      # <PowerLimitMinimum>5000</PowerLimitMinimum>
+      # <PowerLimitMaximum>30000</PowerLimitMaximum>
+      # <TimeWindowMinimum>30000</TimeWindowMinimum>
+      # <TimeWindowMaximum>30000</TimeWindowMaximum>
+      # <StepSize>100</StepSize>
+      # </PPCC>
+      # <ThermalZones>
+      # <ThermalZone>
+      # <Type>auto_zone_0</Type>
+      # <TripPoints>
+      # <TripPoint>
+      # <SensorType>SEN3</SensorType>
+      # <Temperature>45000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # <TargetState>15000000</TargetState>
+      # </CoolingDevice>
+      # </TripPoint>
+      # <TripPoint>
+      # <SensorType>SEN3</SensorType>
+      # <Temperature>75000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # <TargetState>15000000</TargetState>
+      # </CoolingDevice>
+      # </TripPoint>
+      # <TripPoint>
+      # <SensorType>SEN3</SensorType>
+      # <Temperature>78000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # <TargetState>12000000</TargetState>
+      # </CoolingDevice>
+      # </TripPoint>
+      # <TripPoint>
+      # <SensorType>SEN3</SensorType>
+      # <Temperature>80000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # <TargetState>10000000</TargetState>
+      # </CoolingDevice>
+      # </TripPoint>
+      # <TripPoint>
+      # <SensorType>SEN3</SensorType>
+      # <Temperature>85000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # </CoolingDevice>
+      # </TripPoint>
+      # </TripPoints>
+      # </ThermalZone>
+      # <ThermalZone>
+      # <Type>auto_zone_1</Type>
+      # <TripPoints>
+      # <TripPoint>
+      # <SensorType>SEN5</SensorType>
+      # <Temperature>90000</Temperature>
+      # <Type>Passive</Type>
+      # <CoolingDevice>
+      # <Type>B0D4</Type>
+      # <SamplingPeriod>3</SamplingPeriod>
+      # </CoolingDevice>
+      # </TripPoint>
+      # </TripPoints>
+      # </ThermalZone>
+      # </ThermalZones>
+      # </Platform>
+      # </ThermalConfiguration>
+      # <!-- END --> '';
     };
   };
   # hardware.pulseaudio.enable = true;
