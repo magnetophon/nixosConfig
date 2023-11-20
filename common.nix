@@ -367,19 +367,34 @@ in {
 
   # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
 
-
   # documentation.nixos.includeAllModules = true;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    # allowUnfree = false;
-    #firefox.enableAdobeFlash = true;
-    # firefox.enableMplayer = true;
-    # packageOverrides = pkgs : rec {
-    # };
-    # pulseaudio = false;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      # allowUnfree = false;
+      #firefox.enableAdobeFlash = true;
+      # firefox.enableMplayer = true;
+      # packageOverrides = pkgs : rec {
+      # };
+      # pulseaudio = false;
 
-    packageOverrides = pkgs: { };
+      packageOverrides = pkgs: { };
+    };
+    # https://github.com/NixOS/nixpkgs/issues/247290
+    overlays = [
+      (final: prev: {
+        fish = prev.fish.overrideAttrs (o: {
+          patches = (o.patches or [ ]) ++ [
+            (pkgs.fetchpatch {
+              name = "fix-zfs-completion.path";
+              url = "https://github.com/fish-shell/fish-shell/commit/85504ca694ae099f023ae0febb363238d9c64e8d.patch";
+              sha256 = "sha256-lA0M7E/Z0NjuvppC7GZA5rWdL7c+5l+3SF5yUe7nEz8=";
+            })
+          ];
+        });
+      })
+    ];
   };
 
   environment = {
@@ -593,6 +608,7 @@ in {
       polybarFull
       jq
       i3status
+      i3status-rust
       i3-layout-manager
       i3-resurrect
       wmfocus
@@ -644,10 +660,10 @@ in {
       (pkgs.w3m.override { graphicsSupport = true; })
       # youtubeDL
       yt-dlp
-      freetube
+      # freetube
       vlc
       mumble
-      jitsi-meet-electron
+      # jitsi-meet-electron
       # zoom-us # unfree
       (mumble.override { jackSupport = true; })
       (mpv-unwrapped.override {
@@ -677,7 +693,8 @@ in {
       rofi-pass
       silver-searcher
       (ripgrep.override { withPCRE2 = true; })
-      ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
+      # ripgrep-all won't build: https://github.com/NixOS/nixpkgs/issues/250306
+      # ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
       eza # rust ls alternative
       inotify-tools # notify when a file changes
@@ -700,12 +717,13 @@ in {
       lynx
       mediainfo
       fontforge
-      python3Packages.ueberzug
+      # python3Packages.ueberzug
       ueberzugpp
       libsixel
       # mutt-with-sidebar
       # mutt-kz
       neomutt
+      fclones # duplicate file finder
       xfce.thunar
       thunderbird
       isync
@@ -890,20 +908,20 @@ in {
   # shellAliases = { ll = "ls -l"; };
 
   #alias vim="stty stop ''' -ixoff; vim"
-  systemd.user.services.udiskie = {
-    unitConfig = {
-      Description = "udiskie mount daemon";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
+  # systemd.user.services.udiskie = {
+  #   unitConfig = {
+  #     Description = "udiskie mount daemon";
+  #     After = [ "graphical-session-pre.target" ];
+  #     PartOf = [ "graphical-session.target" ];
+  #   };
 
-    serviceConfig = {
-      ExecStart = "${pkgs.udiskie}/bin/udiskie -t";
-      Restart = "always";
-    };
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.udiskie}/bin/udiskie -t";
+  #     Restart = "always";
+  #   };
 
-    wantedBy = [ "graphical-session.target" ];
-  };
+  #   wantedBy = [ "graphical-session.target" ];
+  # };
 
   systemd.user.services.clipster = {
     unitConfig = {
@@ -932,7 +950,6 @@ in {
     wantedBy = [ "graphical-session.target" ];
   };
 
-
   systemd.services.audio-off = {
     description = "Mute audio before suspend";
     wantedBy = [ "sleep.target" ];
@@ -949,7 +966,9 @@ in {
   powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
 
   programs = {
-    fish = { enable = true; };
+    fish = {
+      enable = true;
+    };
 
     # zsh has an annoying default config which I don't want
     # so to make it work well I have to turn it off first.
@@ -1165,7 +1184,7 @@ in {
     # user-db:user
     # system-db:local
     # '';
-  };
+    };
 
   xdg.sounds.enable = false;
 
@@ -1247,7 +1266,7 @@ in {
       createHome = false;
       home = "/home/bart";
       extraGroups = [
-        "wheel"
+        # "wheel"
         "audio"
         "jackaudio"
         "video"
@@ -1300,4 +1319,5 @@ in {
   virtualisation.libvirtd.enable = true;
   # programs.dconf.enable = true;
   # environment.systemPackages = with pkgs; [ virt-manager ];
+
 }

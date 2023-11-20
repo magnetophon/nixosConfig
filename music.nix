@@ -84,6 +84,7 @@ with pkgs; {
             bschaffl
             bjumblr
             bchoppr
+            # bolliedelay.lv2
             calf
             caps
             cardinal
@@ -109,8 +110,8 @@ with pkgs; {
             open-music-kontrollers.orbit
             open-music-kontrollers.patchmatrix
             open-music-kontrollers.router
-            open-music-kontrollers.sherlock
-            open-music-kontrollers.synthpod
+            # open-music-kontrollers.sherlock
+            # open-music-kontrollers.synthpod
             open-music-kontrollers.vm
 
             fluidsynth
@@ -125,7 +126,7 @@ with pkgs; {
             hybridreverb2
             hydrogen
             industrializer
-            infamousPlugins
+            # infamousPlugins
             ingen
             ir.lv2
             jaaa
@@ -152,7 +153,7 @@ with pkgs; {
             # rc-effect-playground # https://github.com/jpcima/rc-effect-playground/issues/4
             rkrlv2
             samplv1
-            setbfree
+            # setbfree
             sfizz # pro sampler
             sorcer
             spectmorph
@@ -166,7 +167,7 @@ with pkgs; {
             surge-XT
             tamgamp.lv2
             tetraproc
-            uhhyou.lv2
+            # uhhyou.lv2
             vocproc
             wolf-shaper
             x42-plugins
@@ -203,28 +204,28 @@ with pkgs; {
             ###################################################################
 
             ardour
-            helio-workstation
+            # helio-workstation
             #beast
             carla
             audacity
             jalv
             mod-distortion
             petrifoo
-            guitarix
+            # guitarix
             zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             ###################################################################
             #                            utilities                            #
             ###################################################################
             a2jmidid
-            cadence
+            # cadence
             cuetools
             jack2
             # jack1
-            jack_capture
+            # jack_capture
             lilv
             lv2bm
-            mamba
+            # mamba
             qjackctl
             # sonic-lineup
             vmpk

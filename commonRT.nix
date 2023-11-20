@@ -7,6 +7,8 @@
   # boot.kernelPackages = pkgs.linux_rt.linux_4_19_rt;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_4;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_10;
+  boot.kernelPackages = pkgs.linuxPackages_rt_5_15 ;
+  # boot.kernelPackages = pkgs.linuxPackages-rt_6_1;
   # boot.kernelPackages = pkgs.linuxPackages-rt;
   # boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
@@ -17,7 +19,7 @@
     # kernel.packages = pkgs.linuxPackages_5_15_rt;
     # kernel.packages = pkgs.linuxPackages_6_1_rt;
     # kernel.packages = pkgs.linuxPackages_latest_rt;
-    kernel.realtime = true;
+    # kernel.realtime = true;
     rtirq.enable = true;
     das_watchdog.enable = true;
   };
