@@ -89,6 +89,7 @@
   nix.settings = {
     allowed-users = [ "nixBuild" "@wheel" ];
     trusted-users = [ "nixBuild" ];
+    auto-optimise-store = true;
   };
 
 
@@ -119,9 +120,13 @@
       pinentry-curses
       smartmontools
       ranger
-      zoxide
+      yazi
       lf
       joshuto
+      zoxide
+      fclones
+      rmlint
+      eza
       htop
       lm_sensors
       nix-zsh-completions
