@@ -815,7 +815,9 @@ in {
 
     # xdg_default_apps = import /home/matej/workarea/helper_scripts/nixes/defaultapps.nix { inherit pkgs; inherit applist; };
 
-    shells = [ pkgs.fish ];
+    # shells = [ pkgs.fish ];
+    # shells = [ pkgs.bash ];
+    shells = with pkgs; [ bashInteractive zsh fish ];
     # Set of files that have to be linked in /etc.
     # etc =
     #   { hosts =
@@ -854,7 +856,7 @@ in {
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
     # GIT_SSL_CAINFO =
     # "/etc/ssl/certs/ca-certificates.crt"; # TODO still needed? https://github.com/NixOS/nixpkgs/pull/96763
-    XDG_DATA_HOME = "/home/bart/.local/share";
+    XDG_DATA_HOME = "~/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git";
@@ -1259,6 +1261,7 @@ in {
 
   users = {
     defaultUserShell = pkgs.fish;
+    # defaultUserShell = pkgs.bashInteractive;
     users.bart = {
       name = "bart";
       group = "users";
@@ -1277,6 +1280,7 @@ in {
         "camera"
       ];
       shell = pkgs.fish;
+      # shell = pkgs.bashInteractive;
       isNormalUser = true;
     };
     mutableUsers = true;
