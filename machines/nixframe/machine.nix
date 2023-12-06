@@ -257,6 +257,59 @@ with pkgs; {
   #       };
   #     };
   # };
+  services.zrepl = {
+    # enable = true;
+    settings = {
+      jobs = [
+        {
+          name = "nixframe_to_pronix";
+          type = "push";
+          connect = {
+            type = "tls";
+            address = "62.131.134.154:888";
+            ca = "/etc/zrepl/pronix.crt";
+            cert = "/etc/zrepl/nixframe.crt";
+            key = "/etc/zrepl/nixframe.key";
+            server_cn = "pronix";
+            dial_timeout= "60s";
+          };
+          # connect = {
+          # type = "ssh+stdinserver";
+          # host = "62.131.134.154";
+          # user = "bart";
+          # port = 511;
+          # identity_file = "/root/.ssh/pronix_bu_ed25519";
+          # dial_timeout= "10s";
+          # };
+          filesystems = {
+            "rpool/nixos/home<" = true;
+            "rpool/nixos/home/bart_cache" = false;
+          };
+          snapshotting = {
+            type = "periodic";
+            prefix = "zrepl_";
+            interval = "10m";
+            timestamp_format = "human";
+          };
+          pruning = {
+            keep_sender = [
+              # don't delete till replicated
+              { type = "not_replicated"; }
+              # keep all snapshots that were not created by zrepl
+              { type = "regex"; negate = true; regex = "^zrepl_.*"; }
+              # keep a sparse grid of the last 2 weeks
+              { type = "grid"; grid = "1x1h(keep=all) | 24x1h | 14x1d"; regex = "^zrepl_.*"; }
+            ];
+            keep_receiver = [
+              # keep a sparse grid of the last year
+              { type = "grid"; grid = "1x1h(keep=all) | 24x1h | 35x1d | 12x30d"; regex = "^zrepl_.*"; }
+              { type = "regex"; negate = true; regex = "^zrepl_.*"; }
+            ];
+          };
+        }
+      ];
+    };
+  };
 
   # Scrub to find errors
   services.zfs.autoScrub = {
@@ -295,4 +348,14 @@ with pkgs; {
   '';
   boot.loader.grub.devices =
     [ "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744" ];
+
+
+  programs.ssh = {
+    knownHosts = {
+      pronix = {
+        hostNames = [ "pronix" "62.131.134.154" ];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAO+MVZiekHvS8Tb599XUWSA1e/vydvPc3f4ZfG6HedF";
+      };
+    };
+  };
 }
