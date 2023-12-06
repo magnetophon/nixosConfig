@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 with pkgs; {
-  imports = [ <nixos-hardware/framework/12th-gen-intel> ];
+  imports = [ <nixos-hardware/framework/13-inch/12th-gen-intel> ];
 
   networking.hostId = "f2119c72";
 
@@ -104,6 +104,7 @@ with pkgs; {
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
   };
   # boot.kernelParams = [ "acpi_backlight=native" ];
 
@@ -176,6 +177,12 @@ with pkgs; {
     options = [ "zfsutil" "X-mount.mkdir" ];
   };
 
+  fileSystems."/home/bart/.cache" = {
+    device = "rpool/nixos/home/bart_cache";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+  };
+
   fileSystems."/var/lib" = {
     device = "rpool/nixos/var/lib";
     fsType = "zfs";
@@ -210,27 +217,27 @@ with pkgs; {
   # Importing a suspended pool can corrupt it
   boot.zfs.forceImportRoot = false;
   boot.zfs.forceImportAll = false;
-  boot.zfs.enableUnstable = true;
+  # boot.zfs.enableUnstable = true;
 
   # Configure hibernation
   boot.resumeDevice = lib.mkIf (config.swapDevices != [ ])
     (lib.mkDefault (builtins.head config.swapDevices).device);
   # Snapshot daily
-  services.zfs.autoSnapshot = {
-    enable = true;
-    # Default:
-    # "-k -p"
-    # -k              Keep zero-sized snapshots.
-    # -p              Create snapshots in parallel.
-    flags = "-p";
-    # by default
-    # ZFS will keep a snapshot for the latest 4 15-minute, 24 hourly, 7 daily, 4 weekly and 12 monthly snapshots.
-    # monthly = 1;
-    # weekly = 2;
-    # daily = 6;
-    # hourly = 4;
-    # frequent = 0;
-  };
+  # services.zfs.autoSnapshot = {
+  #   enable = true;
+  #   # Default:
+  #   # "-k -p"
+  #   # -k              Keep zero-sized snapshots.
+  #   # -p              Create snapshots in parallel.
+  #   flags = "-p";
+  #   # by default
+  #   # ZFS will keep a snapshot for the latest 4 15-minute, 24 hourly, 7 daily, 4 weekly and 12 monthly snapshots.
+  #   # monthly = 1;
+  #   # weekly = 2;
+  #   # daily = 6;
+  #   # hourly = 4;
+  #   # frequent = 0;
+  # };
 
   # znapzend = {
   #   enable = true;

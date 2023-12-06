@@ -349,11 +349,26 @@ in {
     # usbmuxd.enable = true;
 
     dnsmasq = {
-      enable = true;
-      extraConfig = ''
-        cache-size=100000
-        addn-hosts=/var/lib/hostsblock/hosts.block
-      '';
+      enable = false;
+      settings = {
+        # interface = "lo";
+        # bind-interfaces = true;
+        # no-negcache = true;
+        cache-size = 10000;
+        # local-ttl = 300;
+        # conf-dir = "/etc/dnsmasq.d/,*.conf";
+        # conf-file = "${blockedFqdns}/domains";
+        addn-hosts = "/var/lib/hostsblock/hosts.block";
+        # } // optionalAttrs stubbyEnabled {
+        # no-resolv = true;
+        # proxy-dnssec = true;
+        # server = "127.0.0.1#153";
+        # };
+        # extraConfig = ''
+        # cache-size=100000
+        # addn-hosts=/var/lib/hostsblock/hosts.block
+        # '';
+      };
     };
     upower = {
       enable = true;
@@ -468,6 +483,7 @@ in {
       nixpkgs-review
       rnix-lsp
       nix-output-monitor
+      expect
       manix
       nox
       comma
@@ -487,7 +503,6 @@ in {
       physlock
       asciinema
       neofetch
-      # rtv
       tuir
       tree
       htop
@@ -519,7 +534,7 @@ in {
       # gitAndTools.grv # build failed
       gitAndTools.tig
       gitAndTools.gitui
-      gist # upload to git.github.com
+      gist # upload to gist.github.com
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
       subversion
@@ -694,7 +709,7 @@ in {
       silver-searcher
       (ripgrep.override { withPCRE2 = true; })
       # ripgrep-all won't build: https://github.com/NixOS/nixpkgs/issues/250306
-      # ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
+      ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
       fd # rust fast find alternative
       eza # rust ls alternative
       inotify-tools # notify when a file changes
@@ -798,6 +813,7 @@ in {
       # iDevice stuff:
       # /pkgs/development/libraries/libplist/default.nix
       # has knownVulnerabilities
+      # https://nixos.wiki/wiki/IOS
       usbmuxd
       libimobiledevice
       ifuse
