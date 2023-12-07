@@ -872,7 +872,7 @@ in {
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
     # GIT_SSL_CAINFO =
     # "/etc/ssl/certs/ca-certificates.crt"; # TODO still needed? https://github.com/NixOS/nixpkgs/pull/96763
-    XDG_DATA_HOME = "~/.local/share";
+    XDG_DATA_HOME = "$HOME/.local/share";
     TERMINFO_DIRS = "/run/current-system/sw/share/terminfo";
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git";
