@@ -396,20 +396,6 @@ in {
 
       packageOverrides = pkgs: { };
     };
-    # https://github.com/NixOS/nixpkgs/issues/247290
-    overlays = [
-      (final: prev: {
-        fish = prev.fish.overrideAttrs (o: {
-          patches = (o.patches or [ ]) ++ [
-            (pkgs.fetchpatch {
-              name = "fix-zfs-completion.path";
-              url = "https://github.com/fish-shell/fish-shell/commit/85504ca694ae099f023ae0febb363238d9c64e8d.patch";
-              sha256 = "sha256-lA0M7E/Z0NjuvppC7GZA5rWdL7c+5l+3SF5yUe7nEz8=";
-            })
-          ];
-        });
-      })
-    ];
   };
 
   environment = {
