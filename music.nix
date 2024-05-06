@@ -63,7 +63,6 @@ with pkgs; {
             ###################################################################
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
-            # zita-dpl1
             AMB-plugins
             CHOWTapeModel
             FIL-plugins
@@ -84,7 +83,7 @@ with pkgs; {
             bschaffl
             bjumblr
             bchoppr
-            # bolliedelay.lv2
+            bolliedelayxt-lv2
             calf
             caps
             cardinal
@@ -98,13 +97,13 @@ with pkgs; {
             dragonfly-reverb
             drumgizmo
             drumkv1
-            ensemble-chorus
+            # ensemble-chorus
             eq10q
             # open-music-kontrollers.eteroj
 
             open-music-kontrollers.eteroj
             open-music-kontrollers.jit
-            open-music-kontrollers.mephisto
+            # open-music-kontrollers.mephisto
             open-music-kontrollers.midi_matrix
             open-music-kontrollers.moony
             open-music-kontrollers.orbit
@@ -126,7 +125,7 @@ with pkgs; {
             hybridreverb2
             hydrogen
             industrializer
-            # infamousPlugins
+            infamousPlugins
             ingen
             ir.lv2
             jaaa
@@ -153,17 +152,17 @@ with pkgs; {
             # rc-effect-playground # https://github.com/jpcima/rc-effect-playground/issues/4
             rkrlv2
             samplv1
-            # setbfree
+            setbfree
             sfizz # pro sampler
             sorcer
             spectmorph
             speech-denoiser
             stochas
-            stone-phaser
-            string-machine
+            # stone-phaser
+            # string-machine
             swh_lv2
             synthv1
-            # surge
+            surge
             surge-XT
             tamgamp.lv2
             tetraproc
@@ -212,22 +211,21 @@ with pkgs; {
             mod-distortion
             petrifoo
             # guitarix
-            zrythm
+            # zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             ###################################################################
             #                            utilities                            #
             ###################################################################
             a2jmidid
-            # cadence
             cuetools
             jack2
             # jack1
             # jack_capture
             lilv
             lv2bm
-            # mamba
+            # mamba # broken
             qjackctl
-            # sonic-lineup
+            sonic-lineup
             vmpk
             qmidinet
             ###################################################################

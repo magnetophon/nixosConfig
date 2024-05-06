@@ -7,10 +7,10 @@
   # boot.kernelPackages = pkgs.linux_rt.linux_4_19_rt;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_4;
   # boot.kernelPackages = pkgs.linuxPackages-rt_5_10;
-  boot.kernelPackages = pkgs.linuxPackages_rt_5_15 ;
+  # boot.kernelPackages = pkgs.linuxPackages_rt_5_15 ;
   # boot.kernelPackages = pkgs.linuxPackages-rt_6_1;
   # boot.kernelPackages = pkgs.linuxPackages-rt;
-  # boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
   sound.enable = true;
 

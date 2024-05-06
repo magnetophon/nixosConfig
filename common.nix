@@ -253,14 +253,6 @@ in {
 
       # sudo -u bart ${pkgs.physlock}/bin/physlock -ds
       # synaptics = import ./synaptics.nix;
-      libinput = {
-        enable = true;
-        touchpad = {
-          middleEmulation = false;
-          accelSpeed = "0.1";
-          tappingButtonMap = "lrm";
-        };
-      };
       config = ''
         Section "InputClass"
           Identifier     "Enable libinput for TrackPoint"
@@ -270,11 +262,20 @@ in {
       '';
       desktopManager.xterm.enable = false;
       # desktopManager.plasma5.enable = true;
-      xkbOptions = "caps:swapescape";
-      xkbVariant = "altgr-intl";
+      xkb.options = "caps:swapescape";
+      xkb.variant = "altgr-intl";
       # bitlbee.enable
       # Whether to run the BitlBee IRC to other chat network gateway. Running it allows you to access the MSN, Jabber, Yahoo! and ICQ chat networks via an IRC client.
       desktopManager.wallpaper.mode = "fill";
+    };
+
+    libinput = {
+      enable = true;
+      touchpad = {
+        middleEmulation = false;
+        accelSpeed = "0.1";
+        tappingButtonMap = "lrm";
+      };
     };
 
     unclutter-xfixes = {
@@ -456,7 +457,7 @@ in {
       nixos-option
       nix-zsh-completions
       nix-diff # marked as broken, refusing to evaluate
-      nixfmt # marked as broken, refusing to evaluate
+      nixfmt-rfc-style # marked as broken, refusing to evaluate
       nix-serve
       # nixops
       nix-du
@@ -467,7 +468,7 @@ in {
       nix-prefetch-git
       nix-index
       nixpkgs-review
-      rnix-lsp
+      # rnix-lsp
       nix-output-monitor
       expect
       manix
@@ -531,7 +532,7 @@ in {
       # haskellPackages.ghc
       ruby
       # icedtea_web
-      font-manager
+      # font-manager
       xfontsel
       neovim
       (vim_configurable.customize {
@@ -653,7 +654,7 @@ in {
       qutebrowser
       sqlitebrowser
       python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
-      nyxt
+      # nyxt
       ungoogled-chromium
       # chromium
       # chromiumBeta
@@ -731,7 +732,6 @@ in {
       # taskwarrior
       paperkey
       gpa
-      urlview
       # offlineimap replaced by isync
       notmuch
       alot
@@ -752,7 +752,8 @@ in {
       simplescreenrecorder
       scrot
       flameshot
-      handbrake # gst-plugins-base == broken
+      # enable when this reaches nixos-unstable: https://nixpk.gs/pr-tracker.html?pr=297984
+      # handbrake # gst-plugins-base == broken
       alsa-utils
       meld
       freemind
@@ -881,8 +882,8 @@ in {
     # --preview='~/.local/bin/preview.sh {}' \
     # --header 'alt-z:toggle-preview alt-w:toggle-preview-wrap alt-s:toggle-sort alt-a:toggle-all ctrl-a:select-all alt-y:yank path'
     # '';
-    _FZF_ZSH_PREVIEW_STRING =
-      "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
+    # _FZF_ZSH_PREVIEW_STRING =
+    # "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
     FZF_CTRL_R_OPTS =
       "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
@@ -1280,6 +1281,7 @@ in {
         "adbusers"
         "libvirtd"
         "camera"
+        "vboxusers"
       ];
       shell = pkgs.fish;
       # shell = pkgs.bashInteractive;
@@ -1321,9 +1323,5 @@ in {
       value = "99999";
     }
   ];
-
-  virtualisation.libvirtd.enable = true;
-  # programs.dconf.enable = true;
-  # environment.systemPackages = with pkgs; [ virt-manager ];
 
 }

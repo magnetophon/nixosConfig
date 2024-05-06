@@ -37,16 +37,17 @@ with pkgs; {
         enable = true;
         # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
       };
-      displayManager = {
-        defaultSession = "none+i3";
-        #   # disable middle mouse buttons
-        #   sessionCommands = ''
-        #     xinput set-button-map 10 1 0 3  &&
-        #     xinput set-button-map 11 1 0 3  &&
-        #     physlock -ds
-        #   '';
-      };
-      displayManager.autoLogin = {
+    };
+
+    displayManager = {
+      defaultSession = "none+i3";
+      #   # disable middle mouse buttons
+      #   sessionCommands = ''
+      #     xinput set-button-map 10 1 0 3  &&
+      #     xinput set-button-map 11 1 0 3  &&
+      #     physlock -ds
+      #   '';
+      autoLogin = {
         enable = true;
         user = "bart";
       };
