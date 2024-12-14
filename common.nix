@@ -303,8 +303,8 @@ in {
       # package = pkgs.emacs.override {
       # nativeComp = true;
       # };
-      package = ((emacsPackagesFor emacsNativeComp).emacsWithPackages
-        (epkgs: [ epkgs.vterm ]));
+      # package = ((emacsPackagesFor emacsNativeComp).emacsWithPackages
+      # (epkgs: [ epkgs.vterm ]));
     };
     physlock = {
       enable = true;
@@ -1189,13 +1189,13 @@ in {
     # user-db:user
     # system-db:local
     # '';
-    };
+  };
 
   xdg.sounds.enable = false;
 
   # Define fonts
   fonts = {
-    # fontDir.enable = true;
+    fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
@@ -1205,19 +1205,26 @@ in {
       };
       # penultimate.enable = true;
       # allowType1 = true;
-      useEmbeddedBitmaps =
-        true; # pango doesn't support mixing bitmap fonts with ttf anymore, so we if we want terminus plus icons we need terminus_font_ttf for i3bar, which displays wonky without this
+      useEmbeddedBitmaps = true; # pango doesn't support mixing bitmap fonts with ttf anymore, so we if we want terminus plus icons we need terminus_font_ttf for i3bar, which displays wonky without this
     };
     packages = with pkgs; [
       terminus_font
       siji # bitmap icons
       tewi-font # bitmap icons + letters
       terminus_font_ttf
-      nerdfonts
-      emacs-all-the-icons-fonts
-      # google-fonts
-      liberation_ttf
       ibm-plex
+
+      # pkgs.nerd-fonts.droid-sans-mono
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.terminess-ttf
+      nerd-fonts.liberation
+      nerd-fonts.noto
+      nerd-fonts.fira-code
+      emacs-all-the-icons-fonts
+
+      # google-fonts
+      # liberation_ttf
+      # ibm-plex
       # core-fonts
     ];
   };
