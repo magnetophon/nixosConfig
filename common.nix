@@ -395,7 +395,19 @@ in {
       # };
       # pulseaudio = false;
 
-      packageOverrides = pkgs: { };
+      packageOverrides = pkgs: {
+        # nur-combined =
+        # import (builtins.fetchTarball "https://github.com/nix-community/nur-combined/archive/master.tar.gz")
+        # {
+        # inherit pkgs;
+        # };
+        # nur-bandithedoge =
+        # import (builtins.fetchTarball "https://github.com/bandithedoge/nur-packages/archive/master.tar.gz")
+        # {
+        # inherit pkgs;
+        # };
+
+      };
     };
   };
 
@@ -509,7 +521,7 @@ in {
       libva-utils # collection of utilities and examples to exercise VA-API
       usbutils
       pciutils
-      latencytop
+      # latencytop
       linuxPackages.cpupower
       lsof
       psmisc
@@ -682,7 +694,7 @@ in {
       calc
       units
       rink # Unit conversion tool and library written in rust
-      transmission-gtk
+      transmission_4-gtk
       xrandr-invert-colors
       arandr
       xcalib
@@ -705,7 +717,8 @@ in {
       # atuin # magical shell history
       mcfly # shell history
       joshuto
-      yazi # rust ranger clone
+      # is now a sytem module
+      # yazi # rust ranger clone
       ranger
       # for ranger previews:
       atool
@@ -734,7 +747,7 @@ in {
       gpa
       # offlineimap replaced by isync
       notmuch
-      alot
+      # alot
       # remind    #calendar
       # wyrd      # front end for remind
       #pypyPackages.alot
@@ -796,7 +809,7 @@ in {
       hunspellDicts.de_DE
       # libreoffice-fresh
       libreoffice
-      k3b
+      # k3b
       # iDevice stuff:
       # /pkgs/development/libraries/libplist/default.nix
       # has knownVulnerabilities
@@ -1134,6 +1147,29 @@ in {
 
       '';
     };
+    yazi = {
+      enable = true;
+      settings.yazi = {
+        manager = {
+          ratio = [
+            1
+            2
+            3
+          ];
+          sort_by = "modified";
+          sort_dir_first = true;
+          sort_sensitive = false;
+          sort_reverse = true;
+          show_hidden = false;
+          show_symlink = true;
+        };
+        preview = {
+          max_width = 1300;
+          max_height = 1500;
+          cache_dir = "";
+        };
+      };
+    };
 
     command-not-found.enable = true;
 
@@ -1288,7 +1324,8 @@ in {
         "adbusers"
         "libvirtd"
         "camera"
-        "vboxusers"
+        # "vboxusers"
+        # "docker"
       ];
       shell = pkgs.fish;
       # shell = pkgs.bashInteractive;

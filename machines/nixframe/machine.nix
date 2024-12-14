@@ -33,10 +33,6 @@ with pkgs; {
         enable = true;
         # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
       };
-      windowManager.leftwm = {
-        enable = true;
-        # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
-      };
     };
 
     displayManager = {
@@ -124,12 +120,12 @@ with pkgs; {
     # hostName = "62.251.18.196";
     buildMachines = [{
       hostName = "builder";
-      maxJobs = 24;
+      maxJobs = 16;
       # buildCores = 6;
       sshKey = "/root/.ssh/id_nixBuild";
       sshUser = "nixBuild";
       system = "x86_64-linux";
-      speedFactor = 10;
+      speedFactor = 4;
       supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
       mandatoryFeatures = [ ];
     }];

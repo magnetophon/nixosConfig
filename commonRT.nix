@@ -12,7 +12,7 @@
   # boot.kernelPackages = pkgs.linuxPackages-rt;
   boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
-  sound.enable = true;
+  # sound.enable = true;
 
   musnix = {
     enable = true;

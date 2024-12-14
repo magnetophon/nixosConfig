@@ -3,7 +3,7 @@
 {
 
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-  sound.enable = false;
+  # sound.enable = false;
   # pipewire
   security.rtkit.enable = true; # rtkit is optional but recommended for PipeWire
   services.pipewire = {
@@ -26,11 +26,17 @@
       # };
       # wireplumber.enable = true; // default
   };
-  # virtualisation.virtualbox =
-  # {
-  # host.enable = true;
-  # host.enableExtensionPack = true;
+
+  # virtualisation = {
+  #   docker.enable = true;
+  #   virtualbox =
+  #     {
+  #       host.enable = true;
+  #       # host.enableExtensionPack = true;
+  #     };
+
   # };
+  # users.extraGroups.vboxusers.members = [ "bart" ];
 
   # virtualisation.libvirtd.enable = true;
 
