@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
-with pkgs; {
+with pkgs;
+{
 
     # make sure you do:
     # users.extraUsers.bart.extraGroups = [ "wheel" "audio" ];
@@ -7,7 +8,8 @@ with pkgs; {
     # soundcardPciId
     # rtirq.nameList
 
-    imports = [ # Include musnix: a meta-module for realtime audio.
+    imports = [
+        # Include musnix: a meta-module for realtime audio.
         # todo: make submodule
         /home/bart/source/musnix/default.nix
     ];
@@ -23,13 +25,21 @@ with pkgs; {
     nixpkgs = {
         config.packageOverrides = pkgs: rec {
             guitarix = pkgs.guitarix.override { optimizationSupport = true; }; # TODO: upstream
-            plugins = [ helmholtz timbreid maxlib zexy puremapping cyclone mrpeach ];
+            plugins = [
+                helmholtz
+                timbreid
+                maxlib
+                zexy
+                puremapping
+                cyclone
+                mrpeach
+            ];
             # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
             fullPD = puredata-with-plugins plugins;
             qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
-                configureFlags =
-                    "--enable-jack-version --disable-xunique"; # fix bug for remote running
+                configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
+
             # faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
             # version = "unstable-2020-03-20";
             # src = fetchFromGitHub {
@@ -69,7 +79,7 @@ with pkgs; {
             adlplug
             aeolus
             aether-lv2
-            ams-lv2
+            # ams-lv2
             artyFX
             x42-avldrums
             bchoppr
@@ -93,7 +103,8 @@ with pkgs; {
             ChowCentaur
             csa
             diopser
-            distrho
+            # distrho
+            distrho-ports
             dragonfly-reverb
             drumgizmo
             drumkv1
@@ -114,7 +125,7 @@ with pkgs; {
             open-music-kontrollers.vm
 
             fluidsynth
-            fmsynth
+            # fmsynth
             fomp
             freqtweak
             fverb
@@ -126,7 +137,7 @@ with pkgs; {
             hydrogen
             industrializer
             infamousPlugins
-            ingen
+            # ingen
             ir.lv2
             jaaa
             jack_oscrolloscope
@@ -213,6 +224,7 @@ with pkgs; {
             # guitarix
             # zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
+            bitwig-studio
             ###################################################################
             #                            utilities                            #
             ###################################################################
@@ -248,12 +260,12 @@ with pkgs; {
             # gigedit
             MMA
             #latencytop
-            mixxx
+            # mixxx
             #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
             real_time_config_quick_scan
-            supercollider_scel
-            ( pkgs.fmit.override { jackSupport = true; })
+            # supercollider_scel
+            (pkgs.fmit.override { jackSupport = true; })
             sooperlooper
             #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
             ###################################################################

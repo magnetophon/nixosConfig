@@ -120,7 +120,7 @@
       pinentry-curses
       smartmontools
       ranger
-      yazi
+      # yazi
       lf
       joshuto
       zoxide

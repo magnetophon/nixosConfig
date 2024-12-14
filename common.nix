@@ -3,8 +3,8 @@
 { pkgs, config, ... }:
 with pkgs;
 let
-  my-python-packages = python-packages:
-    with python-packages; [
+  my-python-packages =
+    python-packages: with python-packages; [
       # pandas
       # requests
       pyperclip
@@ -12,7 +12,8 @@ let
       # other python packages you want
     ];
   python-with-my-packages = python3.withPackages my-python-packages;
-in {
+in
+{
 
   imports = [
     # ./vim.nix
@@ -51,9 +52,20 @@ in {
     # loader.efi.canTouchEfiVariables = true;
     tmp.cleanOnBoot = true;
     # no beep, no webcam
-    blacklistedKernelModules = [ "snd_pcsp" "pcspkr" "uvcvideo" ];
-    kernel.sysctl = { "net.ipv4.ip_forward" = 1; }; # for network in VM
-    kernelModules = [ "kvm-intel" "kvm-amd" "tun" "virtio" ];
+    blacklistedKernelModules = [
+      "snd_pcsp"
+      "pcspkr"
+      "uvcvideo"
+    ];
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+    }; # for network in VM
+    kernelModules = [
+      "kvm-intel"
+      "kvm-amd"
+      "tun"
+      "virtio"
+    ];
     # Add ZFS support.
     supportedFilesystems = [ "zfs" ];
   };
@@ -83,19 +95,18 @@ in {
     # sandboxPaths = [ "/home/nixchroot" ];
     # requireSignedBinaryCaches = true;
 
-    extraOptions =
-      lib.optionalString (config.nix.package == nixVersions.stable) ''
-                gc-keep-outputs         = true   # Nice for developers
-                gc-keep-derivations     = true   # Idem
-                env-keep-derivations    = false
-                # binary-caches         = https://nixos.org/binary-cache
-                # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
-                auto-optimise-store     = true
-                experimental-features = nix-command flakes
-        # The timeout (in seconds) for receiving data from servers during download. Nix cancels idle downloads after this timeout's duration.
-        # default 300
-                stalled-download-timeout = 600
-      '';
+    extraOptions = lib.optionalString (config.nix.package == nixVersions.stable) ''
+              gc-keep-outputs         = true   # Nice for developers
+              gc-keep-derivations     = true   # Idem
+              env-keep-derivations    = false
+              # binary-caches         = https://nixos.org/binary-cache
+              # trusted-binary-caches = https://nixos.org/binary-cache https://cache.nixos.org https://hydra.nixos.org
+              auto-optimise-store     = true
+              experimental-features = nix-command flakes
+      # The timeout (in seconds) for receiving data from servers during download. Nix cancels idle downloads after this timeout's duration.
+      # default 300
+              stalled-download-timeout = 600
+    '';
     package = nixVersions.stable;
   };
 
@@ -472,7 +483,7 @@ in {
       nixfmt-rfc-style # marked as broken, refusing to evaluate
       nix-serve
       # nixops
-      nix-du
+      # nix-du
       nix-tree
       nixpkgs-review
       nixpkgs-lint
@@ -833,7 +844,11 @@ in {
 
     # shells = [ pkgs.fish ];
     # shells = [ pkgs.bash ];
-    shells = with pkgs; [ bashInteractive zsh fish ];
+    shells = with pkgs; [
+      bashInteractive
+      zsh
+      fish
+    ];
     # Set of files that have to be linked in /etc.
     # etc =
     #   { hosts =
@@ -898,8 +913,7 @@ in {
     # _FZF_ZSH_PREVIEW_STRING =
     # "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
-    FZF_CTRL_R_OPTS =
-      "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
+    FZF_CTRL_R_OPTS = "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
 
     FZF_ALT_C_COMMAND = "bfs -color -type d";
     FZF_ALT_C_OPTS = "--preview 'tree -L 4 -d -C --noreport -C {} | head -200'";
@@ -1185,8 +1199,7 @@ in {
       # Imperatively installed extensions will seamlessly merge with these.
       # Removing extensions here will remove them from chromium, no matter how
       # they were installed.
-      defaultSearchProviderSearchURL =
-        "https://duckduckgo.com/?q={searchTerms}";
+      defaultSearchProviderSearchURL = "https://duckduckgo.com/?q={searchTerms}";
       extensions = [
         # "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
         # "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
@@ -1294,7 +1307,9 @@ in {
     # setup pretty console ASAP (in initrd).
     earlySetup = true;
   };
-  i18n = { defaultLocale = "en_US.UTF-8"; };
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+  };
 
   networking = {
     # firewall.enable = false;
@@ -1315,7 +1330,7 @@ in {
       createHome = false;
       home = "/home/bart";
       extraGroups = [
-        # "wheel"
+        "wheel"
         "audio"
         "jackaudio"
         "video"
