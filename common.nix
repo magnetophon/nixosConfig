@@ -833,6 +833,8 @@ in
       # https://gist.github.com/laacz/1180765
       #custom packages
       #nl_wa2014
+      # needed for direnv:
+      devenv
     ];
 
     # applist = [
@@ -1227,6 +1229,9 @@ in
         SearchSuggestEnabled = false;
       };
     };
+
+    direnv.enable = true;
+
     light.enable = true;
     # gtk search:
     plotinus.enable = true;
