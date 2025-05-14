@@ -630,7 +630,7 @@ in
       #windowmanager etc:
       wget
       i3
-      polybarFull
+      # polybarFull
       jq
       i3status
       i3status-rust
@@ -727,9 +727,28 @@ in
       so # stack overflow from the cli
       # atuin # magical shell history
       mcfly # shell history
-      joshuto
+      # joshuto
+      # rust ranger clone
       # is now a sytem module
-      # yazi # rust ranger clone
+      # yazi
+      yazi-unwrapped
+
+      # yazi deps:
+      file
+      jq
+      poppler-utils
+      _7zz
+      ffmpeg
+      fd
+      ripgrep
+      fzf
+      zoxide
+      imagemagick
+      chafa
+      resvg
+      # end yazi deps
+
+
       ranger
       # for ranger previews:
       atool
@@ -748,7 +767,7 @@ in
       libsixel
       # mutt-with-sidebar
       # mutt-kz
-      neomutt
+      # neomutt
       fclones # duplicate file finder
       xfce.thunar
       thunderbird
@@ -757,20 +776,20 @@ in
       paperkey
       gpa
       # offlineimap replaced by isync
-      notmuch
+      # notmuch
       # alot
       # remind    #calendar
       # wyrd      # front end for remind
       #pypyPackages.alot
       #python27Packages.alot
       filezilla
-      kcolorchooser
+      kdePackages.kcolorchooser
       gimp
       inkscape
       # (pkgs.blender.override { jackaudioSupport = true; })
       blender
       openscad
-      kdenlive
+      kdePackages.kdenlive
       # olive-editor
       ffmpeg-full
       simplescreenrecorder
@@ -1163,29 +1182,29 @@ in
 
       '';
     };
-    yazi = {
-      enable = true;
-      settings.yazi = {
-        manager = {
-          ratio = [
-            1
-            2
-            3
-          ];
-          sort_by = "modified";
-          sort_dir_first = true;
-          sort_sensitive = false;
-          sort_reverse = true;
-          show_hidden = false;
-          show_symlink = true;
-        };
-        preview = {
-          max_width = 1300;
-          max_height = 1500;
-          cache_dir = "";
-        };
-      };
-    };
+    # yazi = {
+    # enable = false;
+    # settings.yazi = {
+      # manager = {
+      # ratio = [
+      # 1
+      # 2
+      # 3
+      # ];
+      # sort_by = "mtime";
+      # sort_dir_first = true;
+      # sort_sensitive = false;
+      # sort_reverse = true;
+      # show_hidden = false;
+      # show_symlink = true;
+        # };
+        # preview = {
+          # max_width = 1300;
+          # max_height = 1500;
+          # cache_dir = "";
+        # };
+      # };
+    # };
 
     command-not-found.enable = true;
 
@@ -1234,9 +1253,9 @@ in
 
     light.enable = true;
     # gtk search:
-    plotinus.enable = true;
+    # plotinus.enable = true;
     # Android Debug Bridge
-    adb.enable = true;
+    # adb.enable = true;
     # for zrythm, see: https://github.com/NixOS/nixpkgs/issues/85546
     dconf.enable = true;
     # dconf.profiles.user = pkgs.writeText "dconf-user-profile" ''
@@ -1345,7 +1364,7 @@ in
         "libvirtd"
         "camera"
         # "vboxusers"
-        # "docker"
+        "docker"
       ];
       shell = pkgs.fish;
       # shell = pkgs.bashInteractive;
