@@ -162,7 +162,7 @@ with pkgs; {
   # boot.kernelPackages = pkgs.linuxPackages_5_10;
   # boot.kernelPackages = pkgs.linuxPackages_5_11;
   # boot.kernelPackages = pkgs.linuxPackages_5_15;
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
