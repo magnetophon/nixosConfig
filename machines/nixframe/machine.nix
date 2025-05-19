@@ -350,9 +350,11 @@ with pkgs; {
   programs.ssh = {
     knownHosts = {
       pronix = {
-        hostNames = [ "pronix" "62.131.134.154" ];
+        hostNames = [ "pronix" "81.206.32.45" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAO+MVZiekHvS8Tb599XUWSA1e/vydvPc3f4ZfG6HedF";
       };
+
+
     };
   };
 }
