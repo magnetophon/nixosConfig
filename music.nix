@@ -8,11 +8,11 @@ with pkgs;
     # soundcardPciId
     # rtirq.nameList
 
-    imports = [
+    # imports = [
         # Include musnix: a meta-module for realtime audio.
         # todo: make submodule
-        /home/bart/source/musnix/default.nix
-    ];
+        # /home/bart/source/musnix/default.nix
+    # ];
 
     musnix = {
         # enable = true;
@@ -86,7 +86,7 @@ with pkgs;
             bespokesynth
             bitmeter
             bjumblr
-            bristol
+            # bristol
             bsequencer
             bshapr
             bslizr
@@ -130,7 +130,7 @@ with pkgs;
             freqtweak
             fverb
             geonkick
-            gxmatcheq-lv2
+            # gxmatcheq-lv2
             gxplugins-lv2
             helm
             hybridreverb2
@@ -169,8 +169,8 @@ with pkgs;
             spectmorph
             speech-denoiser
             stochas
-            # stone-phaser
-            # string-machine
+            stone-phaser
+            string-machine
             swh_lv2
             synthv1
             surge
@@ -183,7 +183,7 @@ with pkgs;
             x42-plugins
             yoshimi
             zam-plugins
-            zynaddsubfx
+            # zynaddsubfx
             ###################################################################
             #                              faust                              #
             ###################################################################
@@ -221,8 +221,8 @@ with pkgs;
             jalv
             mod-distortion
             petrifoo
-            # guitarix
-            # zrythm
+            guitarix
+            zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             bitwig-studio
             ###################################################################
@@ -235,9 +235,9 @@ with pkgs;
             # jack_capture
             lilv
             lv2bm
-            # mamba # broken
+            mamba # broken
             qjackctl
-            sonic-lineup
+            # sonic-lineup
             vmpk
             qmidinet
             ###################################################################
@@ -256,18 +256,18 @@ with pkgs;
             ###################################################################
             polyphone # soundfont / sfz editor
             dfasma
-            freewheeling
+            # freewheeling
             # gigedit
             MMA
             #latencytop
-            # mixxx
+            mixxx
             #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
             real_time_config_quick_scan
             # supercollider_scel
             (pkgs.fmit.override { jackSupport = true; })
             sooperlooper
-            #vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
+            vimpc  #A vi/vim inspired client for the Music Player Daemon (mpd)
             ###################################################################
             #                           develpoment                           #
             ###################################################################

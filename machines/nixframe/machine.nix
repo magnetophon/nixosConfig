@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 with pkgs; {
-  imports = [ <nixos-hardware/framework/13-inch/12th-gen-intel> ];
+  # imports = [ <nixos-hardware/framework/13-inch/12th-gen-intel> ];
 
   networking.hostId = "f2119c72";
 
@@ -84,6 +84,11 @@ with pkgs; {
     # upower.noPollBatteries = true;
 
   };
+  # virtualisation.docker.enable = true;
+  # users.users.bart = {
+  # extraGroups = [ "docker" ];
+  # };
+
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
   environment.etc."fwupd/fwupd.conf" = lib.mkForce {
     source =
@@ -117,7 +122,7 @@ with pkgs; {
       builders-use-substitutes = true;
     };
     distributedBuilds = true;
-    # hostName = "62.251.18.196";
+    # hostName = "pronix";
     buildMachines = [{
       hostName = "builder";
       maxJobs = 16;
@@ -137,6 +142,14 @@ with pkgs; {
   # };
 
   networking.networkmanager.enable = true;
+  networking.extraHosts = ''
+    192.168.6.2 stratus.local
+    # to get access to the frotzbox via a tunnel on pronix:
+    # run on framework:
+    # ssh -L 8888:fritz.box:80 pronix
+    # 127.0.0.1 fritz.box
+
+  '';
 
   # imports =
   #[ (modulesPath + "/installer/scan/not-detected.nix")
