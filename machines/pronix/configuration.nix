@@ -19,7 +19,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   # head -c 8 /etc/machine-id
   networking.hostId = "392d5564";
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # Note: If you do partition the disk, make sure you set the disk’s scheduler to none. ZFS takes this step automatically if it does control the entire disk.
   # On NixOS, you an set your scheduler to none via:
   boot.kernelParams = [ "elevator=none" ];
@@ -120,7 +120,7 @@
       pinentry-curses
       smartmontools
       ranger
-      # yazi
+      yazi
       lf
       joshuto
       zoxide
@@ -256,22 +256,22 @@
         interval = "weekly";
       };
       trim.enable = true;
-      zed = {
-        settings = {
-          ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-          ZED_EMAIL_ADDR = [ "root" ];
-          ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-          ZED_EMAIL_OPTS = "@ADDRESS@";
+      # zed = {
+      # settings = {
+      # ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+      # ZED_EMAIL_ADDR = [ "root" ];
+      # ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+      # ZED_EMAIL_OPTS = "@ADDRESS@";
 
-          ZED_NOTIFY_INTERVAL_SECS = 3600;
-          ZED_NOTIFY_VERBOSE = true;
+      # ZED_NOTIFY_INTERVAL_SECS = 3600;
+      # ZED_NOTIFY_VERBOSE = true;
 
-          ZED_USE_ENCLOSURE_LEDS = true;
-          ZED_SCRUB_AFTER_RESILVER = true;
-        };
-        # this option does not work; will return error
-        enableMail = false;
-      };
+      # ZED_USE_ENCLOSURE_LEDS = true;
+      # ZED_SCRUB_AFTER_RESILVER = true;
+      # };
+      # this option does not work; will return error
+      # enableMail = false;
+        # };
     };
 
     # Enable the X11 windowing system.
@@ -305,7 +305,7 @@
       # vterm
       # ];
     };
-    pcscd.enable = true;
+    # pcscd.enable = true;
   };
 
   # Enable Wake on LAN
