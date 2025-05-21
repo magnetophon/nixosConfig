@@ -163,6 +163,8 @@ in
 
     fwupd.enable = true;
 
+    espanso.enable = true;
+
     # nixosManual.showManual = false;
     printing = {
       enable = true;
@@ -493,6 +495,7 @@ in
       nixpkgs-review
       # rnix-lsp
       nix-output-monitor
+      deploy-rs
       expect
       manix
       nox
