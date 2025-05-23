@@ -729,7 +729,8 @@ in
       trash-cli
       so # stack overflow from the cli
       # atuin # magical shell history
-      mcfly # shell history
+      # mcfly # shell history
+      speedtest-cli
       # joshuto
       # rust ranger clone
       # is now a sytem module

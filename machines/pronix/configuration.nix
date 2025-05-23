@@ -132,6 +132,7 @@
       nix-zsh-completions
       nixos-option
       nixfmt
+      speedtest-cli
       fzf
       skim
       bottom
