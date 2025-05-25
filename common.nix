@@ -424,8 +424,13 @@ in
     };
   };
 
+  nixpkgs.overlays = [
+    (import ./pkgs/ringboard.nix)
+  ];
+
   environment = {
     systemPackages = [
+      ringboard
 
       # m32edit
 
