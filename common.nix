@@ -391,7 +391,8 @@ in
       # percentageAction = 5;
     };
     # bluetooth gui:
-    blueman.enable = true;
+    # use bluetui instead
+    # blueman.enable = true;
   };
 
   # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
@@ -725,6 +726,7 @@ in
       pass
       rofi-pass
       silver-searcher
+      bluetui
       (ripgrep.override { withPCRE2 = true; })
       # ripgrep-all won't build: https://github.com/NixOS/nixpkgs/issues/250306
       ripgrep-all # also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.

@@ -84,10 +84,11 @@ with pkgs; {
     # upower.noPollBatteries = true;
 
   };
-  # virtualisation.docker.enable = true;
-  # users.users.bart = {
-  # extraGroups = [ "docker" ];
-  # };
+  # docker for stratus compilation:
+  virtualisation.docker.enable = true;
+  users.users.bart = {
+    extraGroups = [ "docker" ];
+  };
 
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
   environment.etc."fwupd/fwupd.conf" = lib.mkForce {
