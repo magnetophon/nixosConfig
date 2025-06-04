@@ -23,19 +23,19 @@ with pkgs; {
         STOP_CHARGE_THRESH_BAT0 = "90";
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        CPU_BOOST_ON_AC = "1";
+        # CPU_BOOST_ON_AC = "1";
         CPU_BOOST_ON_BAT = "0";
-        CPU_HWP_DYN_BOOST_ON_AC = "1";
+        # CPU_HWP_DYN_BOOST_ON_AC = "1";
         CPU_HWP_DYN_BOOST_ON_BAT = "0";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CIE_ASPM_ON_AC = "performance";
+        # CIE_ASPM_ON_AC = "performance";
         CIE_ASPM_ON_BAT = "powersupersave";
-        INTEL_GPU_MIN_FREQ_ON_AC = "300";
+        # INTEL_GPU_MIN_FREQ_ON_AC = "300";
         INTEL_GPU_MIN_FREQ_ON_BAT = "100";
-        INTEL_GPU_MAX_FREQ_ON_AC = "1300";
+        # INTEL_GPU_MAX_FREQ_ON_AC = "1300";
         INTEL_GPU_MAX_FREQ_ON_BAT = "300";
-        INTEL_GPU_BOOST_FREQ_ON_AC = "1300";
+        # INTEL_GPU_BOOST_FREQ_ON_AC = "1300";
         INTEL_GPU_BOOST_FREQ_ON_BAT = "300";
 
         PCIE_ASPM_ON_BAT = "powersupersave";
@@ -57,7 +57,7 @@ with pkgs; {
         # Note: effective only when SOUND_POWER_SAVE_ON_AC/BAT is activated.
         # Default: Y
         # SOUND_POWER_SAVE_CONTROLLER = "N";
-        USB_EXCLUDE_PHONE = "1";
+        # USB_EXCLUDE_PHONE = "1";
         # not needed because of https://github.com/NixOS/nixos-hardware/commit/bf212c4ef57b100c97735a210a3895d3dcc69aa9
         # USB_DENYLIST="0bda:8156";
       };
