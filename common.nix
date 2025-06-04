@@ -337,7 +337,7 @@ in
       lidSwitchDocked = "ignore";
       extraConfig = ''
         HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=ih'';
+        HibernateDelaySec=1h'';
     };
 
     # logind.lidSwitch = "hibernate";
@@ -425,13 +425,13 @@ in
     };
   };
 
-  nixpkgs.overlays = [
-    (import ./pkgs/ringboard.nix)
-  ];
+  # nixpkgs.overlays = [
+  # (import ./pkgs/ringboard.nix)
+  # ];
 
   environment = {
     systemPackages = [
-      ringboard
+      # ringboard
 
       # m32edit
 

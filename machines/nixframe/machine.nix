@@ -91,18 +91,19 @@ with pkgs; {
   };
 
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
-  environment.etc."fwupd/fwupd.conf" = lib.mkForce {
-    source =
-      pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
-        { } ''
-        cat ${pkgs.fwupd}/etc/fwupd/fwupd.conf > $out
-        cat >> $out <<EOF
+  services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
+  # environment.etc."fwupd/fwupd.conf" = lib.mkForce {
+  # source =
+  # pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
+  # { } ''
+  # cat ${pkgs.fwupd}/etc/fwupd/fwupd.conf > $out
+  # cat >> $out <<EOF
 
-        [uefi_capsule]
-        DisableCapsuleUpdateOnDisk=true
-        EOF
-      '';
-  };
+  # [uefi_capsule]
+  # DisableCapsuleUpdateOnDisk=true
+  # EOF
+  # '';
+  # };
   # needed for saving in Cardinal:
   xdg.portal = {
     enable = true;
