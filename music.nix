@@ -40,18 +40,19 @@ with pkgs;
                 configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
 
-            # faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
-            # version = "unstable-2020-03-20";
-            # src = fetchFromGitHub {
-            # owner = "grame-cncm";
-            # repo = "faust";
-            # rev = "2782088d4485f1c572755f41e7a072b41cb7148a";
-            # sha256 = "1l7bi2mq10s5wm8g4cdipg8gndd478x897qv0h7nqi1s2q9nq99p";
-            # fetchSubmodules = true;
-            # };
+            faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
+                version = "2.81.2";
+                src = fetchFromGitHub {
+                    owner = "grame-cncm";
+                    repo = "faust";
+                    rev = "b5f8d097b0ed005525eae7d8b2a8b15f20f58a62";
+                    sha256 = "sha256-Hem8g7t9jGnwsrBaON0xVaBJa5UFPSzjYpztcip6e8Q=";
+                    fetchSubmodules = true;
+                };
+            });
         };
         # overlays = lib.singleton (lib.const (super: {
-        #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
+            #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
         #         kernel = ksuper.kernel.override {
         #             structuredExtraConfig =
         #                 with import (pkgs.path + "/lib/kernel.nix")
@@ -103,8 +104,7 @@ with pkgs;
             ChowCentaur
             csa
             diopser
-            # distrho
-            distrho-ports
+            # distrho-ports
             dragonfly-reverb
             drumgizmo
             drumkv1
@@ -135,7 +135,7 @@ with pkgs;
             helm
             hybridreverb2
             hydrogen
-            industrializer
+            # industrializer
             infamousPlugins
             # ingen
             ir.lv2
@@ -216,13 +216,13 @@ with pkgs;
             ardour
             # helio-workstation
             #beast
-            carla
+            # carla
             audacity
             jalv
             mod-distortion
             petrifoo
             guitarix
-            zrythm
+            # zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             bitwig-studio
             ###################################################################
@@ -348,4 +348,4 @@ with pkgs;
     bart  ALL=(ALL) NOPASSWD: ${pkgs.systemd}/bin/systemctl
   '';
 
-}
+    }

@@ -683,7 +683,7 @@ in
       # gst_plugins_ugly
       tor-browser-bundle-bin
       i2pd
-      qutebrowser
+      # qutebrowser
       sqlitebrowser
       python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
       # nyxt
