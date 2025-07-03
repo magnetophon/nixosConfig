@@ -7,14 +7,19 @@
   };
 
   outputs = { self, nixpkgs, rust-overlay }: {
-    packages.x86_64-linux.ringboard = import nixpkgs {
-      overlays = [ (import rust-overlay) ];
-    }.rustPlatform.buildRustPackage rec {
+    packages.x86_64-linux.ringboard = let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ (import rust-overlay) ];
+      };
+
+      rustPlatform = pkgs.rust-bin.stable.latest.nightly.default; # Use nightly Rust
+    in rustPlatform.buildRustPackage rec {
       pname = "ringboard";
 
       version = "0.10.0";
 
-      src = nixpkgs.lib.fetchFromGitHub {
+      src = pkgs.fetchFromGitHub {
         owner = "SUPERCILEX";
         repo = "clipboard-history";
         rev = version;
@@ -24,9 +29,9 @@
       useFetchCargoVendor = true;
       cargoHash = "sha256-+E6BzfgUvpBZzkzvPvFfEt/IoVR/wU4uHECs4Dn5pIE=";
 
-      nativeBuildInputs = [ nixpkgs.makeWrapper ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
 
-      buildInputs = with nixpkgs; [
+      buildInputs = with pkgs; [
         libxkbcommon
         libGL
 
@@ -62,10 +67,10 @@
       '';
 
       postInstall = ''
-        wrapProgram  $out/bin/ringboard-egui --prefix LD_LIBRARY_PATH : "${nixpkgs.lib.makeLibraryPath buildInputs}"
+        wrapProgram  $out/bin/ringboard-egui --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath buildInputs}"
       '';
 
-      meta = with nixpkgs.lib; {
+      meta = with pkgs.lib; {
         description = "A fast, efficient, and composable clipboard manager for Linux";
         homepage = "https://github.com/SUPERCILEX/clipboard-history";
         license = licenses.asl20;
