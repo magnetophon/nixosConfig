@@ -716,6 +716,7 @@ in
       rink # Unit conversion tool and library written in rust
       transmission_4-gtk
       xrandr-invert-colors
+      wl-gammactl
       arandr
       xcalib
       sselp

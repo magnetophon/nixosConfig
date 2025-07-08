@@ -22,21 +22,44 @@ with pkgs; {
   '';
 
   #
+  programs.sway.enable = true;
   services = {
-    xserver = {
-      # videoDrivers = [ "modesetting" ];
-      # Fix font sizes in X
-      dpi = 120;
-      # videoDrivers = [ "intel" ];
-      # windowManager.remote_i3.enable = true;
-      windowManager.i3 = {
-        enable = true;
-        # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
+    #   xserver = {
+    #     # videoDrivers = [ "modesetting" ];
+    #     # Fix font sizes in X
+    #     dpi = 120;
+    #     # videoDrivers = [ "intel" ];
+    #     # windowManager.remote_i3.enable = true;
+    #     windowManager.i3 = {
+    #       enable = true;
+    #       # extraSessionCommands = "{pkgs.physlock}/bin/physlock -ds";
+    #     };
+    #   };
+    keyd = {
+      enable = true;
+      keyboards = {
+        # The name is just the name of the configuration file, it does not really matter
+        default = {
+          ids = [ "*" ]; # what goes into the [id] section, here we select all keyboards
+          # Everything but the ID section:
+          settings = {
+            # The main layer, if you choose to declare it in Nix
+            main = {
+              capslock = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
+              esc = "capslock";
+            };
+            otherlayer = {};
+          };
+          extraConfig = ''
+        # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
+      '';
+        };
       };
     };
 
+
     displayManager = {
-      defaultSession = "none+i3";
+      # defaultSession = "none+sway";
       #   # disable middle mouse buttons
       #   sessionCommands = ''
       #     xinput set-button-map 10 1 0 3  &&
@@ -58,8 +81,8 @@ with pkgs; {
         }
         # { device = "/dev/sdb"; }
       ];
-      notifications.test = true;
-      notifications.x11.enable = true;
+      # notifications.test = true;
+      # notifications.x11.enable = true;
     };
 
     ntp.enable = false;
@@ -83,6 +106,11 @@ with pkgs; {
     # Framework laptop doesn't require battery polling.
     # upower.noPollBatteries = true;
 
+};
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    QT_QPA_PLATFORM = "wayland";
   };
   # docker for stratus compilation:
   virtualisation.docker.enable = true;
