@@ -163,7 +163,7 @@ with pkgs; {
   # boot.kernelPackages = pkgs.linuxPackages_5_11;
   # boot.kernelPackages = pkgs.linuxPackages_5_15;
   # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   musnix = {
@@ -186,6 +186,7 @@ with pkgs; {
     VST_PATH =
       "$HOME/.vst:$HOME/.nix-profile/lib/vst:/run/current-system/sw/lib/vst";
   };
+
 
   # environment.sessionVariables = {
   # NIXOS_CONFIG = "/home/bart/nixosConfig/machines/nix14/default.nix";
