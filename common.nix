@@ -707,7 +707,7 @@ in
       })
       yewtube
       shotwell # gst-plugins-base == broken
-      galculator
+      # galculator
       qalculate-gtk
       libqalculate
       bc
