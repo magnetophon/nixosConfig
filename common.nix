@@ -740,6 +740,8 @@ in
       # atuin # magical shell history
       # mcfly # shell history
       speedtest-cli
+      zed-editor
+      evil-helix
       # joshuto
       # rust ranger clone
       # is now a sytem module
@@ -867,6 +869,7 @@ in
       #nl_wa2014
       # needed for direnv:
       devenv
+      nix-direnv
     ];
 
     # applist = [

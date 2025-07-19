@@ -142,6 +142,7 @@ with pkgs;
             jaaa
             jack_oscrolloscope
             jackmeter
+            jack-example-tools
             japa
             ladspaH
             ladspaPlugins
