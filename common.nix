@@ -303,7 +303,7 @@ in
     # };
     emacs = {
       enable = true;
-      defaultEditor = true;
+      # defaultEditor = true;
       # package = (emacs.override { imagemagick = pkgs.imagemagickBig; });
       # package =
       # ((emacsPackagesFor emacs26).emacsWithPackages (epkgs: [  # emacs 27 is default, but breaks faust for now
@@ -468,6 +468,7 @@ in
       tmux
       tealdeer # tldr
       navi # An interactive cheatsheet tool for the command-line
+      ollama
       languagetool
       mosh
       sshfs-fuse
@@ -476,6 +477,7 @@ in
       rust-analyzer # for doom rust
       rustup # for doom rust
       cookiecutter
+      kondo
       rxvt-unicode-unwrapped
       # termite          # https://github.com/thestinger/termite/issues/760
       # termite.terminfo # https://github.com/thestinger/termite/issues/760
@@ -683,7 +685,7 @@ in
       # gst_plugins_ugly
       tor-browser-bundle-bin
       i2pd
-      # qutebrowser
+      qutebrowser
       sqlitebrowser
       python3Packages.pyperclip # for qutebrowser, https://github.com/LaurenceWarne/qute-code-hint
       # nyxt
@@ -1033,6 +1035,10 @@ in
     fish = {
       enable = true;
     };
+
+
+    neovim.enable = true;
+    neovim.defaultEditor = true;
 
     # zsh has an annoying default config which I don't want
     # so to make it work well I have to turn it off first.

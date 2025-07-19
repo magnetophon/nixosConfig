@@ -170,6 +170,7 @@ with pkgs;
             speech-denoiser
             stochas
             stone-phaser
+            master_me
             string-machine
             swh_lv2
             synthv1
@@ -216,7 +217,7 @@ with pkgs;
             ardour
             # helio-workstation
             #beast
-            # carla
+            carla
             audacity
             jalv
             mod-distortion
@@ -261,7 +262,7 @@ with pkgs;
             MMA
             #latencytop
             mixxx
-            #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
+            # pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
             real_time_config_quick_scan
             # supercollider_scel
