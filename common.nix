@@ -740,7 +740,7 @@ in
       # atuin # magical shell history
       # mcfly # shell history
       speedtest-cli
-      zed-editor
+      # zed-editor
       evil-helix
       # joshuto
       # rust ranger clone
