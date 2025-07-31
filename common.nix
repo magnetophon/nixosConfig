@@ -496,6 +496,7 @@ in
       # nix-du
       nix-tree
       nixpkgs-review
+      gh # for nixpkgs-review
       nixpkgs-lint
       nix-prefetch-scripts
       nix-prefetch-git

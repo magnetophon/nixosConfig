@@ -124,6 +124,7 @@ with pkgs; {
       builders-use-substitutes = true;
     };
     distributedBuilds = true;
+    # nixPath = ["nixpkgs=/home/bart/source/nixpkgs" "nixos-config=/home/bart/nixosConfig/machines/nixframe/default.nix"];
     # hostName = "pronix";
     buildMachines = [{
       hostName = "builder";
@@ -134,6 +135,7 @@ with pkgs; {
       system = "x86_64-linux";
       speedFactor = 4;
       supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
+      # supportedFeatures = config.nix.settings.system-features;
       mandatoryFeatures = [ ];
     }];
   };
