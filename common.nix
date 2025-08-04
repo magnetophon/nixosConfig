@@ -450,6 +450,7 @@ in
       gdb
       ncurses
       bat
+      bat-extras.batman
       lf
       nnn
       ncdu # disk usage analyzer
@@ -504,6 +505,7 @@ in
       nixpkgs-review
       # rnix-lsp
       nix-output-monitor
+      nvd # diff system versions
       deploy-rs
       expect
       manix
@@ -699,10 +701,10 @@ in
       yt-dlp
       # freetube
       vlc
-      mumble
+      # mumble
       # jitsi-meet-electron
       # zoom-us # unfree
-      (mumble.override { jackSupport = true; })
+      # (mumble.override { jackSupport = true; })
       (mpv-unwrapped.override {
         jackaudioSupport = true;
         archiveSupport = true;
@@ -1197,6 +1199,7 @@ in
         # alias nb='nix-build -K -A $1 $(pwd)'
         # doesn't work, this one does:
         # nix-build -K -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
+        alias man=batman
 
         vi() {emacseditor --create-frame --quiet --no-wait "$@"}
         # export EDITOR="vi"
