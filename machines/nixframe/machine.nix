@@ -337,6 +337,7 @@ with pkgs; {
   boot.supportedFilesystems = [ "zfs" ];
   # networking.hostId = "f2119c72";
   # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.generationsDir.copyKernels = true;
