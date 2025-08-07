@@ -91,6 +91,7 @@
     allowed-users = [ "nixBuild" "@wheel" ];
     trusted-users = [ "nixBuild" ];
     auto-optimise-store = true;
+    download-buffer-size = 500000000; # 500 MB
   };
 
 
@@ -169,6 +170,9 @@
       rustc
 
       jq
+
+
+      ollama
       # dirname
     ];
 
