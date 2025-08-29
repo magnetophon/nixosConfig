@@ -91,7 +91,8 @@
     allowed-users = [ "nixBuild" "@wheel" ];
     trusted-users = [ "nixBuild" ];
     auto-optimise-store = true;
-    download-buffer-size = 500000000; # 500 MB
+    # https://github.com/NixOS/nix/issues/11728
+    download-buffer-size = 1073741824; # 1GB
   };
 
 
