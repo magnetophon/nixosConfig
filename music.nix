@@ -75,7 +75,6 @@ with pkgs;
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
-            CHOWTapeModel
             FIL-plugins
             adlplug
             aeolus
