@@ -458,6 +458,8 @@ in
       gdu
       lfs
       ts
+      rr # debugging
+      coppwr # pipewire settings
       xdotool # for auto-type
       xorg.sessreg
       heimdall # for installing android etc
