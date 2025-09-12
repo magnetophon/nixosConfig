@@ -169,6 +169,7 @@ with pkgs; {
     # "zfs.zfs_arc_max=4294967296" # 4GB max ARC cache
     # "zfs.zfs_arc_max=8589934592" # 8GB max ARC cache
     "zfs.zfs_arc_max=12884901888" # 12GB max ARC cache
+    "mem_sleep_default=deep" # Suspend first
     # sensor hub module conflicts with manual brightness adjustment
     # "module_blacklist=hid_sensor_hub"
     # disabling psr (panel self-refresh rate) as workaround for iGPU hangs

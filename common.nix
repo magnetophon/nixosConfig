@@ -331,13 +331,15 @@ in
         # extraTargets = ["display-manager.service"];
       };
     };
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "suspend-then-hibernate";
-      lidSwitchDocked = "ignore";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=1h'';
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend-then-hibernate";
+      HandleLidSwitchDocked = "ignore";
+      HandlePowerKey = "suspend-then-hibernate";
+      HandlePowerKeyLongPress = "poweroff";
+      # extraConfig = ''
+      # HandlePowerKey=suspend-then-hibernate
+      # HibernateDelaySec=1h'';
     };
 
     # logind.lidSwitch = "hibernate";
@@ -396,7 +398,11 @@ in
   };
 
   # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
-
+  # Define time delay for hibernation
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+    SuspendState=mem
+  '';
   # documentation.nixos.includeAllModules = true;
 
   nixpkgs = {
@@ -727,7 +733,8 @@ in
       units
       rink # Unit conversion tool and library written in rust
       transmission_4-gtk
-      xrandr-invert-colors
+      # gamma_randr.c:38:10: fatal error: xcb/xcb.h: No such file or directory
+      # xrandr-invert-colors
       arandr
       xcalib
       sselp

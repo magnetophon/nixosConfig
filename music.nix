@@ -72,6 +72,7 @@ with pkgs;
             # #################################################################
             #                             plugins                             #
             ###################################################################
+            # airwin2rack
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
@@ -124,7 +125,6 @@ with pkgs;
             open-music-kontrollers.vm
 
             fluidsynth
-            # fmsynth
             fomp
             freqtweak
             fverb
@@ -207,7 +207,7 @@ with pkgs;
             faust2jack
             faust2jaqt
             faust2lv2
-            kapitonov-plugins-pack
+            # kapitonov-plugins-pack
             mooSpace
 
             ###################################################################
@@ -217,7 +217,7 @@ with pkgs;
             ardour
             # helio-workstation
             #beast
-            carla
+            # carla
             audacity
             jalv
             mod-distortion
@@ -236,7 +236,7 @@ with pkgs;
             # jack_capture
             lilv
             lv2bm
-            mamba # broken
+            mamba
             qjackctl
             # sonic-lineup
             vmpk
@@ -257,7 +257,7 @@ with pkgs;
             ###################################################################
             polyphone # soundfont / sfz editor
             dfasma
-            # freewheeling
+            freewheeling
             # gigedit
             MMA
             #latencytop
