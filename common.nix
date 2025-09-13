@@ -475,12 +475,14 @@ in
       openjdk
       stow
       tmux
+      zellij
       tealdeer # tldr
       navi # An interactive cheatsheet tool for the command-line
       ollama
       languagetool
       mosh
       sshfs-fuse
+      emacs
       gnutls # for doom emacs irc
       nodejs # for doom lsp mode
       rust-analyzer # for doom rust
@@ -543,6 +545,7 @@ in
       tree
       htop
       bottom
+      btop
       s-tui
       iotop
       powertop
@@ -665,6 +668,7 @@ in
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev # get the name of a key or key-combo
+      xwininfo
       uutils-coreutils-noprefix
       # busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
       (busybox.overrideAttrs (oldAttrs: {
