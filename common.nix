@@ -301,8 +301,8 @@ in
     # enable = true;
     # autoMaster =
     # };
-    emacs = {
-      enable = true;
+    # emacs = {
+    # enable = true;
       # defaultEditor = true;
       # package = (emacs.override { imagemagick = pkgs.imagemagickBig; });
       # package =
@@ -318,7 +318,7 @@ in
       # };
       # package = ((emacsPackagesFor emacsNativeComp).emacsWithPackages
       # (epkgs: [ epkgs.vterm ]));
-    };
+    # };
     physlock = {
       enable = true;
       allowAnyUser = true;
@@ -1216,7 +1216,7 @@ in
         # nix-build -K -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
         alias man=batman
 
-        vi() {emacseditor --create-frame --quiet --no-wait "$@"}
+        # vi() {emacseditor --create-frame --quiet --no-wait "$@"}
         # export EDITOR="vi"
 
       '';
