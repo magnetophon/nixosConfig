@@ -111,6 +111,7 @@ with pkgs;
             # ensemble-chorus
             eq10q
             # open-music-kontrollers.eteroj
+            fire
 
             open-music-kontrollers.eteroj
             open-music-kontrollers.jit
