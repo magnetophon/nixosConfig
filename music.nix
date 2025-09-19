@@ -72,7 +72,7 @@ with pkgs;
             # #################################################################
             #                             plugins                             #
             ###################################################################
-            # airwin2rack
+            airwin2rack
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
@@ -155,6 +155,7 @@ with pkgs;
             ninjas2
             noise-repellent
             nova-filters
+            odin2
             oxefmsynth
             padthv1
             quadrafuzz
