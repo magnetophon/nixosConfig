@@ -25,7 +25,7 @@ with pkgs;
     nixpkgs = {
         config.packageOverrides = pkgs: rec {
             guitarix = pkgs.guitarix.override { optimizationSupport = true; }; # TODO: upstream
-            plugins = [
+            pd_plugins = [
                 helmholtz
                 timbreid
                 maxlib
@@ -35,7 +35,7 @@ with pkgs;
                 mrpeach
             ];
             # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
-            fullPD = puredata-with-plugins plugins;
+            fullPD = puredata-with-plugins pd_plugins;
             qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
                 configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
