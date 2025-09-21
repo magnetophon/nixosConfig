@@ -87,7 +87,7 @@ with pkgs;
             bespokesynth
             bitmeter
             bjumblr
-            # bristol
+            bristol
             bsequencer
             bshapr
             bslizr
@@ -108,21 +108,21 @@ with pkgs;
             dragonfly-reverb
             drumgizmo
             drumkv1
-            # ensemble-chorus
+            ensemble-chorus
             eq10q
             # open-music-kontrollers.eteroj
             fire
 
             open-music-kontrollers.eteroj
             open-music-kontrollers.jit
-            # open-music-kontrollers.mephisto
+            open-music-kontrollers.mephisto
             open-music-kontrollers.midi_matrix
             open-music-kontrollers.moony
             open-music-kontrollers.orbit
             open-music-kontrollers.patchmatrix
             open-music-kontrollers.router
-            # open-music-kontrollers.sherlock
-            # open-music-kontrollers.synthpod
+            open-music-kontrollers.sherlock
+            open-music-kontrollers.synthpod
             open-music-kontrollers.vm
 
             fluidsynth
