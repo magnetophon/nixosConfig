@@ -219,13 +219,13 @@ with pkgs;
             ardour
             # helio-workstation
             #beast
-            # carla
+            carla
             audacity
             jalv
             mod-distortion
             petrifoo
             guitarix
-            # zrythm
+            zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             bitwig-studio
             reaper
