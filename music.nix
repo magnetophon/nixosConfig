@@ -104,7 +104,7 @@ with pkgs;
             ChowCentaur
             csa
             diopser
-            # distrho-ports
+            distrho-ports
             dragonfly-reverb
             drumgizmo
             drumkv1
