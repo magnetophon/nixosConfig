@@ -434,13 +434,19 @@ in
   # nixpkgs.overlays = [
   # (import ./pkgs/ringboard.nix)
   # ];
+  services.gnome.gnome-keyring.enable = true;
+
+  # If you're not using GNOME, you might also need:
+  programs.seahorse.enable = true; # GUI for managing keyring
 
   environment = {
     systemPackages = [
       # ringboard
 
       # m32edit
-
+      authenticator
+      gnome-keyring
+      libsecret
       # for battery shutdown event:
       acpid
       acpi
@@ -1247,7 +1253,7 @@ in
     command-not-found.enable = true;
 
     ssh = {
-      startAgent = true;
+      # startAgent = true;
       askPassword = "";
     };
 

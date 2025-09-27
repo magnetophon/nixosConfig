@@ -23,6 +23,9 @@ with pkgs; {
 
   #
   services = {
+
+    # ringboard.x11.enable = true;
+
     xserver = {
       # videoDrivers = [ "modesetting" ];
       # Fix font sizes in X
@@ -326,11 +329,14 @@ with pkgs; {
     };
   };
 
+  networking.wireless.iwd.enable = true;
+
   # Scrub to find errors
   services.zfs.autoScrub = {
     enable = true;
     interval = "weekly";
   };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

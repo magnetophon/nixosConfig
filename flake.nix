@@ -4,6 +4,7 @@
   # For accessing `deploy-rs`'s utility Nix functions
   inputs.deploy-rs.url = "github:serokell/deploy-rs";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # inputs.nixpkgs.url = "path:/home/bart/source/nixpkgs";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.musnix.url = "github:musnix/musnix";
 
