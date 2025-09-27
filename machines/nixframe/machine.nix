@@ -329,6 +329,7 @@ with pkgs; {
     };
   };
 
+  # for impala
   networking.wireless.iwd.enable = true;
 
   # Scrub to find errors

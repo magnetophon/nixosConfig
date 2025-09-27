@@ -691,6 +691,7 @@ in
       rofi-systemd
       rofimoji
 
+      impala
       networkmanager_dmenu
       conky
       dzen2
