@@ -544,6 +544,7 @@ in
       physlock
       asciinema
       neofetch
+      fastfetch
       tuir
       wiki-tui
       tree
