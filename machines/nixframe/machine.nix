@@ -21,10 +21,13 @@ with pkgs; {
     bart  ALL=(root) NOPASSWD: /root/.local/bin/toggle_fan_max.sh
   '';
 
+  hardware.fw-fanctrl.enable = true;
   #
   services = {
 
     # ringboard.x11.enable = true;
+    
+    # angrr.enable = true;
 
     xserver = {
       # videoDrivers = [ "modesetting" ];
