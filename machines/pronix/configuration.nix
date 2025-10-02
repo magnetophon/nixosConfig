@@ -175,6 +175,11 @@
 
       ollama
       # dirname
+      #
+      ollama
+      fish
+      fclones
+      nixpkgs-review
     ];
 
     shells = [ pkgs.zsh ];
@@ -186,6 +191,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   programs = {
     zsh.enable = true;
