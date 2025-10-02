@@ -19,7 +19,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   # head -c 8 /etc/machine-id
   networking.hostId = "392d5564";
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # Note: If you do partition the disk, make sure you set the disk’s scheduler to none. ZFS takes this step automatically if it does control the entire disk.
   # On NixOS, you an set your scheduler to none via:
   boot.kernelParams = [ "elevator=none" ];
@@ -34,8 +34,9 @@
     #"/dev/disk/by-id/wwn-0x5000c500688c9f77" # DISK4 DEAD
     # "/dev/disk/by-id/wwn-0x5000c500681b817b" # DISK14 DEAD
     "/dev/disk/by-id/wwn-0x5000c500684c2f73" # DISK15
-    "/dev/disk/by-id/wwn-0x5000c5004be2033b" # DISK16
+    # "/dev/disk/by-id/wwn-0x5000c5004be2033b" # DISK16 FAULTED
     "/dev/disk/by-id/wwn-0x5000c500681b26fb" # DISK17
+    "/dev/disk/by-id/wwn-0x5000c500763332ff" # DISK18
   ];
   boot.tmp.useTmpfs = true;
   networking.hostName = "pronix"; # Define your hostname.
@@ -90,6 +91,8 @@
     allowed-users = [ "nixBuild" "@wheel" ];
     trusted-users = [ "nixBuild" ];
     auto-optimise-store = true;
+    # https://github.com/NixOS/nix/issues/11728
+    download-buffer-size = 1073741824; # 1GB
   };
 
 
@@ -120,7 +123,7 @@
       pinentry-curses
       smartmontools
       ranger
-      # yazi
+      yazi
       lf
       joshuto
       zoxide
@@ -132,6 +135,7 @@
       nix-zsh-completions
       nixos-option
       nixfmt
+      speedtest-cli
       fzf
       skim
       bottom
@@ -167,6 +171,9 @@
       rustc
 
       jq
+
+
+      ollama
       # dirname
       #
       ollama
@@ -263,22 +270,22 @@
         interval = "weekly";
       };
       trim.enable = true;
-      zed = {
-        settings = {
-          ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-          ZED_EMAIL_ADDR = [ "root" ];
-          ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-          ZED_EMAIL_OPTS = "@ADDRESS@";
+      # zed = {
+      # settings = {
+      # ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+      # ZED_EMAIL_ADDR = [ "root" ];
+      # ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+      # ZED_EMAIL_OPTS = "@ADDRESS@";
 
-          ZED_NOTIFY_INTERVAL_SECS = 3600;
-          ZED_NOTIFY_VERBOSE = true;
+      # ZED_NOTIFY_INTERVAL_SECS = 3600;
+      # ZED_NOTIFY_VERBOSE = true;
 
-          ZED_USE_ENCLOSURE_LEDS = true;
-          ZED_SCRUB_AFTER_RESILVER = true;
-        };
-        # this option does not work; will return error
-        enableMail = false;
-      };
+      # ZED_USE_ENCLOSURE_LEDS = true;
+      # ZED_SCRUB_AFTER_RESILVER = true;
+      # };
+      # this option does not work; will return error
+      # enableMail = false;
+        # };
     };
 
     # Enable the X11 windowing system.
@@ -312,7 +319,7 @@
       # vterm
       # ];
     };
-    pcscd.enable = true;
+    # pcscd.enable = true;
   };
 
   # Enable Wake on LAN

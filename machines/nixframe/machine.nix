@@ -21,8 +21,14 @@ with pkgs; {
     bart  ALL=(root) NOPASSWD: /root/.local/bin/toggle_fan_max.sh
   '';
 
+  hardware.fw-fanctrl.enable = true;
   #
   services = {
+
+    # ringboard.x11.enable = true;
+    
+    # angrr.enable = true;
+
     xserver = {
       # videoDrivers = [ "modesetting" ];
       # Fix font sizes in X
@@ -84,24 +90,26 @@ with pkgs; {
     # upower.noPollBatteries = true;
 
   };
-  # virtualisation.docker.enable = true;
-  # users.users.bart = {
-  # extraGroups = [ "docker" ];
-  # };
+  # docker for stratus compilation:
+  virtualisation.docker.enable = true;
+  users.users.bart = {
+    extraGroups = [ "docker" ];
+  };
 
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
-  environment.etc."fwupd/fwupd.conf" = lib.mkForce {
-    source =
-      pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
-        { } ''
-        cat ${pkgs.fwupd}/etc/fwupd/fwupd.conf > $out
-        cat >> $out <<EOF
+  services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
+  # environment.etc."fwupd/fwupd.conf" = lib.mkForce {
+  # source =
+  # pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
+  # { } ''
+  # cat ${pkgs.fwupd}/etc/fwupd/fwupd.conf > $out
+  # cat >> $out <<EOF
 
-        [uefi_capsule]
-        DisableCapsuleUpdateOnDisk=true
-        EOF
-      '';
-  };
+  # [uefi_capsule]
+  # DisableCapsuleUpdateOnDisk=true
+  # EOF
+  # '';
+  # };
   # needed for saving in Cardinal:
   xdg.portal = {
     enable = true;
@@ -122,6 +130,7 @@ with pkgs; {
       builders-use-substitutes = true;
     };
     distributedBuilds = true;
+    # nixPath = ["nixpkgs=/home/bart/source/nixpkgs" "nixos-config=/home/bart/nixosConfig/machines/nixframe/default.nix"];
     # hostName = "pronix";
     buildMachines = [{
       hostName = "builder";
@@ -132,6 +141,7 @@ with pkgs; {
       system = "x86_64-linux";
       speedFactor = 4;
       supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
+      # supportedFeatures = config.nix.settings.system-features;
       mandatoryFeatures = [ ];
     }];
   };
@@ -165,6 +175,7 @@ with pkgs; {
     # "zfs.zfs_arc_max=4294967296" # 4GB max ARC cache
     # "zfs.zfs_arc_max=8589934592" # 8GB max ARC cache
     "zfs.zfs_arc_max=12884901888" # 12GB max ARC cache
+    "mem_sleep_default=deep" # Suspend first
     # sensor hub module conflicts with manual brightness adjustment
     # "module_blacklist=hid_sensor_hub"
     # disabling psr (panel self-refresh rate) as workaround for iGPU hangs
@@ -321,11 +332,15 @@ with pkgs; {
     };
   };
 
+  # for impala
+  networking.wireless.iwd.enable = true;
+
   # Scrub to find errors
   services.zfs.autoScrub = {
     enable = true;
     interval = "weekly";
   };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -333,6 +348,7 @@ with pkgs; {
   boot.supportedFilesystems = [ "zfs" ];
   # networking.hostId = "f2119c72";
   # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.generationsDir.copyKernels = true;

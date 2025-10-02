@@ -1,15 +1,17 @@
 {
-  description = "NixOS flake for magnetophon/nixosConfig with nixframe host";
+  description = "Deployment for my server";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
+  # For accessing `deploy-rs`'s utility Nix functions
+  inputs.deploy-rs.url = "github:serokell/deploy-rs";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # inputs.nixpkgs.url = "path:/home/bart/source/nixpkgs";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.musnix.url = "github:musnix/musnix";
 
-  outputs = { self, nixpkgs, nixos-hardware, musnix, ... }:
+  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, musnix }:
     let
       system = "x86_64-linux";
     in {
-
       nixosConfigurations.nixframe = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
@@ -19,12 +21,39 @@
         ];
       };
 
-    nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./machines/nixframe/rt.nix
+          nixos-hardware.nixosModules.framework-12-13th-gen-intel
+          musnix.nixosModules.musnix
+        ];
+      };
+
+      nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./machines/pronix/configuration.nix
         ];
       };
 
+      deploy.nodes.pronix = {
+        hostname = "81.206.32.45"; # or your pronix's real hostname or IP
+        sshUser = "bart";
+        user = "root";
+        # Whether to enable interactive sudo (password based sudo). Useful when using non-root sshUsers.
+        # This defaults to `false`
+        interactiveSudo = true;
+        # This is an optional list of arguments that will be passed to SSH.
+        sshOpts = [ "-p" "511" ];
+        remoteBuild = true;
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.pronix;
+        };
+      };
+
+      # This is highly advised, and will prevent many possible mistakes
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
-}
+  }

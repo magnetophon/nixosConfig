@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 with pkgs; {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     # <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # machine specific:
     ./machine.nix

@@ -25,7 +25,7 @@ with pkgs;
     nixpkgs = {
         config.packageOverrides = pkgs: rec {
             guitarix = pkgs.guitarix.override { optimizationSupport = true; }; # TODO: upstream
-            plugins = [
+            pd_plugins = [
                 helmholtz
                 timbreid
                 maxlib
@@ -35,23 +35,24 @@ with pkgs;
                 mrpeach
             ];
             # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
-            fullPD = puredata-with-plugins plugins;
+            fullPD = puredata-with-plugins pd_plugins;
             qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
                 configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
 
-            # faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
-            # version = "unstable-2020-03-20";
-            # src = fetchFromGitHub {
-            # owner = "grame-cncm";
-            # repo = "faust";
-            # rev = "2782088d4485f1c572755f41e7a072b41cb7148a";
-            # sha256 = "1l7bi2mq10s5wm8g4cdipg8gndd478x897qv0h7nqi1s2q9nq99p";
-            # fetchSubmodules = true;
-            # };
+            faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
+                version = "2.81.2";
+                src = fetchFromGitHub {
+                    owner = "grame-cncm";
+                    repo = "faust";
+                    rev = "b5f8d097b0ed005525eae7d8b2a8b15f20f58a62";
+                    sha256 = "sha256-Hem8g7t9jGnwsrBaON0xVaBJa5UFPSzjYpztcip6e8Q=";
+                    fetchSubmodules = true;
+                };
+            });
         };
         # overlays = lib.singleton (lib.const (super: {
-        #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
+            #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
         #         kernel = ksuper.kernel.override {
         #             structuredExtraConfig =
         #                 with import (pkgs.path + "/lib/kernel.nix")
@@ -71,10 +72,10 @@ with pkgs;
             # #################################################################
             #                             plugins                             #
             ###################################################################
+            airwin2rack
             # airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
-            CHOWTapeModel
             FIL-plugins
             adlplug
             aeolus
@@ -86,7 +87,7 @@ with pkgs;
             bespokesynth
             bitmeter
             bjumblr
-            # bristol
+            bristol
             bsequencer
             bshapr
             bslizr
@@ -103,29 +104,28 @@ with pkgs;
             ChowCentaur
             csa
             diopser
-            # distrho
             distrho-ports
             dragonfly-reverb
             drumgizmo
             drumkv1
-            # ensemble-chorus
+            ensemble-chorus
             eq10q
             # open-music-kontrollers.eteroj
+            fire
 
             open-music-kontrollers.eteroj
             open-music-kontrollers.jit
-            # open-music-kontrollers.mephisto
+            open-music-kontrollers.mephisto
             open-music-kontrollers.midi_matrix
             open-music-kontrollers.moony
             open-music-kontrollers.orbit
             open-music-kontrollers.patchmatrix
             open-music-kontrollers.router
-            # open-music-kontrollers.sherlock
-            # open-music-kontrollers.synthpod
+            open-music-kontrollers.sherlock
+            open-music-kontrollers.synthpod
             open-music-kontrollers.vm
 
             fluidsynth
-            # fmsynth
             fomp
             freqtweak
             fverb
@@ -135,13 +135,14 @@ with pkgs;
             helm
             hybridreverb2
             hydrogen
-            industrializer
+            # industrializer
             infamousPlugins
             # ingen
             ir.lv2
             jaaa
             jack_oscrolloscope
             jackmeter
+            jack-example-tools
             japa
             ladspaH
             ladspaPlugins
@@ -154,6 +155,7 @@ with pkgs;
             ninjas2
             noise-repellent
             nova-filters
+            odin2
             oxefmsynth
             padthv1
             quadrafuzz
@@ -170,6 +172,7 @@ with pkgs;
             speech-denoiser
             stochas
             stone-phaser
+            master_me
             string-machine
             swh_lv2
             synthv1
@@ -206,7 +209,7 @@ with pkgs;
             faust2jack
             faust2jaqt
             faust2lv2
-            kapitonov-plugins-pack
+            # kapitonov-plugins-pack
             mooSpace
 
             ###################################################################
@@ -225,6 +228,7 @@ with pkgs;
             zrythm
             # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
             bitwig-studio
+            reaper
             ###################################################################
             #                            utilities                            #
             ###################################################################
@@ -235,7 +239,7 @@ with pkgs;
             # jack_capture
             lilv
             lv2bm
-            mamba # broken
+            mamba
             qjackctl
             # sonic-lineup
             vmpk
@@ -256,12 +260,12 @@ with pkgs;
             ###################################################################
             polyphone # soundfont / sfz editor
             dfasma
-            # freewheeling
+            freewheeling
             # gigedit
             MMA
             #latencytop
             mixxx
-            #pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
+            # pkgs.puredata-with-plugins.override { plugins = [ helmholtz timbreid maxlib puremapping zexy cyclone mrpeach ]; }
             fullPD
             real_time_config_quick_scan
             # supercollider_scel
@@ -348,4 +352,4 @@ with pkgs;
     bart  ALL=(ALL) NOPASSWD: ${pkgs.systemd}/bin/systemctl
   '';
 
-}
+    }
