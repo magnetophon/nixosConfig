@@ -782,7 +782,6 @@ in
       fd
       ripgrep
       fzf
-      zoxide
       imagemagick
       chafa
       resvg
@@ -1064,7 +1063,8 @@ in
       enable = true;
     };
 
-
+    zoxide.enable = true;
+    
     neovim.enable = true;
     neovim.defaultEditor = true;
 
@@ -1231,25 +1231,25 @@ in
     # yazi = {
     # enable = false;
     # settings.yazi = {
-      # manager = {
-      # ratio = [
-      # 1
-      # 2
-      # 3
-      # ];
-      # sort_by = "mtime";
-      # sort_dir_first = true;
-      # sort_sensitive = false;
-      # sort_reverse = true;
-      # show_hidden = false;
-      # show_symlink = true;
-        # };
-        # preview = {
-          # max_width = 1300;
-          # max_height = 1500;
-          # cache_dir = "";
-        # };
-      # };
+    # manager = {
+    # ratio = [
+    # 1
+    # 2
+    # 3
+    # ];
+    # sort_by = "mtime";
+    # sort_dir_first = true;
+    # sort_sensitive = false;
+    # sort_reverse = true;
+    # show_hidden = false;
+    # show_symlink = true;
+    # };
+    # preview = {
+    # max_width = 1300;
+    # max_height = 1500;
+    # cache_dir = "";
+    # };
+    # };
     # };
 
     command-not-found.enable = true;
