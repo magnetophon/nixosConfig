@@ -2,10 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -24,7 +30,8 @@
   # On NixOS, you an set your scheduler to none via:
   boot.kernelParams = [ "elevator=none" ];
   #/dev/disk/by-id/wwn-0x5000c5005f5cb3b3"rt- Define on which hard drive you want to install Grub.
-  boot.loader.grub.devices = [ # or "nodev" for efi only
+  boot.loader.grub.devices = [
+    # or "nodev" for efi only
     # DISK1: swap, if none of the other disks are there, we don't have a system, so no need for a bootloader
     # TODO: replace DISK2 with DISK9 after badblocks and long test
     #"/dev/disk/by-id/wwn-0x5000c5005ea8da23" # DISK2   DEAD
@@ -65,16 +72,15 @@
   #   keyMap = "us";
   # };
 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
-    defaultUserShell = pkgs.zsh;
+    defaultUserShell = pkgs.bash;
     groups.nixBuild = { };
     users = {
       bart = {
         isNormalUser = true;
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-        # shell = pkgs.zsh;
+        shell = pkgs.fish;
       };
       nixBuild = {
         name = "nixBuild";
@@ -88,13 +94,15 @@
     };
   };
   nix.settings = {
-    allowed-users = [ "nixBuild" "@wheel" ];
+    allowed-users = [
+      "nixBuild"
+      "@wheel"
+    ];
     trusted-users = [ "nixBuild" ];
     auto-optimise-store = true;
     # https://github.com/NixOS/nix/issues/11728
     download-buffer-size = 1073741824; # 1GB
   };
-
 
   #virtualisation.virtualbox =
   #{
@@ -152,10 +160,10 @@
       mu
       isync
       editorconfig-core-c # per-project style config
-      gnutls              # for TLS connectivity
-      imagemagickBig         # for image-dired
-      pinentry-emacs      # in-emacs gnupg prompts
-      zstd                # for undo-tree compression
+      gnutls # for TLS connectivity
+      imagemagickBig # for image-dired
+      pinentry-emacs # in-emacs gnupg prompts
+      zstd # for undo-tree compression
       aspell
       sqlite
       nodejs
@@ -171,7 +179,12 @@
       rustc
 
       jq
+      stow
 
+      gitAndTools.delta
+
+      lldb # for helix
+      evil-helix
 
       ollama
       # dirname
@@ -192,10 +205,24 @@
   #   enableSSHSupport = true;
   # };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   programs = {
     zsh.enable = true;
+    fish.enable = true;
+    bash = {
+      enable = true;
+      interactiveShellInit = ''
+        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+        then
+          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        fi
+      '';
+    };
     mosh.enable = true;
 
     # Mail notification for ZFS Event Daemon:
@@ -252,10 +279,10 @@
     fail2ban = {
       enable = true;
       jails.sshd = lib.mkForce ''
-      enabled = true
-      filter = sshd
-      ignoreip = 127.0.0.1/8,192.168.178.1/24
-    '';
+        enabled = true
+        filter = sshd
+        ignoreip = 127.0.0.1/8,192.168.178.1/24
+      '';
     };
 
     smartd = {
@@ -263,7 +290,7 @@
     };
 
     # ZFS services
-    zfs= {
+    zfs = {
       autoSnapshot.enable = true;
       autoScrub = {
         enable = true;
@@ -285,7 +312,7 @@
       # };
       # this option does not work; will return error
       # enableMail = false;
-        # };
+      # };
     };
 
     # Enable the X11 windowing system.
