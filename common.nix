@@ -694,6 +694,7 @@ in
 
       impala
       networkmanager_dmenu
+      ethtool
       conky
       dzen2
       xpra

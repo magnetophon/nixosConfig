@@ -186,7 +186,8 @@
       lldb # for helix
       evil-helix
 
-      ollama
+      ethtool
+
       # dirname
       #
       ollama
