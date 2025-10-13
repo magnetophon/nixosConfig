@@ -155,17 +155,8 @@ with pkgs; {
   };
   # hardware.pulseaudio.enable = true;
 
-  # boot.kernelPackages = pkgs.linuxPackages_4_19;
-  # boot.kernelPackages = pkgs.linuxPackages_5_4;
-  # boot.kernelPackages = pkgs.linuxPackages_5_10;
-  # boot.kernelPackages = pkgs.linuxPackages_5_11;
-  # boot.kernelPackages = pkgs.linuxPackages_5_15;
-  #
-  # 6_16 doesn't build (yet) with zfs:
-  # boot.kernelPackages = pkgs.linuxPackages_6_15;
-
-  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   musnix = {

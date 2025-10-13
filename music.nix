@@ -151,6 +151,7 @@ with pkgs;
             LibreArp-lv2
             mda_lv2
             molot-lite
+            ctagdrc
             mod-arpeggiator-lv2
             ninjas2
             noise-repellent
@@ -160,6 +161,7 @@ with pkgs;
             padthv1
             quadrafuzz
             plugin-torture
+            pluginval
             qsampler
             qsynth
             # rc-effect-playground # https://github.com/jpcima/rc-effect-playground/issues/4
