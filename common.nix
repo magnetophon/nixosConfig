@@ -816,6 +816,8 @@ in
       xfce.thunar
       thunderbird
       isync
+      jdupes
+      lazygit
       # taskwarrior
       paperkey
       gpa
