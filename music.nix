@@ -85,7 +85,6 @@ with pkgs;
             x42-avldrums
             bchoppr
             bespokesynth
-            bitmeter
             bjumblr
             bristol
             bsequencer

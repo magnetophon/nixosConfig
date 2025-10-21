@@ -748,7 +748,7 @@ in
       rink # Unit conversion tool and library written in rust
       transmission_4-gtk
       # gamma_randr.c:38:10: fatal error: xcb/xcb.h: No such file or directory
-      # xrandr-invert-colors
+      xrandr-invert-colors
       arandr
       xcalib
       sselp
