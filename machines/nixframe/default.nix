@@ -155,7 +155,7 @@ with pkgs; {
   };
   # hardware.pulseaudio.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_16;
+  # boot.kernelPackages = pkgs.linuxPackages_6_16;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_testing;
 

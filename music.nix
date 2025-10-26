@@ -109,7 +109,6 @@ with pkgs;
             drumkv1
             ensemble-chorus
             eq10q
-            # open-music-kontrollers.eteroj
             fire
 
             open-music-kontrollers.eteroj
@@ -134,8 +133,8 @@ with pkgs;
             helm
             hybridreverb2
             hydrogen
-            # industrializer
             infamousPlugins
+            industrializer
             # ingen
             ir.lv2
             jaaa
@@ -181,18 +180,18 @@ with pkgs;
             surge-XT
             tamgamp.lv2
             tetraproc
-            # uhhyou.lv2
+            # uhhyou.lv2  # 'uhhyou.lv2' has been removed, upstream gone
             vocproc
             wolf-shaper
             x42-plugins
             yoshimi
             zam-plugins
-            # zynaddsubfx
+            zynaddsubfx
             ###################################################################
             #                              faust                              #
             ###################################################################
 
-            # magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
+            magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
             magnetophonDSP.CharacterCompressor
             # magnetophonDSP.CompBus # long build, not used
             # magnetophonDSP.ConstantDetuneChorus
@@ -218,8 +217,7 @@ with pkgs;
             ###################################################################
 
             ardour
-            # helio-workstation
-            #beast
+            helio-workstation
             carla
             audacity
             jalv
@@ -242,7 +240,7 @@ with pkgs;
             lv2bm
             mamba
             qjackctl
-            # sonic-lineup
+            sonic-lineup
             vmpk
             qmidinet
             ###################################################################
