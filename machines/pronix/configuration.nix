@@ -152,7 +152,7 @@
       shellcheck
       # doom emacs dependencies
       git
-      # emacs # Emacs 27.2
+      emacs
       cmake
       gnumake
       pandoc
@@ -332,21 +332,13 @@
 
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
-    emacs = {
-      enable = true;
-      defaultEditor = true;
-      package = pkgs.emacs.override {
-        withNativeCompilation = true;
-      };
-      # package =
-      # ((emacsPackagesFor emacsNativeComp).emacsWithPackages (epkgs: [
-      # epkgs.vterm
-      # ]));
-
-      # extraPackages = epkgs: with epkgs; [
-      # vterm
-      # ];
-    };
+    # emacs = {
+    # enable = true;
+    # defaultEditor = true;
+    # package = pkgs.emacs.override {
+    # withNativeCompilation = true;
+    # };
+    # };
     # pcscd.enable = true;
   };
 
