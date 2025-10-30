@@ -208,7 +208,7 @@ with pkgs;
             faust2jack
             faust2jaqt
             faust2lv2
-            # kapitonov-plugins-pack
+            kapitonov-plugins-pack
             mooSpace
 
             ###################################################################

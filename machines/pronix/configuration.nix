@@ -127,7 +127,6 @@
       mkpasswd
       pass
       gnupg
-      pinentry
       pinentry-curses
       smartmontools
       ranger
