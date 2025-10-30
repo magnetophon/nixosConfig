@@ -472,7 +472,7 @@ in
       ncdu # disk usage analyzer
       # dua # disk usage analyzer, doesn't understand symbolic links
       gdu
-      lfs
+      dysk
       ts
       rr # debugging
       coppwr # pipewire settings
@@ -567,7 +567,7 @@ in
       hdparm
       testdisk
       udiskie
-      glxinfo
+      mesa-demos
       libva-utils # collection of utilities and examples to exercise VA-API
       usbutils
       pciutils
@@ -576,13 +576,13 @@ in
       lsof
       psmisc
       gitFull
-      gitAndTools.hub # GitHub extension to git
-      # gitAndTools.gitAnnex
-      gitAndTools.diff-so-fancy
-      gitAndTools.delta
-      # gitAndTools.grv # build failed
-      gitAndTools.tig
-      gitAndTools.gitui
+      hub # GitHub extension to git
+      # gitAnnex
+      diff-so-fancy
+      delta
+      # grv # build failed
+      tig
+      gitui
       gist # upload to gist.github.com
       bfg-repo-cleaner # https://rtyley.github.io/bfg-repo-cleaner/
       mercurial
@@ -597,7 +597,7 @@ in
       # font-manager
       xfontsel
       neovim
-      (vim_configurable.customize {
+      (vim-full.customize {
         vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
           # loaded on launch
           start = [
@@ -714,7 +714,7 @@ in
       # gst_plugins_good
       # gst_plugins_bad
       # gst_plugins_ugly
-      tor-browser-bundle-bin
+      tor-browser
       i2pd
       qutebrowser
       sqlitebrowser
@@ -802,7 +802,7 @@ in
       odt2txt
       perlPackages.ImageExifTool
       ffmpegthumbnailer
-      poppler_utils # for pdftotext
+      poppler-utils # for pdftotext
       lynx
       mediainfo
       fontforge
@@ -861,7 +861,7 @@ in
       # pidgin
       hexchat
       signal-desktop
-      tdesktop
+      telegram-desktop
       weechat
       irssi
       gajim

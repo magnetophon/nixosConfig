@@ -116,7 +116,7 @@
     systemPackages = with pkgs; [
       # Commandline tools
       coreutils
-      gitAndTools.gitFull
+      gitFull
       parted
       man
       tmux
@@ -181,7 +181,7 @@
       jq
       stow
 
-      gitAndTools.delta
+      delta
 
       lldb # for helix
       evil-helix

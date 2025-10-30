@@ -73,14 +73,13 @@ with pkgs;
             #                             plugins                             #
             ###################################################################
             airwin2rack
-            # airwindows
+            airwindows
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
-            FIL-plugins
+            fil-plugins
             adlplug
             aeolus
             aether-lv2
-            # ams-lv2
             artyFX
             x42-avldrums
             bchoppr
@@ -97,10 +96,10 @@ with pkgs;
             calf
             caps
             cardinal
-            ChowKick
-            ChowPhaser
-            CHOWTapeModel
-            ChowCentaur
+            chow-kick
+            chow-phaser
+            chow-tape-model
+            chow-centaur
             csa
             diopser
             distrho-ports
@@ -133,8 +132,8 @@ with pkgs;
             helm
             hybridreverb2
             hydrogen
-            infamousPlugins
             industrializer
+            infamousPlugins
             # ingen
             ir.lv2
             jaaa
@@ -145,8 +144,8 @@ with pkgs;
             ladspaH
             ladspaPlugins
             lsp-plugins
-            LibreArp
-            LibreArp-lv2
+            librearp
+            librearp-lv2
             mda_lv2
             molot-lite
             ctagdrc
@@ -198,7 +197,7 @@ with pkgs;
             magnetophonDSP.LazyLimiter
             magnetophonDSP.RhythmDelay
             magnetophonDSP.VoiceOfFaust
-            magnetophonDSP.faustCompressors # https://github.com/grame-cncm/faust/issues/406 # ERROR : path '/autoComp/fast_rel' is already used
+            magnetophonDSP.faustCompressors
             magnetophonDSP.pluginUtils
             magnetophonDSP.shelfMultiBand
             tambura
@@ -288,6 +287,7 @@ with pkgs;
             # airwave # VST bridge # unfree
             # linuxsampler # unfree
             # vcv-rack # unfree
+            # vital # unfree
 
         ];
     };
