@@ -179,7 +179,8 @@ with pkgs;
             surge-XT
             tamgamp.lv2
             tetraproc
-            # uhhyou.lv2  # 'uhhyou.lv2' has been removed, upstream gone
+            uhhyou-plugins
+            uhhyou-plugins-juce
             vocproc
             wolf-shaper
             x42-plugins
