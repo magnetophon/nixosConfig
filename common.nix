@@ -901,6 +901,7 @@ in
       # needed for direnv:
       devenv
       nix-direnv
+      nix-init
     ];
 
     # applist = [
