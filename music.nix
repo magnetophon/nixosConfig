@@ -127,7 +127,7 @@ with pkgs;
             freqtweak
             fverb
             geonkick
-            # gxmatcheq-lv2
+            gxmatcheq-lv2
             gxplugins-lv2
             helm
             hybridreverb2
