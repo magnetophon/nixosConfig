@@ -8,7 +8,7 @@ let
       # pandas
       # requests
       pyperclip
-      ueberzug
+      # ueberzug
       # other python packages you want
     ];
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -50,6 +50,7 @@ in
     # memtest86.enable = true; # unfree
     # };
     # loader.efi.canTouchEfiVariables = true;
+    loader.timeout = 1;
     tmp.cleanOnBoot = true;
     # no beep, no webcam
     blacklistedKernelModules = [
@@ -323,16 +324,17 @@ in
     # package = ((emacsPackagesFor emacsNativeComp).emacsWithPackages
     # (epkgs: [ epkgs.vterm ]));
     # };
+
     physlock = {
       enable = true;
       allowAnyUser = true;
+      muteKernelMessages = true;
       lockOn = {
         suspend = true; # true is default
         hibernate = true; # true is default
-        # systemd[1]: Starting Physlock...
-        # physlock-start[774]: physlock: Unable to detect user of tty1
-        # extraTargets = ["graphical.target"];
         # extraTargets = ["display-manager.service"];
+        # Instead of locking at display-manager.service, lock after the graphical session is ready:
+        # extraTargets = ["graphical.target"];  # or "multi-user.target"
       };
     };
     logind.settings.Login = {
@@ -504,7 +506,8 @@ in
       cookiecutter
       kondo # Save disk space by cleaning unneeded files from software projects
       rxvt-unicode-unwrapped
-      alacritty
+      # alacritty
+      alacritty-graphics
       kitty
       wezterm
       picom # compton fork
@@ -807,7 +810,7 @@ in
       mediainfo
       fontforge
       # python3Packages.ueberzug
-      ueberzugpp
+      # ueberzugpp
       libsixel
       # mutt-with-sidebar
       # mutt-kz
