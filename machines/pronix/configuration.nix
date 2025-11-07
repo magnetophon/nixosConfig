@@ -273,6 +273,9 @@
         PermitTunnel no
         X11Forwarding no
         Match All
+        ClientAliveInterval 300
+        ClientAliveCountMax 3
+        TCPKeepAlive yes
       '';
     };
 
