@@ -127,6 +127,7 @@ with pkgs;
             freqtweak
             fverb
             geonkick
+            melmatcheq-lv2
             gxmatcheq-lv2
             gxplugins-lv2
             helm
@@ -177,6 +178,7 @@ with pkgs;
             synthv1
             surge
             surge-XT
+            vaporizer2
             tamgamp.lv2
             tetraproc
             uhhyou-plugins
@@ -194,7 +196,7 @@ with pkgs;
             magnetophonDSP.MBdistortion # ERROR : path '/MBdistortion/frequency_bands/low/Drive' is already used
             magnetophonDSP.CharacterCompressor
             # magnetophonDSP.CompBus # long build, not used
-            # magnetophonDSP.ConstantDetuneChorus
+            magnetophonDSP.ConstantDetuneChorus
             magnetophonDSP.LazyLimiter
             magnetophonDSP.RhythmDelay
             magnetophonDSP.VoiceOfFaust

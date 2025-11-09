@@ -516,6 +516,7 @@ in
       nix-zsh-completions
       nix-diff
       nixfmt
+      treefmt
       nix-tree
       nix-serve
       # nixops
@@ -539,7 +540,7 @@ in
       fish
       haskellPackages.ShellCheck
       fasd
-      zoxide
+      # zoxide  # use module
       fzf
       skim
       bfs
@@ -770,6 +771,7 @@ in
       eza # rust ls alternative
       inotify-tools # notify when a file changes
       trash-cli
+      httm # Interactive, file-level Time Machine-like tool 
       so # stack overflow from the cli
       # atuin # magical shell history
       # mcfly # shell history
@@ -1332,6 +1334,10 @@ in
     # user-db:user
     # system-db:local
     # '';
+    television = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 
   xdg.sounds.enable = false;
