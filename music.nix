@@ -101,6 +101,7 @@ with pkgs;
             chow-tape-model
             chow-centaur
             csa
+            cmt
             diopser
             distrho-ports
             dragonfly-reverb

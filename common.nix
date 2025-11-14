@@ -431,9 +431,6 @@ in
     };
   };
 
-  # nixpkgs.overlays = [
-  # (import ./pkgs/ringboard.nix)
-  # ];
   services.gnome.gnome-keyring.enable = true;
 
   # If you're not using GNOME, you might also need:
@@ -441,8 +438,6 @@ in
 
   environment = {
     systemPackages = [
-      # ringboard
-
       # m32edit
       authenticator
       gnome-keyring
