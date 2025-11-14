@@ -531,6 +531,7 @@ in
       nixpkgs-review
       # rnix-lsp
       nix-output-monitor
+      nix-your-shell
       nvd # diff system versions
       deploy-rs
       expect
@@ -1087,6 +1088,9 @@ in
   programs = {
     fish = {
       enable = true;
+    promptInit = ''
+      nix-your-shell fish | source
+    '';
     };
 
     zoxide.enable = true;
@@ -1282,6 +1286,7 @@ in
 
     ssh = {
       # startAgent = true;
+      # Disable annoying GUI password popup and console error message when using ssh
       askPassword = "";
     };
 

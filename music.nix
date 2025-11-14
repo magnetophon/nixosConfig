@@ -128,6 +128,7 @@ with pkgs;
             fverb
             geonkick
             melmatcheq-lv2
+            ripplerx
             gxmatcheq-lv2
             gxplugins-lv2
             helm
