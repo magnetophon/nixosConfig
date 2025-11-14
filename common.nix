@@ -427,12 +427,6 @@ in
         # {
         # inherit pkgs;
         # };
-        # nur-bandithedoge =
-        # import (builtins.fetchTarball "https://github.com/bandithedoge/nur-packages/archive/master.tar.gz")
-        # {
-        # inherit pkgs;
-        # };
-
       };
     };
   };
