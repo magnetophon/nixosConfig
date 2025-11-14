@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, bandithedoge, ... }:
 with pkgs;
 {
 
@@ -110,6 +110,13 @@ with pkgs;
             ensemble-chorus
             eq10q
             fire
+
+            # nur-bandithedoge.resonarium-bin
+            # nur-bandithedoge.presswerk
+            # nur.repos.mic92.hello-nur
+            # nur.repos.bandithedoge.u-he.presswerk
+            # pkgs.u-he.presswerk
+            bandithedoge.legacyPackages.${pkgs.system}.u-he.presswerk
 
             open-music-kontrollers.eteroj
             open-music-kontrollers.jit

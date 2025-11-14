@@ -7,8 +7,17 @@
   # inputs.nixpkgs.url = "path:/home/bart/source/nixpkgs";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.musnix.url = "github:musnix/musnix";
+  inputs.nur = {
+    url = "github:nix-community/NUR";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, musnix }:
+  inputs.bandithedoge = {
+    url = "github:bandithedoge/nur-packages";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, musnix, nur, bandithedoge }:
     let
       system = "x86_64-linux";
     in {
@@ -18,7 +27,13 @@
           ./machines/nixframe/default.nix
           nixos-hardware.nixosModules.framework-12-13th-gen-intel
           musnix.nixosModules.musnix
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [ nur.overlay ];
+          })
         ];
+        specialArgs = {
+          inherit bandithedoge;
+        };
       };
 
       nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
@@ -27,9 +42,15 @@
           ./machines/nixframe/rt.nix
           nixos-hardware.nixosModules.framework-12-13th-gen-intel
           musnix.nixosModules.musnix
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [ nur.overlay ];
+          })
         ];
+        specialArgs = {
+          inherit bandithedoge;
+        };
       };
-
+      
       nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
@@ -56,4 +77,4 @@
       # This is highly advised, and will prevent many possible mistakes
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
-  }
+}
