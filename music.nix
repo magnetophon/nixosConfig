@@ -40,15 +40,15 @@ with pkgs;
                 configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
             });
 
-            faust = pkgs.lib.overrideDerivation pkgs.faust (oldAttrs: {
-                version = "2.81.2";
-                src = fetchFromGitHub {
-                    owner = "grame-cncm";
-                    repo = "faust";
-                    rev = "b5f8d097b0ed005525eae7d8b2a8b15f20f58a62";
-                    sha256 = "sha256-Hem8g7t9jGnwsrBaON0xVaBJa5UFPSzjYpztcip6e8Q=";
-                    fetchSubmodules = true;
-                };
+            faust = pkgs.lib.overrideDerivation pkgs.faust (finalAttrs: {
+              version = "2.81.10";
+              src = fetchFromGitHub {
+                owner = "grame-cncm";
+                repo = "faust";
+                tag = finalAttrs.version;
+                sha256 = "sha256-Rn+Cjpk4vttxARrkDSnpKdBdSRtgElsit8zu1BA8Jd4=";
+                fetchSubmodules = true;
+              };
             });
         };
         # overlays = lib.singleton (lib.const (super: {
