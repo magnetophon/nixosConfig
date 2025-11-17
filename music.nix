@@ -135,8 +135,8 @@ with pkgs;
             freqtweak
             fverb
             geonkick
-            melmatcheq-lv2
             ripplerx
+            melmatcheq-lv2
             gxmatcheq-lv2
             gxplugins-lv2
             helm

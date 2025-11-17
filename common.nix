@@ -1391,6 +1391,7 @@ in
     # packages = [ pkgs.terminus_font ];
     # font = "${pkgs.terminus_font}/share/consolefonts/ter-v12n.psf.gz";
     font = null;
+    # Configure the virtual console keymap from the xserver keyboard settings
     useXkbConfig = true;
     # solarized light
     colors = [
