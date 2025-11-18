@@ -668,6 +668,7 @@ in
       i3status-rust
       i3-layout-manager
       i3-resurrect
+      autotiling-rs
       wmfocus
       xorg.xprop # get window props like class and insctance
       xorg.xev # get the name of a key or key-combo

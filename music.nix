@@ -74,6 +74,7 @@ with pkgs;
             ###################################################################
             airwin2rack
             airwindows
+            airwindows-lv2
             # foo-yc20 https://github.com/sampov2/foo-yc20/issues/7
             AMB-plugins
             fil-plugins
