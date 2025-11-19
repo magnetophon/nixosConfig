@@ -741,6 +741,7 @@ in
       calc
       units
       rink # Unit conversion tool and library written in rust
+      mepo # map application
       transmission_4-gtk
       # gamma_randr.c:38:10: fatal error: xcb/xcb.h: No such file or directory
       xrandr-invert-colors
@@ -1385,6 +1386,7 @@ in
       # liberation_ttf
       # ibm-plex
       # core-fonts
+      corefonts # for svg rendering of faust files in yazi: https://github.com/sxyazi/yazi/issues/3344#issuecomment-3555004395
     ];
   };
 
