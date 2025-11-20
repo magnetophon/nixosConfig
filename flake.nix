@@ -25,7 +25,7 @@
         inherit system;
         modules = [
           ./machines/nixframe/default.nix
-          nixos-hardware.nixosModules.framework-12-13th-gen-intel
+          nixos-hardware.nixosModules.framework-12th-gen-intel
           musnix.nixosModules.musnix
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ nur.overlay ];
@@ -40,7 +40,7 @@
         inherit system;
         modules = [
           ./machines/nixframe/rt.nix
-          nixos-hardware.nixosModules.framework-12-13th-gen-intel
+          nixos-hardware.nixosModules.framework-12th-gen-intel
           musnix.nixosModules.musnix
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ nur.overlay ];

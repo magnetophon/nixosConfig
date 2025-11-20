@@ -81,7 +81,11 @@ with pkgs; {
       # settings = "unredir-if-possible = true";
       # settings = "unredir-if-possible = true";
     };
-    fwupd.enable = true;
+    fwupd = {
+      enable = true;
+      extraRemotes = [ "lvfs-testing" ];
+      uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
+    };
     # Framework laptop doesn't require battery polling.
     # upower.noPollBatteries = true;
 
@@ -92,8 +96,6 @@ with pkgs; {
     extraGroups = [ "docker" ];
   };
 
-  services.fwupd.extraRemotes = [ "lvfs-testing" ];
-  services.fwupd.uefiCapsuleSettings.DisableCapsuleUpdateOnDisk = true;
   # environment.etc."fwupd/fwupd.conf" = lib.mkForce {
   # source =
   # pkgs.runCommand "fwupd-with-uefi-capsule-update-on-disk-disable.conf"
