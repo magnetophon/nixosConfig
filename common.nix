@@ -585,6 +585,8 @@ in
       nextcloud-client
       inetutils
       hostsblock
+      steam-run
+      patchelf
       # haskellPackages.ghc
       ruby
       # icedtea_web
@@ -770,6 +772,7 @@ in
       speedtest-cli
       # zed-editor
       evil-helix
+      # xdg-desktop-portal-termfilechooser
       # joshuto
       # rust ranger clone
       # is now a sytem module
@@ -941,6 +944,17 @@ in
     # '';
 
   };
+  
+  # https://consoledonottrack.com/
+  environment.variables = {
+    DO_NOT_TRACK = "1";
+    GATSBY_TELEMETRY_DISABLED = "1";
+    HOMEBREW_NO_ANALYTICS = "1";
+    STNOUPGRADE = "1";
+    DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+    SAM_CLI_TELEMETRY = "0";
+    AZURE_CORE_COLLECT_TELEMETRY = "0";
+  };
 
   environment.sessionVariables = {
     # EDITOR = "edit";
@@ -1076,7 +1090,47 @@ in
   powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
   powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
 
+  # xdg.portal = {
+  # enable = true;
+  # extraPortals = [
+  # xdg-desktop-portal-termfilechooser
+  # ];
+  # xdgOpenUsePortal = true;
+  # config.common.default = "*";
+  # };
+  
+  # programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = with pkgs; [
+  #   # Add any missing dynamic libraries for unpackaged programs
+  #   # here, NOT in environment.systemPackages
+  #   xorg.libICE
+
+  #   # dotnetPkg
+
+  #   # stdenv.cc.cc
+  #   zlib
+  #   openssl
+  #   icu
+  #   glibc
+  #   glib
+  #   libunwind
+
+  #   # Avalonia (X11 backend) deps — these FIX your error:
+  #   xorg.libX11
+  #   xorg.libXcursor
+  #   xorg.libXext
+  #   xorg.libXi
+  #   xorg.libXrandr
+  #   xorg.libXrender
+  #   xorg.libXtst
+  #   xorg.libXfixes
+
+  #   xorg.libSM
+  #   gcc.cc.lib  # provides libstdc++.so.6
+  # ];
+
   programs = {
+    
     fish = {
       enable = true;
     promptInit = ''
