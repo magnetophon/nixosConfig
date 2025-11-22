@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
@@ -14,37 +15,49 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/nixos/root";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    {
+      device = "rpool/nixos/root";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/home" =
-    { device = "rpool/nixos/home";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    {
+      device = "rpool/nixos/home";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/lib" =
-    { device = "rpool/nixos/var/lib";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    {
+      device = "rpool/nixos/var/lib";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/log" =
-    { device = "rpool/nixos/var/log";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    {
+      device = "rpool/nixos/var/log";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =
-    { device = "bpool/nixos/root";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    {
+      device = "bpool/nixos/root";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1" =
-    { device = "/dev/disk/by-uuid/A366-D51A";
+    {
+      device = "/dev/disk/by-uuid/A366-D51A";
       fsType = "vfat";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1";
+    {
+      device = "/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1";
       fsType = "none";
       options = [ "bind" ];
     };

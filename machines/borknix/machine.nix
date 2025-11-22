@@ -1,4 +1,4 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 
 let
   # blkid
@@ -10,73 +10,75 @@ let
 in
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot =
-  { # dependant on amount of ram:
-    # mount -o remount,size=4G /tmp and your /tmp/ is now bigger
-    tmpOnTmpfs =  false;
-    #loader.grub.device = "/dev/sda";
-    loader.grub.device = "/dev/disk/by-id/${diskID}";
-    #loader.grub.extraEntries = ''
-    #  menuentry 'Tails'
-    #  { set root=(hd0,2)
-    #    set isofile="/bart/Downloads/tails-i386-1.5.iso"
-    #    loopback loop (hd0,2)$isofile
-    #    linux (loop)/live/vmlinuz findiso=$isofile boot=live config apparmor=1 security=apparmor nopersistent noprompt timezone=Etc/UTC
-    #block.events_dfl_poll_msecs=1000 splash noautologin module=Tails quiet i2p
-    #    initrd (loop)/live/initrd.img
-    #  }'';
-    #copy from /etc/nixos/hardware-configuration.nix
-    initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
-    kernelModules = [ ];
-    extraModulePackages = [ ];
-  };
+    {
+      # dependant on amount of ram:
+      # mount -o remount,size=4G /tmp and your /tmp/ is now bigger
+      tmpOnTmpfs = false;
+      #loader.grub.device = "/dev/sda";
+      loader.grub.device = "/dev/disk/by-id/${diskID}";
+      #loader.grub.extraEntries = ''
+      #  menuentry 'Tails'
+      #  { set root=(hd0,2)
+      #    set isofile="/bart/Downloads/tails-i386-1.5.iso"
+      #    loopback loop (hd0,2)$isofile
+      #    linux (loop)/live/vmlinuz findiso=$isofile boot=live config apparmor=1 security=apparmor nopersistent noprompt timezone=Etc/UTC
+      #block.events_dfl_poll_msecs=1000 splash noautologin module=Tails quiet i2p
+      #    initrd (loop)/live/initrd.img
+      #  }'';
+      #copy from /etc/nixos/hardware-configuration.nix
+      initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
+      kernelModules = [ ];
+      extraModulePackages = [ ];
+    };
 
   fileSystems =
-  {
-    "/" =
     {
-     #device = "/dev/disk/by-label/nixos";
-     device = "/dev/disk/by-uuid/${rootUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
-    };
-    "/home" =
-    {
-      #device = "/dev/disk/by-label/home";
-      device = "/dev/disk/by-uuid/${homeUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
-    };
-    /*"/tmp" =*/
-    /*{ device = "/dev/disk/by-uuid/43fa23cf-00a6-4672-9a38-4e231eebdc79";*/
+      "/" =
+        {
+          #device = "/dev/disk/by-label/nixos";
+          device = "/dev/disk/by-uuid/${rootUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
+      "/home" =
+        {
+          #device = "/dev/disk/by-label/home";
+          device = "/dev/disk/by-uuid/${homeUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
+      /*"/tmp" =*/
+      /*{ device = "/dev/disk/by-uuid/43fa23cf-00a6-4672-9a38-4e231eebdc79";*/
       /*fsType = "ext4";*/
       # options = [ "relatime" "errors=remount-ro" ];
-    /*};*/
-  };
+      /*};*/
+    };
 
   swapDevices = [{
     device = "/dev/disk/by-uuid/${swapUUID}";
     #device = "/dev/disk/by-label/swap";
   }];
 
-   nix = {
+  nix = {
     requireSignedBinaryCaches = true;
     maxJobs = 2; # force remote building
     distributedBuilds = true;
-    buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+    buildMachines = [{ hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; }];
 
 
     binaryCaches = [ "2.2.2.2:5000/" "https://cache.nixos.org/" ];
     #binaryCaches = ["2.2.2.2:5000"];
     #binaryCaches = [""];
-  #  extraOptions = ''
-  #    binary-caches = 2.2.2.2:5000/
-  #  '';
+    #  extraOptions = ''
+    #    binary-caches = 2.2.2.2:5000/
+    #  '';
     binaryCachePublicKeys = [ "mixos:hpj9Ic8KDQp4CH33+KgKRhTeLOi+ixuUEdWtfojfnZY=#" ];
-   };
+  };
   networking = {
     interfaces.enp1s7 = {
       # useDHCP = false;
@@ -89,39 +91,39 @@ in
     #nameservers =  [ "192.168.0.1" ];
     #defaultGateway = "192.168.0.1";
     wireless.enable = true;
-    };
-    services = {
-      # tlp.enable= true;
-      xserver.displayManager.sessionCommands =
-        ''
-          ${pkgs.dzen2}/bin/dzen2 -dock -y 915 -h 125 -bg grey &
-        '';
-        smartd = {
-          enable = true;
-          devices = [
-            { device = "/dev/sda"; }
-            # { device = "/dev/nvme0n1"; }
-            # { device = "/dev/sdb"; }
-          ];
-          notifications.test = true;
-          notifications.x11.enable = true;
+  };
+  services = {
+    # tlp.enable= true;
+    xserver.displayManager.sessionCommands =
+      ''
+        ${pkgs.dzen2}/bin/dzen2 -dock -y 915 -h 125 -bg grey &
+      '';
+    smartd = {
+      enable = true;
+      devices = [
+        { device = "/dev/sda"; }
+        # { device = "/dev/nvme0n1"; }
+        # { device = "/dev/sdb"; }
+      ];
+      notifications.test = true;
+      notifications.x11.enable = true;
 
-        };
     };
-    # powerManagement.cpuFreqGovernor = "powersave";
-    # renamed:
-    # services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
-    hardware.opengl.extraPackages = [ pkgs.vaapiIntel  ];
+  };
+  # powerManagement.cpuFreqGovernor = "powersave";
+  # renamed:
+  # services.xserver.vaapiDrivers = [ pkgs.vaapiIntel  ];
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
   /*services.dnsmasq.enable = true;*/
   #services.dnsmasq.resolveLocalQueries = false;
   /*services.dnsmasq.extraConfig = ''*/
-    /*port=0*/
-    /*interface=enp1s7*/
-    /*dhcp-range=2.2.2.1,2.2.2.1,infinite*/
+  /*port=0*/
+  /*interface=enp1s7*/
+  /*dhcp-range=2.2.2.1,2.2.2.1,infinite*/
   /*'';*/
 }
 
-    /*dhcp-host=00:19:bb:e1:07:7c,2.2.2.3,infinite*/
+/*dhcp-host=00:19:bb:e1:07:7c,2.2.2.3,infinite*/
 
-    /*dhcp-host=nixpire,2.2.2.1*/
-    /*dhcp-range=2.2.2.1,2.2.2.3,12h*/
+/*dhcp-host=nixpire,2.2.2.1*/
+/*dhcp-range=2.2.2.1,2.2.2.3,12h*/

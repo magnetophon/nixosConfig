@@ -1,7 +1,8 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
       # machine specific:
       ./machine.nix
       # on every machine:
@@ -9,15 +10,15 @@
       # non realtime:
       ../../commonNonRT.nix
       # music tweaks and progs:
-       ../../music.nix
+      ../../music.nix
     ];
 
   networking.hostName = "mixos";
 
   services = {
     xserver = {
-      autorun =  false;
-      windowManager.default = "i3" ;
+      autorun = false;
+      windowManager.default = "i3";
       windowManager.i3.enable = true;
     };
     nix-serve = {
@@ -34,9 +35,9 @@
 
   boot.blacklistedKernelModules = [ "mgag200" ];
 
-#for running alsa trough jack
-# boot.kernelModules = [ "snd-aloop" ];
-#sound.enableMediaKeys = true;
+  #for running alsa trough jack
+  # boot.kernelModules = [ "snd-aloop" ];
+  #sound.enableMediaKeys = true;
 
   musnix.rtirq.nameList = "rtc0 snd";
   # musnix.rtirq.nonThreaded = "rtc0 snd_rme9652";

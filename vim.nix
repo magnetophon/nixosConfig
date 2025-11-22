@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
-    environment.systemPackages = with pkgs;
-        [
-            (vim_configurable.customize {
-                name = "vim";
-                vimrcConfig.customRC = ''
+  environment.systemPackages = with pkgs;
+    [
+      (vim_configurable.customize {
+        name = "vim";
+        vimrcConfig.customRC = ''
 
           " General {
           set nocompatible
@@ -474,32 +474,32 @@
 
         '';
 
-                vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-                vimrcConfig.vam.pluginDictionaries = [{
-                    names = [
-                        "airline"
-                        "colors-solarized"
-                        "ctrlp"
-                        "fugitive"
-                        "nerdcommenter"
-                        "nerdtree"
-                        "rainbow_parentheses"
-                        "Tabular"
-                        "undotree"
-                        "vim-addon-nix"
-                        "youcompleteme"
-                    ];
-                }
-                                                      #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
-                                                      #doesn't work:
-                                                      #"vim-addon-local-vimrc"
-                                                      #replaced by voom:
-                                                      #"VimOutliner"
-                                                      #doesn't work:
-                                                      #"YankRing"
-                                                      #gives error on startup:
-                                                      #"UltiSnips"
-                                                     ];
-            })
+        vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
+        vimrcConfig.vam.pluginDictionaries = [{
+          names = [
+            "airline"
+            "colors-solarized"
+            "ctrlp"
+            "fugitive"
+            "nerdcommenter"
+            "nerdtree"
+            "rainbow_parentheses"
+            "Tabular"
+            "undotree"
+            "vim-addon-nix"
+            "youcompleteme"
+          ];
+        }
+          #{ name = "github:gmoe/vim-faust"; ft_regex = "^faust\$"; }
+          #doesn't work:
+          #"vim-addon-local-vimrc"
+          #replaced by voom:
+          #"VimOutliner"
+          #doesn't work:
+          #"YankRing"
+          #gives error on startup:
+          #"UltiSnips"
         ];
+      })
+    ];
 }

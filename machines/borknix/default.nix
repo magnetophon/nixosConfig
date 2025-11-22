@@ -1,20 +1,21 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
       # machine specific:
       ./machine.nix
       # on every machine:
       ../../common.nix
       # music tweaks and progs:
-       ../../music.nix
+      ../../music.nix
     ];
 
   networking.hostName = "borknix";
 
-#for running alsa trough jack
-boot.kernelModules = [ "snd-aloop" ];
-#sound.enableMediaKeys = true;
+  #for running alsa trough jack
+  boot.kernelModules = [ "snd-aloop" ];
+  #sound.enableMediaKeys = true;
 
   musnix = {
     enable = true;

@@ -1,4 +1,4 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 
 let
   # blkid
@@ -9,33 +9,36 @@ let
 in
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot =
-  { # dependant on amount of ram:
-    tmpOnTmpfs = false;
-    loader.grub.device = "/dev/disk/by-id/${diskID}";
-    loader.grub.extraEntries = import ./extraGrub.nix;
-    #copy from /etc/nixos/hardware-configuration.nix
-    initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
-    kernelModules = [ ];
-    extraModulePackages = [ ];
-  };
+    {
+      # dependant on amount of ram:
+      tmpOnTmpfs = false;
+      loader.grub.device = "/dev/disk/by-id/${diskID}";
+      loader.grub.extraEntries = import ./extraGrub.nix;
+      #copy from /etc/nixos/hardware-configuration.nix
+      initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "usb_storage" ];
+      kernelModules = [ ];
+      extraModulePackages = [ ];
+    };
 
   fileSystems =
-  {
-    "/" =
-    { device = "/dev/disk/by-uuid/${rootUUID}";
-      fsType = "ext3";
-      options = "noatime,errors=remount-ro";
-    };
-    /*"/home" =*/
-    /*{ device = "/dev/disk/by-uuid/${homeUUID}";*/
+    {
+      "/" =
+        {
+          device = "/dev/disk/by-uuid/${rootUUID}";
+          fsType = "ext3";
+          options = "noatime,errors=remount-ro";
+        };
+      /*"/home" =*/
+      /*{ device = "/dev/disk/by-uuid/${homeUUID}";*/
       /*fsType = "ext3";*/
       /*options = "noatime,errors=remount-ro";*/
-    /*};*/
-  };
+      /*};*/
+    };
 
   swapDevices = [{
     device = "/dev/disk/by-uuid/${swapUUID}";
@@ -43,23 +46,23 @@ in
 
   nix.maxJobs = 2;
 
- networking = {
-  # interfaces = { enp1s0 = { ipAddress = "2.2.2.1"; subnetMask = "255.255.255.255"; } ; };
-  connman.enable = true;
-  wireless.enable = true;
-};
- services = {
-   smartd = {
-     enable = true;
-     devices = [
-       { device = "/dev/sda"; }
-       # { device = "/dev/nvme0n1"; }
-       # { device = "/dev/sdb"; }
-     ];
-     notifications.test = true;
-     notifications.x11.enable = true;
-   };
+  networking = {
+    # interfaces = { enp1s0 = { ipAddress = "2.2.2.1"; subnetMask = "255.255.255.255"; } ; };
+    connman.enable = true;
+    wireless.enable = true;
+  };
+  services = {
+    smartd = {
+      enable = true;
+      devices = [
+        { device = "/dev/sda"; }
+        # { device = "/dev/nvme0n1"; }
+        # { device = "/dev/sdb"; }
+      ];
+      notifications.test = true;
+      notifications.x11.enable = true;
+    };
 
- }
+  }
 
-}
+    }

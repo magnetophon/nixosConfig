@@ -115,9 +115,9 @@ with pkgs;
         ];
 
       levels = [
-        ["level auto" 0 55]           # normal cooling when we're cold
-        [7 55 65]                     # max 5000 RPM when we're getting hot
-        ["level full-speed" 65 32767] # max 6700 RPM when we're hot, above fan spec!
+        [ "level auto" 0 55 ] # normal cooling when we're cold
+        [ 7 55 65 ] # max 5000 RPM when we're getting hot
+        [ "level full-speed" 65 32767 ] # max 6700 RPM when we're hot, above fan spec!
       ];
     };
 
@@ -178,7 +178,7 @@ with pkgs;
       loader.efi.canTouchEfiVariables = true;
       kernelModules = [ "acpi_call" ];
       extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-  };
+    };
 
 
-}
+  }

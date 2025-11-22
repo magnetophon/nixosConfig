@@ -290,7 +290,7 @@ with pkgs; {
             cert = "/etc/zrepl/nixframe.crt";
             key = "/etc/zrepl/nixframe.key";
             server_cn = "pronix";
-            dial_timeout= "60s";
+            dial_timeout = "60s";
           };
           # connect = {
           # type = "ssh+stdinserver";

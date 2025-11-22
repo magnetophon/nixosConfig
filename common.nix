@@ -506,6 +506,7 @@ in
       nix-diff
       nixfmt
       treefmt
+      nixpkgs-fmt
       nix-tree
       nix-serve
       # nixops
@@ -944,7 +945,7 @@ in
     # '';
 
   };
-  
+
   # https://consoledonottrack.com/
   environment.variables = {
     DO_NOT_TRACK = "1";
@@ -1098,7 +1099,7 @@ in
   # xdgOpenUsePortal = true;
   # config.common.default = "*";
   # };
-  
+
   # programs.nix-ld.enable = true;
   # programs.nix-ld.libraries = with pkgs; [
   #   # Add any missing dynamic libraries for unpackaged programs
@@ -1130,12 +1131,12 @@ in
   # ];
 
   programs = {
-    
+
     fish = {
       enable = true;
-    promptInit = ''
-      nix-your-shell fish | source
-    '';
+      promptInit = ''
+        nix-your-shell fish | source
+      '';
     };
 
     zoxide.enable = true;

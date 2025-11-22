@@ -20,7 +20,8 @@
   outputs = { self, nixpkgs, deploy-rs, nixos-hardware, musnix, nur, bandithedoge }:
     let
       system = "x86_64-linux";
-    in {
+    in
+    {
       nixosConfigurations.nixframe = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
@@ -50,7 +51,7 @@
           inherit bandithedoge;
         };
       };
-      
+
       nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [

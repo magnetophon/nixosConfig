@@ -6,7 +6,8 @@ let
   diskID = "ata-INTEL_SSDSA2BW160G3L_BTPR152201YW160DGN";
   # blkid
   bootUUID = "32FC-293A";
-in {
+in
+{
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     <nixos-hardware/lenovo/thinkpad/t420>
@@ -36,7 +37,8 @@ in {
     }
   '';
 
-  boot = { # dependant on amount of ram:
+  boot = {
+    # dependant on amount of ram:
     # tmpOnTmpfs = true;
     # loader.grub.device = "/dev/disk/by-id/${diskID}";
     #loader.grub.extraEntries = import ./extraGrub.nix;

@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "uhci_hcd" "mpt3sas" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
@@ -14,25 +15,26 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "sys_pool_2/root/nixos";
+    {
+      device = "sys_pool_2/root/nixos";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "sys_pool_2/home";
+    {
+      device = "sys_pool_2/home";
       fsType = "zfs";
     };
 
   boot.zfs.extraPools = [ "bu_pool" ];
 
   #fileSystems."/boot" =
-    #{ device = "/dev/disk/by-uuid/1AFD-DA91";
-      #fsType = "vfat";
-    #};
+  #{ device = "/dev/disk/by-uuid/1AFD-DA91";
+  #fsType = "vfat";
+  #};
 
   swapDevices =
-    [ { device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1"; }
-    ];
+    [{ device = "/dev/disk/by-id/wwn-0x5000c5005f5cb3b3-part1"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }

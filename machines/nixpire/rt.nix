@@ -1,7 +1,8 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
       # machine specific:
       ./machine.nix
       # on every machine:

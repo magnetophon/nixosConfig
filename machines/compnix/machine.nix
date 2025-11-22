@@ -1,4 +1,4 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 
 let
   boot.initrd.availableKernelModules = [ "ata_generic" "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" "usbhid" "sd_mod" ];
@@ -13,13 +13,14 @@ let
 in
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    ./remote_i3.nix
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+      ./remote_i3.nix
     ];
 
   nixpkgs.system = "x86_64-linux";
 
-  nixpkgs.config.packageOverrides = pkgs : rec {
+  nixpkgs.config.packageOverrides = pkgs: rec {
     qjackctl = pkgs.lib.overrideDerivation pkgs.qjackctl (oldAttrs: {
       configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
     });
@@ -68,10 +69,10 @@ in
           xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
         xrandr --addmode VGA-0 1920x1080_60.00
         xrandr --output VGA-0 --mode 1920x1080_60.00
-        '';
+      '';
 
       windowManager.i3.enable = true;
-      windowManager.default = "remote_i3" ;
+      windowManager.default = "remote_i3";
     };
     smartd = {
       enable = true;
@@ -93,49 +94,51 @@ in
   };
 
   boot =
-  { # dependant on amount of ram:
-    tmpOnTmpfs = false;
-    loader.grub.device = "/dev/disk/by-id/${diskID}";
-    #loader.grub.extraEntries = import ./extraGrub.nix;
-    #copy from /etc/nixos/hardware-configuration.nix
-    initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" ];
-    kernelModules = [ ];
-    extraModulePackages = [ ];
-    blacklistedKernelModules = [ "snd_hda_intel" ];
-  };
+    {
+      # dependant on amount of ram:
+      tmpOnTmpfs = false;
+      loader.grub.device = "/dev/disk/by-id/${diskID}";
+      #loader.grub.extraEntries = import ./extraGrub.nix;
+      #copy from /etc/nixos/hardware-configuration.nix
+      initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "usb_storage" ];
+      kernelModules = [ ];
+      extraModulePackages = [ ];
+      blacklistedKernelModules = [ "snd_hda_intel" ];
+    };
 
   fileSystems =
-  {
-    "/" =
     {
-      device = "/dev/disk/by-uuid/${rootUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
+      "/" =
+        {
+          device = "/dev/disk/by-uuid/${rootUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
+      #"/boot" =
+      #{ device = "/dev/disk/by-uuid/${bootUUID}";
+      #  fsType = "ext4";
+      #  options = [ "relatime" "errors=remount-ro" ];
+      #};
+      "/home" =
+        {
+          device = "/dev/disk/by-uuid/${homeUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
     };
-    #"/boot" =
-    #{ device = "/dev/disk/by-uuid/${bootUUID}";
-    #  fsType = "ext4";
-    #  options = [ "relatime" "errors=remount-ro" ];
-    #};
-    "/home" =
-    { device = "/dev/disk/by-uuid/${homeUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
-    };
-  };
 
   swapDevices = [{
     device = "/dev/disk/by-uuid/${swapUUID}";
   }];
 
-   nix = {
+  nix = {
     requireSignedBinaryCaches = true;
     maxJobs = 0; # force remote building
     distributedBuilds = true;
-    buildMachines = [ { hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; } ];
+    buildMachines = [{ hostName = "2.2.2.2"; maxJobs = 4; sshKey = "/root/.ssh/id_rsa"; sshUser = "root"; system = "x86_64-linux"; }];
     binaryCaches = [ "http://2.2.2.2:5000/" "https://cache.nixos.org" ];
-    binaryCachePublicKeys = [ "mixos:4IOWERw6Xcjocz9vQU5+qK7blTaeOB8QpDjLs0xcUFo="];
-   };
+    binaryCachePublicKeys = [ "mixos:4IOWERw6Xcjocz9vQU5+qK7blTaeOB8QpDjLs0xcUFo=" ];
+  };
 
   networking = {
     interfaces.enp63s0 = {

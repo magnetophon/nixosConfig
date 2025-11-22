@@ -1,4 +1,4 @@
-{pkgs, config, ...}: with pkgs;
+{ pkgs, config, ... }: with pkgs;
 
 let
   # blkid
@@ -10,42 +10,45 @@ let
 in
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot =
-  { # dependant on amount of ram:
-    #tmpOnTmpfs = true;
-    #loader.grub.device = "/dev/sdd";
-    loader.grub.device = "/dev/disk/by-id/${diskID}";
-    #loader.grub.extraEntries = import ./extraGrub.nix;
-    #copy from /etc/nixos/hardware-configuration.nix
-    /*kernelPackages.kernel.system = "x86_64-linux";*/
-    # initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" ];
-    # kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
-    postBootCommands = ''
-      ${pkgs.pciutils}/bin/setpci -v -s '04:01.0' latency_timer=ff
-      ${pkgs.pciutils}/bin/setpci -v -s '04:02.0' latency_timer=ff
-      ${pkgs.pciutils}/bin/setpci -v -s '04:03.0' latency_timer=40
-    '';
-  };
+    {
+      # dependant on amount of ram:
+      #tmpOnTmpfs = true;
+      #loader.grub.device = "/dev/sdd";
+      loader.grub.device = "/dev/disk/by-id/${diskID}";
+      #loader.grub.extraEntries = import ./extraGrub.nix;
+      #copy from /etc/nixos/hardware-configuration.nix
+      /*kernelPackages.kernel.system = "x86_64-linux";*/
+      # initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" ];
+      # kernelModules = [ "kvm-intel" ];
+      extraModulePackages = [ ];
+      postBootCommands = ''
+        ${pkgs.pciutils}/bin/setpci -v -s '04:01.0' latency_timer=ff
+        ${pkgs.pciutils}/bin/setpci -v -s '04:02.0' latency_timer=ff
+        ${pkgs.pciutils}/bin/setpci -v -s '04:03.0' latency_timer=40
+      '';
+    };
 
   fileSystems =
-  {
-    "/" =
     {
-      /*device = "/dev/sde1";*/
-      device = "/dev/disk/by-uuid/${rootUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
+      "/" =
+        {
+          /*device = "/dev/sde1";*/
+          device = "/dev/disk/by-uuid/${rootUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
+      "/home" =
+        {
+          device = "/dev/disk/by-uuid/${homeUUID}";
+          fsType = "ext4";
+          options = [ "relatime" "errors=remount-ro" ];
+        };
     };
-    "/home" =
-    { device = "/dev/disk/by-uuid/${homeUUID}";
-      fsType = "ext4";
-      options = [ "relatime" "errors=remount-ro" ];
-    };
-  };
 
   swapDevices = [{
     device = "/dev/disk/by-uuid/${swapUUID}";
@@ -78,5 +81,5 @@ in
 
     }
 
-  };
-}
+      };
+  }
