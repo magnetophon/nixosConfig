@@ -17,7 +17,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, musnix, nur, bandithedoge }:
+  outputs = inputs @ { self, nixpkgs, deploy-rs, musnix, nur, bandithedoge, ... }:
     let
       system = "x86_64-linux";
     in
@@ -26,7 +26,7 @@
         inherit system;
         modules = [
           ./machines/nixframe/default.nix
-          nixos-hardware.nixosModules.framework-12th-gen-intel
+          inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
           musnix.nixosModules.musnix
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ nur.overlay ];
@@ -41,7 +41,7 @@
         inherit system;
         modules = [
           ./machines/nixframe/rt.nix
-          nixos-hardware.nixosModules.framework-12th-gen-intel
+          inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
           musnix.nixosModules.musnix
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ nur.overlay ];
