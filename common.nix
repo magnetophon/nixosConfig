@@ -1434,7 +1434,7 @@ in
       tewi-font # bitmap icons + letters
       terminus_font_ttf
       ibm-plex
-      # font-awesome_4
+      font-awesome_4
 
       # pkgs.nerd-fonts.droid-sans-mono
       nerd-fonts.droid-sans-mono
@@ -1442,7 +1442,8 @@ in
       nerd-fonts.liberation
       nerd-fonts.noto
       nerd-fonts.fira-code
-      emacs-all-the-icons-fonts
+      nerd-fonts.symbols-only # for doom
+      # emacs-all-the-icons-fonts
 
       # google-fonts
       # liberation_ttf
