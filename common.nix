@@ -1434,6 +1434,7 @@ in
       tewi-font # bitmap icons + letters
       terminus_font_ttf
       ibm-plex
+      # font-awesome_4
 
       # pkgs.nerd-fonts.droid-sans-mono
       nerd-fonts.droid-sans-mono
