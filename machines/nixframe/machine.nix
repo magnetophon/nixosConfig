@@ -336,7 +336,8 @@ with pkgs; {
   # Scrub to find errors
   services.zfs.autoScrub = {
     enable = true;
-    interval = "weekly";
+    # weekly, but late at night:
+    interval = "Mon 03:00:00";
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
