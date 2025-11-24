@@ -16,9 +16,13 @@ in
 {
 
   imports = [
+    # TODO: remove when https://github.com/NixOS/nixpkgs/pull/458406 gets merged:
+    ./physlock.nix
     # ./vim.nix
     # ./dns-crypt.nix
   ];
+  # TODO: remove when https://github.com/NixOS/nixpkgs/pull/458406 gets merged:
+  disabledModules = [ "services/security/physlock.nix" ];
 
   hardware = {
     enableAllFirmware = true;
