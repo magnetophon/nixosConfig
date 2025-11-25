@@ -1,4 +1,9 @@
-{ config, pkgs, bandithedoge, ... }:
+{
+  config,
+  pkgs,
+  bandithedoge,
+  ...
+}:
 with pkgs;
 {
 
@@ -40,17 +45,19 @@ with pkgs;
         configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
       });
 
-      faust = pkgs.lib.overrideDerivation pkgs.faust (finalAttrs: {
-        version = "2.81.10";
-        src = fetchFromGitHub {
-          owner = "grame-cncm";
-          repo = "faust";
-          tag = finalAttrs.version;
-          sha256 = "sha256-Rn+Cjpk4vttxARrkDSnpKdBdSRtgElsit8zu1BA8Jd4=";
-          fetchSubmodules = true;
-        };
-      });
+      # faust = pkgs.lib.overrideDerivation pkgs.faust (finalAttrs: {
+      # version = "2.81.10";
+      # src = fetchFromGitHub {
+      # owner = "grame-cncm";
+      # repo = "faust";
+      # tag = "2.81.10";
+      # sha256 = "sha256-xmaZY1jFIZQjWlQkJ+uHC4tY4pFPLJ+fKSbktIZkBFI=";
+      # fetchSubmodules = true;
+      # };
+      # });
+
     };
+
     # overlays = lib.singleton (lib.const (super: {
     #     linuxPackages_4_19_rt = super.linuxPackages_4_19_rt.extend (lib.const (ksuper: {
     #         kernel = ksuper.kernel.override {
@@ -66,6 +73,22 @@ with pkgs;
     #     }));
     # }));
   };
+
+  nixpkgs.overlays = [
+    (self: super: {
+      faust = super.faust.overrideAttrs (old: rec {
+        version = "2.81.10";
+
+        src = super.fetchFromGitHub {
+          owner = "grame-cncm";
+          repo = "faust";
+          tag = version;
+          hash = "sha256-xmaZY1jFIZQjWlQkJ+uHC4tY4pFPLJ+fKSbktIZkBFI=";
+          fetchSubmodules = true;
+        };
+      });
+    })
+  ];
 
   environment = {
     systemPackages = [
@@ -282,7 +305,7 @@ with pkgs;
       # supercollider_scel
       (pkgs.fmit.override { jackSupport = true; })
       sooperlooper
-      vimpc #A vi/vim inspired client for the Music Player Daemon (mpd)
+      vimpc # A vi/vim inspired client for the Music Player Daemon (mpd)
       ###################################################################
       #                           develpoment                           #
       ###################################################################
