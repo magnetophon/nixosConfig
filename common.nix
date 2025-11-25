@@ -464,7 +464,8 @@ in
       bat-extras.batman
       lf
       nnn
-      ncdu # disk usage analyzer
+      ncdu # disk usage analyzer, does not do paralel by default
+      dust # disk usage analyzer, rust, fast
       # dua # disk usage analyzer, doesn't understand symbolic links
       gdu
       dysk
@@ -852,7 +853,7 @@ in
       alsa-utils
       meld
       freemind
-      arduino
+      # arduino
       baobab
       recoll
       # https://github.com/NixOS/nixpkgs/issues/50001 :
