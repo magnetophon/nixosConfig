@@ -564,6 +564,8 @@ in
       virt-manager
       # iptraf # broken
       nethogs
+      inetutils
+      trippy # network analyzer
       iftop
       hdparm
       testdisk
@@ -590,7 +592,6 @@ in
       subversion
       curl
       nextcloud-client
-      inetutils
       hostsblock
       steam-run
       patchelf
