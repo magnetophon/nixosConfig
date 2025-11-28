@@ -266,15 +266,15 @@
       };
       extraConfig = ''
         Match User nixBuild
-        AllowAgentForwarding no
-        AllowTcpForwarding no
-        PermitTTY no
-        PermitTunnel no
-        X11Forwarding no
+          AllowAgentForwarding no
+          AllowTcpForwarding no
+          PermitTTY no
+          PermitTunnel no
+          X11Forwarding no
         Match All
-        ClientAliveInterval 300
-        ClientAliveCountMax 3
-        TCPKeepAlive yes
+          ClientAliveInterval 300
+          ClientAliveCountMax 3
+          TCPKeepAlive yes
       '';
     };
 
