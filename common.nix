@@ -702,6 +702,8 @@ in
       rofi
       rofi-systemd
       rofimoji
+      sysz # A fzf terminal UI for systemctl
+      systemctl-tui
 
       impala
       networkmanager_dmenu
@@ -973,6 +975,8 @@ in
     TERMCMD = "alacritty";
     TERM = "alacritty";
     TERM_PROGRAM = "alacritty";
+    # ROFI_SYSTEMD_TERM = "alacritty -e";
+    # ROFI_SYSTEMD_TERM = "${pkgs.wezterm}/bin/wezterm";
     NIXPKGS = "/home/bart/source/nixpkgs/";
     NIXPKGS_ALL = "/home/bart/source/nixpkgs/pkgs/top-level/all-packages.nix";
     # GIT_SSL_CAINFO =
