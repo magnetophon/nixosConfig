@@ -32,6 +32,11 @@ in
       intel.updateMicrocode = true;
     };
     bluetooth.enable = true;
+    bluetooth.settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
   };
   # for skype
   # hardware.pulseaudio = {
