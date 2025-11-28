@@ -697,7 +697,7 @@ in
       }))
       lm_sensors # for i3status-rust
       dmenu
-      clipster
+      # clipster
       autocutsel
       rofi
       rofi-systemd
@@ -1058,19 +1058,19 @@ in
     wantedBy = [ "graphical-session.target" ];
   };
 
-  systemd.user.services.clipster = {
-    unitConfig = {
-      Description = "clipster clipboard manager daemon";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-      pidfile = "/var/run/clipster/pid";
-    };
-    serviceConfig = {
-      ExecStart = "${pkgs.clipster}/bin/clipster -d";
-      Restart = "always";
-    };
-    wantedBy = [ "graphical-session.target" ];
-  };
+  # systemd.user.services.clipster = {
+  # unitConfig = {
+  # Description = "clipster clipboard manager daemon";
+  # After = [ "graphical-session-pre.target" ];
+  # PartOf = [ "graphical-session.target" ];
+  # pidfile = "/var/run/clipster/pid";
+  # };
+  # serviceConfig = {
+  # ExecStart = "${pkgs.clipster}/bin/clipster -d";
+  # Restart = "always";
+  # };
+  # wantedBy = [ "graphical-session.target" ];
+  # };
 
   systemd.user.services.dunst = {
     unitConfig = {
