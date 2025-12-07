@@ -12,12 +12,14 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
   inputs.bandithedoge = {
     url = "github:bandithedoge/nur-packages";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, deploy-rs, musnix, nur, bandithedoge, ... }:
+  outputs = inputs @ { self, nixpkgs, deploy-rs, musnix, nur, bandithedoge, chaotic, ... }:
     let
       system = "x86_64-linux";
     in
@@ -29,28 +31,33 @@
           inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
           musnix.nixosModules.musnix
           ({ pkgs, ... }: {
-            nixpkgs.overlays = [ nur.overlay ];
+            nixpkgs.overlays = [
+              nur.overlay
+              chaotic.overlays.default
+            ];
           })
+          chaotic.nixosModules.default
         ];
         specialArgs = {
           inherit bandithedoge;
+          inherit chaotic;
         };
       };
 
-      nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./machines/nixframe/rt.nix
-          inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
-          musnix.nixosModules.musnix
-          ({ pkgs, ... }: {
-            nixpkgs.overlays = [ nur.overlay ];
-          })
-        ];
-        specialArgs = {
-          inherit bandithedoge;
-        };
-      };
+      # nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
+      # inherit system;
+      # modules = [
+      # ./machines/nixframe/rt.nix
+      # inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
+      # musnix.nixosModules.musnix
+      # ({ pkgs, ... }: {
+      # nixpkgs.overlays = [ nur.overlay ];
+      # })
+      # ];
+      # specialArgs = {
+      # inherit bandithedoge;
+      # };
+      # };
 
       nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
         inherit system;
