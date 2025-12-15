@@ -242,8 +242,10 @@ with pkgs;
       faust2alsa
       faust2firefox
       faust2jack
+      faust2jackrust
       faust2jaqt
       faust2lv2
+      faustlive
       kapitonov-plugins-pack
       mooSpace
 
@@ -252,6 +254,7 @@ with pkgs;
       ###################################################################
 
       ardour
+      xjadeo
       helio-workstation
       carla
       audacity
@@ -269,6 +272,7 @@ with pkgs;
       a2jmidid
       cuetools
       jack2
+      jack-link
       # jack1
       # jack_capture
       lilv
