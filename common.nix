@@ -1056,17 +1056,17 @@ in
   #   wantedBy = [ "graphical-session.target" ];
   # };
 
-  systemd.user.services.autocutsel = {
-    unitConfig = {
-      Description = "autocutsel clipboard manager daemon";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    serviceConfig = {
-      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -d";
-      Restart = "always";
-    };
+  systemd.user.services."autocutsel" = {
+    enable = true;
+    description = "AutoCutSel clipboard manager daemon";
     wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "forking";
+      Restart = "always";
+      RestartSec = 2;
+      ExecStartPre = "${pkgs.autocutsel}/bin/autocutsel -fork";
+      ExecStart = "${pkgs.autocutsel}/bin/autocutsel -selection PRIMARY -fork";
+    };
   };
 
   # systemd.user.services.clipster = {
