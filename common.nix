@@ -1014,7 +1014,7 @@ in
     # _FZF_ZSH_PREVIEW_STRING =
     # "echo {} | sed 's/ *[0-9]* *//' | highlight --syntax=zsh --out-format=ansi";
 
-    FZF_CTRL_R_OPTS = "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
+    # FZF_CTRL_R_OPTS = "--preview $_FZF_ZSH_PREVIEW_STRING --preview-window down:10:wrap";
 
     FZF_ALT_C_COMMAND = "bfs -color -type d";
     FZF_ALT_C_OPTS = "--preview 'tree -L 4 -d -C --noreport -C {} | head -200'";
