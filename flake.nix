@@ -12,14 +12,12 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
   inputs.bandithedoge = {
     url = "github:bandithedoge/nur-packages";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ { self, nixpkgs, deploy-rs, musnix, nur, bandithedoge, chaotic, ... }:
+  outputs = inputs @ { self, nixpkgs, deploy-rs, musnix, nur, bandithedoge, ... }:
     let
       system = "x86_64-linux";
     in
@@ -33,14 +31,11 @@
           ({ pkgs, ... }: {
             nixpkgs.overlays = [
               nur.overlays.default
-              chaotic.overlays.default
             ];
           })
-          chaotic.nixosModules.default
         ];
         specialArgs = {
           inherit bandithedoge;
-          inherit chaotic;
         };
       };
 

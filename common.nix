@@ -1,6 +1,6 @@
 # https://discourse.nixos.org/t/nixos-without-a-display-manager/360/11
 
-{ pkgs, config, chaotic, ... }:
+{ pkgs, config, ... }:
 with pkgs;
 let
   my-python-packages =
@@ -738,8 +738,8 @@ in
       # chromiumBeta
       # w3m
       (pkgs.w3m.override { graphicsSupport = true; })
-      # yt-dlp
-      yt-dlp_git
+      yt-dlp
+      # yt-dlp_git
       # freetube
       vlc
       # mumble
