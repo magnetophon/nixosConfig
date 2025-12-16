@@ -584,6 +584,7 @@ in
       hub # GitHub extension to git
       # gitAnnex
       diff-so-fancy
+      diffoscope
       delta
       # grv # build failed
       tig
