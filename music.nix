@@ -45,17 +45,6 @@ with pkgs;
         configureFlags = "--enable-jack-version --disable-xunique"; # fix bug for remote running
       });
 
-      # faust = pkgs.lib.overrideDerivation pkgs.faust (finalAttrs: {
-      # version = "2.81.10";
-      # src = fetchFromGitHub {
-      # owner = "grame-cncm";
-      # repo = "faust";
-      # tag = "2.81.10";
-      # sha256 = "sha256-xmaZY1jFIZQjWlQkJ+uHC4tY4pFPLJ+fKSbktIZkBFI=";
-      # fetchSubmodules = true;
-      # };
-      # });
-
     };
 
     # overlays = lib.singleton (lib.const (super: {
@@ -74,21 +63,21 @@ with pkgs;
     # }));
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      faust = super.faust.overrideAttrs (old: rec {
-        version = "2.81.10";
+  # nixpkgs.overlays = [
+  # (self: super: {
+  # faust = super.faust.overrideAttrs (old: rec {
+  # version = "2.81.10";
 
-        src = super.fetchFromGitHub {
-          owner = "grame-cncm";
-          repo = "faust";
-          tag = version;
-          hash = "sha256-xmaZY1jFIZQjWlQkJ+uHC4tY4pFPLJ+fKSbktIZkBFI=";
-          fetchSubmodules = true;
-        };
-      });
-    })
-  ];
+  # src = super.fetchFromGitHub {
+  # owner = "grame-cncm";
+  # repo = "faust";
+  # tag = version;
+  # hash = "sha256-xmaZY1jFIZQjWlQkJ+uHC4tY4pFPLJ+fKSbktIZkBFI=";
+  # fetchSubmodules = true;
+  # };
+  # });
+  # })
+  # ];
 
   environment = {
     systemPackages = [
