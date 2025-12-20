@@ -95,6 +95,9 @@ with pkgs; {
   users.users.bart = {
     extraGroups = [ "docker" ];
   };
+  boot.binfmt.emulatedSystems = [
+    "armv7l-linux"
+  ];
 
   # environment.etc."fwupd/fwupd.conf" = lib.mkForce {
   # source =
