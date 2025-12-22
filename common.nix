@@ -1442,7 +1442,6 @@ in
     packages = with pkgs; [
       terminus_font
       siji # bitmap icons
-      tewi-font # bitmap icons + letters
       terminus_font_ttf
       ibm-plex
       font-awesome_4
