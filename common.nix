@@ -123,7 +123,7 @@ in
   # The command provided creates a symbolic link of the current contents of /etc/nixos (copied into the Nix store) into the current Nix profile being generated. All of the configuration files are accessible at /var/run/current-system/full-config/
   #
   # todo; more elaborate version: https://git.ophanim.de/derped/nixos/src/branch/master/options/copySysConf.nix
-  system.extraSystemBuilderCmds = ''
+  system.systemBuilderCommands = ''
     ln -s ${./.} $out/full-config
   '';
   ## error: attribute 'nixos-version' missing

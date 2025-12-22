@@ -210,6 +210,9 @@ with pkgs;
       x42-plugins
       yoshimi
       zam-plugins
+      zlcompressor
+      zlequalizer
+      zlsplitter
       zynaddsubfx
       ###################################################################
       #                              faust                              #
@@ -310,6 +313,7 @@ with pkgs;
       ###################################################################
       #                              unfree                             #
       ###################################################################
+      x32edit
       # m32edit # unfree
       # reaper # unfree
       # sunvox # unfree
