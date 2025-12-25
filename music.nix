@@ -238,6 +238,8 @@ with pkgs;
       faust2jaqt
       faust2lv2
       faustlive
+      faustfmt
+      faustlsp
       kapitonov-plugins-pack
       mooSpace
 
