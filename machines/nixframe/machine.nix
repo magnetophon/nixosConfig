@@ -152,7 +152,11 @@ with pkgs; {
   #   extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
   # };
 
+  # for impala
+  networking.wireless.iwd.enable = true;
+
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   networking.extraHosts = ''
     192.168.6.2 stratus.local
     # to get access to the frotzbox via a tunnel on pronix:
@@ -332,9 +336,6 @@ with pkgs; {
       ];
     };
   };
-
-  # for impala
-  networking.wireless.iwd.enable = true;
 
   # Scrub to find errors
   services.zfs.autoScrub = {
