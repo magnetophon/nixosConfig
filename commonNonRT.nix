@@ -27,18 +27,17 @@
     # wireplumber.enable = true; // default
   };
 
-  # virtualisation = {
-  #   docker.enable = true;
-  #   virtualbox =
-  #     {
-  #       host.enable = true;
-  #       # host.enableExtensionPack = true;
-  #     };
+  virtualisation = {
+    virtualbox =
+      {
+        host.enable = true;
+        # host.enableExtensionPack = true;
+      };
 
-  # };
-  # users.extraGroups.vboxusers.members = [ "bart" ];
+  };
+  users.extraGroups.vboxusers.members = [ "bart" ];
 
-  # virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = true;
 
 
   # Minimal configuration for NFS support with Vagrant.
