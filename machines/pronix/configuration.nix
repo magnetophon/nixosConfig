@@ -134,6 +134,7 @@
       joshuto
       zoxide
       fclones
+      dust # disk usage analyzer, rust, fast
       rmlint
       eza
       htop

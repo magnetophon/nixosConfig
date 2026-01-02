@@ -827,7 +827,7 @@ in
       # mutt-kz
       # neomutt
       fclones # duplicate file finder
-      xfce.thunar
+      thunar
       thunderbird
       isync
       jdupes
