@@ -182,6 +182,7 @@ with pkgs;
       quadrafuzz
       plugin-torture
       pluginval
+      proteus
       qsampler
       qsynth
       # rc-effect-playground # https://github.com/jpcima/rc-effect-playground/issues/4
