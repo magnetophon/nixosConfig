@@ -115,6 +115,7 @@ with pkgs;
       chow-centaur
       csa
       cmt
+      dexed
       diopser
       distrho-ports
       dragonfly-reverb
