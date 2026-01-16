@@ -191,12 +191,14 @@ with pkgs;
       samplv1
       setbfree
       sfizz # pro sampler
+      sg-323
       sorcer
       spectmorph
       speech-denoiser
       stochas
       stone-phaser
       master_me
+      qdelay
       string-machine
       swh_lv2
       synthv1
@@ -239,6 +241,7 @@ with pkgs;
       faust2jackrust
       faust2jaqt
       faust2lv2
+      faust2sndfile
       faustlive
       faustfmt
       faustlsp

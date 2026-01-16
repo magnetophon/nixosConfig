@@ -849,6 +849,7 @@ in
       # (pkgs.blender.override { jackaudioSupport = true; })
       blender
       openscad
+      radiance-vj
       kdePackages.kdenlive
       # olive-editor
       ffmpeg-full
