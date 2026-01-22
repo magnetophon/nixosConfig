@@ -852,6 +852,7 @@ in
       radiance-vj
       kdePackages.kdenlive
       # olive-editor
+      obs-studio
       ffmpeg-full
       simplescreenrecorder
       scrot
