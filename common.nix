@@ -548,7 +548,7 @@ in
       stress # cpu stress
       grex # create regex from example
       rdfind
-      openssl
+      libressl
       physlock
       asciinema
       neofetch
