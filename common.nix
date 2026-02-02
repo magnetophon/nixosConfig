@@ -1571,4 +1571,6 @@ in
     }
   ];
 
+  musnix.rtcqs.enable = true;
+
 }
