@@ -39,20 +39,20 @@
         };
       };
 
-      # nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
-      # inherit system;
-      # modules = [
-      # ./machines/nixframe/rt.nix
-      # inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
-      # musnix.nixosModules.musnix
-      # ({ pkgs, ... }: {
-      # nixpkgs.overlays = [ nur.overlay ];
-      # })
-      # ];
-      # specialArgs = {
-      # inherit bandithedoge;
-      # };
-      # };
+      nixosConfigurations.nixframe-rt = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./machines/nixframe/rt.nix
+          inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
+          musnix.nixosModules.musnix
+          # ({ pkgs, ... }: {
+          # nixpkgs.overlays = [ nur.overlays.default ];
+          # })
+        ];
+        # specialArgs = {
+        # inherit bandithedoge;
+        # };
+      };
 
       nixosConfigurations.pronix = nixpkgs.lib.nixosSystem {
         inherit system;

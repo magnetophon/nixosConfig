@@ -10,7 +10,9 @@
   # boot.kernelPackages = pkgs.linuxPackages_rt_5_15 ;
   # boot.kernelPackages = pkgs.linuxPackages-rt_6_1;
   # boot.kernelPackages = pkgs.linuxPackages-rt;
-  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+  # boot.kernelPackages = pkgs.linuxPackages-rt_6_12;
+
+  # boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
   # sound.enable = true;
 
@@ -18,7 +20,7 @@
     enable = true;
     # kernel.packages = pkgs.linuxPackages_5_15_rt;
     # kernel.packages = pkgs.linuxPackages_6_1_rt;
-    # kernel.packages = pkgs.linuxPackages_latest_rt;
+    kernel.packages = pkgs.linuxPackages_latest_rt;
     # kernel.realtime = true;
     rtirq.enable = true;
     das_watchdog.enable = true;
