@@ -38,8 +38,18 @@
   users.extraGroups.vboxusers.members = [ "bart" ];
 
   virtualisation.libvirtd.enable = true;
+  # pass through USB:
+  programs.virt-manager.enable = true;
+  
+  environment.systemPackages = with pkgs; [
+    spice
+    spice-gtk
+    usbredir
+  ];
 
-
+  security.polkit.enable = true;
+  # end pass through USB
+  
   # Minimal configuration for NFS support with Vagrant.
   # services.nfs.server.enable = true;
 
