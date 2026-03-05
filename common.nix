@@ -411,10 +411,11 @@ in
 
   # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
   # Define time delay for hibernation
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-    SuspendState=mem
-  '';
+  # TODO: fix for new config:
+  # systemd.sleep.settings.Sleep = ''
+  # HibernateDelaySec=30m
+  # SuspendState=mem
+  # '';
   # documentation.nixos.includeAllModules = true;
 
   nixpkgs = {
@@ -551,7 +552,6 @@ in
       libressl
       physlock
       asciinema
-      neofetch
       fastfetch
       tuir
       wiki-tui
@@ -713,6 +713,8 @@ in
       networkmanager_dmenu
       iwmenu
       ethtool
+      brightnessctl
+      # alternative brightness: hardware.acpilight
       dzen2
       xpra
       #desktop
@@ -1111,8 +1113,9 @@ in
     };
   };
 
-  powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
-  powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
+  # TODO: replace with brightnessctl
+  # powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
+  # powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
 
   # xdg.portal = {
   # enable = true;
@@ -1397,7 +1400,6 @@ in
 
     direnv.enable = true;
 
-    light.enable = true;
     # gtk search:
     # plotinus.enable = true;
     # Android Debug Bridge
