@@ -126,11 +126,8 @@ with pkgs;
       fire
 
       # nur-bandithedoge.resonarium-bin
-      # nur-bandithedoge.presswerk
       # nur.repos.mic92.hello-nur
-      # nur.repos.bandithedoge.u-he.presswerk
-      # pkgs.u-he.presswerk
-      bandithedoge.legacyPackages.${pkgs.system}.u-he.presswerk
+      # bandithedoge.legacyPackages.${pkgs.system}.u-he.presswerk
 
       open-music-kontrollers.eteroj
       open-music-kontrollers.jit
@@ -203,7 +200,7 @@ with pkgs;
       swh_lv2
       synthv1
       surge
-      surge-XT
+      surge-xt
       vaporizer2
       tamgamp.lv2
       tetraproc

@@ -632,6 +632,7 @@ in
       # for emacs markdown-preview:
       # marked # node package
       pandoc
+      wkhtmltopdf
       haskellPackages.markdown
       # (mu.override { withMug = true; }) # mug got removed upstream
       mu
@@ -710,6 +711,7 @@ in
 
       impala
       networkmanager_dmenu
+      iwmenu
       ethtool
       dzen2
       xpra
@@ -736,7 +738,9 @@ in
       # w3m
       (pkgs.w3m.override { graphicsSupport = true; })
       yt-dlp
+      deno
       # yt-dlp_git
+      python3Packages.bgutil-ytdlp-pot-provider
       # freetube
       vlc
       # mumble
