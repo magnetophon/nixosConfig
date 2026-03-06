@@ -389,4 +389,7 @@ with pkgs; {
 
     };
   };
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="leds", KERNEL=="chromeos:multicolor:power", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/leds/%k/multi_intensity"
+  '';
 }
