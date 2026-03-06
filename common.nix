@@ -409,13 +409,11 @@ in
     # blueman.enable = true;
   };
 
-  # systemd.sleep.extraConfig =  "HibernateDelaySec=1h";
   # Define time delay for hibernation
-  # TODO: fix for new config:
-  # systemd.sleep.settings.Sleep = ''
-  # HibernateDelaySec=30m
-  # SuspendState=mem
-  # '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+    SuspendState = "mem";
+  };
   # documentation.nixos.includeAllModules = true;
 
   nixpkgs = {
