@@ -1111,9 +1111,8 @@ in
     };
   };
 
-  # TODO: replace with brightnessctl
-  # powerManagement.powerDownCommands = "${pkgs.light}/bin/light -O";
-  # powerManagement.powerUpCommands = "${pkgs.light}/bin/light -I";
+  powerManagement.powerDownCommands = "${pkgs.brightnessctl}/bin/brightnessctl --save";
+  powerManagement.powerUpCommands = "${pkgs.brightnessctl}/bin/brightnessctl --restore";
 
   # xdg.portal = {
   # enable = true;
