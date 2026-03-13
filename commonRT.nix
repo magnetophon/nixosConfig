@@ -20,7 +20,7 @@
     enable = true;
     # kernel.packages = pkgs.linuxPackages_5_15_rt;
     # kernel.packages = pkgs.linuxPackages_6_1_rt;
-    kernel.packages = pkgs.linuxPackages_latest_rt;
+    kernel.packages = pkgs.linuxPackages;
     # kernel.realtime = true;
     rtirq.enable = true;
     das_watchdog.enable = true;

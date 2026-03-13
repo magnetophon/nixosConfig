@@ -1025,8 +1025,8 @@ in
     # TODO: nix specific: https://www.reddit.com/r/NixOS/comments/dck6o1/how_to_change_locale_settings/
     # See i18n.extraLocaleSettings. You can search for "locale" in man configuration.nix.
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
-    LANGUAGE = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
+    LANG= "en_US.UTF-8";
+    # LC_ALL = "en_US.UTF-8";
     LC_CTYPE = "nl_NL.UTF-8";
     # LC_NUMERIC="nl_NL.UTF-8";
     # LC_TIME = "nl_NL.UTF-8";
