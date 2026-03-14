@@ -176,6 +176,9 @@ in
 
     espanso.enable = true;
 
+    # for walker:
+    elephant.enable = true;
+
     # nixosManual.showManual = false;
     printing = {
       enable = true;
@@ -704,6 +707,7 @@ in
       rofi
       rofi-systemd
       rofimoji
+      walker
       sysz # A fzf terminal UI for systemctl
       systemctl-tui
 
@@ -740,7 +744,6 @@ in
       yt-dlp
       deno
       # yt-dlp_git
-      python3Packages.bgutil-ytdlp-pot-provider
       # freetube
       vlc
       # mumble
