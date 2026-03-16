@@ -1028,22 +1028,34 @@ in
     # TODO: nix specific: https://www.reddit.com/r/NixOS/comments/dck6o1/how_to_change_locale_settings/
     # See i18n.extraLocaleSettings. You can search for "locale" in man configuration.nix.
     # exceptions & info https://unix.stackexchange.com/questions/149111/what-should-i-set-my-locale-to-and-what-are-the-implications-of-doing-so
-    LANG= "en_US.UTF-8";
-    # LC_ALL = "en_US.UTF-8";
-    LC_CTYPE = "nl_NL.UTF-8";
-    # LC_NUMERIC="nl_NL.UTF-8";
-    # LC_TIME = "nl_NL.UTF-8";
-    # LC_COLLATE="nl_NL.UTF-8";
-    LC_MONETARY = "nl_NL.UTF-8";
-    # LC_MESSAGES="nl_NL.UTF-8";
-    LC_PAPER = "nl_NL.UTF-8";
-    LC_NAME = "nl_NL.UTF-8";
-    LC_ADDRESS = "nl_NL.UTF-8";
-    LC_TELEPHONE = "nl_NL.UTF-8";
-    LC_MEASUREMENT = "nl_NL.UTF-8";
-    LC_IDENTIFICATION = "nl_NL.UTF-8";
+    # LANG= "en_US.UTF-8";
+    # LC_CTYPE = "nl_NL.UTF-8";
+    # LC_MONETARY = "nl_NL.UTF-8";
+    # LC_PAPER = "nl_NL.UTF-8";
+    # LC_NAME = "nl_NL.UTF-8";
+    # LC_ADDRESS = "nl_NL.UTF-8";
+    # LC_TELEPHONE = "nl_NL.UTF-8";
+    # LC_MEASUREMENT = "nl_NL.UTF-8";
+    # LC_IDENTIFICATION = "nl_NL.UTF-8";
   };
 
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_CTYPE = "nl_NL.UTF-8";
+      LC_MONETARY = "nl_NL.UTF-8";
+      LC_PAPER = "nl_NL.UTF-8";
+      LC_NAME = "nl_NL.UTF-8";
+      LC_ADDRESS = "nl_NL.UTF-8";
+      LC_TELEPHONE = "nl_NL.UTF-8";
+      LC_MEASUREMENT = "nl_NL.UTF-8";
+      LC_IDENTIFICATION = "nl_NL.UTF-8";
+    };
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "nl_NL.UTF-8/UTF-8"
+    ];
+  };
   # shellAliases = { ll = "ls -l"; };
 
   #alias vim="stty stop ''' -ixoff; vim"
@@ -1500,9 +1512,6 @@ in
     # colors = [ "839496" "93a1a1" "eee8d5" "2aa198" "fdf6e3" "859900" "d33682" "dc322f" "657b83" "586e75" "cb4b16" "073642" "268bd2" "b58900" "002b36" "6c71c4" ];
     # setup pretty console ASAP (in initrd).
     earlySetup = true;
-  };
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
   };
 
   networking = {
