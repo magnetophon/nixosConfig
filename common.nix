@@ -27,7 +27,10 @@ in
       amd.updateMicrocode = true;
       intel.updateMicrocode = true;
     };
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
     # bluetooth.settings = {
     # General = {
     # Enable = "Source,Sink,Media,Socket";
