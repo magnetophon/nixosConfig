@@ -34,10 +34,10 @@ in
     # bluetooth.settings = {
     # General = {
     # Enable = "Source,Sink,Media,Socket";
-        # Disable= "Source";
-        # };
-        # };
-      };
+    # Disable= "Source";
+    # };
+    # };
+  };
   # for skype
   # hardware.pulseaudio = {
   # enable = true;
@@ -480,7 +480,7 @@ in
       rr # debugging
       coppwr # pipewire settings
       xdotool # for auto-type
-      xorg.sessreg
+      sessreg
       heimdall # for installing android etc
       coreutils
       ntfs3g
@@ -651,8 +651,8 @@ in
       # ctagsWrapped.ctagsWrapped
       which
       gnuplot
-      xorg.xkill
-      xorg.xinit
+      xkill
+      xinit
       ltrace
       borgbackup
       restic
@@ -688,8 +688,8 @@ in
       i3-resurrect
       autotiling-rs
       wmfocus
-      xorg.xprop # get window props like class and insctance
-      xorg.xev # get the name of a key or key-combo
+      xprop # get window props like class and insctance
+      xev # get the name of a key or key-combo
       xwininfo
       uutils-coreutils-noprefix
       # busybox # for usleep: short sleep,used in /home/bart/.dot/common/.local/bin/brightness.sh to flash out of 0
@@ -789,7 +789,7 @@ in
       eza # rust ls alternative
       inotify-tools # notify when a file changes
       trash-cli
-      httm # Interactive, file-level Time Machine-like tool 
+      httm # Interactive, file-level Time Machine-like tool
       so # stack overflow from the cli
       # atuin # magical shell history
       # mcfly # shell history
@@ -1145,7 +1145,7 @@ in
   # programs.nix-ld.libraries = with pkgs; [
   #   # Add any missing dynamic libraries for unpackaged programs
   #   # here, NOT in environment.systemPackages
-  #   xorg.libICE
+  #   libICE
 
   #   # dotnetPkg
 
@@ -1158,16 +1158,16 @@ in
   #   libunwind
 
   #   # Avalonia (X11 backend) deps — these FIX your error:
-  #   xorg.libX11
-  #   xorg.libXcursor
-  #   xorg.libXext
-  #   xorg.libXi
-  #   xorg.libXrandr
-  #   xorg.libXrender
-  #   xorg.libXtst
-  #   xorg.libXfixes
+  #   libX11
+  #   libXcursor
+  #   libXext
+  #   libXi
+  #   libXrandr
+  #   libXrender
+  #   libXtst
+  #   libXfixes
 
-  #   xorg.libSM
+  #   libSM
   #   gcc.cc.lib  # provides libstdc++.so.6
   # ];
 

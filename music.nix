@@ -29,7 +29,7 @@ with pkgs;
 
   nixpkgs = {
     config.packageOverrides = pkgs: rec {
-      guitarix = pkgs.guitarix.override { optimizationSupport = true; }; # TODO: upstream
+      guitarix = pkgs.guitarix.override { enableOptimization = true; }; # TODO: upstream
       pd_plugins = [
         helmholtz
         timbreid
@@ -162,7 +162,7 @@ with pkgs;
       jackmeter
       jack-example-tools
       japa
-      ladspaH
+      ladspa-header
       ladspaPlugins
       lsp-plugins
       librearp
