@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
-with pkgs; {
+with pkgs;
+{
   # imports = [ <nixos-hardware/framework/13-inch/12th-gen-intel> ];
 
   networking.hostId = "f2119c72";
@@ -23,7 +24,6 @@ with pkgs; {
   hardware.fw-fanctrl.enable = true;
   #
   services = {
-
 
     xserver = {
       # videoDrivers = [ "modesetting" ];
@@ -126,25 +126,36 @@ with pkgs; {
   nix = {
     settings = {
       max-jobs = 0;
-      trusted-users = [ "root" "nixBuild" "bart" ];
+      trusted-users = [
+        "root"
+        "nixBuild"
+        "bart"
+      ];
       # optional, useful when the builder has a faster internet connection than yours
       builders-use-substitutes = true;
     };
     distributedBuilds = true;
     # nixPath = ["nixpkgs=/home/bart/source/nixpkgs" "nixos-config=/home/bart/nixosConfig/machines/nixframe/default.nix"];
     # hostName = "pronix";
-    buildMachines = [{
-      hostName = "builder";
-      maxJobs = 16;
-      # buildCores = 6;
-      sshKey = "/root/.ssh/id_nixBuild";
-      sshUser = "nixBuild";
-      system = "x86_64-linux";
-      speedFactor = 4;
-      supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
-      # supportedFeatures = config.nix.settings.system-features;
-      mandatoryFeatures = [ ];
-    }];
+    buildMachines = [
+      {
+        hostName = "builder";
+        maxJobs = 16;
+        # buildCores = 6;
+        sshKey = "/root/.ssh/id_nixBuild";
+        sshUser = "nixBuild";
+        system = "x86_64-linux";
+        speedFactor = 4;
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
+        # supportedFeatures = config.nix.settings.system-features;
+        mandatoryFeatures = [ ];
+      }
+    ];
   };
 
   # boot = {
@@ -170,8 +181,13 @@ with pkgs; {
   #[ (modulesPath + "/installer/scan/not-detected.nix")
   #];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -194,37 +210,55 @@ with pkgs; {
   fileSystems."/" = {
     device = "rpool/nixos/root";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/home" = {
     device = "rpool/nixos/home";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/home/bart/.cache" = {
     device = "rpool/nixos/home/bart_cache";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/var/lib" = {
     device = "rpool/nixos/var/lib";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/var/log" = {
     device = "rpool/nixos/var/log";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "bpool/nixos/root";
     fsType = "zfs";
-    options = [ "zfsutil" "X-mount.mkdir" ];
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/boot/efis/nvme-WD_BLACK_SN850X_1000GB_223761800744-part1" = {
@@ -238,7 +272,7 @@ with pkgs; {
     options = [ "bind" ];
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
   # Importing a suspended pool can corrupt it
   boot.zfs.forceImportRoot = false;
@@ -246,8 +280,9 @@ with pkgs; {
   # boot.zfs.enableUnstable = true;
 
   # Configure hibernation
-  boot.resumeDevice = lib.mkIf (config.swapDevices != [ ])
-    (lib.mkDefault (builtins.head config.swapDevices).device);
+  boot.resumeDevice = lib.mkIf (config.swapDevices != [ ]) (
+    lib.mkDefault (builtins.head config.swapDevices).device
+  );
   # Snapshot daily
   # services.zfs.autoSnapshot = {
   #   enable = true;
@@ -322,14 +357,30 @@ with pkgs; {
               # don't delete till replicated
               { type = "not_replicated"; }
               # keep all snapshots that were not created by zrepl
-              { type = "regex"; negate = true; regex = "^zrepl_.*"; }
+              {
+                type = "regex";
+                negate = true;
+                regex = "^zrepl_.*";
+              }
               # keep a sparse grid of the last 2 weeks
-              { type = "grid"; grid = "1x1h(keep=all) | 24x1h | 14x1d"; regex = "^zrepl_.*"; }
+              {
+                type = "grid";
+                grid = "1x1h(keep=all) | 24x1h | 14x1d";
+                regex = "^zrepl_.*";
+              }
             ];
             keep_receiver = [
               # keep a sparse grid of the last year
-              { type = "grid"; grid = "1x1h(keep=all) | 24x1h | 35x1d | 12x30d"; regex = "^zrepl_.*"; }
-              { type = "regex"; negate = true; regex = "^zrepl_.*"; }
+              {
+                type = "grid";
+                grid = "1x1h(keep=all) | 24x1h | 35x1d | 12x30d";
+                regex = "^zrepl_.*";
+              }
+              {
+                type = "regex";
+                negate = true;
+                regex = "^zrepl_.*";
+              }
             ];
           };
         }
@@ -367,25 +418,17 @@ with pkgs; {
   # mkdir -p /boot/efi
   # mount /boot/efi
   # '';
-  boot.loader.grub.extraInstallCommands = ''
-    ESP_MIRROR=$(${pkgs.coreutils}/bin/mktemp -d)
-    ${pkgs.coreutils}/bin/cp -r /boot/efi/EFI $ESP_MIRROR
-    for i in /boot/efis/*; do
-     ${pkgs.coreutils}/bin/cp -r $ESP_MIRROR/EFI $i
-    done
-    ${pkgs.coreutils}/bin/rm -rf $ESP_MIRROR
-  '';
-  boot.loader.grub.devices =
-    [ "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744" ];
-
+  boot.loader.grub.devices = [ "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_223761800744" ];
 
   programs.ssh = {
     knownHosts = {
       pronix = {
-        hostNames = [ "pronix" "81.206.32.45" ];
+        hostNames = [
+          "pronix"
+          "81.206.32.45"
+        ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAO+MVZiekHvS8Tb599XUWSA1e/vydvPc3f4ZfG6HedF";
       };
-
 
     };
   };

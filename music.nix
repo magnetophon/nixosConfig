@@ -37,7 +37,7 @@ with pkgs;
         zexy
         puremapping
         cyclone
-        mrpeach
+        # mrpeach // dropped
       ];
       # plugins = [ helmholtz timbreid maxlib zexy cyclone mrpeach ];
       fullPD = puredata-with-plugins pd_plugins;
@@ -98,7 +98,7 @@ with pkgs;
       bchoppr
       bespokesynth
       bjumblr
-      bristol
+      # bristol
       bsequencer
       bshapr
       bslizr
@@ -199,7 +199,7 @@ with pkgs;
       string-machine
       swh_lv2
       synthv1
-      surge
+      # surge
       surge-xt
       vaporizer2
       tamgamp.lv2
@@ -256,7 +256,7 @@ with pkgs;
       audacity
       jalv
       mod-distortion
-      petrifoo
+      # petrifoo
       guitarix
       zrythm
       # i-score #error: Package ‘JamomaCore-1.0-beta.1’ in /nix/store/0grkglhhrfiy27sdhmpwsryid5hw9qnz-nixos-20.03pre212208.8130f3c1c2b/nixos/pkgs/development/libraries/audio/jamomacore/default.nix:18 is marked as broken, refusing to evaluate.
@@ -275,13 +275,13 @@ with pkgs;
       lv2bm
       mamba
       qjackctl
-      sonic-lineup
+      # sonic-lineup
       vmpk
       qmidinet
       ###################################################################
       #                            analizers                            #
       ###################################################################
-      squishyball
+      # squishyball
       shntool
       ###################################################################
       #                            converters                           #
@@ -292,7 +292,7 @@ with pkgs;
       ###################################################################
       #                             various                             #
       ###################################################################
-      polyphone # soundfont / sfz editor
+      # polyphone # soundfont / sfz editor
       dfasma
       freewheeling
       # gigedit
